@@ -5,10 +5,6 @@ Tech\TBundle\Entity\Tbgenrol:
         fk_iTIPO_ROL_idx:
             columns:
                 - fk_iTIPO_ROL
-    uniqueConstraints:
-        pk_iID_ROL_UNIQUE:
-            columns:
-                - id
     id:
         id:
             type: integer

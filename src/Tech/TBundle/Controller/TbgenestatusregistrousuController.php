@@ -44,7 +44,7 @@ class TbgenestatusregistrousuController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Estatus_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('EstatusUsuarios_show', array('id' => $entity->getId())));
         }
 
         return $this->render('TechTBundle:Tbgenestatusregistrousu:new.html.twig', array(
@@ -63,7 +63,7 @@ class TbgenestatusregistrousuController extends Controller
     private function createCreateForm(Tbgenestatusregistrousu $entity)
     {
         $form = $this->createForm(new TbgenestatusregistrousuType(), $entity, array(
-            'action' => $this->generateUrl('Estatus_create'),
+            'action' => $this->generateUrl('EstatusUsuarios_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class TbgenestatusregistrousuController extends Controller
     private function createEditForm(Tbgenestatusregistrousu $entity)
     {
         $form = $this->createForm(new TbgenestatusregistrousuType(), $entity, array(
-            'action' => $this->generateUrl('Estatus_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('EstatusUsuarios_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class TbgenestatusregistrousuController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Estatus_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('EstatusUsuarios_edit', array('id' => $id)));
         }
 
         return $this->render('TechTBundle:Tbgenestatusregistrousu:edit.html.twig', array(
@@ -201,7 +201,7 @@ class TbgenestatusregistrousuController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('Estatus'));
+        return $this->redirect($this->generateUrl('EstatusUsuarios'));
     }
 
     /**
@@ -214,7 +214,7 @@ class TbgenestatusregistrousuController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Estatus_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('EstatusUsuarios_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

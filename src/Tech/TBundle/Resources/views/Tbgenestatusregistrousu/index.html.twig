@@ -7,7 +7,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Pkiidestatus</th>
                 <th>Vdescripcion</th>
                 <th>Actions</th>
             </tr>
@@ -15,16 +14,15 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Estatus_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.pkIidEstatus }}</td>
+                <td><a href="{{ path('EstatusUsuarios_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.vdescripcion }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Estatus_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('EstatusUsuarios_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('Estatus_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('EstatusUsuarios_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +33,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('Estatus_new') }}">
+            <a href="{{ path('EstatusUsuarios_new') }}">
                 Create a new entry
             </a>
         </li>

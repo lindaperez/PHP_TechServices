@@ -7,7 +7,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Pkiidfuncion</th>
                 <th>Vdescripcion</th>
                 <th>Actions</th>
             </tr>
@@ -16,7 +15,6 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('Funciones_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.pkIidFuncion }}</td>
                 <td>{{ entity.vdescripcion }}</td>
                 <td>
                 <ul>

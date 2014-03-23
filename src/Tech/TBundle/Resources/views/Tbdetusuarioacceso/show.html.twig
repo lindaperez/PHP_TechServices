@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tbgenrol</h1>
+    <h1>Tbdetusuarioacceso</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,20 +10,20 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Vdescripcion</th>
-                <td>{{ entity.vdescripcion }}</td>
+                <th>Vclave</th>
+                <td>{{ entity.vclave }}</td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('Roles') }}">
+        <a href="{{ path('UsuarioAcceso') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('Roles_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('UsuarioAcceso_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

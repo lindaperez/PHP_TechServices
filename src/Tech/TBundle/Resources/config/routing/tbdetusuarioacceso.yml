@@ -1,0 +1,30 @@
+UsuarioAcceso:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:index" }
+
+UsuarioAcceso_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:show" }
+
+UsuarioAcceso_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:new" }
+
+UsuarioAcceso_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:create" }
+    requirements: { _method: post }
+
+UsuarioAcceso_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:edit" }
+
+UsuarioAcceso_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:update" }
+    requirements: { _method: post|put }
+
+UsuarioAcceso_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetusuarioacceso:delete" }
+    requirements: { _method: post|delete }

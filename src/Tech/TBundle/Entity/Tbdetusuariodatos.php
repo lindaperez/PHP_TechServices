@@ -373,6 +373,12 @@ class Tbdetusuariodatos implements UserInterface
 	//Corregir
         return "uAuRGx+2eJOnhrKRFaIForoAEjPBpLsZveBvDWPOLt5b4O3IXp0LbwaPfxb+87wpW1Js0ZXrzjBNT+nU48Nqvg==";
     }
+//to string method   
+    public function __toString()
+    {
 
+    return strval($this->pkIci);
+
+}
 
 }

@@ -15,7 +15,6 @@ class TbgenestatusregistrousuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkIidEstatus')
             ->add('vdescripcion')
         ;
     }

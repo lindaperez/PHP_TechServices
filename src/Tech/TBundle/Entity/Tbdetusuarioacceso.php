@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetusuarioacceso
  *
- * @ORM\Table(name="tbdetUsuarioAcceso", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})}, indexes={@ORM\Index(name="ID_ROL_idx", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx", columns={"fk_iID_ESTATUS"})})
+ * @ORM\Table(name="tbdetUsuarioAcceso", indexes={@ORM\Index(name="CI", columns={"fk_iCI"}), @ORM\Index(name="ID_ROL_idx", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx", columns={"fk_iID_ESTATUS"})})
  * @ORM\Entity
  */
 class Tbdetusuarioacceso
@@ -53,7 +53,7 @@ class Tbdetusuarioacceso
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatusregistrousu")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="pk_iID_ESTATUS")
+     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="id")
      * })
      */
     private $fkIidEstatus;
@@ -161,4 +161,9 @@ class Tbdetusuarioacceso
     {
         return $this->fkIidEstatus;
     }
-}
+
+    
+    
+    
+    
+    }

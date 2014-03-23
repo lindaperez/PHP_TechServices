@@ -5,37 +5,37 @@ namespace Tech\TBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Tech\TBundle\Entity\Tbgenparametros;
-use Tech\TBundle\Form\TbgenparametrosType;
+use Tech\TBundle\Entity\Tbdetusuarioacceso;
+use Tech\TBundle\Form\TbdetusuarioaccesoType;
 
 /**
- * Tbgenparametros controller.
+ * Tbdetusuarioacceso controller.
  *
  */
-class TbgenparametrosController extends Controller
+class TbdetusuarioaccesoController extends Controller
 {
 
     /**
-     * Lists all Tbgenparametros entities.
+     * Lists all Tbdetusuarioacceso entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TechTBundle:Tbgenparametros')->findAll();
+        $entities = $em->getRepository('TechTBundle:Tbdetusuarioacceso')->findAll();
 
-        return $this->render('TechTBundle:Tbgenparametros:index.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Tbgenparametros entity.
+     * Creates a new Tbdetusuarioacceso entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Tbgenparametros();
+        $entity = new Tbdetusuarioacceso();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class TbgenparametrosController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Parametro_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('UsuarioAcceso_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TechTBundle:Tbgenparametros:new.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Tbgenparametros entity.
+    * Creates a form to create a Tbdetusuarioacceso entity.
     *
-    * @param Tbgenparametros $entity The entity
+    * @param Tbdetusuarioacceso $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Tbgenparametros $entity)
+    private function createCreateForm(Tbdetusuarioacceso $entity)
     {
-        $form = $this->createForm(new TbgenparametrosType(), $entity, array(
-            'action' => $this->generateUrl('Parametro_create'),
+        $form = $this->createForm(new TbdetusuarioaccesoType(), $entity, array(
+            'action' => $this->generateUrl('UsuarioAcceso_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class TbgenparametrosController extends Controller
     }
 
     /**
-     * Displays a form to create a new Tbgenparametros entity.
+     * Displays a form to create a new Tbdetusuarioacceso entity.
      *
      */
     public function newAction()
     {
-        $entity = new Tbgenparametros();
+        $entity = new Tbdetusuarioacceso();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TechTBundle:Tbgenparametros:new.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Tbgenparametros entity.
+     * Finds and displays a Tbdetusuarioacceso entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenparametros')->find($id);
+        $entity = $em->getRepository('TechTBundle:Tbdetusuarioacceso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenparametros entity.');
+            throw $this->createNotFoundException('Unable to find Tbdetusuarioacceso entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenparametros:show.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Tbgenparametros entity.
+     * Displays a form to edit an existing Tbdetusuarioacceso entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenparametros')->find($id);
+        $entity = $em->getRepository('TechTBundle:Tbdetusuarioacceso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenparametros entity.');
+            throw $this->createNotFoundException('Unable to find Tbdetusuarioacceso entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenparametros:edit.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class TbgenparametrosController extends Controller
     }
 
     /**
-    * Creates a form to edit a Tbgenparametros entity.
+    * Creates a form to edit a Tbdetusuarioacceso entity.
     *
-    * @param Tbgenparametros $entity The entity
+    * @param Tbdetusuarioacceso $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Tbgenparametros $entity)
+    private function createEditForm(Tbdetusuarioacceso $entity)
     {
-        $form = $this->createForm(new TbgenparametrosType(), $entity, array(
-            'action' => $this->generateUrl('Parametro_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new TbdetusuarioaccesoType(), $entity, array(
+            'action' => $this->generateUrl('UsuarioAcceso_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class TbgenparametrosController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Tbgenparametros entity.
+     * Edits an existing Tbdetusuarioacceso entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenparametros')->find($id);
+        $entity = $em->getRepository('TechTBundle:Tbdetusuarioacceso')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenparametros entity.');
+            throw $this->createNotFoundException('Unable to find Tbdetusuarioacceso entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class TbgenparametrosController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Parametro_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('UsuarioAcceso_edit', array('id' => $id)));
         }
 
-        return $this->render('TechTBundle:Tbgenparametros:edit.html.twig', array(
+        return $this->render('TechTBundle:Tbdetusuarioacceso:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Tbgenparametros entity.
+     * Deletes a Tbdetusuarioacceso entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class TbgenparametrosController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TechTBundle:Tbgenparametros')->find($id);
+            $entity = $em->getRepository('TechTBundle:Tbdetusuarioacceso')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tbgenparametros entity.');
+                throw $this->createNotFoundException('Unable to find Tbdetusuarioacceso entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('Parametro'));
+        return $this->redirect($this->generateUrl('UsuarioAcceso'));
     }
 
     /**
-     * Creates a form to delete a Tbgenparametros entity by id.
+     * Creates a form to delete a Tbdetusuarioacceso entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class TbgenparametrosController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Parametro_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('UsuarioAcceso_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

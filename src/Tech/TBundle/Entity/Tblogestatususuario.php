@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tblogestatususuario
  *
- * @ORM\Table(name="tblogEstatusUsuario", indexes={@ORM\Index(name="fk_iID_ESTATUS_idx", columns={"fk_iID_ESTATUS"}), @ORM\Index(name="fk_iCI_idx", columns={"fk_iCI"})})
+ * @ORM\Table(name="tblogEstatusUsuario", indexes={@ORM\Index(name="fk_iID_ESTATUS_idx", columns={"fk_iID_ESTATUS"}), @ORM\Index(name="fk_iCI_idx_EU", columns={"fk_iCI"})})
  * @ORM\Entity
  */
 class Tblogestatususuario
@@ -33,7 +33,7 @@ class Tblogestatususuario
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatusregistrousu")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="pk_iID_ESTATUS")
+     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="id")
      * })
      */
     private $fkIidEstatus;

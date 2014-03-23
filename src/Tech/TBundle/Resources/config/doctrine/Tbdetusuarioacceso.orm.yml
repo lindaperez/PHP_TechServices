@@ -2,16 +2,15 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
     type: entity
     table: tbdetUsuarioAcceso
     indexes:
+        CI:
+            columns:
+                - fk_iCI
         ID_ROL_idx:
             columns:
                 - fk_iID_ROL
         ID_ESTATUS_idx:
             columns:
                 - fk_iID_ESTATUS
-    uniqueConstraints:
-        fk_iCI_UNIQUE:
-            columns:
-                - fk_iCI
     id:
         id:
             type: integer
@@ -55,6 +54,6 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iID_ESTATUS:
-                    referencedColumnName: pk_iID_ESTATUS
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

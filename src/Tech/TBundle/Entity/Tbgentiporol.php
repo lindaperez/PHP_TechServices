@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgentiporol
  *
- * @ORM\Table(name="tbgenTipoRol", uniqueConstraints={@ORM\UniqueConstraint(name="pk_TIPO_ROL_UNIQUE", columns={"pk_TIPO_ROL"})})
+ * @ORM\Table(name="tbgenTipoRol")
  * @ORM\Entity
  */
 class Tbgentiporol
@@ -20,13 +20,6 @@ class Tbgentiporol
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pk_TIPO_ROL", type="integer", nullable=false)
-     */
-    private $pkTipoRol;
 
     /**
      * @var string
@@ -45,29 +38,6 @@ class Tbgentiporol
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pkTipoRol
-     *
-     * @param integer $pkTipoRol
-     * @return Tbgentiporol
-     */
-    public function setPkTipoRol($pkTipoRol)
-    {
-        $this->pkTipoRol = $pkTipoRol;
-
-        return $this;
-    }
-
-    /**
-     * Get pkTipoRol
-     *
-     * @return integer 
-     */
-    public function getPkTipoRol()
-    {
-        return $this->pkTipoRol;
     }
 
     /**
@@ -96,7 +66,7 @@ class Tbgentiporol
     public function __toString()
     {
         return $this->vdescripcion;
-    }
+}
 
 
 }

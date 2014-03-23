@@ -10,10 +10,6 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Pkiidestatus</th>
-                <td>{{ entity.pkIidEstatus }}</td>
-            </tr>
-            <tr>
                 <th>Vdescripcion</th>
                 <td>{{ entity.vdescripcion }}</td>
             </tr>
@@ -22,12 +18,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('Estatus') }}">
+        <a href="{{ path('EstatusUsuarios') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('Estatus_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('EstatusUsuarios_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

@@ -15,7 +15,6 @@ class TbgenrolType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkIidRol')
             ->add('vdescripcion')
             ->add('fkItipoRol')
         ;

@@ -2,7 +2,34 @@ tech_t_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: TechTBundle:Default:index }
 
-TechTBundle_tech_user:
-    resource: "@TechTBundle/Resources/config/routing/user.yml"
-    prefix:   /tech_user
+
+TechTBundle_Registro:
+    resource: "@TechTBundle/Resources/config/routing/tbdetusuariodatos.yml"
+    prefix:   /Registro
+
+TechTBundle_Roles:
+    resource: "@TechTBundle/Resources/config/routing/tbgenrol.yml"
+    prefix:   /Roles
+
+TechTBundle_TiposRoles:
+    resource: "@TechTBundle/Resources/config/routing/tbgentiporol.yml"
+    prefix:   /TiposRoles
+
+TechTBundle_Funciones:
+    resource: "@TechTBundle/Resources/config/routing/tbgenfuncion.yml"
+    prefix:   /Funciones
+
+TechTBundle_Parametro:
+    resource: "@TechTBundle/Resources/config/routing/tbgenparametros.yml"
+    prefix:   /Parametros
+
+
+TechTBundle_EstatusUsuarios:
+    resource: "@TechTBundle/Resources/config/routing/tbgenestatusregistrousu.yml"
+    prefix:   /EstatusUsuarios
+
+TechTBundle_UsuarioAcceso:
+    resource: "@TechTBundle/Resources/config/routing/tbdetusuarioacceso.yml"
+    prefix:   /UsuarioAcceso
+
 

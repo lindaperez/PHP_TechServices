@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgenestatusregistrousu
  *
- * @ORM\Table(name="tbgenEstatusRegistroUsu", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_ESTATUS_UNIQUE", columns={"pk_iID_ESTATUS"})})
+ * @ORM\Table(name="tbgenEstatusRegistroUsu", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_ESTATUS_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
 class Tbgenestatusregistrousu
@@ -20,13 +20,6 @@ class Tbgenestatusregistrousu
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pk_iID_ESTATUS", type="integer", nullable=false)
-     */
-    private $pkIidEstatus;
 
     /**
      * @var string
@@ -45,29 +38,6 @@ class Tbgenestatusregistrousu
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pkIidEstatus
-     *
-     * @param integer $pkIidEstatus
-     * @return Tbgenestatusregistrousu
-     */
-    public function setPkIidEstatus($pkIidEstatus)
-    {
-        $this->pkIidEstatus = $pkIidEstatus;
-
-        return $this;
-    }
-
-    /**
-     * Get pkIidEstatus
-     *
-     * @return integer 
-     */
-    public function getPkIidEstatus()
-    {
-        return $this->pkIidEstatus;
     }
 
     /**

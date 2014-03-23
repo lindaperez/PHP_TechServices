@@ -4,7 +4,7 @@ namespace Tech\TBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TbgenparametrosControllerTest extends WebTestCase
+class TbdetusuarioaccesoControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class TbgenparametrosControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/Parametro/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /Parametro/");
+        $crawler = $client->request('GET', '/UsuarioAcceso/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /UsuarioAcceso/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'tech_tbundle_tbgenparametrostype[field_name]'  => 'Test',
+            'tech_tbundle_tbdetusuarioaccesotype[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class TbgenparametrosControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'tech_tbundle_tbgenparametrostype[field_name]'  => 'Foo',
+            'tech_tbundle_tbdetusuarioaccesotype[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

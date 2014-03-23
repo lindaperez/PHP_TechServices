@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class TbdetusuarioaccesoType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,16 +15,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('direccionFiscal')
-            ->add('telfLocal')
-            ->add('telfMovil')
-            ->add('ciudad')
-            ->add('estado')
-            ->add('sucursal')
-            ->add('cargo')
-            ->add('departamento')
-            ->add('correo')
-            ->add('cedula')
+            ->add('vclave')
+            ->add('fkIci')
+            ->add('fkIidEstatus')
+            ->add('fkIidRol')
         ;
     }
     
@@ -34,7 +28,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\User'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetusuarioacceso'
         ));
     }
 
@@ -43,6 +37,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'tech_tbundle_user';
+        return 'tech_tbundle_tbdetusuarioacceso';
     }
 }

@@ -5,7 +5,7 @@ Tech\TBundle\Entity\Tblogestatususuario:
         fk_iID_ESTATUS_idx:
             columns:
                 - fk_iID_ESTATUS
-        fk_iCI_idx:
+        fk_iCI_idx_EU:
             columns:
                 - fk_iCI
     id:
@@ -31,7 +31,7 @@ Tech\TBundle\Entity\Tblogestatususuario:
             inversedBy: null
             joinColumns:
                 fk_iID_ESTATUS:
-                    referencedColumnName: pk_iID_ESTATUS
+                    referencedColumnName: id
             orphanRemoval: false
         fkIci:
             targetEntity: Tbdetusuariodatos

@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetUsuarioDatos` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetUsuarioDatos` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `pk_iCI` INT NOT NULL ,
   `vNOMBRE` VARCHAR(25) NOT NULL ,
   `vAPELLIDO` VARCHAR(25) NOT NULL ,
@@ -40,13 +40,10 @@ DROP TABLE IF EXISTS `mydb`.`tbgenTipoRol` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbgenTipoRol` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vDESCRIPCION` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
-
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `pk_TIPO_ROL_UNIQUE` ON `mydb`.`tbgenTipoRol` (`id` ASC) ;
 
 SHOW WARNINGS;
 
@@ -57,7 +54,7 @@ DROP TABLE IF EXISTS `mydb`.`tbgenRol` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbgenRol` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vDESCRIPCION` VARCHAR(45) NOT NULL ,
   `fk_iTIPO_ROL` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -72,9 +69,6 @@ SHOW WARNINGS;
 CREATE INDEX `fk_iTIPO_ROL_idx` ON `mydb`.`tbgenRol` (`fk_iTIPO_ROL` ASC) ;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `pk_iID_ROL_UNIQUE` ON `mydb`.`tbgenRol` (`id` ASC) ;
-
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`tbgenEstatusRegistroUsu`
@@ -83,14 +77,13 @@ DROP TABLE IF EXISTS `mydb`.`tbgenEstatusRegistroUsu` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbgenEstatusRegistroUsu` (
-  `id` INT NOT NULL ,
-  `pk_iID_ESTATUS` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vDESCRIPCION` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `pk_iID_ESTATUS_UNIQUE` ON `mydb`.`tbgenEstatusRegistroUsu` (`pk_iID_ESTATUS` ASC) ;
+CREATE UNIQUE INDEX `pk_iID_ESTATUS_UNIQUE` ON `mydb`.`tbgenEstatusRegistroUsu` (`id` ASC) ;
 
 SHOW WARNINGS;
 
@@ -101,7 +94,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetUsuarioAcceso` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetUsuarioAcceso` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vCLAVE` VARCHAR(7) NULL ,
   `fk_iCI` INT NOT NULL ,
   `fk_iID_ROL` INT NOT NULL ,
@@ -119,7 +112,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetUsuarioAcceso` (
     ON UPDATE NO ACTION,
   CONSTRAINT `ID_ESTATUS`
     FOREIGN KEY (`fk_iID_ESTATUS` )
-    REFERENCES `mydb`.`tbgenEstatusRegistroUsu` (`pk_iID_ESTATUS` )
+    REFERENCES `mydb`.`tbgenEstatusRegistroUsu` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -131,9 +124,6 @@ SHOW WARNINGS;
 CREATE INDEX `ID_ESTATUS_idx` ON `mydb`.`tbdetUsuarioAcceso` (`fk_iID_ESTATUS` ASC) ;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `fk_iCI_UNIQUE` ON `mydb`.`tbdetUsuarioAcceso` (`fk_iCI` ASC) ;
-
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`tbdetEmpresa`
@@ -142,7 +132,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetEmpresa` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetEmpresa` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `pk_iRIF` INT NOT NULL ,
   `vDIRECCION FISCAL` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
@@ -160,7 +150,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetContratoRif` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetContratoRif` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `pk_iNRO_CONTRATO` INT NOT NULL ,
   `fk_iRIF` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -186,7 +176,7 @@ DROP TABLE IF EXISTS `mydb`.`tbgenFuncion` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbgenFuncion` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vDESCRIPCION` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -203,7 +193,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetRolFuncion` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetRolFuncion` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `fk_iID_ROL` INT NOT NULL ,
   `fk_iID_FUNCION` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -234,7 +224,7 @@ DROP TABLE IF EXISTS `mydb`.`tbgenParametros` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbgenParametros` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `vDESCRIPCION` VARCHAR(45) NULL ,
   `iMAX_ACCESO` INT NULL ,
   PRIMARY KEY (`id`) )
@@ -249,7 +239,7 @@ DROP TABLE IF EXISTS `mydb`.`tbdetUsuarioContrato` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tbdetUsuarioContrato` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `fk_iCI` INT NOT NULL ,
   `fk_iNRO_CONTRATO` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -283,17 +273,17 @@ DROP TABLE IF EXISTS `mydb`.`tblogEstatusUsuario` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tblogEstatusUsuario` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `fk_iCI` INT NOT NULL ,
   `fk_iID_ESTATUS` INT NOT NULL ,
   `dFECHA_CAMBIO` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_iID_ESTATUS`
     FOREIGN KEY (`fk_iID_ESTATUS` )
-    REFERENCES `mydb`.`tbgenEstatusRegistroUsu` (`pk_iID_ESTATUS` )
+    REFERENCES `mydb`.`tbgenEstatusRegistroUsu` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_iCI`
+  CONSTRAINT `fk_iCI_EU`
     FOREIGN KEY (`fk_iCI` )
     REFERENCES `mydb`.`tbdetUsuarioDatos` (`pk_iCI` )
     ON DELETE NO ACTION
@@ -304,7 +294,7 @@ SHOW WARNINGS;
 CREATE INDEX `fk_iID_ESTATUS_idx` ON `mydb`.`tblogEstatusUsuario` (`fk_iID_ESTATUS` ASC) ;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_iCI_idx` ON `mydb`.`tblogEstatusUsuario` (`fk_iCI` ASC) ;
+CREATE INDEX `fk_iCI_idx_EU` ON `mydb`.`tblogEstatusUsuario` (`fk_iCI` ASC) ;
 
 SHOW WARNINGS;
 
@@ -315,7 +305,7 @@ DROP TABLE IF EXISTS `mydb`.`tblogConexion` ;
 
 SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `mydb`.`tblogConexion` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `fk_iCI` INT NOT NULL ,
   `dFECHA_ACCESO` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) ,
