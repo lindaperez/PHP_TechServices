@@ -37,7 +37,7 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iID_ROL:
-                    referencedColumnName: pk_iID_ROL
+                    referencedColumnName: id
             orphanRemoval: false
         fkIci:
             targetEntity: Tbdetusuariodatos

@@ -4,7 +4,7 @@ Tech\TBundle\Entity\Tbgentiporol:
     uniqueConstraints:
         pk_TIPO_ROL_UNIQUE:
             columns:
-                - pk_TIPO_ROL
+                - id
     id:
         id:
             type: integer
@@ -15,12 +15,6 @@ Tech\TBundle\Entity\Tbgentiporol:
             generator:
                 strategy: IDENTITY
     fields:
-        pkTipoRol:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: pk_TIPO_ROL
         vdescripcion:
             type: string
             nullable: false

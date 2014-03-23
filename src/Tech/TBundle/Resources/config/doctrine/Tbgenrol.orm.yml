@@ -8,7 +8,7 @@ Tech\TBundle\Entity\Tbgenrol:
     uniqueConstraints:
         pk_iID_ROL_UNIQUE:
             columns:
-                - pk_iID_ROL
+                - id
     id:
         id:
             type: integer
@@ -19,12 +19,6 @@ Tech\TBundle\Entity\Tbgenrol:
             generator:
                 strategy: IDENTITY
     fields:
-        pkIidRol:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: pk_iID_ROL
         vdescripcion:
             type: string
             nullable: false
@@ -40,6 +34,6 @@ Tech\TBundle\Entity\Tbgenrol:
             inversedBy: null
             joinColumns:
                 fk_iTIPO_ROL:
-                    referencedColumnName: pk_TIPO_ROL
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

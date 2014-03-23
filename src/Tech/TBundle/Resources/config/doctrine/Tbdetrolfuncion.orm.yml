@@ -25,7 +25,7 @@ Tech\TBundle\Entity\Tbdetrolfuncion:
             inversedBy: null
             joinColumns:
                 fk_iID_ROL:
-                    referencedColumnName: pk_iID_ROL
+                    referencedColumnName: id
             orphanRemoval: false
         fkIidFuncion:
             targetEntity: Tbgenfuncion
@@ -34,6 +34,6 @@ Tech\TBundle\Entity\Tbdetrolfuncion:
             inversedBy: null
             joinColumns:
                 fk_iID_FUNCION:
-                    referencedColumnName: pk_iID_FUNCION
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

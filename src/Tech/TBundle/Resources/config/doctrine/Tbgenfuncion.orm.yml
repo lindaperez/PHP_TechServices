@@ -4,7 +4,7 @@ Tech\TBundle\Entity\Tbgenfuncion:
     uniqueConstraints:
         pk_iID_FUNCION_UNIQUE:
             columns:
-                - pk_iID_FUNCION
+                - id
     id:
         id:
             type: integer
@@ -15,12 +15,6 @@ Tech\TBundle\Entity\Tbgenfuncion:
             generator:
                 strategy: IDENTITY
     fields:
-        pkIidFuncion:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: pk_iID_FUNCION
         vdescripcion:
             type: string
             nullable: false
