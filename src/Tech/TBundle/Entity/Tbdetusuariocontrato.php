@@ -26,7 +26,7 @@ class Tbdetusuariocontrato
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_icedula")
      * })
      */
     private $fkIci;
@@ -36,7 +36,7 @@ class Tbdetusuariocontrato
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iNRO_CONTRATO", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iNRO_CONTRATO", referencedColumnName="pk_iNRO_CONTRATO")
      * })
      */
     private $fkInroContrato;

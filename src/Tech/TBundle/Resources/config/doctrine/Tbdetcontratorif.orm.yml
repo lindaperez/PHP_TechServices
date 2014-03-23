@@ -5,6 +5,10 @@ Tech\TBundle\Entity\Tbdetcontratorif:
         RIF_idx:
             columns:
                 - fk_iRIF
+    uniqueConstraints:
+        pk_iNRO_CONTRATO_UNIQUE:
+            columns:
+                - pk_iNRO_CONTRATO
     id:
         id:
             type: integer
@@ -29,6 +33,6 @@ Tech\TBundle\Entity\Tbdetcontratorif:
             inversedBy: null
             joinColumns:
                 fk_iRIF:
-                    referencedColumnName: id
+                    referencedColumnName: pk_iRIF
             orphanRemoval: false
     lifecycleCallbacks: {  }

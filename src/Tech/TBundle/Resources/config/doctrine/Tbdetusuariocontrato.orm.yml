@@ -25,7 +25,7 @@ Tech\TBundle\Entity\Tbdetusuariocontrato:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: id
+                    referencedColumnName: pk_icedula
             orphanRemoval: false
         fkInroContrato:
             targetEntity: Tbdetcontratorif
@@ -34,6 +34,6 @@ Tech\TBundle\Entity\Tbdetusuariocontrato:
             inversedBy: null
             joinColumns:
                 fk_iNRO_CONTRATO:
-                    referencedColumnName: id
+                    referencedColumnName: pk_iNRO_CONTRATO
             orphanRemoval: false
     lifecycleCallbacks: {  }

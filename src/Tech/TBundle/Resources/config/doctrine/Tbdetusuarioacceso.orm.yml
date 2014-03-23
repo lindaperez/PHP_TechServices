@@ -37,7 +37,7 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: id
+                    referencedColumnName: pk_icedula
             orphanRemoval: false
         fkIidEstatus:
             targetEntity: Tbgenestatusregistrousu

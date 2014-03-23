@@ -1,8 +1,8 @@
 Tech\TBundle\Entity\Tblogconexion:
     type: entity
     table: tblogConexion
-    uniqueConstraints:
-        fk_iCI_UNIQUE:
+    indexes:
+        fk_iCI_idx:
             columns:
                 - fk_iCI
     id:
@@ -28,6 +28,6 @@ Tech\TBundle\Entity\Tblogconexion:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: id
+                    referencedColumnName: pk_icedula
             orphanRemoval: false
     lifecycleCallbacks: {  }

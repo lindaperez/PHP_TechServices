@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tblogconexion
  *
- * @ORM\Table(name="tblogConexion", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})})
+ * @ORM\Table(name="tblogConexion", indexes={@ORM\Index(name="fk_iCI_idx", columns={"fk_iCI"})})
  * @ORM\Entity
  */
 class Tblogconexion
@@ -33,7 +33,7 @@ class Tblogconexion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_icedula")
      * })
      */
     private $fkIci;
