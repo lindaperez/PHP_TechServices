@@ -28,6 +28,6 @@ Tech\TBundle\Entity\Tblogconexion:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: pk_icedula
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

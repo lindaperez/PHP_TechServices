@@ -56,3 +56,8 @@ TechTBundle_UsuariosContratos:
     resource: "@TechTBundle/Resources/config/routing/tbdetusuariocontrato.yml"
     prefix:   /UsuariosContratos
 
+TechTBundle_RegistroEstatus:
+    resource: "@TechTBundle/Resources/config/routing/tblogestatususuario.yml"
+    prefix:   /RegistroEstatus
+
+

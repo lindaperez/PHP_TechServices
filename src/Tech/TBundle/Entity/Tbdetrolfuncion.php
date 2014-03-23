@@ -22,16 +22,6 @@ class Tbdetrolfuncion
     private $id;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbgenrol
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
-     * })
-     */
-    private $fkIidRol;
-
-    /**
      * @var \Tech\TBundle\Entity\Tbgenfuncion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenfuncion")
@@ -40,6 +30,16 @@ class Tbdetrolfuncion
      * })
      */
     private $fkIidFuncion;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbgenrol
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
+     * })
+     */
+    private $fkIidRol;
 
 
 
@@ -51,29 +51,6 @@ class Tbdetrolfuncion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set fkIidRol
-     *
-     * @param \Tech\TBundle\Entity\Tbgenrol $fkIidRol
-     * @return Tbdetrolfuncion
-     */
-    public function setFkIidRol(\Tech\TBundle\Entity\Tbgenrol $fkIidRol = null)
-    {
-        $this->fkIidRol = $fkIidRol;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidRol
-     *
-     * @return \Tech\TBundle\Entity\Tbgenrol 
-     */
-    public function getFkIidRol()
-    {
-        return $this->fkIidRol;
     }
 
     /**
@@ -97,5 +74,28 @@ class Tbdetrolfuncion
     public function getFkIidFuncion()
     {
         return $this->fkIidFuncion;
+    }
+
+    /**
+     * Set fkIidRol
+     *
+     * @param \Tech\TBundle\Entity\Tbgenrol $fkIidRol
+     * @return Tbdetrolfuncion
+     */
+    public function setFkIidRol(\Tech\TBundle\Entity\Tbgenrol $fkIidRol = null)
+    {
+        $this->fkIidRol = $fkIidRol;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidRol
+     *
+     * @return \Tech\TBundle\Entity\Tbgenrol 
+     */
+    public function getFkIidRol()
+    {
+        return $this->fkIidRol;
     }
 }

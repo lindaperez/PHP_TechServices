@@ -1,0 +1,30 @@
+RegistroEstatus:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:index" }
+
+RegistroEstatus_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:show" }
+
+RegistroEstatus_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:new" }
+
+RegistroEstatus_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:create" }
+    requirements: { _method: post }
+
+RegistroEstatus_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:edit" }
+
+RegistroEstatus_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:update" }
+    requirements: { _method: post|put }
+
+RegistroEstatus_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tblogestatususuario:delete" }
+    requirements: { _method: post|delete }

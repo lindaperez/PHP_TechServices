@@ -33,7 +33,7 @@ class Tbdetcontratorif
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetempresa")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iRIF", referencedColumnName="pk_iRIF")
+     *   @ORM\JoinColumn(name="fk_iRIF", referencedColumnName="id")
      * })
      */
     private $fkIrif;
@@ -95,4 +95,11 @@ class Tbdetcontratorif
     {
         return $this->fkIrif;
     }
-}
+
+      public function __toString()
+    {
+        return strval($this->pkInroContrato);
+    }
+    
+    
+    }

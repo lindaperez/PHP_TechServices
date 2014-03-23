@@ -31,7 +31,7 @@ class Tbdetempresa
     /**
      * @var string
      *
-     * @ORM\Column(name="vDIRECCION FISCAL", type="string", length=45, nullable=false)
+     * @ORM\Column(name="vDIRECCION_FISCAL", type="string", length=45, nullable=false)
      */
     private $vdireccionFiscal;
 
@@ -97,7 +97,7 @@ class Tbdetempresa
     public function __toString()
     {
 
-    return $this->pkIrif;
+    return strval($this->pkIrif);
 
 }
 

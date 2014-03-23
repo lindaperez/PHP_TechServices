@@ -21,15 +21,6 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             generator:
                 strategy: IDENTITY
     manyToOne:
-        fkIidRol:
-            targetEntity: Tbgenrol
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_ROL:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIci:
             targetEntity: Tbdetusuariodatos
             cascade: {  }
@@ -37,7 +28,7 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: pk_icedula
+                    referencedColumnName: id
             orphanRemoval: false
         fkIidEstatus:
             targetEntity: Tbgenestatusregistrousu
@@ -46,6 +37,15 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iID_ESTATUS:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidRol:
+            targetEntity: Tbgenrol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ROL:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

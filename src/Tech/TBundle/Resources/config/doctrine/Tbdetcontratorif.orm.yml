@@ -33,6 +33,6 @@ Tech\TBundle\Entity\Tbdetcontratorif:
             inversedBy: null
             joinColumns:
                 fk_iRIF:
-                    referencedColumnName: pk_iRIF
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

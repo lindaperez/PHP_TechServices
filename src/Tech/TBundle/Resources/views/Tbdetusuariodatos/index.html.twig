@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Pkici</th>
                 <th>Vnombre</th>
                 <th>Vapellido</th>
                 <th>Vcorreoemail</th>
@@ -15,7 +16,6 @@
                 <th>Vcargo</th>
                 <th>Vdepartamento</th>
                 <th>Vsucursal</th>
-                <th>Pkicedula</th>
                 <th>Vclave</th>
                 <th>Dfecharegistro</th>
                 <th>Actions</th>
@@ -25,6 +25,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('Registro_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.pkIci }}</td>
                 <td>{{ entity.vnombre }}</td>
                 <td>{{ entity.vapellido }}</td>
                 <td>{{ entity.vcorreoEmail }}</td>
@@ -33,7 +34,6 @@
                 <td>{{ entity.vcargo }}</td>
                 <td>{{ entity.vdepartamento }}</td>
                 <td>{{ entity.vsucursal }}</td>
-                <td>{{ entity.pkIcedula }}</td>
                 <td>{{ entity.vclave }}</td>
                 <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>

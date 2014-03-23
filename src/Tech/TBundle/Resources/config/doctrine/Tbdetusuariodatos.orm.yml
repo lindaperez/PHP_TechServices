@@ -4,7 +4,7 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
     uniqueConstraints:
         pk_icedula_UNIQUE:
             columns:
-                - pk_icedula
+                - pk_iCI
     id:
         id:
             type: integer
@@ -15,6 +15,12 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
             generator:
                 strategy: IDENTITY
     fields:
+        pkIci:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iCI
         vnombre:
             type: string
             nullable: false
@@ -71,12 +77,6 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
             fixed: false
             comment: ''
             column: vSUCURSAL
-        pkIcedula:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: pk_icedula
         vclave:
             type: string
             nullable: true

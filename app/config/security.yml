@@ -8,7 +8,7 @@ security:
 
     providers:
         main:
-            entity: { class: Tech\TBundle\Entity\Tbdetusuariodatos, property: pkIcedula} 
+            entity: { class: Tech\TBundle\Entity\Tbdetusuariodatos, property: pkIci} 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

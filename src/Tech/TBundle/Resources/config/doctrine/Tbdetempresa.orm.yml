@@ -27,5 +27,5 @@ Tech\TBundle\Entity\Tbdetempresa:
             length: 45
             fixed: false
             comment: ''
-            column: 'vDIRECCION FISCAL'
+            column: vDIRECCION_FISCAL
     lifecycleCallbacks: {  }

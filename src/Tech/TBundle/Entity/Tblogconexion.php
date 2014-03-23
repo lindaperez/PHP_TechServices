@@ -33,7 +33,7 @@ class Tblogconexion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_icedula")
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
      * })
      */
     private $fkIci;

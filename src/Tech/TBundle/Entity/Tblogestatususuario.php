@@ -29,6 +29,16 @@ class Tblogestatususuario
     private $dfechaCambio;
 
     /**
+     * @var \Tech\TBundle\Entity\Tbdetusuariodatos
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
+     * })
+     */
+    private $fkIci;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbgenestatusregistrousu
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatusregistrousu")
@@ -37,16 +47,6 @@ class Tblogestatususuario
      * })
      */
     private $fkIidEstatus;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbdetusuariodatos
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_icedula")
-     * })
-     */
-    private $fkIci;
 
 
 
@@ -84,29 +84,6 @@ class Tblogestatususuario
     }
 
     /**
-     * Set fkIidEstatus
-     *
-     * @param \Tech\TBundle\Entity\Tbgenestatusregistrousu $fkIidEstatus
-     * @return Tblogestatususuario
-     */
-    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatusregistrousu $fkIidEstatus = null)
-    {
-        $this->fkIidEstatus = $fkIidEstatus;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatus
-     *
-     * @return \Tech\TBundle\Entity\Tbgenestatusregistrousu 
-     */
-    public function getFkIidEstatus()
-    {
-        return $this->fkIidEstatus;
-    }
-
-    /**
      * Set fkIci
      *
      * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIci
@@ -127,5 +104,28 @@ class Tblogestatususuario
     public function getFkIci()
     {
         return $this->fkIci;
+    }
+
+    /**
+     * Set fkIidEstatus
+     *
+     * @param \Tech\TBundle\Entity\Tbgenestatusregistrousu $fkIidEstatus
+     * @return Tblogestatususuario
+     */
+    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatusregistrousu $fkIidEstatus = null)
+    {
+        $this->fkIidEstatus = $fkIidEstatus;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidEstatus
+     *
+     * @return \Tech\TBundle\Entity\Tbgenestatusregistrousu 
+     */
+    public function getFkIidEstatus()
+    {
+        return $this->fkIidEstatus;
     }
 }
