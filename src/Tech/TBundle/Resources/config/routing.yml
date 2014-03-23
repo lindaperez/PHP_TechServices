@@ -1,0 +1,8 @@
+tech_t_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: TechTBundle:Default:index }
+
+TechTBundle_tech_user:
+    resource: "@TechTBundle/Resources/config/routing/user.yml"
+    prefix:   /tech_user
+

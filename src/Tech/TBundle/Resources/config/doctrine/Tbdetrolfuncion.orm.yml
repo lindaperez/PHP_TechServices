@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\Tbdetrolfuncion:
+    type: entity
+    table: tbdetRolFuncion
+    indexes:
+        ID_ROL_idx:
+            columns:
+                - fk_iID_ROL
+        ID_FUNCION_idx:
+            columns:
+                - fk_iID_FUNCION
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        fkIidRol:
+            targetEntity: Tbgenrol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ROL:
+                    referencedColumnName: pk_iID_ROL
+            orphanRemoval: false
+        fkIidFuncion:
+            targetEntity: Tbgenfuncion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_FUNCION:
+                    referencedColumnName: pk_iID_FUNCION
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

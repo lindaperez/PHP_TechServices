@@ -1,0 +1,38 @@
+Tech\TBundle\Entity\Tbdetcontratorif:
+    type: entity
+    table: tbdetContratoRif
+    indexes:
+        RIF_idx:
+            columns:
+                - fk_iRIF
+    uniqueConstraints:
+        pk_iNRO_CONTRATO_UNIQUE:
+            columns:
+                - pk_iNRO_CONTRATO
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkInroContrato:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iNRO_CONTRATO
+    manyToOne:
+        fkIrif:
+            targetEntity: Tbdetempresa
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iRIF:
+                    referencedColumnName: pk_iRIF
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

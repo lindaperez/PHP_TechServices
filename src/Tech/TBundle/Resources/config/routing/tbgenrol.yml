@@ -1,0 +1,30 @@
+Roles:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenrol:index" }
+
+Roles_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenrol:show" }
+
+Roles_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenrol:new" }
+
+Roles_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenrol:create" }
+    requirements: { _method: post }
+
+Roles_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenrol:edit" }
+
+Roles_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenrol:update" }
+    requirements: { _method: post|put }
+
+Roles_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenrol:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,31 @@
+Tech\TBundle\Entity\Tbdetempresa:
+    type: entity
+    table: tbdetEmpresa
+    uniqueConstraints:
+        pk_iRIF_UNIQUE:
+            columns:
+                - pk_iRIF
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkIrif:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iRIF
+        vdireccionFiscal:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: 'vDIRECCION FISCAL'
+    lifecycleCallbacks: {  }

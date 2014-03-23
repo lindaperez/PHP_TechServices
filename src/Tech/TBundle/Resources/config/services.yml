@@ -1,0 +1,12 @@
+parameters:
+#    tech_t.example.class: Tech\TBundle\Example
+
+services:
+#    tech_t.example:
+#        class: %tech_t.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    tech.t.admin.user:
+        class: Tech\TBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: T, label: Users }
+        arguments: [null, Tech\TBundle\Entity\User, TechTBundle:UserAdmin]

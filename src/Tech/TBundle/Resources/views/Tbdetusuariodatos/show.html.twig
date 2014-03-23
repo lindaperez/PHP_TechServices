@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Tbdetusuariodatos</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Pkici</th>
+                <td>{{ entity.pkIci }}</td>
+            </tr>
+            <tr>
+                <th>Vnombre</th>
+                <td>{{ entity.vnombre }}</td>
+            </tr>
+            <tr>
+                <th>Vapellido</th>
+                <td>{{ entity.vapellido }}</td>
+            </tr>
+            <tr>
+                <th>Vcorreoemail</th>
+                <td>{{ entity.vcorreoEmail }}</td>
+            </tr>
+            <tr>
+                <th>Vtelflocal</th>
+                <td>{{ entity.vtelfLocal }}</td>
+            </tr>
+            <tr>
+                <th>Vtelfmovil</th>
+                <td>{{ entity.vtelfMovil }}</td>
+            </tr>
+            <tr>
+                <th>Vcargo</th>
+                <td>{{ entity.vcargo }}</td>
+            </tr>
+            <tr>
+                <th>Vdepartamento</th>
+                <td>{{ entity.vdepartamento }}</td>
+            </tr>
+            <tr>
+                <th>Vsucursal</th>
+                <td>{{ entity.vsucursal }}</td>
+            </tr>
+            <tr>
+                <th>Dfecharegistro</th>
+                <td>{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('Registro') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

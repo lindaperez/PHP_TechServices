@@ -1,0 +1,43 @@
+tech_t:
+    resource: "@TechTBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+login:
+    pattern:   /login
+    defaults:  { _controller: TechTBundle:Default:login }
+login_check:
+    pattern:   /login_check
+
+TechTBundle_Registro:
+    resource: "@TechTBundle/Resources/config/routing/tbdetusuariodatos.yml"
+    prefix:   /Registro
+
+TechTBundle_Parametros:
+    resource: "@TechTBundle/Resources/config/routing/tbgenparametros.yml"
+    prefix:   /Parametros
+
+TechTBundle_Estatus:
+    resource: "@TechTBundle/Resources/config/routing/tbgenestatusregistrousu.yml"
+    prefix:   /Estatus
+
+TBundle_Funciones:
+    resource: "@TechTBundle/Resources/config/routing/tbgenfuncion.yml"
+    prefix:   /Funciones
+
+TechTBundle_Roles:
+    resource: "@TechTBundle/Resources/config/routing/tbgenrol.yml"
+    prefix:   /Roles
+
+TechTBundle_TiposRoles:
+    resource: "@TechTBundle/Resources/config/routing/tbgentiporol.yml"
+    prefix:   /TiposRoles
+

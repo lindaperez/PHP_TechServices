@@ -1,0 +1,45 @@
+Tech\TBundle\Entity\Tbgenrol:
+    type: entity
+    table: tbgenRol
+    indexes:
+        fk_iTIPO_ROL_idx:
+            columns:
+                - fk_iTIPO_ROL
+    uniqueConstraints:
+        pk_iID_ROL_UNIQUE:
+            columns:
+                - pk_iID_ROL
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkIidRol:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iID_ROL
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+    manyToOne:
+        fkItipoRol:
+            targetEntity: Tbgentiporol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iTIPO_ROL:
+                    referencedColumnName: pk_TIPO_ROL
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

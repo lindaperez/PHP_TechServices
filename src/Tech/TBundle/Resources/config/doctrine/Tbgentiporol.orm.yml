@@ -1,0 +1,31 @@
+Tech\TBundle\Entity\Tbgentiporol:
+    type: entity
+    table: tbgenTipoRol
+    uniqueConstraints:
+        pk_TIPO_ROL_UNIQUE:
+            columns:
+                - pk_TIPO_ROL
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkTipoRol:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_TIPO_ROL
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+    lifecycleCallbacks: {  }

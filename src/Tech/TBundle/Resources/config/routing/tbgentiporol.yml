@@ -1,0 +1,30 @@
+TiposRoles:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgentiporol:index" }
+
+TiposRoles_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgentiporol:show" }
+
+TiposRoles_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgentiporol:new" }
+
+TiposRoles_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgentiporol:create" }
+    requirements: { _method: post }
+
+TiposRoles_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgentiporol:edit" }
+
+TiposRoles_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgentiporol:update" }
+    requirements: { _method: post|put }
+
+TiposRoles_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgentiporol:delete" }
+    requirements: { _method: post|delete }

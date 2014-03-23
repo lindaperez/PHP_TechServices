@@ -1,0 +1,31 @@
+Tech\TBundle\Entity\Tbgenestatusregistrousu:
+    type: entity
+    table: tbgenEstatusRegistroUsu
+    uniqueConstraints:
+        pk_iID_ESTATUS_UNIQUE:
+            columns:
+                - pk_iID_ESTATUS
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkIidEstatus:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iID_ESTATUS
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+    lifecycleCallbacks: {  }

@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Tbgentiporol list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pktiporol</th>
+                <th>Vdescripcion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('TiposRoles_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.pkTipoRol }}</td>
+                <td>{{ entity.vdescripcion }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('TiposRoles_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('TiposRoles_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('TiposRoles_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

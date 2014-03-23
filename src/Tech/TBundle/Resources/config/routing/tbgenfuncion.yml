@@ -1,0 +1,30 @@
+Funciones:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:index" }
+
+Funciones_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:show" }
+
+Funciones_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:new" }
+
+Funciones_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:create" }
+    requirements: { _method: post }
+
+Funciones_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:edit" }
+
+Funciones_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:update" }
+    requirements: { _method: post|put }
+
+Funciones_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenfuncion:delete" }
+    requirements: { _method: post|delete }

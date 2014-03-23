@@ -1,0 +1,60 @@
+Tech\TBundle\Entity\Tbdetusuarioacceso:
+    type: entity
+    table: tbdetUsuarioAcceso
+    indexes:
+        ID_ROL_idx:
+            columns:
+                - fk_iID_ROL
+        ID_ESTATUS_idx:
+            columns:
+                - fk_iID_ESTATUS
+    uniqueConstraints:
+        fk_iCI_UNIQUE:
+            columns:
+                - fk_iCI
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vclave:
+            type: string
+            nullable: true
+            length: 7
+            fixed: false
+            comment: ''
+            column: vCLAVE
+    manyToOne:
+        fkIidRol:
+            targetEntity: Tbgenrol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ROL:
+                    referencedColumnName: pk_iID_ROL
+            orphanRemoval: false
+        fkIci:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCI:
+                    referencedColumnName: pk_iCI
+            orphanRemoval: false
+        fkIidEstatus:
+            targetEntity: Tbgenestatusregistrousu
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESTATUS:
+                    referencedColumnName: pk_iID_ESTATUS
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

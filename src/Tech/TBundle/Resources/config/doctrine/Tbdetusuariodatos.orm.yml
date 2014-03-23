@@ -1,0 +1,85 @@
+Tech\TBundle\Entity\Tbdetusuariodatos:
+    type: entity
+    table: tbdetUsuarioDatos
+    uniqueConstraints:
+        pk_iCI_UNIQUE:
+            columns:
+                - pk_iCI
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkIci:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iCI
+        vnombre:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+            column: vNOMBRE
+        vapellido:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+            column: vAPELLIDO
+        vcorreoEmail:
+            type: string
+            nullable: false
+            length: 40
+            fixed: false
+            comment: ''
+            column: vCORREO_EMAIL
+        vtelfLocal:
+            type: string
+            nullable: false
+            length: 15
+            fixed: false
+            comment: ''
+            column: vTELF_LOCAL
+        vtelfMovil:
+            type: string
+            nullable: false
+            length: 15
+            fixed: false
+            comment: ''
+            column: vTELF_MOVIL
+        vcargo:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+            column: vCARGO
+        vdepartamento:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+            column: vDEPARTAMENTO
+        vsucursal:
+            type: string
+            nullable: false
+            length: 25
+            fixed: false
+            comment: ''
+            column: vSUCURSAL
+        dfechaRegistro:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dFECHA_REGISTRO
+    lifecycleCallbacks: {  }

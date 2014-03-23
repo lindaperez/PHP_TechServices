@@ -1,0 +1,45 @@
+Tech\TBundle\Entity\Tblogestatususuario:
+    type: entity
+    table: tblogEstatusUsuario
+    indexes:
+        fk_iID_ESTATUS_idx:
+            columns:
+                - fk_iID_ESTATUS
+        fk_iCI_idx:
+            columns:
+                - fk_iCI
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dfechaCambio:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dFECHA_CAMBIO
+    manyToOne:
+        fkIidEstatus:
+            targetEntity: Tbgenestatusregistrousu
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESTATUS:
+                    referencedColumnName: pk_iID_ESTATUS
+            orphanRemoval: false
+        fkIci:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCI:
+                    referencedColumnName: pk_iCI
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

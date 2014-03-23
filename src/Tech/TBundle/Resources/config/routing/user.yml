@@ -1,0 +1,30 @@
+tech_user:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:User:index" }
+
+tech_user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:User:show" }
+
+tech_user_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:User:new" }
+
+tech_user_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:User:create" }
+    requirements: { _method: post }
+
+tech_user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:User:edit" }
+
+tech_user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:User:update" }
+    requirements: { _method: post|put }
+
+tech_user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:User:delete" }
+    requirements: { _method: post|delete }

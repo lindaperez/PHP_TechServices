@@ -1,0 +1,40 @@
+Tech\TBundle\Entity\Tbdetusuariocontrato:
+    type: entity
+    table: tbdetUsuarioContrato
+    indexes:
+        NRO_CONTRATO_idx:
+            columns:
+                - fk_iNRO_CONTRATO
+    uniqueConstraints:
+        fk_iCI_UNIQUE:
+            columns:
+                - fk_iCI
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        fkIci:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCI:
+                    referencedColumnName: pk_iCI
+            orphanRemoval: false
+        fkInroContrato:
+            targetEntity: Tbdetcontratorif
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iNRO_CONTRATO:
+                    referencedColumnName: pk_iNRO_CONTRATO
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

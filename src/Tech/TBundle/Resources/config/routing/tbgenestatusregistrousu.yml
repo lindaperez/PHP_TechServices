@@ -1,0 +1,30 @@
+Estatus:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:index" }
+
+Estatus_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:show" }
+
+Estatus_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:new" }
+
+Estatus_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:create" }
+    requirements: { _method: post }
+
+Estatus_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:edit" }
+
+Estatus_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:update" }
+    requirements: { _method: post|put }
+
+Estatus_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenestatusregistrousu:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,31 @@
+Tech\TBundle\Entity\Tbgenfuncion:
+    type: entity
+    table: tbgenFuncion
+    uniqueConstraints:
+        pk_iID_FUNCION_UNIQUE:
+            columns:
+                - pk_iID_FUNCION
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        pkIidFuncion:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: pk_iID_FUNCION
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+    lifecycleCallbacks: {  }

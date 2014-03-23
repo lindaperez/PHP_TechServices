@@ -1,0 +1,30 @@
+Parametros:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenparametros:index" }
+
+Parametros_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenparametros:show" }
+
+Parametros_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenparametros:new" }
+
+Parametros_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenparametros:create" }
+    requirements: { _method: post }
+
+Parametros_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenparametros:edit" }
+
+Parametros_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenparametros:update" }
+    requirements: { _method: post|put }
+
+Parametros_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenparametros:delete" }
+    requirements: { _method: post|delete }
