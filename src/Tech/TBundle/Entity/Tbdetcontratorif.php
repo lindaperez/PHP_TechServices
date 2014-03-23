@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetcontratorif
  *
- * @ORM\Table(name="tbdetContratoRif", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iNRO_CONTRATO_UNIQUE", columns={"pk_iNRO_CONTRATO"})}, indexes={@ORM\Index(name="RIF_idx", columns={"fk_iRIF"})})
+ * @ORM\Table(name="tbdetContratoRif", indexes={@ORM\Index(name="RIF_idx", columns={"fk_iRIF"})})
  * @ORM\Entity
  */
 class Tbdetcontratorif
@@ -33,7 +33,7 @@ class Tbdetcontratorif
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetempresa")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iRIF", referencedColumnName="pk_iRIF")
+     *   @ORM\JoinColumn(name="fk_iRIF", referencedColumnName="id")
      * })
      */
     private $fkIrif;

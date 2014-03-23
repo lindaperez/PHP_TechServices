@@ -9,7 +9,7 @@ use Tech\TBundle\Entity\Tbdetusuarioacceso;
 /**
  * Tbdetusuariodatos
  *
- * @ORM\Table(name="tbdetUsuarioDatos", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iCI_UNIQUE", columns={"pk_iCI"})})
+ * @ORM\Table(name="tbdetUsuarioDatos", uniqueConstraints={@ORM\UniqueConstraint(name="pk_icedula_UNIQUE", columns={"pk_icedula"})})
  * @ORM\Entity
  */
 class Tbdetusuariodatos implements UserInterface
@@ -22,13 +22,6 @@ class Tbdetusuariodatos implements UserInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pk_iCI", type="integer", nullable=false)
-     */
-    private $pkIci;
 
     /**
      * @var string
@@ -87,6 +80,20 @@ class Tbdetusuariodatos implements UserInterface
     private $vsucursal;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="pk_icedula", type="integer", nullable=false)
+     */
+    private $pkIcedula;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vCLAVE", type="string", length=6, nullable=true)
+     */
+    private $vclave;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dFECHA_REGISTRO", type="datetime", nullable=false)
@@ -103,29 +110,6 @@ class Tbdetusuariodatos implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pkIci
-     *
-     * @param integer $pkIci
-     * @return Tbdetusuariodatos
-     */
-    public function setPkIci($pkIci)
-    {
-        $this->pkIci = $pkIci;
-
-        return $this;
-    }
-
-    /**
-     * Get pkIci
-     *
-     * @return integer 
-     */
-    public function getPkIci()
-    {
-        return $this->pkIci;
     }
 
     /**
@@ -313,6 +297,52 @@ class Tbdetusuariodatos implements UserInterface
     }
 
     /**
+     * Set pkIcedula
+     *
+     * @param integer $pkIcedula
+     * @return Tbdetusuariodatos
+     */
+    public function setPkIcedula($pkIcedula)
+    {
+        $this->pkIcedula = $pkIcedula;
+
+        return $this;
+    }
+
+    /**
+     * Get pkIcedula
+     *
+     * @return integer 
+     */
+    public function getPkIcedula()
+    {
+        return $this->pkIcedula;
+    }
+
+    /**
+     * Set vclave
+     *
+     * @param string $vclave
+     * @return Tbdetusuariodatos
+     */
+    public function setVclave($vclave)
+    {
+        $this->vclave = $vclave;
+
+        return $this;
+    }
+
+    /**
+     * Get vclave
+     *
+     * @return string 
+     */
+    public function getVclave()
+    {
+        return $this->vclave;
+    }
+
+    /**
      * Set dfechaRegistro
      *
      * @param \DateTime $dfechaRegistro
@@ -359,13 +389,13 @@ class Tbdetusuariodatos implements UserInterface
 //Returns whether or not the given user is equivalent to this user.
     public function equals(UserInterface $user)
     {
-        return $user->getUsername() == $this->getPkIci();
+        return $user->getUsername() == $this->pkIcedula;
     }
 //Usuario Corregir
     public function getUsername()
     {
 	//Corregir
-        return $this->getPkIci();
+        return $this->pkIcedula;
     }
 //Contrasena
     public function getPassword()
@@ -377,8 +407,8 @@ class Tbdetusuariodatos implements UserInterface
     public function __toString()
     {
 
-    return strval($this->pkIci);
+    return strval($this->pkIcedula);
 
 }
 
-}
+    }

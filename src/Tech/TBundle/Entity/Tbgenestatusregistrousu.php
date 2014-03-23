@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgenestatusregistrousu
  *
- * @ORM\Table(name="tbgenEstatusRegistroUsu", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_ESTATUS_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="tbgenEstatusRegistroUsu")
  * @ORM\Entity
  */
 class Tbgenestatusregistrousu

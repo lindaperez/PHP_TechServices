@@ -40,6 +40,6 @@ Tech\TBundle\Entity\Tblogestatususuario:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: pk_iCI
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

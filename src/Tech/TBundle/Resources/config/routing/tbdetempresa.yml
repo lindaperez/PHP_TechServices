@@ -1,0 +1,30 @@
+Empresa:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetempresa:index" }
+
+Empresa_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetempresa:show" }
+
+Empresa_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetempresa:new" }
+
+Empresa_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetempresa:create" }
+    requirements: { _method: post }
+
+Empresa_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetempresa:edit" }
+
+Empresa_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetempresa:update" }
+    requirements: { _method: post|put }
+
+Empresa_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetempresa:delete" }
+    requirements: { _method: post|delete }

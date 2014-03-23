@@ -1,0 +1,30 @@
+RolesFunciones:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:index" }
+
+RolesFunciones_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:show" }
+
+RolesFunciones_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:new" }
+
+RolesFunciones_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:create" }
+    requirements: { _method: post }
+
+RolesFunciones_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:edit" }
+
+RolesFunciones_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:update" }
+    requirements: { _method: post|put }
+
+RolesFunciones_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetrolfuncion:delete" }
+    requirements: { _method: post|delete }

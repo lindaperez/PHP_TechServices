@@ -38,8 +38,7 @@ class TbdetusuariodatosController extends Controller
         $entity = new Tbdetusuariodatos();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        //First date
-        //Save the next parameters 
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

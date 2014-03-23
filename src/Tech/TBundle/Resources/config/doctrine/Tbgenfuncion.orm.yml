@@ -1,10 +1,6 @@
 Tech\TBundle\Entity\Tbgenfuncion:
     type: entity
     table: tbgenFuncion
-    uniqueConstraints:
-        pk_iID_FUNCION_UNIQUE:
-            columns:
-                - id
     id:
         id:
             type: integer

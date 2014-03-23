@@ -15,7 +15,6 @@ class TbdetusuariodatosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkIci')
             ->add('vnombre')
             ->add('vapellido')
             ->add('vcorreoEmail')
@@ -24,6 +23,8 @@ class TbdetusuariodatosType extends AbstractType
             ->add('vcargo')
             ->add('vdepartamento')
             ->add('vsucursal')
+            ->add('pkIcedula')
+            ->add('vclave')
             ->add('dfechaRegistro')
         ;
     }

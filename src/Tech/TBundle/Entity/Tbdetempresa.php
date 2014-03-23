@@ -92,4 +92,14 @@ class Tbdetempresa
     {
         return $this->vdireccionFiscal;
     }
+
+    //to string method   
+    public function __toString()
+    {
+
+    return $this->pkIrif;
+
 }
+
+    
+    }

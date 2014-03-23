@@ -1,10 +1,6 @@
 Tech\TBundle\Entity\Tbgenestatusregistrousu:
     type: entity
     table: tbgenEstatusRegistroUsu
-    uniqueConstraints:
-        pk_iID_ESTATUS_UNIQUE:
-            columns:
-                - id
     id:
         id:
             type: integer

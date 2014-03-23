@@ -33,3 +33,26 @@ TechTBundle_UsuarioAcceso:
     prefix:   /UsuarioAcceso
 
 
+TechTBundle_RolesFunciones:
+    resource: "@TechTBundle/Resources/config/routing/tbdetrolfuncion.yml"
+    prefix:   /RolesFunciones
+
+
+TechTBundle_ReporteLogin:
+    resource: "@TechTBundle/Resources/config/routing/tblogconexion.yml"
+    prefix:   /ReporteLogin
+
+TechTBundle_Empresa:
+    resource: "@TechTBundle/Resources/config/routing/tbdetempresa.yml"
+    prefix:   /Empresa
+
+
+TechTBundle_Contratos:
+    resource: "@TechTBundle/Resources/config/routing/tbdetcontratorif.yml"
+    prefix:   /Contratos
+
+
+TechTBundle_UsuariosContratos:
+    resource: "@TechTBundle/Resources/config/routing/tbdetusuariocontrato.yml"
+    prefix:   /UsuariosContratos
+

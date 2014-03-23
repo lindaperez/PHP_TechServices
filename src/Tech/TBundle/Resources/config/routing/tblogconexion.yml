@@ -1,0 +1,30 @@
+ReporteLogin:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tblogconexion:index" }
+
+ReporteLogin_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tblogconexion:show" }
+
+ReporteLogin_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tblogconexion:new" }
+
+ReporteLogin_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tblogconexion:create" }
+    requirements: { _method: post }
+
+ReporteLogin_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tblogconexion:edit" }
+
+ReporteLogin_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tblogconexion:update" }
+    requirements: { _method: post|put }
+
+ReporteLogin_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tblogconexion:delete" }
+    requirements: { _method: post|delete }

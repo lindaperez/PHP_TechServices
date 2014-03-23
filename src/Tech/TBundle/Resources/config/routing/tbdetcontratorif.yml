@@ -1,0 +1,30 @@
+Contratos:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:index" }
+
+Contratos_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:show" }
+
+Contratos_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:new" }
+
+Contratos_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:create" }
+    requirements: { _method: post }
+
+Contratos_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:edit" }
+
+Contratos_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:update" }
+    requirements: { _method: post|put }
+
+Contratos_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetcontratorif:delete" }
+    requirements: { _method: post|delete }

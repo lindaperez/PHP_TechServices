@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetusuarioacceso
  *
- * @ORM\Table(name="tbdetUsuarioAcceso", indexes={@ORM\Index(name="CI", columns={"fk_iCI"}), @ORM\Index(name="ID_ROL_idx", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx", columns={"fk_iID_ESTATUS"})})
+ * @ORM\Table(name="tbdetUsuarioAcceso", indexes={@ORM\Index(name="CI_UA", columns={"fk_iCI"}), @ORM\Index(name="ID_ROL_idx_UA", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx_UA", columns={"fk_iID_ESTATUS"})})
  * @ORM\Entity
  */
 class Tbdetusuarioacceso
@@ -20,13 +20,6 @@ class Tbdetusuarioacceso
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="vCLAVE", type="string", length=7, nullable=true)
-     */
-    private $vclave;
 
     /**
      * @var \Tech\TBundle\Entity\Tbgenrol
@@ -43,7 +36,7 @@ class Tbdetusuarioacceso
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_iCI")
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
      * })
      */
     private $fkIci;
@@ -68,29 +61,6 @@ class Tbdetusuarioacceso
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set vclave
-     *
-     * @param string $vclave
-     * @return Tbdetusuarioacceso
-     */
-    public function setVclave($vclave)
-    {
-        $this->vclave = $vclave;
-
-        return $this;
-    }
-
-    /**
-     * Get vclave
-     *
-     * @return string 
-     */
-    public function getVclave()
-    {
-        return $this->vclave;
     }
 
     /**
@@ -166,4 +136,4 @@ class Tbdetusuarioacceso
     
     
     
-    }
+}

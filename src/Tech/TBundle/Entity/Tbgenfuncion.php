@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgenfuncion
  *
- * @ORM\Table(name="tbgenFuncion", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_FUNCION_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="tbgenFuncion")
  * @ORM\Entity
  */
 class Tbgenfuncion
@@ -62,4 +62,13 @@ class Tbgenfuncion
     {
         return $this->vdescripcion;
     }
+    
+ //to string method   
+    public function __toString()
+    {
+
+    return $this->vdescripcion;
+
+}
+
 }

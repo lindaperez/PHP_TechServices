@@ -2,7 +2,7 @@ Tech\TBundle\Entity\Tbdetrolfuncion:
     type: entity
     table: tbdetRolFuncion
     indexes:
-        ID_ROL_idx:
+        ID_ROL_idx_RF:
             columns:
                 - fk_iID_ROL
         ID_FUNCION_idx:

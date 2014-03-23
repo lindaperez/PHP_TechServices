@@ -2,13 +2,13 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
     type: entity
     table: tbdetUsuarioAcceso
     indexes:
-        CI:
+        CI_UA:
             columns:
                 - fk_iCI
-        ID_ROL_idx:
+        ID_ROL_idx_UA:
             columns:
                 - fk_iID_ROL
-        ID_ESTATUS_idx:
+        ID_ESTATUS_idx_UA:
             columns:
                 - fk_iID_ESTATUS
     id:
@@ -20,14 +20,6 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             id: true
             generator:
                 strategy: IDENTITY
-    fields:
-        vclave:
-            type: string
-            nullable: true
-            length: 7
-            fixed: false
-            comment: ''
-            column: vCLAVE
     manyToOne:
         fkIidRol:
             targetEntity: Tbgenrol
@@ -45,7 +37,7 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
             inversedBy: null
             joinColumns:
                 fk_iCI:
-                    referencedColumnName: pk_iCI
+                    referencedColumnName: id
             orphanRemoval: false
         fkIidEstatus:
             targetEntity: Tbgenestatusregistrousu

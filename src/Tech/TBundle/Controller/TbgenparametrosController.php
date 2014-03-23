@@ -44,7 +44,7 @@ class TbgenparametrosController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Parametro_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('Parametros_show', array('id' => $entity->getId())));
         }
 
         return $this->render('TechTBundle:Tbgenparametros:new.html.twig', array(
@@ -63,7 +63,7 @@ class TbgenparametrosController extends Controller
     private function createCreateForm(Tbgenparametros $entity)
     {
         $form = $this->createForm(new TbgenparametrosType(), $entity, array(
-            'action' => $this->generateUrl('Parametro_create'),
+            'action' => $this->generateUrl('Parametros_create'),
             'method' => 'POST',
         ));
 
@@ -142,7 +142,7 @@ class TbgenparametrosController extends Controller
     private function createEditForm(Tbgenparametros $entity)
     {
         $form = $this->createForm(new TbgenparametrosType(), $entity, array(
-            'action' => $this->generateUrl('Parametro_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('Parametros_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -171,7 +171,7 @@ class TbgenparametrosController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Parametro_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('Parametros_edit', array('id' => $id)));
         }
 
         return $this->render('TechTBundle:Tbgenparametros:edit.html.twig', array(
@@ -201,7 +201,7 @@ class TbgenparametrosController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('Parametro'));
+        return $this->redirect($this->generateUrl('Parametros'));
     }
 
     /**
@@ -214,7 +214,7 @@ class TbgenparametrosController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Parametro_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('Parametros_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

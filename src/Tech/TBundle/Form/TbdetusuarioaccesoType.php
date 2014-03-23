@@ -15,10 +15,9 @@ class TbdetusuarioaccesoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vclave')
+            ->add('fkIidRol')
             ->add('fkIci')
             ->add('fkIidEstatus')
-            ->add('fkIidRol')
         ;
     }
     

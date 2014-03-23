@@ -1,0 +1,30 @@
+UsuariosContratos:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:index" }
+
+UsuariosContratos_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:show" }
+
+UsuariosContratos_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:new" }
+
+UsuariosContratos_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:create" }
+    requirements: { _method: post }
+
+UsuariosContratos_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:edit" }
+
+UsuariosContratos_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:update" }
+    requirements: { _method: post|put }
+
+UsuariosContratos_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetusuariocontrato:delete" }
+    requirements: { _method: post|delete }

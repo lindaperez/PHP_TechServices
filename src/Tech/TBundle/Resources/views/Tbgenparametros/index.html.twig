@@ -15,16 +15,16 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Parametro_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('Parametros_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.vdescripcion }}</td>
                 <td>{{ entity.imaxAcceso }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Parametro_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('Parametros_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('Parametro_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('Parametros_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('Parametro_new') }}">
+            <a href="{{ path('Parametros_new') }}">
                 Create a new entry
             </a>
         </li>

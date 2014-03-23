@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetusuariocontrato
  *
- * @ORM\Table(name="tbdetUsuarioContrato", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})}, indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"})})
+ * @ORM\Table(name="tbdetUsuarioContrato", indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"}), @ORM\Index(name="CI_idx", columns={"fk_iCI"})})
  * @ORM\Entity
  */
 class Tbdetusuariocontrato
@@ -26,7 +26,7 @@ class Tbdetusuariocontrato
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="pk_iCI")
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
      * })
      */
     private $fkIci;
@@ -36,7 +36,7 @@ class Tbdetusuariocontrato
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iNRO_CONTRATO", referencedColumnName="pk_iNRO_CONTRATO")
+     *   @ORM\JoinColumn(name="fk_iNRO_CONTRATO", referencedColumnName="id")
      * })
      */
     private $fkInroContrato;
@@ -98,4 +98,13 @@ class Tbdetusuariocontrato
     {
         return $this->fkInroContrato;
     }
+    
+    //to string method   
+    public function __toString()
+    {
+
+    return $this->fkInroContrato;
+
+}
+
 }
