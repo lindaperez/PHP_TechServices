@@ -26,7 +26,7 @@ class Tbdetrolfuncion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="pk_iID_ROL")
+     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
      * })
      */
     private $fkIidRol;
@@ -36,7 +36,7 @@ class Tbdetrolfuncion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenfuncion")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_FUNCION", referencedColumnName="pk_iID_FUNCION")
+     *   @ORM\JoinColumn(name="fk_iID_FUNCION", referencedColumnName="id")
      * })
      */
     private $fkIidFuncion;

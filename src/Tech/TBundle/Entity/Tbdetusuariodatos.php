@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tech\TBundle\Entity\Tbdetusuarioacceso;
 
-
 /**
  * Tbdetusuariodatos
  *
@@ -345,7 +344,7 @@ class Tbdetusuariodatos implements UserInterface
     {
 	//Corregir
         return array('ROLE_ADMIN');
-    }
+}
  //Returns the salt that was originally used to encode the password.
     public function getSalt()
     {

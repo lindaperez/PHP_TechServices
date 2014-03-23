@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgenrol
  *
- * @ORM\Table(name="tbgenRol", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_ROL_UNIQUE", columns={"pk_iID_ROL"})}, indexes={@ORM\Index(name="fk_iTIPO_ROL_idx", columns={"fk_iTIPO_ROL"})})
+ * @ORM\Table(name="tbgenRol", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_ROL_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_iTIPO_ROL_idx", columns={"fk_iTIPO_ROL"})})
  * @ORM\Entity
  */
 class Tbgenrol
@@ -22,13 +22,6 @@ class Tbgenrol
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="pk_iID_ROL", type="integer", nullable=false)
-     */
-    private $pkIidRol;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="vDESCRIPCION", type="string", length=45, nullable=false)
@@ -40,7 +33,7 @@ class Tbgenrol
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgentiporol")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iTIPO_ROL", referencedColumnName="pk_TIPO_ROL")
+     *   @ORM\JoinColumn(name="fk_iTIPO_ROL", referencedColumnName="id")
      * })
      */
     private $fkItipoRol;
@@ -55,29 +48,6 @@ class Tbgenrol
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pkIidRol
-     *
-     * @param integer $pkIidRol
-     * @return Tbgenrol
-     */
-    public function setPkIidRol($pkIidRol)
-    {
-        $this->pkIidRol = $pkIidRol;
-
-        return $this;
-    }
-
-    /**
-     * Get pkIidRol
-     *
-     * @return integer 
-     */
-    public function getPkIidRol()
-    {
-        return $this->pkIidRol;
     }
 
     /**
@@ -131,7 +101,7 @@ class Tbgenrol
 
     return $this->vdescripcion;
 
-    }
+}
 
 
 }

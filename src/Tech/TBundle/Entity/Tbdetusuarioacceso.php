@@ -33,7 +33,7 @@ class Tbdetusuarioacceso
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="pk_iID_ROL")
+     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
      * })
      */
     private $fkIidRol;

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbgenfuncion
  *
- * @ORM\Table(name="tbgenFuncion", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_FUNCION_UNIQUE", columns={"pk_iID_FUNCION"})})
+ * @ORM\Table(name="tbgenFuncion", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iID_FUNCION_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
 class Tbgenfuncion
@@ -20,13 +20,6 @@ class Tbgenfuncion
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pk_iID_FUNCION", type="integer", nullable=false)
-     */
-    private $pkIidFuncion;
 
     /**
      * @var string
@@ -45,29 +38,6 @@ class Tbgenfuncion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set pkIidFuncion
-     *
-     * @param integer $pkIidFuncion
-     * @return Tbgenfuncion
-     */
-    public function setPkIidFuncion($pkIidFuncion)
-    {
-        $this->pkIidFuncion = $pkIidFuncion;
-
-        return $this;
-    }
-
-    /**
-     * Get pkIidFuncion
-     *
-     * @return integer 
-     */
-    public function getPkIidFuncion()
-    {
-        return $this->pkIidFuncion;
     }
 
     /**
