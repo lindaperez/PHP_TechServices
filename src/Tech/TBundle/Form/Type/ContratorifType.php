@@ -1,12 +1,12 @@
 <?php
 
-namespace Tech\TBundle\Form\Model;
+namespace Tech\TBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegistroUsuariosFormType extends AbstractType
+class ContratorifType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,17 +15,10 @@ class RegistroUsuariosFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkIci')
-            ->add('vnombre')
-            ->add('vapellido')
-            ->add('vcorreoEmail')
-            ->add('vtelfLocal')
-            ->add('vtelfMovil')
-            ->add('vcargo')
-            ->add('vdepartamento')
-            ->add('vsucursal')
-            ->add('vclave')
-            ->add('dfechaRegistro')
+            ->add('usuariodatos', new \Tech\TBundle\Entity\Tbdetusuariodatos)
+            ->add('pkInroContrato')
+            ->add('fkIrif')
+            
         ;
     }
     
@@ -35,7 +28,8 @@ class RegistroUsuariosFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetusuariodatos'
+            'data_class' => 'Tech\TBundle\Form\Model\Contratorif',
+                    'cascade_validation' => true,
         ));
     }
 
@@ -44,6 +38,6 @@ class RegistroUsuariosFormType extends AbstractType
      */
     public function getName()
     {
-        return 'tech_tbundle_tbdetusuariodatos';
+        return 'tech_tbundle_tbdetcontratorif';
     }
 }
