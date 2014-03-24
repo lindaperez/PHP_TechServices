@@ -14,6 +14,7 @@ class Tbdetcontratorif
 {
     
     protected $usuariodatos;
+    protected $usuarioacceso;
     /**
      * @var integer
      *
@@ -110,6 +111,19 @@ class Tbdetcontratorif
     {
         $this->usuariodatos = $usuariodatos;
     }
+    
+    // ...
+ 
+    public function getUsuarioacceso()
+    {
+        return $this->usuarioacceso;
+    }
+ 
+    public function setUsuarioacceso(Tbdetusuarioacceso $usuarioacceso = null)
+    {
+        $this->usuarioacceso = $usuarioacceso;
+    }
+    
       public function __toString()
     {
         return strval($this->pkInroContrato);

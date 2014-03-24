@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tech\TBundle\Form\TbdetusuariodatosType;
+use Tech\TBundle\Form\TbdetusuarioaccesoType;
 
 class TbdetcontratorifType extends AbstractType
 {
@@ -19,6 +20,7 @@ class TbdetcontratorifType extends AbstractType
             ->add('usuariodatos', new TbdetusuariodatosType())
             ->add('pkInroContrato')
             ->add('fkIrif')
+            ->add('usuarioacceso', new TbdetusuarioaccesoType())
         ;
     }
     

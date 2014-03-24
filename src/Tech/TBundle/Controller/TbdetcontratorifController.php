@@ -47,12 +47,20 @@ class TbdetcontratorifController extends Controller
         //print "This is entity ";
         //print_r($entity);
         echo "\n";
-        print "this is entity usuariodatos";
+        //print "this is entity usuariodatos";
         if ($form->isValid()) {
           //print_r($form->getData());
             /*Verificar que no exista el usuario */
+            $em = $this->getDoctrine()->getManager();
+            $registro_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                   ->findOneBy(array('pkIci' => $form["usuariodatos"]["pkIci"]->getData()));
+            echo "\n";
+            print_r("$registro_usuario");
+            echo "\n";
+            if($registro_usuario == null){
             
             /*Guardar en la BD el Registro de datos de usuario en tabla
+            }
             Tbdetusuariodatos */
             $usuario_datos = new Tbdetusuariodatos();
             $usuario_datos->setPkIci($form["usuariodatos"]["pkIci"]->getData());
@@ -70,7 +78,7 @@ class TbdetcontratorifController extends Controller
             $usuario_datos->setDfechaRegistro($form["usuariodatos"]["dfechaRegistro"]->getData());
             //print_r($usuario_datos);
             
-            /*Verificar que no exista la ci en la  */
+            /*Verificar que no exista esa cedula con ese contrato ojo*/
             
             /*Guardar en la BD el Nro de contrato en la Tabla
             Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
@@ -79,9 +87,10 @@ class TbdetcontratorifController extends Controller
             $usuario_contrato->setFkInroContrato($entity);
             
             
-            /*Buscar id de rif  en la tabla Empresa y almacenarlo en la tabla contrato  */
+            /*Guardar en la BD el rol seteado por el usuario
+            Tbdetusuarioacceso */
             
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($usuario_datos);
             $em->persist($entity);
             $em->persist($usuario_contrato);
@@ -90,6 +99,11 @@ class TbdetcontratorifController extends Controller
             
             
             return $this->redirect($this->generateUrl('Contratos_show', array('id' => $entity->getId())));
+            }else{
+                
+                print "El usuario ya existe";
+            }
+            
         }
 
         return $this->render('TechTBundle:Tbdetcontratorif:new.html.twig', array(
