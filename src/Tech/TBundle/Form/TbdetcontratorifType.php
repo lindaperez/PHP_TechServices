@@ -5,6 +5,7 @@ namespace Tech\TBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tech\TBundle\Form\TbdetusuariodatosType;
 
 class TbdetcontratorifType extends AbstractType
 {
@@ -15,6 +16,7 @@ class TbdetcontratorifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('usuariodatos', new TbdetusuariodatosType())
             ->add('pkInroContrato')
             ->add('fkIrif')
         ;
@@ -26,7 +28,8 @@ class TbdetcontratorifType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif',
+            'cascade_validation' => true,
         ));
     }
 

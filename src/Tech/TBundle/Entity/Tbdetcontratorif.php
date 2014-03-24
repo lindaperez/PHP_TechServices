@@ -3,7 +3,7 @@
 namespace Tech\TBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Tech\TBundle\Entity\Tbdetusuariodatos;
 /**
  * Tbdetcontratorif
  *
@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tbdetcontratorif
 {
+    
+    protected $usuariodatos;
     /**
      * @var integer
      *
@@ -96,6 +98,18 @@ class Tbdetcontratorif
         return $this->fkIrif;
     }
 
+ 
+    // ...
+ 
+    public function getUsuariodatos()
+    {
+        return $this->usuariodatos;
+    }
+ 
+    public function setUsuariodatos(Tbdetusuariodatos $usuariodatos = null)
+    {
+        $this->usuariodatos = $usuariodatos;
+    }
       public function __toString()
     {
         return strval($this->pkInroContrato);

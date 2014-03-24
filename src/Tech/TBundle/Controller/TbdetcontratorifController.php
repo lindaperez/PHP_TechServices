@@ -7,7 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Tech\TBundle\Entity\Tbdetcontratorif;
 use Tech\TBundle\Form\TbdetcontratorifType;
-
+use Tech\TBundle\Entity\Tbdetusuariodatos;
+use Tech\TBundle\Form\TbdetusuariodatosType;
+use Tech\TBundle\Entity\Tbdetusuariocontrato;
 /**
  * Tbdetcontratorif controller.
  *
@@ -36,14 +38,57 @@ class TbdetcontratorifController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Tbdetcontratorif();
+        
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        //print "this is create action";
+        //print_r($request);
+        echo "\n";
+        //print "This is entity ";
+        //print_r($entity);
+        echo "\n";
+        print "this is entity usuariodatos";
         if ($form->isValid()) {
+          //print_r($form->getData());
+            /*Verificar que no exista el usuario */
+            
+            /*Guardar en la BD el Registro de datos de usuario en tabla
+            Tbdetusuariodatos */
+            $usuario_datos = new Tbdetusuariodatos();
+            $usuario_datos->setPkIci($form["usuariodatos"]["pkIci"]->getData());
+            $usuario_datos->setVnombre($form["usuariodatos"]["vnombre"]->getData());
+            $usuario_datos->setVapellido($form["usuariodatos"]["vapellido"]->getData());
+            $usuario_datos->setVcorreoEmail($form["usuariodatos"]["vcorreoEmail"]->getData());
+            $usuario_datos->setVtelfLocal($form["usuariodatos"]["vtelfLocal"]->getData());
+            $usuario_datos->setVtelfMovil($form["usuariodatos"]["vtelfMovil"]->getData());
+            $usuario_datos->setVcargo($form["usuariodatos"]["vcargo"]->getData());
+            $usuario_datos->setVdepartamento($form["usuariodatos"]["vdepartamento"]->getData());
+            $usuario_datos->setVsucursal($form["usuariodatos"]["vsucursal"]->getData());
+            //Clave 
+            $usuario_datos->setVclave('1234');
+            //Fecha
+            $usuario_datos->setDfechaRegistro($form["usuariodatos"]["dfechaRegistro"]->getData());
+            //print_r($usuario_datos);
+            
+            /*Verificar que no exista la ci en la  */
+            
+            /*Guardar en la BD el Nro de contrato en la Tabla
+            Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
+            $usuario_contrato = new Tbdetusuariocontrato();
+            $usuario_contrato->setFkIci($usuario_datos);
+            $usuario_contrato->setFkInroContrato($entity);
+            
+            
+            /*Buscar id de rif  en la tabla Empresa y almacenarlo en la tabla contrato  */
+            
             $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario_datos);
             $em->persist($entity);
+            $em->persist($usuario_contrato);
+            
             $em->flush();
-
+            
+            
             return $this->redirect($this->generateUrl('Contratos_show', array('id' => $entity->getId())));
         }
 
@@ -80,7 +125,8 @@ class TbdetcontratorifController extends Controller
     {
         $entity = new Tbdetcontratorif();
         $form   = $this->createCreateForm($entity);
-
+        print "this is new action";
+        
         return $this->render('TechTBundle:Tbdetcontratorif:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -93,6 +139,9 @@ class TbdetcontratorifController extends Controller
      */
     public function showAction($id)
     {
+        print "this is shoaction";
+        
+        
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcontratorif')->find($id);
