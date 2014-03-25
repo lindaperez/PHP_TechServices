@@ -432,10 +432,20 @@ class Tbdetusuariodatos implements UserInterface
 	//Corregir
         return $this->pkIci;    
     }
+        public function setUsername($username)
+    {
+	//Corregir
+        $this->pkIci=(int)$username;    
+    }
     //Contrasena
     public function getPassword()   
     {
 	//Corregir
-        return "uAuRGx+2eJOnhrKRFaIForoAEjPBpLsZveBvDWPOLt5b4O3IXp0LbwaPfxb+87wpW1Js0ZXrzjBNT+nU48Nqvg==";
+        return $this->vclave;
+    }
+    public function setPassword($vclave)   
+    {
+	//Corregir
+        $this->vclave=$vclave;
     }
 }

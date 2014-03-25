@@ -29,7 +29,7 @@ class TUsersCommand extends ContainerAwareCommand
  
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
  
-        $user = new User();
+        $user = new Tbdetusuariodatos();
         $user->setUsername($username);
         // encode the password
         $factory = $this->getContainer()->get('security.encoder_factory');

@@ -4,6 +4,7 @@ namespace Tech\TBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 use Tech\TBundle\Entity\Tbdetusuariodatos;
 use Tech\TBundle\Entity\Tbdetusuariocontrato;
@@ -18,7 +19,7 @@ use Tech\TBundle\Form\TbdetusuariodatosType;
  */
 class TbdetusuariodatosController extends Controller
 {
-
+  
     /**
      * Lists all Tbdetusuariodatos entities.
      *
@@ -33,6 +34,29 @@ class TbdetusuariodatosController extends Controller
             'entities' => $entities,
         ));
     }
+     protected function makekey()
+     {
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $cad = "";
+        for($i=0;$i<6;$i++) {
+            $cad .= substr($str,rand(0,62),1);
+        }
+        return $cad;
+     }
+      protected function makepassword($username, $password)
+    {
+        $user = new Tbdetusuariodatos();
+        $user->setUsername($username);
+        // encode the password
+        
+        $factory = $this->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($encodedPassword);
+       return $user;
+    }
+    
+    
     /**
      * Creates a new Tbdetusuariodatos entity.
      *
@@ -55,7 +79,16 @@ class TbdetusuariodatosController extends Controller
         }
                 
         if ($form->isValid()) {
-   
+            /*Generacion de calve*/
+            $g_userName = $form["pkIci"]->getData();
+            $g_password = $this->makekey();
+            $g_userInter= new Tbdetusuariodatos();
+            $g_userInter=$this->makepassword($g_userName,$g_password);
+            $entity->setVclave($g_userInter->getPassword());
+            print_r($entity->getVclave());
+            print "clave:: ";
+            print $g_password;
+            
             /*Verificar que no exista el usuario en Tbdetusuariodatos*/
             $em = $this->getDoctrine()->getManager();
             $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
