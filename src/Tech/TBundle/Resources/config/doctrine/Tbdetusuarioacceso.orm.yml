@@ -2,15 +2,16 @@ Tech\TBundle\Entity\Tbdetusuarioacceso:
     type: entity
     table: tbdetUsuarioAcceso
     indexes:
-        CI_UA:
-            columns:
-                - fk_iCI
         ID_ROL_idx_UA:
             columns:
                 - fk_iID_ROL
         ID_ESTATUS_idx_UA:
             columns:
                 - fk_iID_ESTATUS
+    uniqueConstraints:
+        fk_iCI_UNIQUE:
+            columns:
+                - fk_iCI
     id:
         id:
             type: integer

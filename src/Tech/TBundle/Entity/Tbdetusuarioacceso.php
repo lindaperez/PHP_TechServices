@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetusuarioacceso
  *
- * @ORM\Table(name="tbdetUsuarioAcceso", indexes={@ORM\Index(name="CI_UA", columns={"fk_iCI"}), @ORM\Index(name="ID_ROL_idx_UA", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx_UA", columns={"fk_iID_ESTATUS"})})
+ * @ORM\Table(name="tbdetUsuarioAcceso", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})}, indexes={@ORM\Index(name="ID_ROL_idx_UA", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_ESTATUS_idx_UA", columns={"fk_iID_ESTATUS"})})
  * @ORM\Entity
  */
 class Tbdetusuarioacceso

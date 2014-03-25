@@ -3,7 +3,7 @@
 namespace Tech\TBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tech\TBundle\Entity\Tbdetusuariodatos;
+
 /**
  * Tbdetcontratorif
  *
@@ -12,8 +12,6 @@ use Tech\TBundle\Entity\Tbdetusuariodatos;
  */
 class Tbdetcontratorif
 {
-    
-    
     /**
      * @var integer
      *
@@ -102,7 +100,7 @@ class Tbdetcontratorif
       public function __toString()
     {
         return strval($this->pkInroContrato);
-    }
+}
     
     
     }

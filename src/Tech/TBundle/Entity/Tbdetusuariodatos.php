@@ -368,44 +368,6 @@ class Tbdetusuariodatos implements UserInterface
         return $this->dfechaRegistro;
     }
 
-
-//Para implementar los metodos de UserInterfaces
-
-//Returns the roles granted to the user. 
-//Corregir
- public function getRoles()
-    {
-	//Corregir
-        return array('ROLE_ADMIN');
-}
- //Returns the salt that was originally used to encode the password.
-    public function getSalt()
-    {
-        return null;
-    }
- //Removes sensitive data from the user.
-
-    public function eraseCredentials()
-    {
- 
-    }
-//Returns whether or not the given user is equivalent to this user.
-    public function equals(UserInterface $user)
-    {
-        return $user->getUsername() == $this->pkIci;
-    }
-//Usuario Corregir
-    public function getUsername()
-    {
-	//Corregir
-        return $this->pkIci;
-    }
-//Contrasena
-    public function getPassword()
-    {
-	//Corregir
-        return "uAuRGx+2eJOnhrKRFaIForoAEjPBpLsZveBvDWPOLt5b4O3IXp0LbwaPfxb+87wpW1Js0ZXrzjBNT+nU48Nqvg==";
-    }
 //to string method   
     public function __toString()
     {
@@ -437,5 +399,43 @@ class Tbdetusuariodatos implements UserInterface
     {
         $this->usuarioacceso = $usuarioacceso;
     }
-    
+ 
+
+//Para implementar los metodos de UserInterfaces
+
+//Returns the roles granted to the user. 
+//Corregir
+ public function getRoles()
+    {
+	//Corregir
+        return array('ROLE_ADMIN');
+}
+ //Returns the salt that was originally used to encode the password.
+    public function getSalt()
+    {
+        return null;
     }
+ //Removes sensitive data from the user.
+
+    public function eraseCredentials()
+    {
+        
+    }
+//Returns whether or not the given user is equivalent to this user.
+    public function equals(UserInterface $user)
+    {
+        return $user->getUsername() == $this->pkIci;
+    }
+//Usuario Corregir
+    public function getUsername()
+    {
+	//Corregir
+        return $this->pkIci;    
+    }
+    //Contrasena
+    public function getPassword()   
+    {
+	//Corregir
+        return "uAuRGx+2eJOnhrKRFaIForoAEjPBpLsZveBvDWPOLt5b4O3IXp0LbwaPfxb+87wpW1Js0ZXrzjBNT+nU48Nqvg==";
+    }
+}

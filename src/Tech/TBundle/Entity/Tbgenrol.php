@@ -101,7 +101,7 @@ class Tbgenrol
 
     return $this->vdescripcion;
 
-    }
+}
 
     
 }
