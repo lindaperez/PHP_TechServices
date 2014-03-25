@@ -18,7 +18,7 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
         pkIci:
             type: integer
             nullable: false
-            unsigned: true
+            unsigned: false
             comment: ''
             column: pk_iCI
         vnombre:

@@ -79,15 +79,8 @@ class TbdetusuariodatosController extends Controller
         }
                 
         if ($form->isValid()) {
-            /*Generacion de calve*/
-            $g_userName = $form["pkIci"]->getData();
-            $g_password = $this->makekey();
-            $g_userInter= new Tbdetusuariodatos();
-            $g_userInter=$this->makepassword($g_userName,$g_password);
-            $entity->setVclave($g_userInter->getPassword());
-            print_r($entity->getVclave());
-            print "clave:: ";
-            print $g_password;
+            
+            
             
             /*Verificar que no exista el usuario en Tbdetusuariodatos*/
             $em = $this->getDoctrine()->getManager();
@@ -202,7 +195,17 @@ class TbdetusuariodatosController extends Controller
     {
         $entity = new Tbdetusuariodatos();
         $form   = $this->createCreateForm($entity);
-
+        /*Generacion de calve*/
+            $g_userName = $form["pkIci"]->getData();
+            $g_password = $this->makekey();
+            $g_userInter= new Tbdetusuariodatos();
+            $g_userInter=$this->makepassword($g_userName,$g_password);
+            //$entity->setVclave($g_userInter);
+            $form["vclave"]->setData($g_userInter->getVclave());
+            print "clave:: ";
+            print_r ($g_password);
+            print_r( $form["vclave"]->getData());
+            print "finclave ";
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
