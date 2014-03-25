@@ -13,8 +13,7 @@ use Tech\TBundle\Entity\Tbdetusuariodatos;
 class Tbdetcontratorif
 {
     
-    protected $usuariodatos;
-    protected $usuarioacceso;
+    
     /**
      * @var integer
      *
@@ -99,31 +98,7 @@ class Tbdetcontratorif
         return $this->fkIrif;
     }
 
- 
-    // ...
- 
-    public function getUsuariodatos()
-    {
-        return $this->usuariodatos;
-    }
- 
-    public function setUsuariodatos(Tbdetusuariodatos $usuariodatos = null)
-    {
-        $this->usuariodatos = $usuariodatos;
-    }
-    
-    // ...
- 
-    public function getUsuarioacceso()
-    {
-        return $this->usuarioacceso;
-    }
- 
-    public function setUsuarioacceso(Tbdetusuarioacceso $usuarioacceso = null)
-    {
-        $this->usuarioacceso = $usuarioacceso;
-    }
-    
+
       public function __toString()
     {
         return strval($this->pkInroContrato);

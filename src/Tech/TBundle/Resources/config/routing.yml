@@ -5,7 +5,7 @@ tech_t_homepage:
 
 TechTBundle_Registro:
     resource: "@TechTBundle/Resources/config/routing/tbdetusuariodatos.yml"
-    prefix:   /UsuarioDatos
+    prefix:   /Registro
 
 TechTBundle_Roles:
     resource: "@TechTBundle/Resources/config/routing/tbgenrol.yml"
@@ -49,7 +49,7 @@ TechTBundle_Empresa:
 
 TechTBundle_Contratos:
     resource: "@TechTBundle/Resources/config/routing/tbdetcontratorif.yml"
-    prefix:   /Registro
+    prefix:   /Contratos
 
 
 TechTBundle_UsuariosContratos:

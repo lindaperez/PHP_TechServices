@@ -9,11 +9,14 @@ use Tech\TBundle\Entity\Tbdetusuarioacceso;
 /**
  * Tbdetusuariodatos
  *
- * @ORM\Table(name="tbdetUsuarioDatos", uniqueConstraints={@ORM\UniqueConstraint(name="pk_icedula_UNIQUE", columns={"pk_iCI"})})
+ * @ORM\Table(name="tbdetUsuarioDatos", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iCI_UNIQUE", columns={"pk_iCI"})})
  * @ORM\Entity
  */
 class Tbdetusuariodatos implements UserInterface
 {
+    
+    protected $contratorif;
+    protected $usuarioacceso;
     /**
      * @var integer
      *
@@ -410,5 +413,29 @@ class Tbdetusuariodatos implements UserInterface
     return strval($this->pkIci);
 
 }
-
+ 
+    // ...
+ 
+    public function getContratorif()
+    {
+        return $this->contratorif;
+    }
+ 
+    public function setContratorif(Tbdetcontratorif $contratorif = null)
+    {
+        $this->contratorif = $contratorif;
+    }
+    
+    // ...
+ 
+    public function getUsuarioacceso()
+    {
+        return $this->usuarioacceso;
+    }
+ 
+    public function setUsuarioacceso(Tbdetusuarioacceso $usuarioacceso = null)
+    {
+        $this->usuarioacceso = $usuarioacceso;
+    }
+    
     }

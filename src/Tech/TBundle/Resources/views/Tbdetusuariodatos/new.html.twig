@@ -3,7 +3,32 @@
 {% block body -%}
     <h1>Tbdetusuariodatos creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+        {{ form_row(form.pkIci, {'label': 'Cedula:'}) }}
+        {{ form_row(form.vnombre,  {'label': 'Nombre:'}) }}
+        {{ form_row(form.vapellido,  {'label': 'Apellido'}) }}
+        {{ form_row(form.vcorreoEmail,  {'label': 'Correo:'}) }}
+        {{ form_row(form.vtelfLocal,  {'label': 'Telefono Local'}) }}
+        {{ form_row(form.vtelfMovil,  {'label': 'Telefono Movil'}) }}
+        {{ form_row(form.vcargo,  {'label': 'Cargo'}) }}
+        {{ form_row(form.vdepartamento,  {'label': 'Departamento'}) }}
+        {{ form_row(form.vsucursal, {'label': 'Sucursal'}) }}
+        {{ form_row(form.contratorif.pkInroContrato,  {'label': 'NRO-Contrato'}) }}    
+        {{ form_row(form.contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}
+        {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
+        
+        {{ form_row(form.submit, { 'label': 'Registrar' }) }}
+    <!--Campos ocultos -->
+    <div style="display: none;">
+        {{ form_row(form.usuarioacceso.fkIci) }}
+        {{ form_row(form.usuarioacceso.fkIidEstatus) }}
+        {{ form_row(form.vclave) }}
+        {{ form_row(form.dfechaRegistro, { 'attr':{'disabled':'disabled'} }) }}
+    
+    </div>
+   {{ form_end(form) }}     
+        
 
         <ul class="record_actions">
     <li>

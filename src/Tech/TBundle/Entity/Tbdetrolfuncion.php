@@ -22,16 +22,6 @@ class Tbdetrolfuncion
     private $id;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbgenfuncion
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenfuncion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_FUNCION", referencedColumnName="id")
-     * })
-     */
-    private $fkIidFuncion;
-
-    /**
      * @var \Tech\TBundle\Entity\Tbgenrol
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
@@ -40,6 +30,16 @@ class Tbdetrolfuncion
      * })
      */
     private $fkIidRol;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbgenfuncion
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenfuncion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_FUNCION", referencedColumnName="id")
+     * })
+     */
+    private $fkIidFuncion;
 
 
 
@@ -51,29 +51,6 @@ class Tbdetrolfuncion
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set fkIidFuncion
-     *
-     * @param \Tech\TBundle\Entity\Tbgenfuncion $fkIidFuncion
-     * @return Tbdetrolfuncion
-     */
-    public function setFkIidFuncion(\Tech\TBundle\Entity\Tbgenfuncion $fkIidFuncion = null)
-    {
-        $this->fkIidFuncion = $fkIidFuncion;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidFuncion
-     *
-     * @return \Tech\TBundle\Entity\Tbgenfuncion 
-     */
-    public function getFkIidFuncion()
-    {
-        return $this->fkIidFuncion;
     }
 
     /**
@@ -97,5 +74,28 @@ class Tbdetrolfuncion
     public function getFkIidRol()
     {
         return $this->fkIidRol;
+    }
+
+    /**
+     * Set fkIidFuncion
+     *
+     * @param \Tech\TBundle\Entity\Tbgenfuncion $fkIidFuncion
+     * @return Tbdetrolfuncion
+     */
+    public function setFkIidFuncion(\Tech\TBundle\Entity\Tbgenfuncion $fkIidFuncion = null)
+    {
+        $this->fkIidFuncion = $fkIidFuncion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidFuncion
+     *
+     * @return \Tech\TBundle\Entity\Tbgenfuncion 
+     */
+    public function getFkIidFuncion()
+    {
+        return $this->fkIidFuncion;
     }
 }

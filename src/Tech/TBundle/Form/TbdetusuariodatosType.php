@@ -5,6 +5,8 @@ namespace Tech\TBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tech\TBundle\Form\TbdetcontratorifType;
+use Tech\TBundle\Form\TbdetusuarioaccesoType;
 
 class TbdetusuariodatosType extends AbstractType
 {
@@ -26,6 +28,8 @@ class TbdetusuariodatosType extends AbstractType
             ->add('vsucursal')
             ->add('vclave')
             ->add('dfechaRegistro')
+            ->add('contratorif', new TbdetcontratorifType())
+            ->add('usuarioacceso', new TbdetusuarioaccesoType())
         ;
     }
     
@@ -35,7 +39,8 @@ class TbdetusuariodatosType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetusuariodatos'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetusuariodatos',
+            'cascade_validation' => true,
         ));
     }
 

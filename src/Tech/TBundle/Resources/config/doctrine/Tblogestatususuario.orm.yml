@@ -24,15 +24,6 @@ Tech\TBundle\Entity\Tblogestatususuario:
             comment: ''
             column: dFECHA_CAMBIO
     manyToOne:
-        fkIci:
-            targetEntity: Tbdetusuariodatos
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iCI:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidEstatus:
             targetEntity: Tbgenestatusregistrousu
             cascade: {  }
@@ -40,6 +31,15 @@ Tech\TBundle\Entity\Tblogestatususuario:
             inversedBy: null
             joinColumns:
                 fk_iID_ESTATUS:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIci:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCI:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -22,6 +22,16 @@ class Tbdetusuarioacceso
     private $id;
 
     /**
+     * @var \Tech\TBundle\Entity\Tbgenrol
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
+     * })
+     */
+    private $fkIidRol;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetusuariodatos
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
@@ -41,16 +51,6 @@ class Tbdetusuarioacceso
      */
     private $fkIidEstatus;
 
-    /**
-     * @var \Tech\TBundle\Entity\Tbgenrol
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenrol")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ROL", referencedColumnName="id")
-     * })
-     */
-    private $fkIidRol;
-
 
 
     /**
@@ -61,6 +61,29 @@ class Tbdetusuarioacceso
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set fkIidRol
+     *
+     * @param \Tech\TBundle\Entity\Tbgenrol $fkIidRol
+     * @return Tbdetusuarioacceso
+     */
+    public function setFkIidRol(\Tech\TBundle\Entity\Tbgenrol $fkIidRol = null)
+    {
+        $this->fkIidRol = $fkIidRol;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidRol
+     *
+     * @return \Tech\TBundle\Entity\Tbgenrol 
+     */
+    public function getFkIidRol()
+    {
+        return $this->fkIidRol;
     }
 
     /**
@@ -107,28 +130,5 @@ class Tbdetusuarioacceso
     public function getFkIidEstatus()
     {
         return $this->fkIidEstatus;
-    }
-
-    /**
-     * Set fkIidRol
-     *
-     * @param \Tech\TBundle\Entity\Tbgenrol $fkIidRol
-     * @return Tbdetusuarioacceso
-     */
-    public function setFkIidRol(\Tech\TBundle\Entity\Tbgenrol $fkIidRol = null)
-    {
-        $this->fkIidRol = $fkIidRol;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidRol
-     *
-     * @return \Tech\TBundle\Entity\Tbgenrol 
-     */
-    public function getFkIidRol()
-    {
-        return $this->fkIidRol;
     }
 }

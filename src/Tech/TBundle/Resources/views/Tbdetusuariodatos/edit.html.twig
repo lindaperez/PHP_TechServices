@@ -3,7 +3,33 @@
 {% block body -%}
     <h1>Tbdetusuariodatos edit</h1>
 
-    {{ form(edit_form) }}
+    
+
+    {{ form_start(edit_form) }}
+    {{ form_errors(edit_form) }}
+        {{ form_row(edit_form.pkIci, {'label': 'Cedula:'}) }}
+        {{ form_row(edit_form.vnombre,  {'label': 'Nombre:'}) }}
+        {{ form_row(edit_form.vapellido,  {'label': 'Apellido'}) }}
+        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:'}) }}
+        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telefono Local'}) }}
+        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telefono Movil'}) }}
+        {{ form_row(edit_form.vcargo,  {'label': 'Cargo'}) }}
+        {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento'}) }}
+        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal'}) }}
+        {{ form_row(edit_form.contratorif.pkInroContrato,  {'label': 'NRO-Contrato'}) }}    
+        {{ form_row(edit_form.contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}
+        {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
+        
+        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
+    <!--Campos ocultos -->
+    <div style="display: none;">
+        {{ form_row(edit_form.usuarioacceso.fkIci) }}
+        {{ form_row(edit_form.usuarioacceso.fkIidEstatus) }}
+        {{ form_row(edit_form.vclave) }}
+        {{ form_row(edit_form.dfechaRegistro, { 'attr':{'disabled':'disabled'} }) }}
+    
+    </div>
+   {{ form_end(edit_form) }}     
 
         <ul class="record_actions">
     <li>

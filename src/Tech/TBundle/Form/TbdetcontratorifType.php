@@ -17,10 +17,9 @@ class TbdetcontratorifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('usuariodatos', new TbdetusuariodatosType())
             ->add('pkInroContrato')
             ->add('fkIrif')
-            ->add('usuarioacceso', new TbdetusuarioaccesoType())
+            
         ;
     }
     
@@ -30,8 +29,8 @@ class TbdetcontratorifType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif',
-            'cascade_validation' => true,
+            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif'
+            
         ));
     }
 

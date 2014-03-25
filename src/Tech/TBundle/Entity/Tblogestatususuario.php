@@ -29,16 +29,6 @@ class Tblogestatususuario
     private $dfechaCambio;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetusuariodatos
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
-     * })
-     */
-    private $fkIci;
-
-    /**
      * @var \Tech\TBundle\Entity\Tbgenestatusregistrousu
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatusregistrousu")
@@ -47,6 +37,16 @@ class Tblogestatususuario
      * })
      */
     private $fkIidEstatus;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetusuariodatos
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iCI", referencedColumnName="id")
+     * })
+     */
+    private $fkIci;
 
 
 
@@ -84,29 +84,6 @@ class Tblogestatususuario
     }
 
     /**
-     * Set fkIci
-     *
-     * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIci
-     * @return Tblogestatususuario
-     */
-    public function setFkIci(\Tech\TBundle\Entity\Tbdetusuariodatos $fkIci = null)
-    {
-        $this->fkIci = $fkIci;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIci
-     *
-     * @return \Tech\TBundle\Entity\Tbdetusuariodatos 
-     */
-    public function getFkIci()
-    {
-        return $this->fkIci;
-    }
-
-    /**
      * Set fkIidEstatus
      *
      * @param \Tech\TBundle\Entity\Tbgenestatusregistrousu $fkIidEstatus
@@ -127,5 +104,28 @@ class Tblogestatususuario
     public function getFkIidEstatus()
     {
         return $this->fkIidEstatus;
+    }
+
+    /**
+     * Set fkIci
+     *
+     * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIci
+     * @return Tblogestatususuario
+     */
+    public function setFkIci(\Tech\TBundle\Entity\Tbdetusuariodatos $fkIci = null)
+    {
+        $this->fkIci = $fkIci;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIci
+     *
+     * @return \Tech\TBundle\Entity\Tbdetusuariodatos 
+     */
+    public function getFkIci()
+    {
+        return $this->fkIci;
     }
 }
