@@ -1,10 +1,11 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tbdetusuariodatos edit</h1>
-
-    
-
+    <h1>Edicion de Registro de Usuario</h1>
+<br>
+<br>
+<h2>Datos Personales</h2>
+<br>
     {{ form_start(edit_form) }}
     {{ form_errors(edit_form) }}
         {{ form_row(edit_form.pkIci, {'label': 'Cedula:'}) }}
@@ -16,27 +17,37 @@
         {{ form_row(edit_form.vcargo,  {'label': 'Cargo'}) }}
         {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento'}) }}
         {{ form_row(edit_form.vsucursal, {'label': 'Sucursal'}) }}
-        {{ form_row(edit_form.contratorif.pkInroContrato,  {'label': 'NRO-Contrato'}) }}    
-        {{ form_row(edit_form.contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}
-        {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
         
-        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
+<br>
+<h2>Contratos </h2>    
+<br>
+        {{ form_row(edit_form.contratorif.pkInroContrato,  {'label': 'NRO-Contrato'}) }}  
+        {{ form_row(edit_form.contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}
+<br>
+<h2>Sistema </h2>            
+<br>            
+     {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus Actual'}) }}
+       {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
+
+<br>
     <!--Campos ocultos -->
     <div style="display: none;">
         {{ form_row(edit_form.usuarioacceso.fkIci) }}
-        {{ form_row(edit_form.usuarioacceso.fkIidEstatus) }}
+   
         {{ form_row(edit_form.vclave) }}
         {{ form_row(edit_form.dfechaRegistro) }}
-    
     </div>
-   {{ form_end(edit_form) }}     
+        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        {{ form_end(edit_form) }}     
 
         <ul class="record_actions">
-    <li>
+   
+    <li></li>
+     <li>
         <a href="{{ path('Registro') }}">
-            Back to the list
+            Volver a Lista de Usuarios Registrados
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

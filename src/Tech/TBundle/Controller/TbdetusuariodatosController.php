@@ -204,6 +204,7 @@ class TbdetusuariodatosController extends Controller
             $form["vclave"]->setData($g_userInter->getVclave());
             print "clave:: ";
             print_r ($g_password);
+            print " ";
             print_r( $form["vclave"]->getData());
             print "finclave ";
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(

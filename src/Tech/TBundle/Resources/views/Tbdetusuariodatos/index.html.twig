@@ -1,24 +1,25 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Tbdetusuariodatos list</h1>
-
+    <h1>Lista de Usuarios Registrados</h1>
+<br><br>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Pkici</th>
-                <th>Vnombre</th>
-                <th>Vapellido</th>
-                <th>Vcorreoemail</th>
-                <th>Vtelflocal</th>
-                <th>Vtelfmovil</th>
-                <th>Vcargo</th>
-                <th>Vdepartamento</th>
-                <th>Vsucursal</th>
-                <th>Vclave</th>
-                <th>Dfecharegistro</th>
-                <th>Actions</th>
+                <th>Id.</th>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Telefono Local</th>
+                <th>Telefono Movil</th>
+                <th>Cargo</th>
+                <th>Departamento</th>
+                <th>Sucursal</th>
+                <th>Rol</th>
+                <th>Estatus Actual</th>
+                <th>Fecha de Registro</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -34,15 +35,16 @@
                 <td>{{ entity.vcargo }}</td>
                 <td>{{ entity.vdepartamento }}</td>
                 <td>{{ entity.vsucursal }}</td>
-                <td>{{ entity.vclave }}</td>
+                <td>"Aqui va el Rol"</td>
+                <td>"Aqui va el Estatus actual"</td>
                 <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Registro_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('Registro_show', { 'id': entity.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>

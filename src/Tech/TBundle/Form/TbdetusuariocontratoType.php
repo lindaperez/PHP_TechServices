@@ -17,7 +17,7 @@ class TbdetusuariocontratoType extends AbstractType
         $builder
             ->add('fkIci')
             ->add('fkInroContrato')
-        ;
+                ;
     }
     
     /**

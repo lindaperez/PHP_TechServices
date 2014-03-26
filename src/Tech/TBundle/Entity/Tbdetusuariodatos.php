@@ -92,7 +92,7 @@ class Tbdetusuariodatos implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="vCLAVE", type="string", length=6, nullable=true)
+     * @ORM\Column(name="vCLAVE", type="string", length=120, nullable=false)
      */
     private $vclave;
 

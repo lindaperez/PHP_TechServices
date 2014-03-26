@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tbdetusuariocontrato
 {
+    
     /**
      * @var integer
      *

@@ -79,8 +79,8 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
             column: vSUCURSAL
         vclave:
             type: string
-            nullable: true
-            length: 6
+            nullable: false
+            length: 120
             fixed: false
             comment: ''
             column: vCLAVE
