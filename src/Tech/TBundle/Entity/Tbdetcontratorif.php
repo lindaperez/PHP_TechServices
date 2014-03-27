@@ -3,6 +3,7 @@
 namespace Tech\TBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tbdetcontratorif
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tbdetcontratorif
 {
+    protected $usuariodatos;
     /**
      * @var integer
      *
@@ -38,7 +40,18 @@ class Tbdetcontratorif
      */
     private $fkIrif;
 
-
+    public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
+    {
+        if ($this->usuariodatos==null){
+            $this->usuariodatos=new ArrayCollection();
+            $this->usuariodatos->add($usuariodatos);
+        }else{
+                if (!$this->usuariodatos->contains($usuariodatos)) {
+                
+                    $this->usuariodatos->add($usuariodatos);
+                }
+            }
+    }    
 
     /**
      * Get id

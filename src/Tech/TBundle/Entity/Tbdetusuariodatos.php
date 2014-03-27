@@ -5,7 +5,7 @@ namespace Tech\TBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tech\TBundle\Entity\Tbdetusuarioacceso;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbdetusuariodatos
  *
@@ -14,9 +14,39 @@ use Tech\TBundle\Entity\Tbdetusuarioacceso;
  */
 class Tbdetusuariodatos implements UserInterface
 {
-    
-    protected $contratorif;
+    /**
+    * @ORM\ManyToMany(targetEntity="Tbdetcontratorif", cascade={"persist"})
+    */
+    protected $contratos;
     protected $usuarioacceso;
+    
+      public function __construct()
+    {
+        $this->contratos = new ArrayCollection();
+    }
+    public function getContratos()
+    {
+        return $this->contratos;
+    }
+    
+    public function addContrato(Tbdetcontratorif $contrato)
+    {
+        $contrato->addUsuarioDatos($this);
+        if ($this->contratos==null){
+            
+           $this->contratos=new ArrayCollection();
+        }
+        $this->contratos->add($contrato);
+    }
+
+    public function removeContrato(Tbdetcontratorif $contrato)
+    {
+        if ($this->contratos!=null){
+         $this->contratos->removeElement($contrato);
+    
+        }
+    }
+    
     /**
      * @var integer
      *

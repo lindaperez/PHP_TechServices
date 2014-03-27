@@ -4,7 +4,7 @@ namespace Tech\TBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Tech\TBundle\Entity\Tbdetusuariodatos;
 use Tech\TBundle\Entity\Tbdetusuariocontrato;
@@ -67,9 +67,8 @@ class TbdetusuariodatosController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         //Verificacion de campos vacios 
-        
-       if ( $form["contratorif"]["pkInroContrato"]->getData()==null ||
-        $form["contratorif"]["fkIrif"]->getData()==null ||
+       if ( $form["contratos"][0]["pkInroContrato"]->getData()==null ||
+        $form["contratos"][0]["fkIrif"]->getData()==null ||
         $form["usuarioacceso"]["fkIidRol"]->getData()==null ){
            print "Recuerde que ningun campo debe estar vacio";
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
@@ -77,54 +76,36 @@ class TbdetusuariodatosController extends Controller
             'form'   => $form->createView(),
         ));   
         }
-                
-        if ($form->isValid()) {
-            
-            
-            
+        
+        if ($form->isValid()) {         
             /*Verificar que no exista el usuario en Tbdetusuariodatos*/
             $em = $this->getDoctrine()->getManager();
             $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                    ->findOneBy(array('pkIci' => $form["pkIci"]->getData()));
-            
-            /*Verificar que no exista esa contrato para esa cedula en Tbdetusuariocontrato
-             * y rif especifico */
-            $existe_usuacontrif= new Tbdetcontratorif();
+            /*Verificar que no exista esa contrato para esa cedula y rif  
+             * en Tbdetusuariocontrato */
             $existe_usuacontrif = $em->getRepository('TechTBundle:Tbdetcontratorif')
              ->findOneBy(array("pkInroContrato" 
-                 => $form["contratorif"]["pkInroContrato"]->getData(),"fkIrif"
-                 => $form["contratorif"]["fkIrif"]->getData() )); 
-            
-            
-            
+                 => $form["contratos"][0]["pkInroContrato"]->getData(),"fkIrif"
+                 => $form["contratos"][0]["fkIrif"]->getData() )); 
             //Coinciden estos con la cedula
-           
             $existe_usuacont = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                    ->findOneBy(array('fkIci' 
                        => $existe_usuario,'fkInroContrato' => $existe_usuacontrif ));
-            
             if ($existe_usuacont!=null){
-             
-              print "Ya se habia registrado con este contrato y rif. ";
-              
-            return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
+                print "Ya se habia registrado con este contrato y rif. ";
+                return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
                     'entity' => $entity,
                     'form'   => $form->createView(),
                 ));
-                
             }
-            /*
-            //Los campos rif y contrato no puedes ser null al introducirlo.
-            print_r ($form["pkIci"]->getData());
-            print_r ($form["contratorif"]["pkInroContrato"]->getData());
-            */
+            /*Los campos rif y contrato no puedes ser null al introducirlo.*/
             if($existe_usuario == null &&  $existe_usuacontrif==null){
-                
             /*Guardar en la BD el Registro de datos de contrato y rif en tabla
             Tbdetusuariodatos */   
             $usuario_contratorif = new Tbdetcontratorif();
-            $usuario_contratorif->setFkIrif($form["contratorif"]["fkIrif"]->getData());
-            $usuario_contratorif->setPkInroContrato($form["contratorif"]["pkInroContrato"]->getData());
+            $usuario_contratorif->setFkIrif($form["contratos"][0]["fkIrif"]->getData());
+            $usuario_contratorif->setPkInroContrato($form["contratos"][0]["pkInroContrato"]->getData());
             /*Guardar en la BD el Nro de contrato en la Tabla
             Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
             $usuario_contrato = new Tbdetusuariocontrato();
@@ -193,20 +174,23 @@ class TbdetusuariodatosController extends Controller
      */
     public function newAction()
     {
-        $entity = new Tbdetusuariodatos();
-        $form   = $this->createCreateForm($entity);
+        $entity = new Tbdetusuariodatos();    
         /*Generacion de calve*/
-            $g_userName = $form["pkIci"]->getData();
-            $g_password = $this->makekey();
-            $g_userInter= new Tbdetusuariodatos();
-            $g_userInter=$this->makepassword($g_userName,$g_password);
-            //$entity->setVclave($g_userInter);
-            $form["vclave"]->setData($g_userInter->getVclave());
-            print "clave:: ";
-            print_r ($g_password);
-            print " ";
-            print_r( $form["vclave"]->getData());
-            print "finclave ";
+        $g_userName = $entity->getPkIci();
+        $g_password = $this->makekey();
+        $g_userInter=$this->makepassword($g_userName,$g_password);
+        //$entity->setVclave($g_userInter);
+        $entity->setVclave($g_userInter->getVclave());
+        print "clave:: ";
+        print_r ($g_password);
+        print " ";
+        print_r( $entity->getVclave());
+        print "finclave ";
+        $contrato_registro = new Tbdetcontratorif();
+        $entity->getContratos()->add($contrato_registro);
+        $form   = $this->createCreateForm($entity);
+        //print_r($form['contratos']->getData());
+            
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -214,7 +198,7 @@ class TbdetusuariodatosController extends Controller
     }
 
     /**
-     * Finds and displays a Tbdetusuariodatos entity.
+     * Finds and displays a Tbdetusuariodatos entit y.
      *
      */
     public function showAction($id)
@@ -243,23 +227,30 @@ class TbdetusuariodatosController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
-
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);        
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetusuariodatos entity.');
         }
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        
+        //Buscar la lista de nros de contrato 
+        $usuario_contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                ->findBy(array('fkIci' => $entity));
+        
+        foreach ($usuario_contratos as &$contrato) {
+            $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
+                ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
+            $entity->addContrato($contrato_rif);
+        }
         
         
-        print "this is edit form";
+        $estatus_registro = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                   ->findOneBy(array('fkIci' => $entity));
         
-        //Buscar el Rol asociado a la cedula
-        $estatus_registro= new Tbgenestatusregistrousu();
-        $estatus_registro = $em->getRepository('TechTBundle:Tbgenestatusregistrousu')
-                   ->findOneBy(array('id' => '1'));
         if ($estatus_registro==null){
             
-            print "Debe existir un Estado Incial para editar el Registro del usuario. LLenar catalogo de EstatusUsuarios";
+            print "No posee estado asociado";
             return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
                 'entity'      => $entity,
                 'edit_form'   => $editForm->createView(),
@@ -267,28 +258,9 @@ class TbdetusuariodatosController extends Controller
             ));
             
         }
-        $usuario_rol= new Tbdetusuarioacceso();
-        $usuario_rol = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
-                ->findOneBy(array('fkIci' => $entity,'fkIidEstatus' => $estatus_registro ));
-        
-        
-        if ($usuario_rol==null){
-            print "no existe rol para la cedula introducida";
-            return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            ));       
-        }else{
-            
-            $editForm['usuarioacceso']['fkIidRol']->setData($usuario_rol->getFkIidRol());
-            
-        }
-        //Buscar la lista de nros de contrato 
-        
-        //Buscar la lista de rif 
-        
-        //Set edit form
+        $entity->setUsuarioacceso($estatus_registro);
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);        
         
         return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
             'entity'      => $entity,
