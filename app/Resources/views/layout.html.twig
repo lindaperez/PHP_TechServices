@@ -8,10 +8,6 @@
 {% block title 'Login' %}
 
 {% block body %}
-        {% block javascripts %}
-            <script src="{{ asset('bundles/techt/js/jquery-2.1.0.js') }}"></script>
-                <script src="http://code.jquery.com/jquery-latest.min.js"></script>       
-        {% endblock %}
     {% for flashMessage in app.session.flashbag.get('notice') %}
         <div class="flash-message">
             <em>Notice</em>: {{ flashMessage }}

@@ -306,7 +306,29 @@ class TbdetusuariodatosController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
+            //Actualizar Estatus y Rol
+            $usuario_acceso=$entity->getUsuarioacceso();
+            //Actualizar Contratos Existentes
+            //$entity = new Tbdetcontratorif();
+            //$entity = new Tbdetusuariodatos();
+            $usuario_contratos=$entity->getContratos();
+            
+            foreach ($usuario_contratos as &$contrato) {
+                $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
+                    ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
+                $entity->addContrato($contrato_rif);
+            }
+        
+        $usuario_contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                ->findBy(array('fkIci' => $entity));
+        
+            return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+                $em->persist($usuario_acceso);
+                $em->flush();
 
             return $this->redirect($this->generateUrl('Registro_edit', array('id' => $id)));
         }
