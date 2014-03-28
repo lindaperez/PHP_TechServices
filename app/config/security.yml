@@ -3,9 +3,10 @@ security:
         Tech\TBundle\Entity\Tbdetusuariodatos: sha512
    
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_USER:  ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
+          
     providers:
         main:
             entity: { class: Tech\TBundle\Entity\Tbdetusuariodatos, property: pkIci} 
@@ -19,9 +20,10 @@ security:
                 provider: main
                 check_path: /login_check
                 login_path: /login
+
             logout:
-                path:   /logout
-                target: /
+                path: /logout
+                target: /index
             anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
@@ -29,3 +31,17 @@ security:
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
          - {path: ^/admin, roles: ROLE_ADMIN}
+         - {path: /Registro, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Contratos, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Roles, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /TiposRoles, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Funciones, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Parametros, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /EstatusUsuarios, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /UsuarioAcceso, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /RolesFunciones, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /ReporteLogin, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Empresa, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Contratos, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /UsuariosContratos, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /RegistroEstatus, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}

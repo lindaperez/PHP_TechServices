@@ -19,6 +19,7 @@ class TbdetcontratorifType extends AbstractType
         $builder
             ->add('pkInroContrato')
             ->add('fkIrif')
+            ->add('vdireccionFiscal','text',array('label' => 'Dir-Fiscal: ','required' => false))
             
         ;
     }

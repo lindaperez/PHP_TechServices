@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
+{% block content %}
     <h1>Lista de Usuarios Registrados</h1>
 <br><br>
     <table class="records_list">
@@ -10,15 +10,12 @@
                 <th>Cedula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Correo</th>
-                <th>Telefono Local</th>
-                <th>Telefono Movil</th>
                 <th>Cargo</th>
-                <th>Departamento</th>
                 <th>Sucursal</th>
-                <th>Rol</th>
+                <th>Contratos</th>
                 <th>Estatus Actual</th>
                 <th>Fecha de Registro</th>
+                <th>Rol Sistema</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -29,15 +26,16 @@
                 <td>{{ entity.pkIci }}</td>
                 <td>{{ entity.vnombre }}</td>
                 <td>{{ entity.vapellido }}</td>
-                <td>{{ entity.vcorreoEmail }}</td>
-                <td>{{ entity.vtelfLocal }}</td>
-                <td>{{ entity.vtelfMovil }}</td>
                 <td>{{ entity.vcargo }}</td>
-                <td>{{ entity.vdepartamento }}</td>
                 <td>{{ entity.vsucursal }}</td>
-                <td>"Aqui va el Rol"</td>
-                <td>"Aqui va el Estatus actual"</td>
-                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% for contrato in entity.contratos  %}
+                      
+                    <a href="{{ path('Contratos_show', { 'id': contrato.fkInroContrato.id }) }}">{{ contrato.fkInroContrato.pkInroContrato }}</a>
+                   {% endfor %}
+                </td>
+                <td>{{ entity.usuarioacceso.fkIidEstatus }}</td>
+                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d-m-Y H:i') }}{% endif %}</td>
+                <td>{{ entity.usuarioacceso.fkIidRol }}</td>
                 <td>
                 <ul>
                     <li>

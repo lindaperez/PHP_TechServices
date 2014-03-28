@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Tbdetcontratorif
 {
+    protected $vdireccionFiscal;
     protected $usuariodatos;
     /**
      * @var integer
@@ -39,7 +40,14 @@ class Tbdetcontratorif
      * })
      */
     private $fkIrif;
-
+    public function getVdireccionFiscal()
+    {
+        return $this->vdireccionFiscal;
+    }
+    public function setVdireccionFiscal($vdireccionFiscal)
+    {
+        $this->vdireccionFiscal=$vdireccionFiscal;
+    }
     public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
     {
         if ($this->usuariodatos==null){

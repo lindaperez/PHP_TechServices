@@ -28,12 +28,15 @@ class TbdetusuariodatosType extends AbstractType
             ->add('vsucursal')
             ->add('vclave')
             ->add('dfechaRegistro')
+            ->add('vrif','text',array('label' => 'form.name','required' => false))
             ->add('contratos','collection',
                     array('type'=> new TbdetcontratorifType(),
                     'allow_add' => true, 
                     'allow_delete' => true,
-                    'by_reference' => false ))
+                    'by_reference' => false))
             ->add('usuarioacceso', new TbdetusuarioaccesoType())
+            ->add('usuariocontrato', new TbdetusuarioaccesoType())
+            
 
         ;
     }

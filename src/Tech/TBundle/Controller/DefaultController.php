@@ -7,9 +7,9 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('TechTBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('TechTBundle:Default:index.html.twig');
     }
  
 
@@ -25,8 +25,6 @@ class DefaultController extends Controller
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
- 
-        
         
         return $this->render('TechTBundle:Default:login.html.twig', array(
             // last username entered by the user

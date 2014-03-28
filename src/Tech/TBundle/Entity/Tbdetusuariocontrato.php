@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tbdetusuariocontrato
 {
-    
+ 
     /**
      * @var integer
      *
@@ -41,7 +41,6 @@ class Tbdetusuariocontrato
      * })
      */
     private $fkInroContrato;
-
 
 
     /**

@@ -1,8 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetcontratorif</h1>
-
+{% block content -%}
+    <h1>Contrato </h1>
+<br><br>
     <table class="record_properties">
         <tbody>
             <tr>
@@ -10,13 +10,13 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Pkinrocontrato</th>
+                <th>Nro-Contrato</th>
                 <td>{{ entity.pkInroContrato }}</td>
                 
             </tr>
         </tbody>
     </table>
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Contratos') }}">
@@ -28,13 +28,11 @@
             Edit
         </a>
     </li>
+    
     <li>{{ form(delete_form) }}</li>
     
 </ul>
     {# ... #}
- 
-    <h3>Datos Usuario</h3>
-
  
 {# ... #}
 

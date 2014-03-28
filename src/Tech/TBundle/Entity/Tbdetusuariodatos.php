@@ -5,6 +5,7 @@ namespace Tech\TBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tech\TBundle\Entity\Tbdetusuarioacceso;
+use Tech\TBundle\Entity\Tbdetusuariocontrato;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbdetusuariodatos
@@ -12,15 +13,34 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="tbdetUsuarioDatos", uniqueConstraints={@ORM\UniqueConstraint(name="pk_iCI_UNIQUE", columns={"pk_iCI"})})
  * @ORM\Entity
  */
-class Tbdetusuariodatos implements UserInterface
+class Tbdetusuariodatos implements UserInterface, \Serializable
 {
     /**
     * @ORM\ManyToMany(targetEntity="Tbdetcontratorif", cascade={"persist"})
     */
     protected $contratos;
     protected $usuarioacceso;
+    protected $vrif;
+    protected $usuariocontrato;
+     
     
-      public function __construct()
+      /**
+     * @return string
+     */
+    public function serialize()
+    {
+      return serialize($this->id);
+    }
+
+    /**
+     * @param string $data
+     */
+    public function unserialize($data)
+    {
+      $this->id = unserialize($data);
+    }
+    
+    public function __construct()
     {
         $this->contratos = new ArrayCollection();
     }
@@ -28,7 +48,11 @@ class Tbdetusuariodatos implements UserInterface
     {
         return $this->contratos;
     }
-    
+    public function setContratos(ArrayCollection $contratos)
+    {       
+           $this->contratos=$contratos;
+
+    }
     public function addContrato(Tbdetcontratorif $contrato)
     {
         $contrato->addUsuarioDatos($this);
@@ -429,8 +453,29 @@ class Tbdetusuariodatos implements UserInterface
     {
         $this->usuarioacceso = $usuarioacceso;
     }
+     // ...
+    // ...
  
-
+    public function getUsuariocontrato()
+    {
+        return $this->usuariocontrato;
+    }
+ 
+    public function setUsuariocontrato(Tbdetusuariocontrato $usuariocontrato= null)
+    {
+        $this->usuariocontrato = $usuariocontrato;
+    }
+     //
+    public function getVrif()
+    {
+        return $this->vrif;
+    }
+ 
+    public function setVrif($vrif = null)
+    {
+        $this->vrif = $vrif;
+    }
+    
 //Para implementar los metodos de UserInterfaces
 
 //Returns the roles granted to the user. 
@@ -438,7 +483,7 @@ class Tbdetusuariodatos implements UserInterface
  public function getRoles()
     {
 	//Corregir
-        return array('ROLE_ADMIN');
+        return array('ROLE_USER');
 }
  //Returns the salt that was originally used to encode the password.
     public function getSalt()
@@ -478,4 +523,7 @@ class Tbdetusuariodatos implements UserInterface
 	//Corregir
         $this->vclave=$vclave;
     }
-}
+
+
+    
+    }

@@ -1,20 +1,22 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetcontratorif list</h1>
-
+{% block content -%}
+    <h1>Lista de Contratos</h1>
+<br><br>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Pkinrocontrato</th>
-                <th>Actions</th>
+                <th>Id.</th>
+                <th>Nro-Contrato</th>
+                <th>Acciones</th>
             </tr>
+            
         </thead>
+        
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Contratos_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('Contratos_show', { 'id': entity.id }) }}">{{ entity.id }}</a>...</td>
                 <td>{{ entity.pkInroContrato }}</td>
                 <td>
                 <ul>
@@ -34,7 +36,7 @@
         <ul>
         <li>
             <a href="{{ path('Contratos_new') }}">
-                Create a new entry
+                Crear Nuevo Contrato
             </a>
         </li>
     </ul>

@@ -1,7 +1,10 @@
-tech_t_homepage:
-    pattern:  /hello/{name}
+index:
+    pattern:  /index
     defaults: { _controller: TechTBundle:Default:index }
 
+
+logout:
+     pattern: /logout
 
 TechTBundle_Registro:
     resource: "@TechTBundle/Resources/config/routing/tbdetusuariodatos.yml"

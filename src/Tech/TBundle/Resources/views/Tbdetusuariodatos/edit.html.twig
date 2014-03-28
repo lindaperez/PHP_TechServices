@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
+{% block content %}
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <h1>Edicion de Registro de Usuario</h1>
 <br>
@@ -22,10 +22,16 @@
 <br>
 <h2>Contratos </h2>    
 <br>
+          
     <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
+        
+        
          {% for contratorif in edit_form.contratos %}
         <li>   {{ form_row(contratorif.pkInroContrato,  {'label': 'NRO-Contrato'}) }} 
-           {{ form_row(contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}</li>
+           {{ form_row(contratorif.fkIrif,  {'label': 'NRO-Rif'}) }}
+           {{ form_row(contratorif.vdireccionFiscal,  {'label': 'DIR-Fiscal'}) }}
+             
+        </li>
         {% endfor %}
     
     </ul>
@@ -39,7 +45,7 @@
     <!--Campos ocultos -->
     <div style="display: none;">
         {{ form_row(edit_form.usuarioacceso.fkIci) }}
-   
+        {{ form_row(edit_form.vrif) }}
         {{ form_row(edit_form.vclave) }}
         {{ form_row(edit_form.dfechaRegistro) }}
     </div>
