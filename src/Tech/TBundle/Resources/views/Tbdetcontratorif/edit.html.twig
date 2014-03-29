@@ -1,16 +1,16 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Tbdetcontratorif edit</h1>
-
+    <h1>Edición de Contrato</h1>
+<br><br>
     {{ form(edit_form) }}
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Contratos') }}">
-            Back to the list
+            Lista de Contratos
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li>{{ form(delete_form, {'label': 'Eliminar Contrato:'}) }}</li>
 </ul>
 {% endblock %}

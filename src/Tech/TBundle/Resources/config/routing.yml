@@ -1,4 +1,8 @@
 index:
+    pattern:  /
+    defaults: { _controller: TechTBundle:Default:index }
+
+index:
     pattern:  /index
     defaults: { _controller: TechTBundle:Default:index }
 

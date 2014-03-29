@@ -1,15 +1,15 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetempresa list</h1>
-
+{% block content -%}
+    <h1>Lista de Empresas</h1>
+<br><br>
     <table class="records_list">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Pkirif</th>
-                <th>Vdireccionfiscal</th>
-                <th>Actions</th>
+                <th>Rif</th>
+                <th>Dirección Fiscal</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +21,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Empresa_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('Empresa_show', { 'id': entity.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -32,11 +32,11 @@
         {% endfor %}
         </tbody>
     </table>
-
+<br><br>
         <ul>
         <li>
             <a href="{{ path('Empresa_new') }}">
-                Create a new entry
+                Crear nueva Empresa
             </a>
         </li>
     </ul>

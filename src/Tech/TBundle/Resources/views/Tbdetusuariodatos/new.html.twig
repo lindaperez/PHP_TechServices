@@ -4,7 +4,7 @@
    
     <h1>Registro de Clientes</h1>
     <br><br>
-    <h2>Datos Personales </h2>
+    <h1>Datos Personales </h1>
     <br><br>
      <form action="{{ path('Registro_create') }}" method="post" id="login">
     {{ form_start(form) }}
@@ -20,7 +20,7 @@
         {{ form_row(form.vdepartamento,  {'label': 'Departamento'}) }}
         {{ form_row(form.vsucursal, {'label': 'Sucursal'}) }}
          <br><br>
-    <h2>Contratos Asociados </h2>
+    <h1>Contratos Asociados </h1>
     <br><br>
     <ul class="contratos_unico" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
          {% for contratorif in form.contratos %}
@@ -34,7 +34,7 @@
     {{ form_row(form.vrif, {'label': 'N-Rif'}) }}    
     </ul>
     <br><br>
-    <h2>Privilegios Asociados </h2>
+    <h1>Privilegios Asociados </h1>
     <br><br>
         {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
     <!--Campos ocultos -->

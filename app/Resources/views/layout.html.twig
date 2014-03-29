@@ -18,8 +18,15 @@
             
             {% block content_header_more %}
             
-                <li><a href="{{ path('login') }}">Login</a></li>     
-                <li><a href="{{ path('logout') }}">Logout</a></li>
+            
+    {{ parent() }}
+    {% if app.user!=null %}
+    <li>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> - <a href="{{ path('logout') }}">Logout</a></li>
+    {% else %}
+    <li><a href="{{ path('login') }}">Login</a></li>  
+    {% endif%}
+                
+        
             {% endblock %}
                 
         </ul>

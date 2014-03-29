@@ -1,8 +1,8 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetusuariodatos</h1>
-
+{% block content %}
+    <h1>Datos Personales</h1>
+<br><br>
     <table class="record_properties">
         <tbody>
             <tr>
@@ -10,61 +10,61 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Pkici</th>
+                <th>Cedula: </th>
                 <td>{{ entity.pkIci }}</td>
             </tr>
             <tr>
-                <th>Vnombre</th>
+                <th>Nombre: </th>
                 <td>{{ entity.vnombre }}</td>
             </tr>
             <tr>
-                <th>Vapellido</th>
+                <th>Apellido: </th>
                 <td>{{ entity.vapellido }}</td>
             </tr>
             <tr>
-                <th>Vcorreoemail</th>
+            <th>Correo: </th>
                 <td>{{ entity.vcorreoEmail }}</td>
             </tr>
             <tr>
-                <th>Vtelflocal</th>
+                <th>Telf-Local: </th>
                 <td>{{ entity.vtelfLocal }}</td>
             </tr>
             <tr>
-                <th>Vtelfmovil</th>
+                <th>Telf-Movil: </th>
                 <td>{{ entity.vtelfMovil }}</td>
             </tr>
             <tr>
-                <th>Vcargo</th>
+                <th>Cargo: </th>
                 <td>{{ entity.vcargo }}</td>
             </tr>
             <tr>
-                <th>Vdepartamento</th>
+                <th>Departamento: </th>
                 <td>{{ entity.vdepartamento }}</td>
             </tr>
             <tr>
-                <th>Vsucursal</th>
+                <th>Sucursal: </th>
                 <td>{{ entity.vsucursal }}</td>
             </tr>
             <tr>
-                <th>Vclave</th>
+                <th>Clave: </th>
                 <td>{{ entity.vclave }}</td>
             </tr>
             <tr>
-                <th>Dfecharegistro</th>
+                <th>Fecha-Registro: </th>
                 <td>{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Registro') }}">
-            Back to the list
+             Lista de Registro
         </a>
     </li>
     <li>
         <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">
-            Edit
+            Editar
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

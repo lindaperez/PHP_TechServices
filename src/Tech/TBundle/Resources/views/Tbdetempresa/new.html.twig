@@ -1,14 +1,35 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetempresa creation</h1>
+{% block content -%}
+    <h1>Creación de Empresa</h1>
+<br><br>
+    
+<form action="{{ path('Registro_create') }}" method="post" id="login">
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
+        
+        {{ form_row(form.pkIrif, {'label': 'Rif:'}) }}
+        {{ form_row(form.vdireccionFiscal, {'label': 'Dir-Fiscal:'}) }}
+        <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}
+    </div>
+    <br>
+    <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Crear</span>
+                </span>
+            </span>
+    </button>
+    
+   {{ form_end(form) }}     
 
-    {{ form(form) }}
-
+</form>
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Empresa') }}">
-            Back to the list
+            Lista de Empresas
         </a>
     </li>
 </ul>

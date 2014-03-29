@@ -23,22 +23,34 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     protected $vrif;
     protected $usuariocontrato;
      
-    
-      /**
-     * @return string
-     */
-    public function serialize()
+  public function serialize()
     {
-      return serialize($this->id);
+        return serialize(array(
+            $this->id,
+            $this->pkIci,
+            $this->vclave,
+            $this->vnombre,
+            $this->vapellido
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
     /**
-     * @param string $data
+     * @see \Serializable::unserialize()
      */
-    public function unserialize($data)
+    public function unserialize($serialized)
     {
-      $this->id = unserialize($data);
-    }
+        list (
+            $this->id,
+            $this->pkIci,
+            $this->vclave,
+            $this->vnombre,
+            $this->vapellido
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }    
     
     public function __construct()
     {

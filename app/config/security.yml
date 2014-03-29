@@ -20,7 +20,6 @@ security:
                 provider: main
                 check_path: /login_check
                 login_path: /login
-
             logout:
                 path: /logout
                 target: /index
