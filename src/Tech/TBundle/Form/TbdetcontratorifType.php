@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tech\TBundle\Form\TbdetusuariodatosType;
 use Tech\TBundle\Form\TbdetusuarioaccesoType;
+use Tech\TBundle\Form\TbdetempresaType;
+
 
 class TbdetcontratorifType extends AbstractType
 {
@@ -18,13 +20,11 @@ class TbdetcontratorifType extends AbstractType
     {
         $builder
             ->add('pkInroContrato')
-            ->add('fkIrif')
-            ->add('vdireccionFiscal','text',array('label' => 'Dir-Fiscal: ','required' => false))
-            
+            ->add('fkIrif', new TbdetempresaType(),array('label' => 'RIF. ','required' => false))
         ;
     }
     
-    /**
+    /** 
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -7,6 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tech\TBundle\Form\TbdetcontratorifType;
 use Tech\TBundle\Form\TbdetusuarioaccesoType;
+use Tech\TBundle\Form\EventListener\AddTbdetcontratorifFieldSubscriber;
+use Tech\TBundle\Form\EventListener\AddTbdetusuariocontratoFieldSubscriber;
+use Tech\TBundle\Form\EventListener\AddTbdetempresaFieldSubscriber;
+use Tech\TBundle\Entity\Tbdetusuariocontrato;
 
 class TbdetusuariodatosType extends AbstractType
 {
@@ -16,6 +20,7 @@ class TbdetusuariodatosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
             ->add('pkIci')
             ->add('vnombre')
@@ -28,14 +33,19 @@ class TbdetusuariodatosType extends AbstractType
             ->add('vsucursal')
             ->add('vclave')
             ->add('dfechaRegistro')
-            ->add('vrif','text',array('label' => 'form.name','required' => false))
+            ->add('vrif','text',array('label' => 'Rif.','required' => false))
+            ->add('usuarioacceso', new TbdetusuarioaccesoType())
             ->add('contratos','collection',
-                    array('type'=> new TbdetcontratorifType(),
+                    array('type'=> new TbdetusuariocontratoType(),
+                    'label' => 'Contratos',
+                    'by_reference' => false,
+                    'prototype' => new Tbdetusuariocontrato(),
                     'allow_add' => true, 
                     'allow_delete' => true,
-                    'by_reference' => false))
-            ->add('usuarioacceso', new TbdetusuarioaccesoType())
-            ->add('usuariocontrato', new TbdetusuarioaccesoType())
+                    ))
+                
+        ;
+                
             
 
         ;

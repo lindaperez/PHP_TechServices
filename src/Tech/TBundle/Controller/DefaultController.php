@@ -1,10 +1,10 @@
 <?php
 
 namespace Tech\TBundle\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -32,4 +32,20 @@ class DefaultController extends Controller
             'error'         => $error,
         ));
     }
+
+   public function rifsAction(Request $request)
+{
+    $tbdetcontrato_id = $request->request->get('tbdetcontratorif_id');
+    
+    
+    $em = $this->getDoctrine()->getManager();
+       $contrato = $em->getRepository('TechTBundle:Tbdetcontratorif')
+                ->find($tbdetcontrato_id);        
+       if ($contrato==null){
+       return new JsonResponse(array('id' => "", 'name' => "Rif" ));    
+       }
+       return new JsonResponse(array('id' => $contrato->getFkIrif()->getId(), 'name' => $contrato->getFkIrif()->getPkIrif() ));
+}
+    
+    
 }

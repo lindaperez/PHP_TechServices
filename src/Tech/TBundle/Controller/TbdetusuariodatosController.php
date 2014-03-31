@@ -269,9 +269,10 @@ class TbdetusuariodatosController extends Controller
                 ->findBy(array('fkIci' => $entity));
         
         foreach ($usuario_contratos as &$contrato) {
-            $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-                ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
-            $entity->addContrato($contrato_rif);
+            $entity->addContrato($contrato);
+            //$contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
+              //  ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
+            //$entity->addContrato($contrato_rif);
         }
         
         
@@ -405,4 +406,32 @@ class TbdetusuariodatosController extends Controller
             ->getForm()
         ;
     }
-}
+/**
+     * @Route("/tbdetcontratorifs", name="select_provinces")
+     */
+    public function tbdetcontratorifsAction(Request $request)
+    {
+        $tbdetempresa_id = $request->request->get('tbdetempresa_id');
+
+        $em = $this->getDoctrine()->getManager();
+        $tbdetcontratorifs = $em->getRepository('TBundle:Tbdetcontratorif')->findByCountryId($tbdetempresa_id);
+
+        return new JsonResponse($tbdetcontratorifs);
+    }
+
+    /**
+     * @Route("/tbdetusuariocontratos", name="select_cities")
+     */
+    public function tbdetusuariocontratosAction(Request $request)
+    {
+        $tbdetcontratorif_id = $request->request->get('tbdetcontratorif_id');
+
+        $em = $this->getDoctrine()->getManager();
+        $tbdetusuariocontratos = $em->getRepository('TBundle:Tbdetusuariocontrato')->findByProvinceId($tbdetcontratorif_id);
+
+        return new JsonResponse($tbdetusuariocontratos);
+    }   
+
+ 
+    
+    }

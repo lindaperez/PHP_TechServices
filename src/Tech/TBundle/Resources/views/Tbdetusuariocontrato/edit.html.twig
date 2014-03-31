@@ -1,10 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetusuariocontrato edit</h1>
-
+{% block content %}
+    <h1>Editar contrato</h1>
+<br><br>
     {{ form(edit_form) }}
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('UsuariosContratos') }}">

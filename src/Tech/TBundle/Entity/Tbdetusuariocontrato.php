@@ -3,6 +3,8 @@
 namespace Tech\TBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Tech\TBundle\Entity\Tbdetusuariodatos;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tbdetusuariocontrato
@@ -12,7 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Tbdetusuariocontrato
 {
- 
+    
+    protected $usuariodatos;
+    
     /**
      * @var integer
      *
@@ -42,7 +46,27 @@ class Tbdetusuariocontrato
      */
     private $fkInroContrato;
 
-
+    public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
+    {
+        if ($this->usuariodatos==null){
+            $this->usuariodatos=new ArrayCollection();
+            $this->usuariodatos->add($usuariodatos);
+        }else{
+                if (!$this->usuariodatos->contains($usuariodatos)) {
+                
+                    $this->usuariodatos->add($usuariodatos);
+                }
+            }
+    }    
+    
+   
+    public function setUsuarioDatos(Tbdetusuariodatos $usuariodatos)
+    {
+        
+            $this->usuariodatos=$usuariodatos;
+    }    
+    
+    
     /**
      * Get id
      *
@@ -98,4 +122,13 @@ class Tbdetusuariocontrato
     {
         return $this->fkInroContrato;
     }
+
+    //to string method   
+    public function __toString()
+    {
+
+    return strval($this->id);
+
 }
+    
+    }

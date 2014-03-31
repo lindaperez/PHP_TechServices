@@ -13,8 +13,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Tbdetcontratorif
 {
-    protected $vdireccionFiscal;
-    protected $usuariodatos;
+    
+    
+    protected $usuariocontrato;
     /**
      * @var integer
      *
@@ -40,26 +41,8 @@ class Tbdetcontratorif
      * })
      */
     private $fkIrif;
-    public function getVdireccionFiscal()
-    {
-        return $this->vdireccionFiscal;
-    }
-    public function setVdireccionFiscal($vdireccionFiscal)
-    {
-        $this->vdireccionFiscal=$vdireccionFiscal;
-    }
-    public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
-    {
-        if ($this->usuariodatos==null){
-            $this->usuariodatos=new ArrayCollection();
-            $this->usuariodatos->add($usuariodatos);
-        }else{
-                if (!$this->usuariodatos->contains($usuariodatos)) {
-                
-                    $this->usuariodatos->add($usuariodatos);
-                }
-            }
-    }    
+    
+ 
 
     /**
      * Get id

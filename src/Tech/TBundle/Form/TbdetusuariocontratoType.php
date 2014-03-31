@@ -6,6 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Tech\TBundle\Entity\Tbdetusuariocontrato;
+
+
+use Tech\TBundle\Form\EventListener\AddTbdetcontratorifFieldSubscriber;
+use Tech\TBundle\Form\EventListener\AddTbdetempresaFieldSubscriber;
+
+
 class TbdetusuariocontratoType extends AbstractType
 {
         /**
@@ -14,9 +21,14 @@ class TbdetusuariocontratoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+       $propertyPathToTbdetcontratorif = 'fkInroContrato';
+        $builder    
+            ->add('fkInroContrato', new TbdetcontratorifType(),array('label' => 'Contrato: ','required' => false))
+            ->addEventSubscriber(new AddTbdetcontratorifFieldSubscriber($propertyPathToTbdetcontratorif))
+            ->addEventSubscriber(new AddTbdetempresaFieldSubscriber($propertyPathToTbdetcontratorif))
             ->add('fkIci')
-            ->add('fkInroContrato')
+            
+            
                 ;
     }
     

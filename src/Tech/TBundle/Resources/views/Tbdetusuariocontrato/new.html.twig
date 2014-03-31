@@ -1,15 +1,77 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetusuariocontrato creation</h1>
+{% block content %}
 
-    {{ form(form) }}
+   
+    <h1>Asociación de Contratos a Usuarios</h1>
+<br><br>
 
+<form action="{{ path('UsuariosContratos_create') }}" method="post" id="login">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="contratoss">
+        {{ form_row(form.fkIci,  {'label': 'Cedula: '}) }}
+        {{ form_row(form.tbdetcontratorif, {'label': 'Contrato: '}) }}
+    {{ form_row(form.fkInroContrato, {'label': 'Rif: '}) }}
+    </div>  
+<div style="display: none;">
+    
+    
+    {{ form_row(form.submit, { 'label': 'Crear' }) }}
+    </div>
+<br><br>
+          <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Asociar</span>
+                </span>
+            </span>
+    </button>
+    {{ form_end(form) }}
+      
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('UsuariosContratos') }}">
-            Back to the list
+            Contratos
         </a>
     </li>
 </ul>
+{% block javascripts %}
+ <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    {{ parent() }}
+     <script>
+     $(function(){
+         $(document).on('change', '.tbdetcontratorif_selector', function(){
+             //alert("Han cambiado mi valor");
+             var $this = $(this);
+             var data = {
+                 tbdetcontratorif_id: $this.val()
+             };
+
+             $.ajax({
+                  type: 'post',
+                  url: '{{ path("rifs") }}',
+                  data: data,
+                  dataType: 'json',
+                  success: function(data) {
+                      if (data.error !== undefined && data.error != '') {
+                          alert(data.error);
+                      } else {
+                      $("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
+                      // console.log(data);
+                      // console.log(data.error);
+                        }   
+                    },
+                  error: function(e, ts, et) { alert(ts) }
+              });
+              
+              });
+              });
+    </script>
 {% endblock %}
+{% endblock %}
+   
+    
+   

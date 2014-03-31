@@ -6,6 +6,9 @@ index:
     pattern:  /index
     defaults: { _controller: TechTBundle:Default:index }
 
+rifs:
+    pattern:   /rifs
+    defaults:  { _controller: TechTBundle:Default:rifs }
 
 logout:
      pattern: /logout

@@ -18,12 +18,12 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     /**
     * @ORM\ManyToMany(targetEntity="Tbdetcontratorif", cascade={"persist"})
     */
-    protected $contratos;
+    protected $contratos; 
     protected $usuarioacceso;
     protected $vrif;
-    protected $usuariocontrato;
-     
-  public function serialize()
+    
+  
+    public function serialize()
     {
         return serialize(array(
             $this->id,
@@ -55,7 +55,12 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     public function __construct()
     {
         $this->contratos = new ArrayCollection();
+        
     }
+    
+  
+   
+    
     public function getContratos()
     {
         return $this->contratos;
@@ -63,9 +68,12 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     public function setContratos(ArrayCollection $contratos)
     {       
            $this->contratos=$contratos;
+           foreach ($contratos as $contrato) {
+            $contrato->setUsuarioDatos($this);
+           }
 
     }
-    public function addContrato(Tbdetcontratorif $contrato)
+    public function addContrato(Tbdetusuariocontrato $contrato)
     {
         $contrato->addUsuarioDatos($this);
         if ($this->contratos==null){
@@ -75,7 +83,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
         $this->contratos->add($contrato);
     }
 
-    public function removeContrato(Tbdetcontratorif $contrato)
+    public function removeContrato(Tbdetusuariocontrato $contrato)
     {
         if ($this->contratos!=null){
          $this->contratos->removeElement($contrato);
@@ -444,15 +452,6 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
  
     // ...
  
-    public function getContratorif()
-    {
-        return $this->contratorif;
-    }
- 
-    public function setContratorif(Tbdetcontratorif $contratorif = null)
-    {
-        $this->contratorif = $contratorif;
-    }
     
     // ...
  
@@ -466,18 +465,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
         $this->usuarioacceso = $usuarioacceso;
     }
      // ...
-    // ...
- 
-    public function getUsuariocontrato()
-    {
-        return $this->usuariocontrato;
-    }
- 
-    public function setUsuariocontrato(Tbdetusuariocontrato $usuariocontrato= null)
-    {
-        $this->usuariocontrato = $usuariocontrato;
-    }
-     //
+
     public function getVrif()
     {
         return $this->vrif;
@@ -535,7 +523,5 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
 	//Corregir
         $this->vclave=$vclave;
     }
-
-
     
-    }
+}
