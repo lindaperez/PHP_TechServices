@@ -12,8 +12,9 @@
 
     <div class="contratoss">
         {{ form_row(form.fkIci,  {'label': 'Cedula: '}) }}
-        {{ form_row(form.tbdetcontratorif, {'label': 'Contrato: '}) }}
-    {{ form_row(form.fkInroContrato, {'label': 'Rif: '}) }}
+        {{ form_row(form.fkInroContrato, {'label': 'Contrato: '}) }}    
+        {{ form_row(form.tbdetcontratorif, {'label': 'Empresa: '}) }}
+    
     </div>  
 <div style="display: none;">
     
@@ -59,7 +60,7 @@
                       if (data.error !== undefined && data.error != '') {
                           alert(data.error);
                       } else {
-                      $("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
+                      $("#tech_tbundle_tbdetusuariocontrato_tbdetcontratorif").html('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
                       // console.log(data);
                       // console.log(data.error);
                         }   

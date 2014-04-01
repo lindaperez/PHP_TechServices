@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ asset('bundles/acmedemo/css/demo.css') }}" />
+    
 {% endblock %}
 
 {% block title 'Techtrol' %}
@@ -21,7 +22,9 @@
             
     {{ parent() }}
     {% if app.user!=null %}
-    <li>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> - <a href="{{ path('logout') }}">Logout</a></li>
+    <li>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> ::{{app.session.get('usuario_rol')}}
+ ::{{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} <a href="{{ path('logout') }}">Logout</a></li>
+    
     {% else %}
     <li><a href="{{ path('login') }}">Login</a></li>  
     {% endif%}

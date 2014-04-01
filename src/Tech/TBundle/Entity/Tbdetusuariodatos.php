@@ -21,6 +21,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     protected $contratos; 
     protected $usuarioacceso;
     protected $vrif;
+    protected $vcontrato;
     
   
     public function serialize()
@@ -59,21 +60,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     }
     
   
-   
-    
-    public function getContratos()
-    {
-        return $this->contratos;
-    }
-    public function setContratos(ArrayCollection $contratos)
-    {       
-           $this->contratos=$contratos;
-           foreach ($contratos as $contrato) {
-            $contrato->setUsuarioDatos($this);
-           }
-
-    }
-    public function addContrato(Tbdetusuariocontrato $contrato)
+    public function addContrato(Tbdetusuariocontrato $contrato=null)
     {
         $contrato->addUsuarioDatos($this);
         if ($this->contratos==null){
@@ -83,7 +70,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
         $this->contratos->add($contrato);
     }
 
-    public function removeContrato(Tbdetusuariocontrato $contrato)
+    public function removeContrato(Tbdetusuariocontrato $contrato=null)
     {
         if ($this->contratos!=null){
          $this->contratos->removeElement($contrato);
@@ -91,6 +78,17 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
         }
     }
     
+   
+    
+    public function getContratos()
+    {
+        return $this->contratos;
+    }
+    public function setContratos($contratos)
+    {       
+           $this->contratos=$contratos;
+
+    }
     /**
      * @var integer
      *
@@ -450,11 +448,6 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
 
 }
  
-    // ...
- 
-    
-    // ...
- 
     public function getUsuarioacceso()
     {
         return $this->usuarioacceso;
@@ -475,7 +468,17 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     {
         $this->vrif = $vrif;
     }
-    
+        // ...
+
+    public function getVcontrato()
+    {
+        return $this->vcontrato;
+    }
+ 
+    public function setVcontrato($vcontrato = null)
+    {
+        $this->vrif = $vcontrato;
+    }
 //Para implementar los metodos de UserInterfaces
 
 //Returns the roles granted to the user. 

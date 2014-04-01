@@ -22,17 +22,24 @@
          <br><br>
     <h1>Contratos Asociados </h1>
     <br><br>
-    <ul class="contratos_unico" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
-         {% for contratorif in form.contratos %}
-        <li>   {{ form_row(contratorif.pkInroContrato,  {'label': 'N-Contrato'}) }} 
-        <div style="display: none;">    
-       {{ form_row(contratorif.fkIrif,  {'label': 'N-Rif'}) }}
-       {{ form_row(contratorif.vdireccionFiscal,  {'label': 'DIR-Fiscal'}) }}
-        </div>    
-        </li>
-    {% endfor %}
-    {{ form_row(form.vrif, {'label': 'N-Rif'}) }}    
-    </ul>
+    
+
+<ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
+        
+    
+         {% for usuariocontrato in form.contratos %}
+            <li> 
+                
+                <div style="display: none;">
+                    {{ form_row(usuariocontrato.tbdetcontratorif, {'label': 'Contrato: '}) }}
+                {{ form_row(usuariocontrato.fkIci) }}       
+                                    {{ form_row(usuariocontrato.fkInroContrato) }} 
+                    </div>
+            </li>    
+        {% endfor %}
+            {{ form_row(form.vcontrato, {'label': 'Contrato: '}) }}    
+            {{ form_row(form.vrif, {'label': 'Rif: '}) }}    
+</ul>
     <br><br>
     <h1>Privilegios Asociados </h1>
     <br><br>
@@ -43,7 +50,7 @@
         {{ form_row(form.usuarioacceso.fkIidEstatus) }}
         {{ form_row(form.vclave) }}
         {{ form_row(form.dfechaRegistro) }}
-        {{ form_row(form.usuariocontrato) }}
+
         {{ form_row(form.submit, { 'label': 'Registrar' }) }}
     </div>
     <br>

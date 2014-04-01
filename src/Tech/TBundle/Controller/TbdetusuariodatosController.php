@@ -10,6 +10,8 @@ use Tech\TBundle\Entity\Tbdetcontratorif;
 use Tech\TBundle\Entity\Tbdetusuarioacceso;
 use Tech\TBundle\Form\TbdetusuariodatosType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Tech\TBundle\Controller\DefaultController;
+
 
 /**
  * Tbdetusuariodatos controller.
@@ -24,6 +26,11 @@ class TbdetusuariodatosController extends Controller
      */
     public function indexAction()
     {
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
         foreach ($entities as &$entity) {
@@ -64,20 +71,36 @@ class TbdetusuariodatosController extends Controller
        return $user;
     }
     
-    
+      protected function descriptpassword($username, $password)
+    {
+        $user = new Tbdetusuariodatos();
+        $user->setUsername($username);
+        // encode the password
+        
+        $factory = $this->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($encodedPassword);
+       return $user;
+    }
     /**
      * Creates a new Tbdetusuariodatos entity.
      *
      */
     public function createAction(Request $request)
     {
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $entity = new Tbdetusuariodatos();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         //Verificacion de campos vacios 
-       if ( $form["contratos"][0]["pkInroContrato"]->getData()==null ||
-        $form["vrif"]->getData()==null ||
-        $form["usuarioacceso"]["fkIidRol"]->getData()==null ){
+       if ( $form["vrif"]->getData()==null ||
+        $form["usuarioacceso"]["fkIidRol"]->getData()==null ||
+        $form["vcontrato"]->getData()==null ){ 
            print "Recuerde que ningun campo debe estar vacio";
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
             'entity' => $entity,
@@ -90,14 +113,10 @@ class TbdetusuariodatosController extends Controller
             $em = $this->getDoctrine()->getManager();
             $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                    ->findOneBy(array('pkIci' => $form["pkIci"]->getData()));
-            
             /*Verificar si existe el contrato
              * en Tbdetusuariocontrato */
             $existe_usuacontrif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-             ->findOneBy(array("pkInroContrato" 
-                 => $form["contratos"][0]["pkInroContrato"]->getData())); 
-            
-            
+             ->findOneBy(array("pkInroContrato" => $form["vcontrato"]->getData())); 
             //Verificar si Coincide con cedula
             $existe_usuacont = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                    ->findOneBy(array('fkIci' 
@@ -116,8 +135,6 @@ class TbdetusuariodatosController extends Controller
              * introducido por el usuario*/
               //print_r($form["vrif"]->getData());
               //print_r($existe_usuacontrif->getFkIrif()->getPkIrif());
-              
-                
             if (($existe_usuacontrif->getFkIrif()->getPkIrif())!=($form["vrif"]->getData())){ 
                 print "El rif que introdujo no coincide con el que posee su contrato."
                 . "Debe introducir el Rif correcto";
@@ -182,7 +199,7 @@ class TbdetusuariodatosController extends Controller
 
     /**
     * Creates a form to create a Tbdetusuariodatos entity.
-    *
+    *   
     * @param Tbdetusuariodatos $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
@@ -205,6 +222,11 @@ class TbdetusuariodatosController extends Controller
      */
     public function newAction()
     {
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $entity = new Tbdetusuariodatos();    
         /*Generacion de clave */
         $g_userName = $entity->getPkIci();
@@ -216,7 +238,7 @@ class TbdetusuariodatosController extends Controller
         print " ";
         print_r( $entity->getVclave());
         print "finclave ";
-        $contrato_registro = new Tbdetcontratorif();
+        $contrato_registro = new Tbdetusuariocontrato();
         $entity->getContratos()->add($contrato_registro);
         $form   = $this->createCreateForm($entity);
         //print_r($form['contratos']->getData());
@@ -234,7 +256,7 @@ class TbdetusuariodatosController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
 
         if (!$entity) {
@@ -242,7 +264,7 @@ class TbdetusuariodatosController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
+        print_r($entity->getPassword());
         return $this->render('TechTBundle:Tbdetusuariodatos:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
@@ -254,7 +276,11 @@ class TbdetusuariodatosController extends Controller
      */
     public function editAction($id)
     {
-        
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
         $editForm = $this->createEditForm($entity);
@@ -270,8 +296,12 @@ class TbdetusuariodatosController extends Controller
         
         foreach ($usuario_contratos as &$contrato) {
             $entity->addContrato($contrato);
-            //$contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-              //  ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
+            print_r($contrato->getFkInroContrato()->getPkInroContrato());
+            print "-(";
+            print_r($contrato->getFkInroContrato()->getId());
+            print ")";
+         //   $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
+           //     ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
             //$entity->addContrato($contrato_rif);
         }
         
@@ -324,6 +354,11 @@ class TbdetusuariodatosController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
         if (!$entity) {
@@ -333,30 +368,55 @@ class TbdetusuariodatosController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            //Actualizar Rol y estatus FALTA que no se liste Registro
-            $usuario_acceso=$entity->getUsuarioacceso();
-            //Actualizar Contratos Existentes
-            $usuario_contratos=$entity->getContratos();
-            /*
-            foreach ($usuario_contratos as &$contrato) {
-                $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-                    ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
-            //DEbe existir al menos 1 
-                
-                $entity->addContrato($contrato_rif);
-            }
-        */
-        $usuario_contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+            
+            //Que no se liste Registro
+            //1.Eliminar todas las relaciones de CI con Contrato
+           $usuario_contratosR = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                 ->findBy(array('fkIci' => $entity));
-        
-            return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-                $em->persist($usuario_acceso);
-                $em->flush();
-
+           foreach ($usuario_contratosR as &$contratoR) {
+             print_r($contratoR->getFkInroContrato()->getId());                
+              $em->remove($contratoR);
+            }
+            //Actualizar Contratos Existentes
+           $usuario_contratos=$entity->getContratos();
+           foreach ($usuario_contratos as &$contrato) {
+            //DEbe existir al menos 1 
+               $nuevo_contrato=new Tbdetusuariocontrato();
+               $nuevo_contrato->setFkIci($contrato->getFkIci());
+               $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
+               $nuevo_contrato->setUsuarioDatos($entity);
+               print_r($nuevo_contrato->getId());
+               $em->persist($nuevo_contrato);
+            } 
+            //Se buscan roles y estatus asociado al usuario.
+            $usuario_acc = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                ->findOneBy(array('fkIci' => $entity));
+            //Se actualiza la relacion
+            $id_u=$usuario_acc->getId();
+            $usuario_acceso=$entity->getUsuarioAcceso();
+            $id_rol=$usuario_acceso->getFkIidRol()->getId();
+            $id_estatus=$usuario_acceso->getFkIidEstatus()->getId();
+            $acceso_rol=$usuario_acceso->getFkIidRol()->getVdescripcion();
+            $acceso_estatus=$usuario_acceso->getFkIidEstatus()->getVdescripcion();
+            $acceso_tipo_rol=$usuario_acceso->getFkIidRol()->getFkItipoRol()->getVdescripcion();
+            $qb = $em->createQueryBuilder();
+            $q = $qb->update('TechTBundle:Tbdetusuarioacceso', 'a')
+                    ->set('a.fkIidRol', '?1')
+                    ->set('a.fkIidEstatus', '?2')
+                    ->where('a.id = ?3')
+                    ->setParameter(1, $id_rol)
+                    ->setParameter(2, $id_estatus)
+                    ->setParameter(3, $id_u)
+                    ->getQuery();
+            $p = $q->execute();
+            //$numUpdated = $q->execute();
+            $em->flush();
+            //Se actualiza la session puesto que se actualizo rol y estatus
+            $session = $request->getSession();
+            $session->set('usuario_rol',$acceso_rol);
+            $session->set('usuario_tipo_rol',$acceso_tipo_rol);
+            $session->set('usuario_estatus_registro',$acceso_estatus);
+            
             return $this->redirect($this->generateUrl('Registro_edit', array('id' => $id)));
         }
 
@@ -372,6 +432,11 @@ class TbdetusuariodatosController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -406,32 +471,25 @@ class TbdetusuariodatosController extends Controller
             ->getForm()
         ;
     }
-/**
-     * @Route("/tbdetcontratorifs", name="select_provinces")
-     */
-    public function tbdetcontratorifsAction(Request $request)
+
+           private function verifaccesoemplAction(Request $request)
     {
-        $tbdetempresa_id = $request->request->get('tbdetempresa_id');
-
-        $em = $this->getDoctrine()->getManager();
-        $tbdetcontratorifs = $em->getRepository('TBundle:Tbdetcontratorif')->findByCountryId($tbdetempresa_id);
-
-        return new JsonResponse($tbdetcontratorifs);
+        $session=$request->getSession();
+        $tipo_usuario=$session->get('usuario_rol');
+        if ($tipo_usuario=="Empleado"){
+            return true;
+        }
+            return false;
+        
     }
-
-    /**
-     * @Route("/tbdetusuariocontratos", name="select_cities")
-     */
-    public function tbdetusuariocontratosAction(Request $request)
+    private function verifaccesouserAction(Request $request)
     {
-        $tbdetcontratorif_id = $request->request->get('tbdetcontratorif_id');
-
-        $em = $this->getDoctrine()->getManager();
-        $tbdetusuariocontratos = $em->getRepository('TBundle:Tbdetusuariocontrato')->findByProvinceId($tbdetcontratorif_id);
-
-        return new JsonResponse($tbdetusuariocontratos);
-    }   
-
- 
-    
+        $session=$request->getSession();
+        $tipo_usuario=$session->get('usuario_rol');
+        if ($tipo_usuario=="Cliente"){
+            return true;
+        }
+            return false;
+              
+    }  
     }

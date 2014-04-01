@@ -31,22 +31,13 @@ class AddTbdetempresaFieldSubscriber implements EventSubscriberInterface
       private function addTbdetempresaForm($form, $tbdetempresa_id)
     {
         $formOptions = array(
-            'class'         => 'TechTBundle:Tbdetempresa',
-            'empty_value'   => 'Rif',
-            'label'         => 'Rif',
+            'class'         => 'TechTBundle:Tbdetcontratorif',
+            'empty_value'   => 'Nro',
+            'label'         => 'Contrato',
             'attr'          => array(
-                'class' => 'tbdetempresa_selector',
+                'class' => 'tbdetcontratorif_selector',
             ),
             
-            'query_builder' => function (EntityRepository $repository) use ($tbdetempresa_id) {
-                $qb = $repository->createQueryBuilder('tbdetempresa')
-                    ->where('tbdetempresa.id = :tbdetempresa_id')
-                    ->setParameter('tbdetempresa_id', $tbdetempresa_id)
-                ;
-
-                return $qb;
-            }
-             
             
         );
 

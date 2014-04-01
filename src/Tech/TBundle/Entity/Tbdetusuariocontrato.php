@@ -45,7 +45,11 @@ class Tbdetusuariocontrato
      * })
      */
     private $fkInroContrato;
-
+    public function __construct()
+    {
+        $this->usuariodatos = new Tbdetusuariodatos();
+        
+    }
     public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
     {
         if ($this->usuariodatos==null){
@@ -110,7 +114,6 @@ class Tbdetusuariocontrato
     {
         $this->fkInroContrato = $fkInroContrato;
 
-        return $this;
     }
 
     /**
@@ -128,7 +131,8 @@ class Tbdetusuariocontrato
     {
 
     return strval($this->id);
-
-}
+    
+    
+    }
     
     }

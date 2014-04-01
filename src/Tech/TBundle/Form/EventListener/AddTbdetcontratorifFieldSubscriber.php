@@ -28,21 +28,28 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbdetcontratorifForm($form,  $tbdetcontratorif = null)
+    private function addTbdetcontratorifForm($form,  $tbdetempresa_id = null)
     {
         $formOptions = array(
-            'class'         => 'TechTBundle:Tbdetcontratorif',
-            'empty_value'   => 'Nro',
-            'label'         => 'Contrato: ',
+            'class'         => 'TechTBundle:Tbdetempresa',
+            'empty_value'   => 'Rif',
+            'label'         => 'Empresa: ',
             'mapped'        => false,
             'attr'          => array(
-                'class' => 'tbdetcontratorif_selector',
+                'class' => 'tbdetempresa_selector',
             ),
-            
+         'query_builder' => function (EntityRepository $repository) use ($tbdetempresa_id) {
+                $qb = $repository->createQueryBuilder('tbdetempresa')
+                    ->where('tbdetempresa.id = :id')
+                    ->setParameter('id', $tbdetempresa_id)
+                ;
+
+                return $qb;
+            }   
         );
 
-        if ($tbdetcontratorif) {
-            $formOptions['data'] = $tbdetcontratorif;
+        if ($tbdetempresa_id) {
+            $formOptions['data'] = $tbdetempresa_id;
         }
 
         $form->add('tbdetcontratorif','entity', $formOptions);
@@ -55,15 +62,16 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
 
         if (null === $data) {
             return;
+            
         }
         
         $accessor = PropertyAccess::getPropertyAccessor();
 
         $tbdetcontratorif        = $accessor->getValue($data, $this->propertyPathToTbdetcontratorif);
-      
+        $tbdetempresa_id    = ($tbdetcontratorif) ? $tbdetcontratorif->getFkIrif()->getId() : null;
         
 
-        $this->addTbdetcontratorifForm($form, $tbdetcontratorif);
+        $this->addTbdetcontratorifForm($form, $tbdetempresa_id);
     }
 
     public function preSubmit(FormEvent $event)
@@ -73,4 +81,4 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
 
         $this->addTbdetcontratorifForm($form);
     }
-}
+}   

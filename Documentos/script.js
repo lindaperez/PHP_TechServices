@@ -3,7 +3,7 @@
 /*$(function(){
             $(document).on('change', '.tbdetcontratorif_selector', function(){
                  alert("Han cambiado mi valor");
-                //$("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html("<option value='1'>Some oranges</option><option value='2'>More Oranges</option><option value='3'>Even more oranges</option>"); 
+                //$("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html("<option value='1'>Some oranges</option><option value='2'>More Oranges</option><option value='3'>Even more oranges</option>"); 	
                 var $this = $(this);
                 var data = {
                     tbdetcontratorif_id: $this.val()

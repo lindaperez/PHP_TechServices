@@ -1,14 +1,15 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgenrol edit</h1>
+{% block content %}
 
+    <h1>Editar Rol</h1>
+<br><br>
     {{ form(edit_form) }}
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Roles') }}">
-            Back to the list
+            Lista de Roles
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

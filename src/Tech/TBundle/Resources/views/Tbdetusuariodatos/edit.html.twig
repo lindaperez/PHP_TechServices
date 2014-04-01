@@ -8,7 +8,7 @@
 <br>
 <h1>Datos Personales</h1>
 <br>
-<form action="{{ path('Registro_edit', {'id': 'edit_form.id'}) }}" method="post" id="login">
+
     {{ form_start(edit_form) }}
     {{ form_errors(edit_form) }}
         {{ form_row(edit_form.pkIci, {'label': 'Cédula:'}) }}
@@ -24,43 +24,49 @@
 <br>
 <h1>Contratos </h1>    
 <br>
-          
 
-<ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
+<div class="contratoss" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         
-    
          {% for usuariocontrato in edit_form.contratos %}
-            <li> 
-                {{ form_row(usuariocontrato.tbdetcontratorif, {'label': 'Contrato: '}) }}
-                {{ form_row(usuariocontrato.fkInroContrato) }} 
-                
+            
+            <ul>     
                 <div style="display: none;">
                 {{ form_row(usuariocontrato.fkIci) }}       
                     </div>
-            </li>    
+                {{ form_row(usuariocontrato.fkInroContrato) }}       
+                {{ form_row(usuariocontrato.tbdetcontratorif) }}       
+            </ul>    
         {% endfor %}
     
-</ul>
+</div>
+
 <br>
 <h1>Sistema </h1>            
 <br>            
      {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus'}) }}
        {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
-
 <br>
     <!--Campos ocultos -->
     <div style="display: none;">
         {{ form_row(edit_form.usuarioacceso.fkIci) }}
         {{ form_row(edit_form.vrif) }}
+        {{ form_row(edit_form.vcontrato) }}
         {{ form_row(edit_form.vclave) }}
         {{ form_row(edit_form.dfechaRegistro) }}
         {{ form_row(edit_form.contratos) }}
         
+
     </div>
-        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
         {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+
+            {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
+
         {{ form_end(edit_form) }}     
-</form>
+
+
+<br><br>
+ 
+<br><br>
         <ul class="record_actions">
    
     <li></li>
@@ -74,17 +80,22 @@
 {% block javascripts %}
     {{ parent() }}
 <script>
+    
 var $collectionHolder;
+
 // setup an "add a tag" link
+
 var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
-var $newLinkLi = $('<li></li>').append($addTbdetcontratorifLink);
+
+var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
+
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
-    $collectionHolder = $('ul.contratos');
+    $collectionHolder = $('div.contratos');
 // add a delete link to all of the existing tag form li elements
     
-    $collectionHolder.find('li').each(function() {
+    $collectionHolder.find('ul').each(function() {
         addTbdetcontratorifFormDeleteLink($(this));
     });
 
@@ -94,8 +105,10 @@ jQuery(document).ready(function() {
     // 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
+    $collectionHolder.data('index', $collectionHolder.find('ul').length);
+    
+        //alert("Han cambiado mi valor"+ $collectionHolder.data('index'));
+    
     $addTbdetcontratorifLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
@@ -118,9 +131,10 @@ function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
 function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
-
+    //alert("Prototype "+ prototype);
     // get the new index
     var index = $collectionHolder.data('index');
+    //alert("Han cambiado mi valorPPP"+ $collectionHolder.data('index'));
 
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
@@ -130,16 +144,20 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<ul></ul>').append(newForm);
     $newLinkLi.before($newFormLi);
     addTbdetcontratorifFormDeleteLink($newFormLi);
 }
+
 </script>
-         <script>
-     $(function(){
+<script>
+        $(function(){
          $(document).on('change', '.tbdetcontratorif_selector', function(){
              //alert("Han cambiado mi valor");
              var $this = $(this);
+             var $arreglo=$this.attr("id");
+             var $val=$arreglo.split('_')[4];
+             
              var data = {
                  tbdetcontratorif_id: $this.val()
              };
@@ -149,22 +167,27 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
                   url: '{{ path("rifs") }}',
                   data: data,
                   dataType: 'json',
-                  success: function(data) {
+                  success: function(data,val) {
                       if (data.error !== undefined && data.error != '') {
                           alert(data.error);
                       } else {
-                          for (var i=0, total = 2; i < total; i++) {
-                      $("#tech_tbundle_tbdetusuariodatos_contratos_"+i+"_fkInroContrato").html('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
-                      // console.log(data);
-                      // console.log(data.error);
-                          }
-                        }   
+                          var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
+                         
+                         // alert("Han cambiado mi valor"+ $val);
+                           $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").html('<option>Rif</option>');
+                            $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").append('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
+                         
+                    }
                     },
                   error: function(e, ts, et) { alert(ts) }
               });
+        
               
               });
-              });
+                        
+                        });
+              
+              
     </script>
 {% endblock %} 
 {% endblock %} 

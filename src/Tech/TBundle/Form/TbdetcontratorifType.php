@@ -20,7 +20,7 @@ class TbdetcontratorifType extends AbstractType
     {
         $builder
             ->add('pkInroContrato')
-            ->add('fkIrif', new TbdetempresaType(),array('label' => 'RIF. ','required' => false))
+            ->add('fkIrif')
         ;
     }
     
@@ -30,7 +30,8 @@ class TbdetcontratorifType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif',
+            'cascade_validation' => true,
             
         ));
     }

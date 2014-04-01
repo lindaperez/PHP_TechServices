@@ -6,6 +6,10 @@ index:
     pattern:  /index
     defaults: { _controller: TechTBundle:Default:index }
 
+erroracceso:
+    pattern:  /erroracceso
+    defaults: { _controller: TechTBundle:Default:erroracceso }
+
 rifs:
     pattern:   /rifs
     defaults:  { _controller: TechTBundle:Default:rifs }

@@ -2,11 +2,15 @@
 
 {% block content %}
     <h1 class="title">Bienvenido a la Página de Inicio.</h1>
-
+    {% if app.session.get('tipo_rol')==null %}
     <p>
        -- <em>--</em> 
     </p>
-
-    
+    {% else %}
+    <p>
+        Si hay session
+      {{app.session.get('tipo_rol')}}
+    </p>
+    {% endif %}
 {% endblock %}
 

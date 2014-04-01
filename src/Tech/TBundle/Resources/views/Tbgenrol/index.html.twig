@@ -1,14 +1,14 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgenrol list</h1>
-
+{% block content %}
+    <h1>Lista de Roles</h1>
+<br><br>
     <table class="records_list">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Vdescripcion</th>
-                <th>Actions</th>
+                <th>Descripcion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -19,10 +19,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Roles_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('Roles_show', { 'id': entity.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('Roles_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('Roles_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -30,11 +30,11 @@
         {% endfor %}
         </tbody>
     </table>
-
+<br>
         <ul>
         <li>
             <a href="{{ path('Roles_new') }}">
-                Create a new entry
+                Crear Rol
             </a>
         </li>
     </ul>

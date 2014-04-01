@@ -22,13 +22,11 @@ class TbdetusuariocontratoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
        $propertyPathToTbdetcontratorif = 'fkInroContrato';
-        $builder    
+        $builder
+            ->add('fkIci')
             ->add('fkInroContrato', new TbdetcontratorifType(),array('label' => 'Contrato: ','required' => false))
             ->addEventSubscriber(new AddTbdetcontratorifFieldSubscriber($propertyPathToTbdetcontratorif))
-            ->addEventSubscriber(new AddTbdetempresaFieldSubscriber($propertyPathToTbdetcontratorif))
-            ->add('fkIci')
-            
-            
+            ->addEventSubscriber(new AddTbdetempresaFieldSubscriber($propertyPathToTbdetcontratorif))           
                 ;
     }
     
@@ -38,7 +36,8 @@ class TbdetusuariocontratoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetusuariocontrato'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetusuariocontrato',
+            'cascade_validation' => true,
         ));
     }
 
