@@ -5,9 +5,7 @@
         <link href="{{ asset('bundles/framework/css/structure.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ asset('bundles/framework/css/body.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ asset('bundles/techt/css/style.css') }}" rel="stylesheet" type="text/css" media="screen" />
-        <link href="{{ asset('bundles/techt/css/ionic.css') }}" rel="stylesheet" type="text/css" media="screen" />
-        <script src="{{ asset('bundles/techt/js/prefix-free.js"') }}"></script>
-        <script src="{{ asset('bundles/techt/js/jquery-2.1.0.js"') }}"></script>
+     
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -23,12 +21,16 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="{{path('index')}}"><span class="iconic home"></span> Inicio</a></li>
+                        {% if (app.session.get('usuario_rol')=="Empleado") or 
+                              (app.session.get('usuario_rol')=="Cliente" %}
 			<li><a href="#"><span class="iconic plus-alt"></span> Clientes</a>
 				<ul>
 					<li><a href="{{ path('Registro_new') }}">Registrarse</a></li>
 				</ul>
 			</li>
-			<li><a href="#"><span class="iconic magnifying-glass"></span> Empleados</a>
+                        {% endif %}
+    {% if app.session.get('usuario_rol')=="Empleado" %}
+    			<li><a href="#"><span class="iconic magnifying-glass"></span> Empleados</a>
 				<ul>
 					<li><a href="{{ path('Registro') }}">Registros</a></li>
 					<li><a href="{{ path('Contratos') }}">Contratos</a></li>
@@ -36,7 +38,7 @@
 					
 				</ul>
 			</li>
-			
+    {% endif%}
 		</ul>
 		<div class="clearfix"></div>
 	</nav>
