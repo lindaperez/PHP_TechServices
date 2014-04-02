@@ -278,6 +278,7 @@ class TbdetusuariodatosController extends Controller
      */
     public function editAction($id)
     {
+        //autorizacion de usuarios
         $request=$this->getRequest();
         $verif=$this->verifaccesoemplAction($request); 
         if ($verif==false){
@@ -302,9 +303,6 @@ class TbdetusuariodatosController extends Controller
             print "-(";
             print_r($contrato->getFkInroContrato()->getId());
             print ")";
-         //   $contrato_rif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-           //     ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
-            //$entity->addContrato($contrato_rif);
         }
         $estatus_registro = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                    ->findOneBy(array('fkIci' => $entity));
@@ -368,9 +366,21 @@ class TbdetusuariodatosController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        //Verificar que el arreglo de contratos no este vacio.
-        if ($editForm->isValid()) {
-            
+        //Verificar que el arreglo de contratos no este vacio.       
+        $usuario_contratos=$entity->getContratos();
+        foreach ($usuario_contratos as &$contrato) { 
+           if($contrato==null ){
+                print "No debe agregar contratos vacios. Elija los cotratos que requiere."
+                . "y quite lo que no va a asociar al cliente.";
+                return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
+                 'entity'      => $entity,
+                 'edit_form'   => $editForm->createView(),
+                 'delete_form' => $deleteForm->createView(),
+                         ));
+            }
+
+        } 
+        if ($editForm->isValid()) {  
             //1. Eliminar todas las relaciones de CI con Contrato
            $usuario_contratosR = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                 ->findBy(array('fkIci' => $entity));
@@ -379,15 +389,19 @@ class TbdetusuariodatosController extends Controller
               $em->remove($contratoR);
             }
             //2. Actualizar Contratos Existentes. Se establecen las relaciones.
-           $usuario_contratos=$entity->getContratos();
+           
            foreach ($usuario_contratos as &$contrato) { 
-               $nuevo_contrato=new Tbdetusuariocontrato();
-               $nuevo_contrato->setFkIci($contrato->getFkIci());
-               $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
-               $nuevo_contrato->setUsuarioDatos($entity);
-               print_r($nuevo_contrato->getId());
-               $em->persist($nuevo_contrato);
-            } 
+              if($contrato!=null && $contrato->getFkInroContrato()!=null){
+                  print_r ($contrato->getFkInroContrato()->getPkInroContrato());
+                  $nuevo_contrato=new Tbdetusuariocontrato();
+                  $nuevo_contrato->setFkIci($entity);
+                  $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
+                  $nuevo_contrato->setUsuarioDatos($entity);
+                  print_r($nuevo_contrato->getId());
+                  $em->persist($nuevo_contrato);
+               }
+           
+           } 
             //Se buscan roles y estatus asociado al usuario.
             $usuario_acc = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                 ->findOneBy(array('fkIci' => $entity));
