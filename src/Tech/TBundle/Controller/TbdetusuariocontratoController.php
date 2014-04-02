@@ -46,7 +46,9 @@ class TbdetusuariocontratoController extends Controller
 
             return $this->redirect($this->generateUrl('UsuariosContratos_show', array('id' => $entity->getId())));
         }
-
+        print_r($form->getErrorsAsString());
+        print_r($entity->getFkInroContrato()->getFkIrif()->getPkIrif());
+        print_r($entity->getFkInroContrato()->getFkIrif()->getPkIrif());
         return $this->render('TechTBundle:Tbdetusuariocontrato:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -115,7 +117,7 @@ class TbdetusuariocontratoController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('TechTBundle:Tbdetusuariocontrato')->find($id);
 
         if (!$entity) {
@@ -124,7 +126,11 @@ class TbdetusuariocontratoController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
+        $rif_id=$entity->getFkInroContrato()->getFkIrif()->getId();
+        $usuario_rif = $em->getRepository('TechTBundle:Tbdetempresa')
+        ->find($rif_id);   
+        $entity->getFkInroContrato()->setFkIrif($usuario_rif);
+        print_r($entity->getFkInroContrato()->getFkIrif());
         return $this->render('TechTBundle:Tbdetusuariocontrato:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

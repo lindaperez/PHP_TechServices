@@ -17,6 +17,7 @@ class Tbdetusuariocontrato
     
     protected $usuariodatos;
     
+    
     /**
      * @var integer
      *
@@ -45,6 +46,7 @@ class Tbdetusuariocontrato
      * })
      */
     private $fkInroContrato;
+        
     public function __construct()
     {
         $this->usuariodatos = new Tbdetusuariodatos();
@@ -70,7 +72,7 @@ class Tbdetusuariocontrato
             $this->usuariodatos=$usuariodatos;
     }    
     
-    
+
     /**
      * Get id
      *

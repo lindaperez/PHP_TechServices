@@ -38,6 +38,7 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
             'attr'          => array(
                 'class' => 'tbdetempresa_selector',
             ),
+           /* 
          'query_builder' => function (EntityRepository $repository) use ($tbdetempresa_id) {
                 $qb = $repository->createQueryBuilder('tbdetempresa')
                     ->where('tbdetempresa.id = :id')
@@ -45,7 +46,18 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
                 ;
 
                 return $qb;
-            }   
+            }
+            * 
+            */
+             'query_builder' => function (EntityRepository $repository) use ($tbdetempresa_id) {
+                $qb = $repository->createQueryBuilder('tbdetempresa')
+                    ->where('tbdetempresa.id = :id')
+                    ->setParameter('id', $tbdetempresa_id)
+                ;
+ 
+                return $qb;
+            }
+
         );
 
         if ($tbdetempresa_id) {
@@ -76,9 +88,10 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
 
     public function preSubmit(FormEvent $event)
     {
-
+        $data = $event->getData();
         $form = $event->getForm();
-
-        $this->addTbdetcontratorifForm($form);
+        
+        $tbdetempresa_id = array_key_exists('tbdetcontratorif', $data) ? $data['tbdetcontratorif'] : null;
+        $this->addTbdetcontratorifForm($form,$tbdetempresa_id);
     }
 }   
