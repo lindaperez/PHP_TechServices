@@ -31,6 +31,7 @@ class DefaultController extends Controller
         * */
             $session->set('usuario_tipo_rol',$tipo_rol);   
             $session->set('usuario_estatus_registro',$estatus);   
+            
         }
         //print_r("End");
         return $this->render('TechTBundle:Default:index.html.twig');
@@ -78,4 +79,5 @@ class DefaultController extends Controller
         return $this->render('TechTBundle:Default:erroracceso.html.twig');
        
     }
+    
 }

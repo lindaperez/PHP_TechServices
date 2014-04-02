@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tech\TBundle\Form\TbdetusuariodatosType;
 use Tech\TBundle\Form\TbdetusuarioaccesoType;
 use Tech\TBundle\Form\TbdetempresaType;
+use Doctrine\ORM\EntityRepository;
 
 
 class TbdetcontratorifType extends AbstractType
@@ -19,12 +20,7 @@ class TbdetcontratorifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkInroContrato','entity' ,array('class' => 'TechTBundle:Tbdetcontratorif',
-                 'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('tbdetcontratorif')
-                    ->orderBy('tbdetcontratorif.pkInroContrato', 'ASC');
-                 },
-                'label' => 'Contrato: ','required' => false))
+            ->add('pkInroContrato')
             ->add('fkIrif','entity' ,array('class' => 'TechTBundle:Tbdetempresa',
                  'query_builder' => function(EntityRepository $er) {
                 return $er->createQueryBuilder('tbdetempresa')

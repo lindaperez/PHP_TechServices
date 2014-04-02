@@ -131,6 +131,11 @@ class TbdetusuariodatosController extends Controller
             
             /*Los campos rif y contrato no puedes ser null al introducirlo.*/
             if($existe_usuario == null &&  $existe_usuacontrif!=null){
+                //Almacenar Fecha de Registro
+                date_default_timezone_set('America/Caracas');
+                $date=new \DateTime('NOW');
+                $entity->setDfechaRegistro($date);
+                
             /*Verificar si el rif del cotnrato existente coincide con el 
              * introducido por el usuario*/
               //print_r($form["vrif"]->getData());
@@ -178,7 +183,11 @@ class TbdetusuariodatosController extends Controller
                 //$em->persist($usuario_contratorif);
                 $em->persist($usuario_acceso);
                 $em->flush();
-            
+                //Envio de correo de confirmacion
+            $session=$request->getSession();
+            $key=$session->get('usuario_clave');
+            $this->mailer($entity->getVnombre()." ".$entity->getVapellido(),
+                    $entity->getPkIci(),$key,'Solicitud de Registro',$entity->getVcorreoEmail());       
             return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
             }else{
                 if ($existe_usuario != null){
@@ -190,7 +199,6 @@ class TbdetusuariodatosController extends Controller
                 }
             }
         }
-
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -242,7 +250,8 @@ class TbdetusuariodatosController extends Controller
         $entity->getContratos()->add($contrato_registro);
         $form   = $this->createCreateForm($entity);
         //print_r($form['contratos']->getData());
-            
+        $session=$request->getSession();
+        $session->set('usuario_clave',$g_password);
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -491,5 +500,24 @@ class TbdetusuariodatosController extends Controller
         }
             return false;
               
-    }  
+    }
+    public function mailer($name,$user,$pass,$estatus,$to)
+    {
+        
+     $message = \Swift_Message::newInstance()
+        ->setSubject('Techtrol Registro exitoso')
+        ->setFrom('techtroll.ve@gmail.com')
+        ->setTo($to)
+        ->setBody(
+            $this->renderView(
+                'TechTBundle:Default:mail.html.twig',
+                array('name' => $name,'user' => $user
+             ,'pass' => $pass,'estatus' => $estatus)
+            )
+        ,'text/html')
+    ;
+    $this->get('mailer')->send($message);
+
+        
+    }
     }

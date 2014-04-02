@@ -30,9 +30,6 @@
          {% for usuariocontrato in edit_form.contratos %}
              <li>
                  
-                <div style="display: none;">
-                {{ form_row(usuariocontrato.fkIci) }}       
-                    </div>
                 {{ form_row(usuariocontrato.fkInroContrato) }}       
                 {{ form_row(usuariocontrato.tbdetcontratorif) }}       
             </li>
@@ -139,7 +136,7 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
-    newForm.find();
+   // newForm.find();
     alert("Han cambiado mi valorPPP"+ newForm);
      var newFormD = "<div><label for=tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos]["+index+"][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
     // increase the index with one for the next item
