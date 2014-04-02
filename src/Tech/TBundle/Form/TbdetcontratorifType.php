@@ -19,8 +19,18 @@ class TbdetcontratorifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkInroContrato')
-            ->add('fkIrif')
+            ->add('pkInroContrato','entity' ,array('class' => 'TechTBundle:Tbdetcontratorif',
+                 'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('tbdetcontratorif')
+                    ->orderBy('tbdetcontratorif.pkInroContrato', 'ASC');
+                 },
+                'label' => 'Contrato: ','required' => false))
+            ->add('fkIrif','entity' ,array('class' => 'TechTBundle:Tbdetempresa',
+                 'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('tbdetempresa')
+                    ->orderBy('tbdetempresa.pkIrif', 'ASC');
+                 },
+                'label' => 'Empresa: ','required' => false))
         ;
     }
     

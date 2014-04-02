@@ -28,8 +28,10 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbdetcontratorifForm($form,  $tbdetempresa_id = null)
+    private function addTbdetcontratorifForm($form, $tbdetempresa=null, $tbdetempresa_id)
     {
+       
+       
         $formOptions = array(
             'class'         => 'TechTBundle:Tbdetempresa',
             'empty_value'   => 'Rif',
@@ -60,8 +62,8 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
 
         );
 
-        if ($tbdetempresa_id) {
-            $formOptions['data'] = $tbdetempresa_id;
+        if ($tbdetempresa) {
+            $formOptions['data'] = $tbdetempresa;
         }
 
         $form->add('tbdetcontratorif','entity', $formOptions);
@@ -81,17 +83,20 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
 
         $tbdetcontratorif        = $accessor->getValue($data, $this->propertyPathToTbdetcontratorif);
         $tbdetempresa_id    = ($tbdetcontratorif) ? $tbdetcontratorif->getFkIrif()->getId() : null;
-        
+        $tbdetempresa    = ($tbdetcontratorif) ? $tbdetcontratorif->getFkIrif() : null;
 
-        $this->addTbdetcontratorifForm($form, $tbdetempresa_id);
+        $this->addTbdetcontratorifForm($form,$tbdetempresa,$tbdetempresa_id);
     }
 
     public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
         $form = $event->getForm();
-        
+            
         $tbdetempresa_id = array_key_exists('tbdetcontratorif', $data) ? $data['tbdetcontratorif'] : null;
-        $this->addTbdetcontratorifForm($form,$tbdetempresa_id);
+         
+
+        $this->addTbdetcontratorifForm($form,null,$tbdetempresa_id);
+    
     }
 }   
