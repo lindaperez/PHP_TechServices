@@ -21,6 +21,14 @@
 	<nav>
 		<ul class="menu">
 			<li><a href="{{path('index')}}"><span class="iconic home"></span> Inicio</a></li>
+                        {% if (app.session.get('usuario_rol')!="Empleado") and 
+                              (app.session.get('usuario_rol')!="Cliente") %}
+                        <li><a href="#"><span class="iconic plus-alt"></span> Clientes</a>
+				<ul>
+					<li><a href="{{ path('Registro_new') }}">Registro</a></li>
+				</ul>
+			</li>
+                        {% endif %}
                         {% if (app.session.get('usuario_rol')=="Empleado") or 
                               (app.session.get('usuario_rol')=="Cliente") %}
 			<li><a href="#"><span class="iconic plus-alt"></span> Clientes</a>

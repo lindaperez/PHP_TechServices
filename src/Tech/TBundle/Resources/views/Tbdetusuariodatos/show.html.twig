@@ -50,6 +50,8 @@
         </tbody>
     </table>
 <br><br>
+{% if (app.session.get('usuario_rol')=="Empleado") %}
+                        
         <ul class="record_actions">
     <li>
         <a href="{{ path('Registro') }}">
@@ -63,4 +65,7 @@
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+{% endif %}
 {% endblock %}
+
+     

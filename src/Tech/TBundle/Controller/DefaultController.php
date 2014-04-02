@@ -31,7 +31,7 @@ class DefaultController extends Controller
         * */
             $session->set('usuario_tipo_rol',$tipo_rol);   
             $session->set('usuario_estatus_registro',$estatus);   
-            
+            $session->set('usuario_ci',$user->getPkIci());   
         }
         //print_r("End");
         return $this->render('TechTBundle:Default:index.html.twig');

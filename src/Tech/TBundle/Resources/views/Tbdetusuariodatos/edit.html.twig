@@ -8,7 +8,7 @@
 <br>
 <h1>Datos Personales</h1>
 <br>
-
+<form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
     {{ form_start(edit_form) }}
     {{ form_errors(edit_form) }}
         {{ form_row(edit_form.pkIci, {'label': 'Cédula:'}) }}
@@ -21,7 +21,7 @@
         {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento'}) }}
         {{ form_row(edit_form.vsucursal, {'label': 'Sucursal'}) }}
         
-<br>
+<br><br>
 <h1>Contratos </h1>    
 <br>
 
@@ -37,7 +37,7 @@
     
 </ul>
 
-<br>
+<br><br><br>
 <h1>Sistema </h1>            
 <br>            
      {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus'}) }}
@@ -52,24 +52,29 @@
         {{ form_row(edit_form.dfechaRegistro) }}
         {{ form_row(edit_form.contratos) }}
         
-
+    {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+    {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}            
     </div>
-        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
-
-            {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
-
-        {{ form_end(edit_form) }}     
-
-
+    <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Actualizar</span>
+                </span>
+            </span>
+    </button>
+    {{ form_end(edit_form) }}     
+    <br>
+   
+</form>
 <br><br>
  
-<br><br>
+<br>
         <ul class="record_actions">
    
     <li></li>
      <li>
         <a href="{{ path('Registro') }}">
-            Volver a Lista de Usuarios Registrados
+            Ver Lista de Usuarios Registrados
         </a>
     </li>
 </ul>
@@ -90,6 +95,7 @@ var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
     $collectionHolder = $('ul.contratos');
+    
 // add a delete link to all of the existing tag form li elements
     
     $collectionHolder.find('li').each(function() {
@@ -117,12 +123,20 @@ jQuery(document).ready(function() {
 function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
     var $removeFormA = $('<td><a href="#">Quitar</a></td>');
         $contratoFormLi.append($removeFormA);
-    $removeFormA.on('click', function(e) {
+        
+        $removeFormA.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // remove the li for the tag form
+        var $collectionHolder = $('ul.contratos');
+        var index=$collectionHolder.find('li').length;
+        
+        if(index===1){
+            alert("Estimado. Recuerde que debe existir al menos un contrato."+ index);
+        }else{
+        
         $contratoFormLi.remove();
+        }
+        e.preventDefault();
+           // remove the li for the tag form
     });
 }
 function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
@@ -136,17 +150,23 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
-   // newForm.find();
-    alert("Han cambiado mi valorPPP"+ newForm);
+     
      var newFormD = "<div><label for=tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos]["+index+"][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm).append(newFormD);
-    //var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
-    addTbdetcontratorifFormDeleteLink($newFormLi);
+        $newLinkLi.before($newFormLi);
+        addTbdetcontratorifFormDeleteLink($newFormLi);
+    var $cucu=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index+'_fkInroContrato');  
+    var $cucu4=$cucu.addClass("tbdetcontratorif_selector");
+    var $cucu10=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index+'_fkInroContrato');
+    var $cucu11= $cucu10.find('> option:first').attr('value',0);  
+    var $cucu12= $cucu10.find('> option[value='+0+']').text('Nro');  
+    var $cucu5=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index).find(':first');
+    var $cucu6=$cucu5.css('display', 'none');
+    var $cucu8= $("label[for='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_fkInroContrato']").text("Contrato: ");
 }
 
 </script>

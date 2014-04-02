@@ -90,10 +90,6 @@ class TbdetusuariodatosController extends Controller
     public function createAction(Request $request)
     {
         $request=$this->getRequest();
-        $verif=$this->verifaccesoemplAction($request); 
-        if ($verif==false){
-        return $this->render('TechTBundle:Default:erroracceso.html.twig');
-        }
         $entity = new Tbdetusuariodatos();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -231,21 +227,18 @@ class TbdetusuariodatosController extends Controller
     public function newAction()
     {
         $request=$this->getRequest();
-        $verif=$this->verifaccesoemplAction($request); 
-        if ($verif==false){
-        return $this->render('TechTBundle:Default:erroracceso.html.twig');
-        }
+        
         $entity = new Tbdetusuariodatos();    
         /*Generacion de clave */
         $g_userName = $entity->getPkIci();
         $g_password = $this->makekey();
         $g_userInter=$this->makepassword($g_userName,$g_password);
         $entity->setVclave($g_userInter->getVclave());
-        print "clave:: ";
-        print_r ($g_password);
-        print " ";
-        print_r( $entity->getVclave());
-        print "finclave ";
+       // print "clave:: ";
+       // print_r ($g_password);
+       // print " ";
+        //print_r( $entity->getVclave());
+        //print "finclave ";
         $contrato_registro = new Tbdetusuariocontrato();
         $entity->getContratos()->add($contrato_registro);
         $form   = $this->createCreateForm($entity);
@@ -273,7 +266,7 @@ class TbdetusuariodatosController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        print_r($entity->getPassword());
+        //print_r($entity->getPassword());
         return $this->render('TechTBundle:Tbdetusuariodatos:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
@@ -313,8 +306,6 @@ class TbdetusuariodatosController extends Controller
            //     ->findOneBy(array('id' => $contrato->getFkInroContrato()));        
             //$entity->addContrato($contrato_rif);
         }
-        
-        
         $estatus_registro = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                    ->findOneBy(array('fkIci' => $entity));
         
@@ -363,6 +354,7 @@ class TbdetusuariodatosController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        //Verificacion de Acceso de Usuarios Empleados.
         $request=$this->getRequest();
         $verif=$this->verifaccesoemplAction($request); 
         if ($verif==false){
@@ -376,20 +368,19 @@ class TbdetusuariodatosController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        //Verificar que el arreglo de contratos no este vacio.
         if ($editForm->isValid()) {
             
-            //Que no se liste Registro
-            //1.Eliminar todas las relaciones de CI con Contrato
+            //1. Eliminar todas las relaciones de CI con Contrato
            $usuario_contratosR = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                 ->findBy(array('fkIci' => $entity));
            foreach ($usuario_contratosR as &$contratoR) {
              print_r($contratoR->getFkInroContrato()->getId());                
               $em->remove($contratoR);
             }
-            //Actualizar Contratos Existentes
+            //2. Actualizar Contratos Existentes. Se establecen las relaciones.
            $usuario_contratos=$entity->getContratos();
-           foreach ($usuario_contratos as &$contrato) {
-            //DEbe existir al menos 1 
+           foreach ($usuario_contratos as &$contrato) { 
                $nuevo_contrato=new Tbdetusuariocontrato();
                $nuevo_contrato->setFkIci($contrato->getFkIci());
                $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
@@ -420,12 +411,14 @@ class TbdetusuariodatosController extends Controller
             $p = $q->execute();
             //$numUpdated = $q->execute();
             $em->flush();
-            //Se actualiza la session puesto que se actualizo rol y estatus
+            /*Se actualiza la session en caso de que se edite el usuario logeado
+            puesto que se actualizo rol y estatus*/
             $session = $request->getSession();
+            if($session->get('usuario_ci')==$entity->getPkIci()){
             $session->set('usuario_rol',$acceso_rol);
             $session->set('usuario_tipo_rol',$acceso_tipo_rol);
             $session->set('usuario_estatus_registro',$acceso_estatus);
-            
+        }
             return $this->redirect($this->generateUrl('Registro_edit', array('id' => $id)));
         }
 
@@ -520,4 +513,5 @@ class TbdetusuariodatosController extends Controller
 
         
     }
+    
     }

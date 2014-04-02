@@ -33,7 +33,9 @@ security:
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
          - {path: ^/admin, roles: ROLE_ADMIN}
-         - {path: /Registro, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Registro/edit, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Registro/delete, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
+         - {path: /Registro/index, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
          - {path: /Contratos, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
          - {path: /Roles, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
          - {path: /TiposRoles, roles: [ROLE_ADMIN,ROLE_USER, ROLE_SUPER_ADMIN]}
