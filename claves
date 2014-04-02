@@ -1,10 +1,51 @@
+
+<div id="tech_tbundle_tbdetusuariodatos_contratos_4">
+    <div>
+        <label for="tech_tbundle_tbdetusuariodatos_contratos_4_fkIci">Fk ici</label>
+        <select id="tech_tbundle_tbdetusuariodatos_contratos_4_fkIci" 
+                name="tech_tbundle_tbdetusuariodatos[contratos][4][fkIci]">
+            <option value=""></option><option value="1">18915768</option>
+        </select>
+    </div>
+    <div>
+        <label for="tech_tbundle_tbdetusuariodatos_contratos_4_fkInroContrato">Fk inro contrato</label>
+        <select id="tech_tbundle_tbdetusuariodatos_contratos_4_fkInroContrato" 
+                name="tech_tbundle_tbdetusuariodatos[contratos][4][fkInroContrato]">
+            <option value=""></option>
+            <option value="1">1196</option><option value="2">2296</option>
+            <option value="3">124</option><option value="4">2299</option>
+            <option value="5">2257</option><option value="6">999</option>
+        </select></div>
+</div>
+
+1. agregar div de invisibilidad none 
+2. agregar class tbdetcontratorif_selector
+
+3. cambiar label name de fkici
+4. cambiar label name de fkInroContrato
+
+
+
+
+
+<div id="tech_tbundle_tbdetusuariodatos_contratos_4"><div><label for="tech_tbundle_tbdetusuariodatos_contratos_4_fkIci">Fk ici</label><select id="tech_tbundle_tbdetusuariodatos_contratos_4_fkIci" name="tech_tbundle_tbdetusuariodatos[contratos][4][fkIci]"><option value=""></option><option value="1">18915768</option></select></div><div><label for="tech_tbundle_tbdetusuariodatos_contratos_4_fkInroContrato">Fk inro contrato</label><select id="tech_tbundle_tbdetusuariodatos_contratos_4_fkInroContrato" name="tech_tbundle_tbdetusuariodatos[contratos][4][fkInroContrato]"><option value=""></option><option value="1">1196</option><option value="2">2296</option><option value="3">124</option><option value="4">2299</option><option value="5">2257</option><option value="6">999</option></select></div></div>
+
+<select id="tech_tbundle_tbdetusuariodatos_contratos_3_tbdetcontratorif" name="tech_tbundle_tbdetusuariodatos[contratos][3][tbdetcontratorif]" class="tbdetempresa_selector"><option value="">Rif</option><option value="1" selected="selected">11</option></select>
+
+
+
+<select id="tech_tbundle_tbdetusuariodatos_contratos_3_tbdetcontratorif" name="tech_tbundle_tbdetusuariodatos[contratos][3][tbdetcontratorif]" class="tbdetempresa_selector"><option value="">Rif</option><option value="1" selected="selected">11</option></select></div>
+
+
 clave:: 0t0dav TygtKmJ4JLAF+jrkE1G5ht9u9PH09QO7hqkWiaLttp61S1AS311OqtirizZUOtdfOmr6JMIkRcdHHaZiolHxsw==finclave 18915768
 
 clave:: IZ1Kv6 2P93vPAaxetGRHS7ufdH5JKLGU3HxCgjRBkhagiqoiYYzoxRKHXyu0oP+xNx8ag2GdJ6Zqwf/FfiknB59VIQiA==finclave 12933721
 
+SELECT * FROM `tbdetContratoRif` c  INNER JOIN  `tbdetEmpresa` e WHERE e.`id`=1 AND e.`id`=c.`fk_iRIF`
 
-
-
+techtrol.ve@gmail.com
+clave: admintech
+01 /04/ 1990
 
     {{ form_start(form) }}
     {{ form_errors(form) }}

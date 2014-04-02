@@ -25,20 +25,20 @@
 <h1>Contratos </h1>    
 <br>
 
-<div class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
+<ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         
          {% for usuariocontrato in edit_form.contratos %}
-            
-            <ul>     
+             <li>
+                 
                 <div style="display: none;">
                 {{ form_row(usuariocontrato.fkIci) }}       
                     </div>
                 {{ form_row(usuariocontrato.fkInroContrato) }}       
                 {{ form_row(usuariocontrato.tbdetcontratorif) }}       
-            </ul>    
+            </li>
         {% endfor %}
     
-</div>
+</ul>
 
 <br>
 <h1>Sistema </h1>            
@@ -92,10 +92,10 @@ var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
-    $collectionHolder = $('div.contratos');
+    $collectionHolder = $('ul.contratos');
 // add a delete link to all of the existing tag form li elements
     
-    $collectionHolder.find('ul').each(function() {
+    $collectionHolder.find('li').each(function() {
         addTbdetcontratorifFormDeleteLink($(this));
     });
 
@@ -105,7 +105,7 @@ jQuery(document).ready(function() {
     // 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find('ul').length);
+    $collectionHolder.data('index', $collectionHolder.find('li').length);
     
         //alert("Han cambiado mi valor"+ $collectionHolder.data('index'));
     
@@ -139,12 +139,15 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on how many items we have
     var newForm = prototype.replace(/__name__/g, index);
-
+    newForm.find();
+    alert("Han cambiado mi valorPPP"+ newForm);
+     var newFormD = "<div><label for=tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos]["+index+"][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<ul></ul>').append(newForm);
+    var $newFormLi = $('<li></li>').append(newForm).append(newFormD);
+    //var $newFormLi = $('<li></li>').append(newForm);
     $newLinkLi.before($newFormLi);
     addTbdetcontratorifFormDeleteLink($newFormLi);
 }

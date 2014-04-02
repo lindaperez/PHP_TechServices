@@ -1,8 +1,12 @@
 
 var $collectionHolder;
+
 // setup an "add a tag" link
+
 var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
+
 var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
+
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
