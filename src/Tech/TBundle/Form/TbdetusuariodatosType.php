@@ -32,7 +32,10 @@ class TbdetusuariodatosType extends AbstractType
             ->add('vdepartamento')
             ->add('vsucursal')
             ->add('vclave')
-            ->add('dfechaRegistro')
+            ->add('dfechaRegistro','date', array('label'=> 'Fecha Registro:',
+                    'widget' => 'choice',
+                    // this is actually the default format for single_text
+                    'format' => 'dd-MM-yy',))
             ->add('vcontrato','text',array('label' => 'Contrato: ','required' => false))
             ->add('vrif','text',array('label' => 'Rif.','required' => false))
             ->add('usuarioacceso', new TbdetusuarioaccesoType())

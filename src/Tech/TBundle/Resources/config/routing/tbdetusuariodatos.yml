@@ -2,6 +2,14 @@ Registro:
     pattern:  /
     defaults: { _controller: "TechTBundle:Tbdetusuariodatos:index" }
 
+Registro_index:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetusuariodatos:index" }
+
+Registro_search:
+    pattern:  /search
+    defaults: { _controller: "TechTBundle:Tbdetusuariodatos:search" }
+
 Registro_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetusuariodatos:show" }

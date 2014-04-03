@@ -1,7 +1,81 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Lista de Usuarios Registrados</h1>
+<br><br>
+
+<h1>Filtros de Búsqueda</h1>
+<form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
+    
+    {{ form_start(search_form) }}
+    {{ form_errors(search_form) }}
+    <table border="1" cellpadding="1" cellspacing="1">
+    <td>
+        
+        {{ form_row(search_form.pkIci, {'label': 'Cédula:'}) }}<br>
+        {{ form_row(search_form.vcargo,  {'label': 'Cargo:'}) }}<br>
+        <ul class="contratos" data-prototype="{{ form_widget(search_form.contratos.vars.prototype)|e }}">
+        
+         {% for usuariocontrato in search_form.contratos %}
+             <li>
+                 
+                {{ form_row(usuariocontrato.fkInroContrato) }}       
+                {{ form_row(usuariocontrato.tbdetcontratorif) }}       
+            </li>
+        {% endfor %}
+    
+        </ul>
+        
+        </td><td>
+        {{ form_row(search_form.vnombre,  {'label': 'Nombre:'}) }}<br>
+        {{ form_row(search_form.vsucursal, {'label': 'Sucursal:'}) }}<br>
+        {{ form_row(search_form.dfechaRegistro) }}<br>
+            
+            </td>
+    <br>    
+    <td>
+       {{ form_row(search_form.vapellido,  {'label': 'Apellido'}) }}<br>
+       {{ form_row(search_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus:'}) }}<br>
+     {{ form_row(search_form.usuarioacceso.fkIidRol, {'label': 'Rol:'}) }}<br>    
+
+
+        
+        <br> <br> <br>
+        
+        <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Buscar</span>
+                </span>
+            </span>
+        </button>
+        </td>
+        
+    <br>
+    <!--Campos ocultos -->
+    <div style="display: none;">
+        
+        {{ form_row(search_form.vrif) }}
+        {{ form_row(search_form.vcontrato) }}
+        {{ form_row(search_form.vclave) }}
+        
+        {{ form_row(search_form.usuarioacceso.fkIci) }}
+        {{ form_row(search_form.vcorreoEmail,  {'label': 'Correo:'}) }}
+        {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}  
+        {{ form_row(search_form.vdepartamento,  {'label': 'Departamento'}) }}
+        {{ form_row(search_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
+        {{ form_row(search_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
+    </div>    
+    
+    
+    </table>
+    
+    {{ form_end(search_form) }}
+</form>
+
+
+<br><br>
+
+<h1>Lista de Usuarios Registrados</h1>
 <br><br>
     <table class="records_list">
         <thead>

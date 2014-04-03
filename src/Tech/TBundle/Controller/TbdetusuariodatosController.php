@@ -19,7 +19,100 @@ use Tech\TBundle\Controller\DefaultController;
  */
 class TbdetusuariodatosController extends Controller
 {
-  
+    
+    public function searchAction()
+    {   
+        //Verificacion del empleado
+        $request=$this->getRequest();
+        $verif=$this->verifaccesoemplAction($request); 
+        if ($verif==false){
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $entity_search = new Tbdetusuariodatos();    
+        $searchForm = $this->createSearchForm($entity_search);
+        $searchForm->handleRequest($request);
+        $vacio=false;
+        $pkIci=$searchForm['pkIci']->getData();
+        $vnombre=$searchForm['vnombre']->getData();
+        $vapellido=$searchForm['vapellido']->getData();
+        $vcargo=$searchForm['vcargo']->getData();
+        $vsucursal=$searchForm['vsucursal']->getData();
+        $dfechaRegistro=$searchForm['dfechaRegistro']->getData();
+        
+        if ($pkIci==null && $vnombre==null && $vapellido==null &&
+                $vcargo==null && $vsucursal==null){
+            $vacio=true;
+        }
+        //Si todos los campos son vacios.
+        if($vacio==true){
+            $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
+        }else{
+            $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
+                    if ($pkIci!=null){
+                        $qb->andwhere('ud.pkIci=?1');
+                        $qb->setParameter(1, $pkIci);
+                    }
+                    if ($vnombre!=null){
+                        $qb->andwhere('ud.vnombre=?2');
+                        $qb->setParameter(2, $vnombre);
+                    }
+                    if ($vapellido!=null){
+                        $qb->andwhere('ud.vapellido=?3');
+                        $qb->setParameter(3, $vapellido);
+                    }
+                    if ($vcargo!=null){
+                        $qb->andwhere('ud.$vcargo=?4');
+                        $qb->setParameter(4, $vcargo);
+                    }
+                    if ($vsucursal!=null){
+                        $qb->andwhere('ud.vsucursal=?5');
+                        $qb->setParameter(5, $vsucursal);
+                    }
+                    if ($dfechaRegistro!=null){
+                        $qb->andwhere('ud.dfechaRegistro=?6');
+                        $qb->setParameter(6, $dfechaRegistro);
+                    }
+            $entities= $qb->getQuery()->execute();
+
+        }
+            foreach ($entities as &$entity) {
+            //Buscar en tabla acceso la cedula extraer rol y estatus
+                $usuario_acceso = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                        ->findOneBy(array('fkIci' => $entity));        
+                $entity->setUsuarioacceso($usuario_acceso);
+                //Buscar los contratos asociados 
+                $contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                        ->findBy(array('fkIci' => $entity));
+                $contrato_collection=new ArrayCollection($contratos);
+                $entity->setContratos($contrato_collection);
+            }
+       
+            return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
+                'entities' => $entities,
+                'entity'      => $entity_search,
+                'search_form'   => $searchForm->createView(),
+            ));
+        
+    }
+    /**
+    * Creates a form to edit a Tbdetusuariodatos entity.
+    *
+    * @param Tbdetusuariodatos $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createSearchForm(Tbdetusuariodatos $entity)
+    {
+        $form = $this->createForm(new TbdetusuariodatosType(), $entity, array(
+            'action' => $this->generateUrl('Registro_index'),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Buscar'));
+
+        return $form;
+    }
     /**
      * Lists all Tbdetusuariodatos entities.
      *
@@ -32,6 +125,11 @@ class TbdetusuariodatosController extends Controller
         return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
+        $entity_search = new Tbdetusuariodatos();    
+        $searchForm = $this->createSearchForm($entity_search);
+        //$searchForm->handleRequest($request);
+       
+        //Si todos los campos son vacios.
         $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
         foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
@@ -44,9 +142,11 @@ class TbdetusuariodatosController extends Controller
             $contrato_collection=new ArrayCollection($contratos);
             $entity->setContratos($contrato_collection);
         }
-        
+       
         return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
             'entities' => $entities,
+            'entity'      => $entity_search,
+            'search_form'   => $searchForm->createView(),
         ));
     }
      protected function makekey()
@@ -176,7 +276,6 @@ class TbdetusuariodatosController extends Controller
             
                 $em->persist($entity);
                 $em->persist($usuario_contrato);
-                //$em->persist($usuario_contratorif);
                 $em->persist($usuario_acceso);
                 $em->flush();
                 //Envio de correo de confirmacion
@@ -215,7 +314,7 @@ class TbdetusuariodatosController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Crear'));
 
         return $form;
     }
@@ -288,7 +387,7 @@ class TbdetusuariodatosController extends Controller
         $request=$this->getRequest();
         $verif=$this->verifaccesoemplAction($request); 
         if ($verif==false){
-        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+            return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
@@ -345,7 +444,7 @@ class TbdetusuariodatosController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar'));
 
         return $form;
     }
@@ -486,7 +585,7 @@ class TbdetusuariodatosController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('Registro_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm()
         ;
     }
