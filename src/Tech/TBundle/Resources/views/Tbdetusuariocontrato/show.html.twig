@@ -1,28 +1,34 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetusuariocontrato</h1>
+{% block content %}
 
+    <h1>Contrato Asociado</h1>
+<br><br>
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Id: </th>
                 <td>{{ entity.id }}</td>
             </tr>
         </tbody>
     </table>
-
+<br><br>
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('UsuariosContratos') }}">
-            Back to the list
-        </a>
-    </li>
     <li>
         <a href="{{ path('UsuariosContratos_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
+    
+    
     <li>{{ form(delete_form) }}</li>
-</ul>
+
+        
+    <li>
+        <a href="{{ path('UsuariosContratos') }}">
+            Ver Contratos asociados
+        </a>
+    </li>
+    
+        </ul>
 {% endblock %}

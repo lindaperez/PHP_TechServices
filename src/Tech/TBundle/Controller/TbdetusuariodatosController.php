@@ -227,7 +227,13 @@ class TbdetusuariodatosController extends Controller
     public function newAction()
     {
         $request=$this->getRequest();
-        
+        $session=$request->getSession();
+        if ($session->get('usuario_estatus_registro')!=null 
+            && ($session->get('usuario_estatus_registro')=="Solicitud Anulada" 
+                || $session->get('usuario_estatus_registro')=="Solicitud Registro" )){
+            
+        return $this->render('TechTBundle:Default:erroracceso.html.twig');
+                }
         $entity = new Tbdetusuariodatos();    
         /*Generacion de clave */
         $g_userName = $entity->getPkIci();
@@ -299,10 +305,7 @@ class TbdetusuariodatosController extends Controller
         
         foreach ($usuario_contratos as &$contrato) {
             $entity->addContrato($contrato);
-            print_r($contrato->getFkInroContrato()->getPkInroContrato());
-            print "-(";
-            print_r($contrato->getFkInroContrato()->getId());
-            print ")";
+    
         }
         $estatus_registro = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                    ->findOneBy(array('fkIci' => $entity));
@@ -392,12 +395,12 @@ class TbdetusuariodatosController extends Controller
            
            foreach ($usuario_contratos as &$contrato) { 
               if($contrato!=null && $contrato->getFkInroContrato()!=null){
-                  print_r ($contrato->getFkInroContrato()->getPkInroContrato());
+                //  print_r ($contrato->getFkInroContrato()->getPkInroContrato());
                   $nuevo_contrato=new Tbdetusuariocontrato();
                   $nuevo_contrato->setFkIci($entity);
                   $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
                   $nuevo_contrato->setUsuarioDatos($entity);
-                  print_r($nuevo_contrato->getId());
+                 // print_r($nuevo_contrato->getId());
                   $em->persist($nuevo_contrato);
                }
            

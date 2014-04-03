@@ -46,9 +46,7 @@ class TbdetusuariocontratoController extends Controller
 
             return $this->redirect($this->generateUrl('UsuariosContratos_show', array('id' => $entity->getId())));
         }
-        print_r($form->getErrorsAsString());
-        print_r($entity->getFkInroContrato()->getFkIrif()->getPkIrif());
-        print_r($entity->getFkInroContrato()->getFkIrif()->getPkIrif());
+       
         return $this->render('TechTBundle:Tbdetusuariocontrato:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -130,7 +128,7 @@ class TbdetusuariocontratoController extends Controller
         $usuario_rif = $em->getRepository('TechTBundle:Tbdetempresa')
         ->find($rif_id);   
         $entity->getFkInroContrato()->setFkIrif($usuario_rif);
-        print_r($entity->getFkInroContrato()->getFkIrif());
+      
         return $this->render('TechTBundle:Tbdetusuariocontrato:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

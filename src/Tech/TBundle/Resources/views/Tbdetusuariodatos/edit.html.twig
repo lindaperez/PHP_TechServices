@@ -130,7 +130,8 @@ function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
         var index=$collectionHolder.find('li').length;
         
         if(index===1){
-            alert("Estimado. Recuerde que debe existir al menos un contrato."+ index);
+            alert("Estimado. Recuerde que debe existir al menos un contrato.\n\
+                    --No puede eliminar el que único que existe.");
         }else{
         
         $contratoFormLi.remove();
