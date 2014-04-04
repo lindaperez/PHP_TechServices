@@ -39,42 +39,48 @@ class TbdetusuariodatosController extends Controller
         $vcargo=$searchForm['vcargo']->getData();
         $vsucursal=$searchForm['vsucursal']->getData();
         $dfechaRegistro=$searchForm['dfechaRegistro']->getData();
-        
-        if ($pkIci==null && $vnombre==null && $vapellido==null &&
-                $vcargo==null && $vsucursal==null){
+        $entidad_estatus=$searchForm['usuarioacceso']->getData()->getFkIidEstatus();
+        $entidad_rol=$searchForm['usuarioacceso']->getData()->getFkIidRol();
+        if ($pkIci==null && $vnombre==null && $vapellido==null && 
+                $vcargo==null && $vsucursal==null && $dfechaRegistro==null
+                && $entidad_estatus==null){
             $vacio=true;
         }
         //Si todos los campos son vacios.
         if($vacio==true){
             $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
         }else{
-            $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
-                    if ($pkIci!=null){
-                        $qb->andwhere('ud.pkIci=?1');
-                        $qb->setParameter(1, $pkIci);
-                    }
-                    if ($vnombre!=null){
-                        $qb->andwhere('ud.vnombre=?2');
-                        $qb->setParameter(2, $vnombre);
-                    }
-                    if ($vapellido!=null){
-                        $qb->andwhere('ud.vapellido=?3');
-                        $qb->setParameter(3, $vapellido);
-                    }
-                    if ($vcargo!=null){
-                        $qb->andwhere('ud.$vcargo=?4');
-                        $qb->setParameter(4, $vcargo);
-                    }
-                    if ($vsucursal!=null){
-                        $qb->andwhere('ud.vsucursal=?5');
-                        $qb->setParameter(5, $vsucursal);
-                    }
-                    if ($dfechaRegistro!=null){
-                        $qb->andwhere('ud.dfechaRegistro=?6');
-                        $qb->setParameter(6, $dfechaRegistro);
-                    }
+            
+          $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
+            
+          if ($entidad_estatus!=null || $entidad_rol!=null){
+              $qb->leftjoin('TechTBundle:Tbdetusuarioacceso','ua',
+                         'WITH','ud.id=ua.fkIci'); 
+              if ($entidad_estatus!=null){
+                  $entidad_estatus_id=$searchForm['usuarioacceso']->getData()->getFkIidEstatus()->getId();
+                  $qb->andwhere('ua.fkIidEstatus=?7')->setParameter(7, $entidad_estatus_id);    
+              }
+              if ($entidad_rol!=null){
+                  $entidad_rol_id=$searchForm['usuarioacceso']->getData()->getFkIidRol()->getId();
+                  $qb->andwhere('ua.fkIidRol=?8')->setParameter(8, $entidad_rol_id);    
+              }
+          }
+            if ($pkIci!=null){
+                $qb->andwhere('ud.pkIci=?1')->setParameter(1, $pkIci);
+            }
+            if ($vnombre!=null){
+                $qb->andwhere('ud.vnombre=?2')->setParameter(2, $vnombre);
+            }
+            if ($vapellido!=null){
+                $qb->andwhere('ud.vapellido=?3')->setParameter(3, $vapellido);
+            }
+            if ($vcargo!=null){
+                $qb->andwhere('ud.vcargo=?4')->setParameter(4, $vcargo);
+            }
+            if ($vsucursal!=null){
+                $qb->andwhere('ud.vsucursal=?5')->setParameter(5, $vsucursal);
+            }
             $entities= $qb->getQuery()->execute();
-
         }
             foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
@@ -86,7 +92,7 @@ class TbdetusuariodatosController extends Controller
                         ->findBy(array('fkIci' => $entity));
                 $contrato_collection=new ArrayCollection($contratos);
                 $entity->setContratos($contrato_collection);
-            }
+            }   
        
             return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
                 'entities' => $entities,

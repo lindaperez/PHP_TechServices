@@ -1,4 +1,16 @@
-
+ /*
+           $qb=$em->createQuery(
+                    'SELECT ud FROM TechTBundle:Tbdetusuariodatos ud ');
+           //      $qb->innerjoin('ud.id','TechTBundle:Tbdetusuarioacceso ua', 'ud.id=ua.fk_iCI');
+                    
+                    if ($entidad_estatus!=null){
+                       $qb->add( 'JOIN TechTBundle:Tbdetusuarioacceso ua WITH ua.fkIci=ud.id WHERE ua.fkIidEstatus=?7')
+                    
+                    }
+     
+             * 
+             */
+           
 <div id="tech_tbundle_tbdetusuariodatos_contratos_4">
     <div>
         <label for="tech_tbundle_tbdetusuariodatos_contratos_4_fkIci">Fk ici</label>
