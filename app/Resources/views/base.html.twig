@@ -25,7 +25,7 @@
                               (app.session.get('usuario_rol')!="Cliente") %}
                         <li><a href="#"><span class="iconic plus-alt"></span> Clientes</a>
 				<ul>
-					<li><a href="{{ path('Registro_new') }}">Registro</a></li>
+					<li><a href="{{ path('Registro_new') }}">Solicitud de Registro</a></li>
 				</ul>
 			</li>
                         {% endif %}
@@ -33,9 +33,9 @@
                               (app.session.get('usuario_rol')=="Cliente") %}
 			<li><a href="#"><span class="iconic plus-alt"></span> Clientes</a>
 				<ul>
-					<li><a href="{{ path('Registro_new') }}">Registro</a></li>
+					<li><a href="{{ path('Registro_new') }}">Solicitud de Registro</a></li>
                                         {% if app.session.get('usuario_rol')=="Empleado" %}
-                                        <li><a href="{{ path('Registro') }}">Lista de Registros</a></li>
+                                        <li><a href="{{ path('Registro') }}">Listado de Solicitudes</a></li>
                                         {% endif %}
 				</ul>
 			</li>

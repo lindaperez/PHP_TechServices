@@ -8,8 +8,8 @@
  {{ form_start(form) }}
         {{ form_errors(form) }}
         
-        {{ form_row(form.pkIrif, {'label': 'Rif:'}) }}
-        {{ form_row(form.vdireccionFiscal, {'label': 'Dir-Fiscal:'}) }}
+        {{ form_row(form.pkIrif, {'label': 'Rif:', 'required': 'true','attr': {'oninvalid': 'sdflsdh'}})}}
+        {{ form_row(form.vdireccionFiscal, {'label': 'Dir-Fiscal:', 'required': 'true'}) }}
         <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
     </div>

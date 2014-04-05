@@ -5,8 +5,7 @@ Tech\TBundle\Entity\Tbdetusuariocontrato:
         NRO_CONTRATO_idx:
             columns:
                 - fk_iNRO_CONTRATO
-    uniqueConstraints:
-        fk_iCI_UNIQUE:
+        CI_idx:
             columns:
                 - fk_iCI
     id:

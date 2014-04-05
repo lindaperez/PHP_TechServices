@@ -44,11 +44,11 @@ class TbdetusuariodatosType extends AbstractType
                 . '. Ej. Makro la yaguara'))
             ->add('vclave')
             ->add('dfechaRegistro','date', array('empty_value' => 
-                            array('year' => 'A', 'month' =>
-                    'M', 'day' => 'D'),'required' => false,'label'=> 'Fecha Registro:',
+                            array('year' => 'Año', 'month' =>
+                    'Mes', 'day' => 'Día'),'required' => false,'label'=> 'Fecha Registro:',
                     'widget' => 'choice',
                     // this is actually the default format for single_text
-                    'format' => 'dd-MM-yy',))
+                    'format' => 'ddMMyyyy',))
             ->add('vcontrato','integer',array('label' => 'Contrato: ','required' => true,'invalid_message' => 'El valor Contrato es inválido'
                 . '. Ej. '))
             ->add('vrif','text',array('label' => 'Rif.','required' => true,'invalid_message' => 'El valor Rif que introdujo no es correcto.'

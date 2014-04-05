@@ -10,25 +10,38 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
                 max: 8
                 minMessage: La cédula {{ value }} debe tener al menos 6 números.
                 maxMessage: La cédula {{ value }} debe tener máximo 8 números.
+            - Regex:
+               pattern: "/([0-9]{2})([0-9]{6})/"
+               match:   true
+               message: Su cédula no debe contener letras, caracteres especial o más de 8 dígitos.
         vcorreoEmail:
             - Email:
                 message: El corrreo "{{ value }}" no es un correo válido.
+            - Length:
+                max: 40
+                maxMessage: El correo {{ value }} debe tener máximo 40 números.
         vnombre:
             - Type:
                 type: string
                 message: El valor {{ value }} no es válido, debe ser una cadena de letras.
             - Regex:
-                pattern:  "/\d/"
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\-\{\|!@%&_:;'`<>,~#=\"\\/]/"
                 match: false
-                message: Su Nombre no debe contener números.
+                message: Su Nombre no debe contener números o caracteres especiales.
+            - Length:
+                max: 25
+                maxMessage: Su nombre {{ value }} debe tener máximo 25 caracteres.
         vapellido:
             - Type:
                 type: string
                 message: El valor {{ value }} no es válido, debe ser una cadena de letras.
             - Regex:
-                pattern:  "/\d/"
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\-\{\|!@%&_:;'`<>,~#=\"\\/]/"
                 match: false
-                message: Su Apellido no debe contener números.
+                message: Su Apellido no debe contener números o caracteres especiales.
+            - Length:
+                max: 25
+                maxMessage: Su apellido {{ value }} debe tener máximo 25 caracteres.   
         vtelfLocal:
             - Regex:
                pattern: "/([0-9]{3})([0-9]{7})/"
@@ -44,9 +57,8 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
                 type: integer
                 message: El contrato {{ value }} no es válido {{ type }}.
             - Length:
-                min: 7
                 max: 7
-                exactMessage: El contrato {{ value }} debe tener 7 dígitos.
+                maxMessage: El contrato {{ value }} debe tener máximo 7 dígitos.
         vrif:
             - Type:
                 type: string
@@ -54,3 +66,64 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
             - Length:
                 max: 15
                 maxMessage: El rif  {{ value }} no debe exceder 15 caracteres.
+        vcargo:
+            - Type:
+                type: string
+                message: El cargo {{ value }} no es válido {{ type }}.
+            - Regex:
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                match: false
+                message: El cargo no debe contener números o caracteres especiales.
+
+        vdepartamento:
+            - Type:
+                type: string
+                message: El departamento {{ value }} no es válido {{ type }}.
+            - Regex:
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                match: false
+                message: Su departamento no debe contener números o caracteres especiales.
+        vsucursal:
+            - Type:
+                type: string
+                message: La sucursal {{ value }} no es válido {{ type }}.
+            - Regex:
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                match: false
+                message: La sucursal no debe contener números o caracteres especiales.
+
+Tech\TBundle\Entity\Tbdetcontratorif:
+    properties:
+        pkInroContrato:
+            - Type:
+                type: integer
+                message: El contrato {{ value }} no es válido {{ type }}.
+            - Length:
+                max: 7
+                maxMessage: El contrato {{ value }} debe tener máximo 7 dígitos.
+            - Regex:
+                pattern:   "/\d/"
+                match: true
+                message: El contrato debe contener sólo números.
+Tech\TBundle\Entity\Tbdetempresa:
+    properties:
+        pkIrif:
+            - Type:
+                type: string
+                message: El rif {{ value }} no es válido {{ type }}.
+            - Length:
+                max: 12
+                min: 12
+                exactMessage: El rif {{ value }} debe tener máximo 12 dígitos.
+            - Regex:
+                pattern:  "/^[JGVE][-][0-9]{8}[-][0-9]$/"
+                match: true
+                message: El rif debe contener un patrón como el siguiente J-98667543-4.
+        vdireccionFiscal:
+            - Type:
+                type: string
+                message: La dirección fiscal {{ value }} no es válida {{ type }}.
+            - Regex:
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                match: false
+                message: La dirección fiscal no debe contener números o caracteres especiales.

@@ -7,16 +7,17 @@
  {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
         
-        {{ form_row(edit_form.pkIrif, {'label': 'Rif:'}) }}
-        {{ form_row(edit_form.vdireccionFiscal, {'label': 'Dir-Fiscal:'}) }}
+        {{ form_row(edit_form.pkIrif, {'label': 'Rif:','required': 'true'}) }}
+        {{ form_row(edit_form.vdireccionFiscal, {'label': 'Dir-Fiscal:' ,'required': 'true'}) }}
         <div style="display: none;">
         {{ form_row(edit_form.submit, { 'label': 'Actualizar' }) }}
-    </div>
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        </div>
     <br>
     <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
-                    <span class="btn-bg">Actualizar</span>
+                    <span class="btn-bg">Editar</span>
                 </span>
             </span>
     </button>
@@ -24,12 +25,18 @@
    {{ form_end(edit_form) }}     
 
 </form>
+
 <br><br>
 
         <ul class="record_actions">
+            <li>
+        <a href="{{ path('Empresa_delete', { 'id': entity.id }) }}">
+            Eliminar Empresa
+        </a>
+    </li>
     <li>
         <a href="{{ path('Empresa') }}">
-           Lista de Empresas
+           Volver Lista de Empresas
         </a>
     </li>
     <li>{{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }} </li>

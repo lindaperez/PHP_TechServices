@@ -6,25 +6,28 @@
 <h1><strong>Edición de Solicitud de Registro</strong></h1>
  <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
      <table border="1">       
-        <td>
+         <tr>
+        <td >
             <h1>Datos Personales</h1>
             <br><br>
       {{ form_start(edit_form) }}
       {{ form_errors(edit_form) }}
-        {{ form_row(edit_form.pkIci, {'label': 'Cédula:', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vnombre,  {'label': 'Nombre:', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vapellido,  {'label': 'Apellido', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telf-Local', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telf-Movil', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vcargo,  {'label': 'Cargo', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal', 'required' : 'true'}) }}
+        {{ form_row(edit_form.pkIci, {'label': 'Cédula: ', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vnombre,  {'label': 'Nombre: ', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vapellido,  {'label': 'Apellido: ', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telf-Local: ', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telf-Movil: ', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vcargo,  {'label': 'Cargo', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vdepartamento,  {'label': 'Dpto: ', 'required' : 'true'}) }}<br>
+        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal: ', 'required' : 'true'}) }}
             
 <br><br>
+        <td width="15"></td>
+<td>
 <h1>Contratos </h1>    
 <br><br>
-<table>
+
 <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         
          {% for usuariocontrato in edit_form.contratos %}
@@ -41,10 +44,9 @@
         {% endfor %}
     
 </ul>
-        
-</table>
-        </td>        
-        <td width="70">
+   </td>     
+                
+        <td width="10">
             
         </td>
 <br><br><br>
@@ -53,8 +55,6 @@
 <br>            <br>
      {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus', 'required' : 'true'}) }}
        {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol', 'required' : 'true'}) }}    
-<br>
-
     <!--Campos ocultos -->
     <div style="display: none;">
         {{ form_row(edit_form.vtipoCi, {'label': 'Tipo-Doc:','required' : 'false'})}}
@@ -69,10 +69,11 @@
         
     </div>
     <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    <td align="right">
     <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
@@ -85,12 +86,8 @@
     {{ form_end(edit_form) }}         
     </td>
 
-    <td>
-  
-    </td>
     
-    
-    
+    </tr>
     </table>
     </form>
 <br><br>

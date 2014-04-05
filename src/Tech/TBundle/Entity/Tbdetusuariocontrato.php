@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbdetusuariocontrato
  *
- * @ORM\Table(name="tbdetUsuarioContrato", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})}, indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"})})
+ * @ORM\Table(name="tbdetUsuarioContrato", indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"}), @ORM\Index(name="CI_idx", columns={"fk_iCI"})})
  * @ORM\Entity
  */
 class Tbdetusuariocontrato
@@ -116,6 +116,7 @@ class Tbdetusuariocontrato
     {
         $this->fkInroContrato = $fkInroContrato;
 
+        return $this;
     }
 
     /**
@@ -136,5 +137,5 @@ class Tbdetusuariocontrato
     
     
 }
-    
-    }
+  
+}

@@ -20,7 +20,8 @@ class TbdetcontratorifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pkInroContrato')
+            ->add('pkInroContrato','integer',array ('invalid_message' => 'El valor de Contrato que introdujo no es correcto.'
+                . 'Ej. 79189', 'required'=> 'true'))
             ->add('fkIrif')
         ;
     }

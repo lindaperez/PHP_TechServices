@@ -2,26 +2,27 @@
 
 {% block content %}
     <h1 class="title">Ingrese</h1>
-
-    <p>
-        Introduzca su cédula y contraseña para acceder.  <em>(Ejemplo: 18915768/kLoMuW)</em> 
-    </p>
-
     {% if error %}
-        <div class="error">{{ error.message }}</div>
-    {% endif %}
-
+    <div class="error">{{ error.message | replace({
+        "Bad credentials": "Error:  Inválido Usuario o Contraseña."})}}</div>
+{% endif %}
+<br>
+    <p>
+        Introduzca su cédula y contraseña para acceder.  <strong><em>(Ejemplo: 18915768/kLoMuW)</em></strong> 
+    </p>
+   
     <form action="{{ path('login_check') }}" method="post" id="login">
         <div>
             <label for="username">Cédula:</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required />
         </div>
-
-        <div>
+<br>
+        <div >
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="_password" />
+            <input type="password" id="password" name="_password" required/>
         </div>
-        <br>
+        
+        <div align="right">
         <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
@@ -29,6 +30,7 @@
                 </span>
             </span>
         </button>
+        </div>
     </form>
 {% endblock %}
 

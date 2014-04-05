@@ -1,16 +1,45 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Edición de Contrato</h1>
+<h1><strong>Editar Contrato</strong></h1> <br><br><br>
+<h1>Edición de Contrato: <strong> {{entity.pkInroContrato }}</strong></h1>
 <br><br>
-    {{ form(edit_form) }}
-<br><br>
+    <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" id="login">
+{{ form_start(edit_form) }}
+        {{ form_errors(edit_form) }}
+        {{ form_row(edit_form.pkInroContrato, {'label': 'Contrato: ','required': 'true'}) }}
+        {{ form_row(edit_form.fkIrif, {'label': 'Rif: ','required': 'true'}) }}
+        <div style="display: none;">
+        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        </div>
+{{ form_end(edit_form) }}
+        <br>
+    <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Editar</span>
+                </span>
+            </span>
+    </button>
+    </form>
+<br><br><br><br>
         <ul class="record_actions">
     <li>
-        <a href="{{ path('Contratos') }}">
-            Lista de Contratos
+        <a href="{{ path('Contratos_show',{'id': entity.id }) }}">
+           Volver a Ver Contrato
         </a>
     </li>
-    <li>{{ form(delete_form, {'label': 'Eliminar Contrato:'}) }}</li>
+    <li>
+        <a href="{{ path('Contratos') }}">
+           Volver a  Lista de Contratos
+        </a>
+    </li>
+        <li>
+        <a href="{{ path('Contratos_delete', {'id':entity.id}) }}">
+           Eliminar Contrato
+        </a>
+    </li>
+    
 </ul>
 {% endblock %}

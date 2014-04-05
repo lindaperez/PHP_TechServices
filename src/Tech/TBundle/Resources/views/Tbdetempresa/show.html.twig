@@ -20,17 +20,27 @@
         </tbody>
     </table>
 <br><br>
+
+<br>
         <ul class="record_actions">
+            <li>
+        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">
+            Editar Empresa
+        </a>
+    </li>
+            <li>
+        <a href="{{ path('Empresa_delete', { 'id': entity.id }) }}">
+            Eliminar Empresa
+        </a>
+    </li>
+    
     <li>
         <a href="{{ path('Empresa') }}">
-            Lista de Empresas
+           Volver Lista de Empresas
         </a>
     </li>
-    <li>
-        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    
+    
 </ul>
+
 {% endblock %}

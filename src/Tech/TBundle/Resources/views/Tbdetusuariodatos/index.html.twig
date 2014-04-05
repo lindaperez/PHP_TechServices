@@ -29,24 +29,25 @@
     
         </ul>
         
-        </td><td>
+    </td>
+    <td width="10"></td>
+    <td>
         {{ form_row(search_form.vnombre,  {'label': 'Nombre:'}) }}<br>
         {{ form_row(search_form.vsucursal, {'label': 'Sucursal:'}) }}<br>
         {{ form_row(search_form.dfechaRegistro) }}<br>
             
             </td>
+    <td width="10"></td>
     <br>    
     <td>
        {{ form_row(search_form.vapellido,  {'label': 'Apellido'}) }}<br>
        {{ form_row(search_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus:'}) }}<br>
      {{ form_row(search_form.usuarioacceso.fkIidRol, {'label': 'Rol:'}) }}<br>    
-
-
-        
-        <br> <br> <br>
         </td>
      </tr>
      <tr>
+         <td></td>
+         <td></td>
          <td></td>
          <td></td>
      <td align="right"> 
@@ -73,6 +74,7 @@
         {{ form_row(search_form.vdepartamento,  {'label': 'Departamento'}) }}
         {{ form_row(search_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
         {{ form_row(search_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
+        {{ form_row(search_form.vtipoCi, {'label': 'Tipo-CI:'}) }}
     </div>    
     
     
