@@ -23,12 +23,8 @@
     </table>
      
 <br><br>
-<form action="{{ path('Contratos_delete',{ 'id': entity.id }) }}" method="post" id="login">
-    <div style="display: none;">
-        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
-        </div>
-    
-</form>
+
+
 <br><br>
         <ul class="record_actions">
             <li>
@@ -36,11 +32,7 @@
             Editar Contrato
         </a>
     </li>
-       <li>
-        <a href="{{ path('Contratos_edit', { 'id': entity.id }) }}">
-            Eliminar Contrato
-        </a>
-    </li>
+       
     <li>
         <a href="{{ path('Contratos') }}">
             Volver a Lista de Contratos
@@ -52,7 +44,7 @@
         </a>
     </li>
     
-    <li>{{ form(delete_form) }}</li>
+    
     
 </ul>
     {# ... #}

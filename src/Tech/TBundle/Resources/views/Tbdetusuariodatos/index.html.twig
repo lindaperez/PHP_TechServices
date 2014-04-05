@@ -91,36 +91,53 @@
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id.</th>
-                <th>Cedula</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Cargo</th>
-                <th>Sucursal</th>
-                <th>Contratos</th>
-                <th>Estatus Actual</th>
-                <th>Fecha de Registro</th>
-                <th>Rol Sistema</th>
-                <th>Acciones</th>
+            <td width="80"><h4> Cédula</h4></td>
+            <td width="20"></td>
+                <td width="80">Nombre</td>
+                <td width="20"></td>
+                <td width="80">Apellido</td>
+                <td width="20"></td>
+                <td width="80">Cargo</td>
+                <td width="20"></td>
+                <td width="80" >Sucursal</td>
+                <td width="20"></td>
+                <td width="80">Contratos</td>
+                <td width="20"></td>
+                <td width="80">Estatus Actual</td>
+                <td width="20"></td>
+                <td width="80">Fecha de Registro</td>
+                <td width="20"></td>
+                <td width="80">Rol Sistema</td>
+                <td width="20"></td>
+                <td width="80">Acciones</td>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Registro_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                
                 <td>{{ entity.pkIci }}</td>
+                <td width="5"></td>
                 <td>{{ entity.vnombre }}</td>
+                <td width="5"></td>
                 <td>{{ entity.vapellido }}</td>
+                <td width="5"></td>
                 <td>{{ entity.vcargo }}</td>
+                <td width="5"></td>
                 <td>{{ entity.vsucursal }}</td>
+                <td width="5"></td>
                 <td>{% for contrato in entity.contratos  %}
                       
                     <a href="{{ path('Contratos_show', { 'id': contrato.fkInroContrato.id }) }}">{{ contrato.fkInroContrato.pkInroContrato }}</a>
                    {% endfor %}
                 </td>
+                <td width="5"></td>
                 <td>{{ entity.usuarioacceso.fkIidEstatus }}</td>
+                <td width="5"></td>
                 <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d-m-Y H:i') }}{% endif %}</td>
+                <td width="5"></td>
                 <td>{{ entity.usuarioacceso.fkIidRol }}</td>
+                <td width="5"></td>
                 <td>
                 <ul>
                     <li>

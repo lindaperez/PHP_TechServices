@@ -1,53 +1,68 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Datos Personales</h1>
-<br><br>
+<h1><strong>Confirmación de Registro</strong></h1>
+<br>
     <table class="record_properties">
-        <tbody>
-      
+    
+      <tr><h1>Datos Personales</h1>
+        <br><br>
             <tr>
-                <th>Cedula: </th>
+            <td height="20">Cedula: </td>
                 <td>{{ entity.pkIci }}</td>
-            </tr>
-            <tr>
-                <th>Nombre: </th>
-                <td>{{ entity.vnombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellido: </th>
-                <td>{{ entity.vapellido }}</td>
-            </tr>
-            <tr>
-            <th>Correo: </th>
-                <td>{{ entity.vcorreoEmail }}</td>
-            </tr>
-            <tr>
-                <th>Telf-Local: </th>
-                <td>{{ entity.vtelfLocal }}</td>
-            </tr>
-            <tr>
-                <th>Telf-Movil: </th>
-                <td>{{ entity.vtelfMovil }}</td>
-            </tr>
-            <tr>
-                <th>Cargo: </th>
-                <td>{{ entity.vcargo }}</td>
-            </tr>
-            <tr>
-                <th>Departamento: </th>
-                <td>{{ entity.vdepartamento }}</td>
-            </tr>
-            <tr>
-                <th>Sucursal: </th>
-                <td>{{ entity.vsucursal }}</td>
             </tr>
             
             <tr>
-                <th>Fecha-Registro: </th>
-                <td>{{ entity.dfechaRegistro|date('Y-m-d H:i:s') }}</td>
+            <td height="20">Nombre: </td>
+            <td><em> {{ entity.vnombre }}</em></td>
+                <td></td>
             </tr>
-        </tbody>
+            <tr>
+                <td height="20">Apellido: </td>
+                <td><em>{{ entity.vapellido }}</em></td>
+            </tr>
+            <tr>
+            <td height="20">Correo: </td>
+            <td><em>{{ entity.vcorreoEmail }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Telefono Local: </td>
+                <td><em>{{ entity.vtelfLocal }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Telefono Movil: </td>
+                <td><em>{{ entity.vtelfMovil }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Cargo: </td>
+                <td><em>{{ entity.vcargo }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Departamento: </td>
+                <td><em>{{ entity.vdepartamento }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Sucursal: </td>
+                <td><em>{{ entity.vsucursal }}</em></td>
+            </tr>
+            
+            <tr>
+                <td height="20">Fecha Registro : </td>
+                <td><em>{{ entity.dfechaRegistro|date('d-m-Y H:i:s') }}</em></td>
+            </tr>
+            
+            <tr>
+                <td height="20">Rol en el Sistema: </td>
+                <td><em>{{ entity.usuarioacceso.fkIidrol.vdescripcion }}</em></td>
+            </tr>
+            
+               <tr>
+                <td height="20">Estatus en Registro: </td>
+                <td><em>{{ entity.usuarioacceso.fkIidEstatus.vdescripcion }}</em></td>
+            </tr>
+            
+         </tr>
+    
     </table>
 <br><br>
 {% if (app.session.get('usuario_rol')=="Empleado") %}

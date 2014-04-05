@@ -11,7 +11,7 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
                 minMessage: La cédula {{ value }} debe tener al menos 6 números.
                 maxMessage: La cédula {{ value }} debe tener máximo 8 números.
             - Regex:
-               pattern: "/([0-9]{2})([0-9]{6})/"
+               pattern: "/\d/"
                match:   true
                message: Su cédula no debe contener letras, caracteres especial o más de 8 dígitos.
         vcorreoEmail:

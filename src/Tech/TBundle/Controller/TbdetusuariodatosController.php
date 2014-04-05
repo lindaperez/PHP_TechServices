@@ -390,11 +390,19 @@ class TbdetusuariodatosController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetusuariodatos entity.');
         }
-
+        //Se busca el ROl y Estatus
+        $usuario_accesso = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                ->findBy(array('fkIci' => $entity));
+        $entity->setUsuarioacceso($usuario_accesso[0]);
+        //Se buscan los contratos asociados
+        $usuario_contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                ->findBy(array('fkIci' => $entity));
+        $entity->setContratos($usuario_contratos);
+        
         $deleteForm = $this->createDeleteForm($id);
         //print_r($entity->getPassword());
         return $this->render('TechTBundle:Tbdetusuariodatos:show.html.twig', array(

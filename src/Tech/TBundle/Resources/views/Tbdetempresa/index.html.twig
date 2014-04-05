@@ -1,30 +1,31 @@
 {% extends '::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Lista de Empresas</h1>
+    <h1><strong>Listado de Empresas</strong></h1>
 <br><br>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Rif</th>
-                <th>Dirección Fiscal</th>
-                <th>Acciones</th>
+                
+            <td height="30"><strong>Rif</strong></td>
+            <td width="40"></td>
+                <td><strong>Dirección Fiscal</strong></td>
+                <td width="40"></td>
+                <td><strong>Acciones</strong></td>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Empresa_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                
                 <td>{{ entity.pkIrif }}</td>
+                <td width="40"></td>
                 <td>{{ entity.vdireccionFiscal }}</td>
+                <td width="40"></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Empresa_show', { 'id': entity.id }) }}">Ver</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">Editar</a>
+                        <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">Ver/Editar</a>
                     </li>
                 </ul>
                 </td>
