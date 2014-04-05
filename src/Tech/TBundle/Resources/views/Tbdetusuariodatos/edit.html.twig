@@ -3,78 +3,102 @@
 {% block content %}
 
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <h1>Edicion de Registro de Usuario</h1>
-<br>
-<br>
-<h1>Datos Personales</h1>
-<br>
-<form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
-    {{ form_start(edit_form) }}
-    {{ form_errors(edit_form) }}
-        {{ form_row(edit_form.pkIci, {'label': 'Cédula:'}) }}
-        {{ form_row(edit_form.vnombre,  {'label': 'Nombre:'}) }}
-        {{ form_row(edit_form.vapellido,  {'label': 'Apellido'}) }}
-        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:'}) }}
-        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
-        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
-        {{ form_row(edit_form.vcargo,  {'label': 'Cargo'}) }}
-        {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento'}) }}
-        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal'}) }}
-        
+<h1><strong>Edición de Solicitud de Registro</strong></h1>
+ <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
+     <table border="1">       
+        <td>
+            <h1>Datos Personales</h1>
+            <br><br>
+      {{ form_start(edit_form) }}
+      {{ form_errors(edit_form) }}
+        {{ form_row(edit_form.pkIci, {'label': 'Cédula:', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vnombre,  {'label': 'Nombre:', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vapellido,  {'label': 'Apellido', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telf-Local', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telf-Movil', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vcargo,  {'label': 'Cargo', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vdepartamento,  {'label': 'Departamento', 'required' : 'true'}) }}
+        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal', 'required' : 'true'}) }}
+            
 <br><br>
 <h1>Contratos </h1>    
-<br>
-
+<br><br>
+<table>
 <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         
          {% for usuariocontrato in edit_form.contratos %}
-             <li>
-                 
+         
+            
+        <li>
+           
                 {{ form_row(usuariocontrato.fkInroContrato) }}       
+       
                 {{ form_row(usuariocontrato.tbdetcontratorif) }}       
-            </li>
+       
+             
+           </li> 
         {% endfor %}
     
 </ul>
-
+        
+</table>
+        </td>        
+        <td width="70">
+            
+        </td>
 <br><br><br>
+<td>
 <h1>Sistema </h1>            
-<br>            
-     {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus'}) }}
-       {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol'}) }}    
+<br>            <br>
+     {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus', 'required' : 'true'}) }}
+       {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol', 'required' : 'true'}) }}    
 <br>
+
     <!--Campos ocultos -->
     <div style="display: none;">
-        {{ form_row(edit_form.usuarioacceso.fkIci) }}
-        {{ form_row(edit_form.vrif) }}
-        {{ form_row(edit_form.vcontrato) }}
-        {{ form_row(edit_form.vclave) }}
-        {{ form_row(edit_form.dfechaRegistro) }}
-        {{ form_row(edit_form.contratos) }}
+        {{ form_row(edit_form.usuarioacceso.fkIci,{ 'required': 'false' }) }}
+        {{ form_row(edit_form.vrif,{ 'required': 'false' }) }}
+            {{ form_row(edit_form.vcontrato,{ 'required': 'false' }) }}
+        {{ form_row(edit_form.vclave,{ 'required': 'false' }) }}
+        {{ form_row(edit_form.dfechaRegistro,{ 'required': 'false' }) }}
+        {{ form_row(edit_form.contratos,{ 'required': 'false' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}            
         
-    {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
-    {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}            
     </div>
+    <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
     <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
-                    <span class="btn-bg">Actualizar</span>
+                    <span class="btn-bg">Editar</span>
                 </span>
             </span>
     </button>
-    {{ form_end(edit_form) }}     
-    <br>
-   
-</form>
+    </td>
+    </tr>
+    {{ form_end(edit_form) }}         
+    </td>
+
+    <td>
+  
+    </td>
+    
+    
+    
+    </table>
+    </form>
 <br><br>
- 
-<br>
         <ul class="record_actions">
    
     <li></li>
      <li>
         <a href="{{ path('Registro') }}">
-            Ver Lista de Usuarios Registrados
+            Volver Listado de Solicitudes de Registro
         </a>
     </li>
 </ul>

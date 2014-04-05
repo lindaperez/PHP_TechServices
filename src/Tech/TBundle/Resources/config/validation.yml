@@ -1,0 +1,56 @@
+# Validacion de las tablas
+Tech\TBundle\Entity\Tbdetusuariodatos:
+    properties:
+        pkIci:
+            - Type:
+                type: integer
+                message: El valor {{ value }} no es válido {{ type }}.
+            - Length:
+                min: 6
+                max: 8
+                minMessage: La cédula {{ value }} debe tener al menos 6 números.
+                maxMessage: La cédula {{ value }} debe tener máximo 8 números.
+        vcorreoEmail:
+            - Email:
+                message: El corrreo "{{ value }}" no es un correo válido.
+        vnombre:
+            - Type:
+                type: string
+                message: El valor {{ value }} no es válido, debe ser una cadena de letras.
+            - Regex:
+                pattern:  "/\d/"
+                match: false
+                message: Su Nombre no debe contener números.
+        vapellido:
+            - Type:
+                type: string
+                message: El valor {{ value }} no es válido, debe ser una cadena de letras.
+            - Regex:
+                pattern:  "/\d/"
+                match: false
+                message: Su Apellido no debe contener números.
+        vtelfLocal:
+            - Regex:
+               pattern: "/([0-9]{3})([0-9]{7})/"
+               match:   true
+               message: Su teléfono Local debe contener 10 dígitos.
+        vtelfMovil:
+            - Regex:
+               pattern: "/([0-9]{3})([0-9]{7})/"
+               match:   true
+               message: Su teléfono Movil debe contener 10 dígitos.
+        vcontrato:
+            - Type:
+                type: integer
+                message: El contrato {{ value }} no es válido {{ type }}.
+            - Length:
+                min: 7
+                max: 7
+                exactMessage: El contrato {{ value }} debe tener 7 dígitos.
+        vrif:
+            - Type:
+                type: string
+                message: El rif {{ value }} no es válido {{ type }}.
+            - Length:
+                max: 15
+                maxMessage: El rif  {{ value }} no debe exceder 15 caracteres.

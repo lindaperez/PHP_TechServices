@@ -41,9 +41,13 @@ class TbdetusuariodatosController extends Controller
         $dfechaRegistro=$searchForm['dfechaRegistro']->getData();
         $entidad_estatus=$searchForm['usuarioacceso']->getData()->getFkIidEstatus();
         $entidad_rol=$searchForm['usuarioacceso']->getData()->getFkIidRol();
+        $entidad_contrato=$searchForm['contratos']->getData()->get(0);
+
+        
         if ($pkIci==null && $vnombre==null && $vapellido==null && 
                 $vcargo==null && $vsucursal==null && $dfechaRegistro==null
-                && $entidad_estatus==null){
+                && $entidad_estatus==null && $entidad_estatus==null && 
+                 $entidad_rol==null && $entidad_rol==null && $entidad_contrato==null){
             $vacio=true;
         }
         //Si todos los campos son vacios.
@@ -65,6 +69,14 @@ class TbdetusuariodatosController extends Controller
                   $qb->andwhere('ua.fkIidRol=?8')->setParameter(8, $entidad_rol_id);    
               }
           }
+               if ($entidad_contrato!=null){
+                
+               $qb->leftjoin('TechTBundle:Tbdetusuariocontrato','uc',
+                         'WITH','ud.id=uc.fkIci'); 
+                  $entidad_contrato_id=$searchForm['contratos']->getData()->
+                          get(0)->getFkInroContrato()->getId();
+                  $qb->andwhere('uc.fkInroContrato=?9')->setParameter(9, $entidad_contrato_id);    
+          }
             if ($pkIci!=null){
                 $qb->andwhere('ud.pkIci=?1')->setParameter(1, $pkIci);
             }
@@ -79,6 +91,9 @@ class TbdetusuariodatosController extends Controller
             }
             if ($vsucursal!=null){
                 $qb->andwhere('ud.vsucursal=?5')->setParameter(5, $vsucursal);
+            }
+            if ($dfechaRegistro!=null){
+                $qb->andwhere('ud.dfechaRegistro=?10')->setParameter(10, $dfechaRegistro);
             }
             $entities= $qb->getQuery()->execute();
         }
@@ -132,9 +147,12 @@ class TbdetusuariodatosController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $entity_search = new Tbdetusuariodatos();    
+        
+        $contrato_registro = new Tbdetusuariocontrato();
+        $entity_search->getContratos()->add($contrato_registro);
         $searchForm = $this->createSearchForm($entity_search);
-        //$searchForm->handleRequest($request);
-       
+        
+        
         //Si todos los campos son vacios.
         $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
         foreach ($entities as &$entity) {
@@ -389,6 +407,7 @@ class TbdetusuariodatosController extends Controller
      */
     public function editAction($id)
     {
+        
         //autorizacion de usuarios
         $request=$this->getRequest();
         $verif=$this->verifaccesoemplAction($request); 
@@ -397,6 +416,10 @@ class TbdetusuariodatosController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
+        $entity->setVrif(0);
+        $entity->setVcontrato("vacio");
+        $entity->setUsuarioAcceso(null);
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);        
         
@@ -476,17 +499,29 @@ class TbdetusuariodatosController extends Controller
         $editForm->handleRequest($request);
         //Verificar que el arreglo de contratos no este vacio.       
         $usuario_contratos=$entity->getContratos();
+        $i=0;
         foreach ($usuario_contratos as &$contrato) { 
+            print "1"; 
+            $i=$i+1;
            if($contrato==null ){
+               print "2";
                 print "No debe agregar contratos vacios. Elija los cotratos que requiere."
-                . "y quite lo que no va a asociar al cliente.";
+                . "y quite los que no va a asociar al cliente.";
                 return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
                  'entity'      => $entity,
                  'edit_form'   => $editForm->createView(),
                  'delete_form' => $deleteForm->createView(),
                          ));
+            }else{
+            if ($contrato->getFkInroContrato()==null && $i==1){
+            print "No Puede agregar Contratos vacios.";    
+            return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
+                 'entity'      => $entity,
+                 'edit_form'   => $editForm->createView(),
+                 'delete_form' => $deleteForm->createView(),
+                         ));
             }
-
+            }
         } 
         if ($editForm->isValid()) {  
             //1. Eliminar todas las relaciones de CI con Contrato

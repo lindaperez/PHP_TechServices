@@ -2,14 +2,18 @@
 
 {% block content %}
    
-    <h1>Registro de Clientes</h1>
-    <br><br>
-    <h1>Datos Personales </h1>
-    <br><br>
+    <h1><strong>Solicitud de Registro de Clientes</strong></h1>
+    <br>
      <form action="{{ path('Registro_create') }}" method="post" id="login">
+         
+         <table>
+        <td><br>
+            <h1>Datos Personales </h1>
+    <br><br>
     {{ form_start(form) }}
         {{ form_errors(form) }}
-        
+             
+    
         {{ form_row(form.pkIci, {'label': 'Cedula:'}) }}
         {{ form_row(form.vnombre,  {'label': 'Nombre:'}) }}    
         {{ form_row(form.vapellido,  {'label': 'Apellido:'}) }}
@@ -19,11 +23,11 @@
         {{ form_row(form.vcargo,  {'label': 'Cargo:'}) }}
         {{ form_row(form.vdepartamento,  {'label': 'Dpto:'}) }}
         {{ form_row(form.vsucursal, {'label': 'Sucursal:'}) }}
-         <br><br>
-    <h1>Contratos Asociados </h1>
-    <br><br>
-    
-
+         </td>
+         <td>
+             <br>
+    <h1>Contrato </h1>
+ <br><br>
 <ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
         
     
@@ -41,9 +45,12 @@
             {{ form_row(form.vrif, {'label': 'Rif: '}) }}    
 </ul>
     <br><br>
-    <h1>Privilegios Asociados </h1>
-    <br><br>
-        {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol:'}) }}    
+    </td>
+    <td>
+        <br>
+    <h1>Privilegios</h1>
+    <br><br><br><br>
+        {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol:', 'required' : 'true'}) }}    
     <!--Campos ocultos -->
     <div style="display: none;">
         {{ form_row(form.usuarioacceso.fkIci) }}
@@ -54,6 +61,10 @@
         {{ form_row(form.submit, { 'label': 'Registrar' }) }}
     </div>
     <br>
+    </td>
+    <td>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
     <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
@@ -61,8 +72,9 @@
                 </span>
             </span>
     </button>
-    
+         </td>
    {{ form_end(form) }}     
+    </table>
  </form>           
         
 <script >

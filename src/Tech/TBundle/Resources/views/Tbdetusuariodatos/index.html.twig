@@ -1,14 +1,16 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
+<h1><strong>Confirmación de Solicitud de Registro de Clientes</strong></h1>
 <br><br>
-
-<h1>Filtros de Búsqueda</h1>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<h1>Consulta de Solicitudes de Registro</h1>
 <form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
     
     {{ form_start(search_form) }}
     {{ form_errors(search_form) }}
     <table border="1" cellpadding="1" cellspacing="1">
+        <tr>
     <td>
         
         {{ form_row(search_form.pkIci, {'label': 'Cédula:'}) }}<br>
@@ -17,7 +19,9 @@
         
          {% for usuariocontrato in search_form.contratos %}
              <li>
-                 
+                 <div style="display: none;">
+                     {{ form_row(usuariocontrato.fkIci) }}       
+                 </div>
                 {{ form_row(usuariocontrato.fkInroContrato) }}       
                 {{ form_row(usuariocontrato.tbdetcontratorif) }}       
             </li>
@@ -40,7 +44,12 @@
 
         
         <br> <br> <br>
-        
+        </td>
+     </tr>
+     <tr>
+         <td></td>
+         <td></td>
+     <td align="right"> 
         <button type="submit" class="sf-button">
             <span class="border-l">
                 <span class="border-r">
@@ -48,8 +57,8 @@
                 </span>
             </span>
         </button>
-        </td>
-        
+     </td>
+     </tr>
     <br>
     <!--Campos ocultos -->
     <div style="display: none;">
@@ -73,9 +82,9 @@
 </form>
 
 
-<br><br>
+<br>
 
-<h1>Lista de Usuarios Registrados</h1>
+<h1>Listado de Solicitudes de Registro</h1>
 <br><br>
     <table class="records_list">
         <thead>
@@ -113,10 +122,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('Registro_show', { 'id': entity.id }) }}">Ver</a>
+                        <!--a href="{{ path('Registro_show', { 'id': entity.id }) }}">Ver</a-->
                     </li>
                     <li>
-                        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">Editar</a>
+                        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">Ver/Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -124,12 +133,51 @@
         {% endfor %}
         </tbody>
     </table>
-
+<br>
         <ul>
         <li>
             <a href="{{ path('Registro_new') }}">
-                Crear Nuevo Registro
+                Realizar Solicitud de Registro de Cliente
             </a>
         </li>
     </ul>
+<script>
+        $(function(){
+         $(document).on('change', '.tbdetcontratorif_selector', function(){
+             //alert("Han cambiado mi valor");
+             var $this = $(this);
+             var $arreglo=$this.attr("id");
+             var $val=$arreglo.split('_')[4];
+             
+             var data = {
+                 tbdetcontratorif_id: $this.val()
+             };
+
+             $.ajax({
+                  type: 'post',
+                  url: '{{ path("rifs") }}',
+                  data: data,
+                  dataType: 'json',
+                  success: function(data,val) {
+                      if (data.error !== undefined && data.error != '') {
+                          alert(data.error);
+                      } else {
+                          var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
+                         
+                         // alert("Han cambiado mi valor"+ $val);
+                           $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").html('<option>Rif</option>');
+                            $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").append('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
+                         
+                    }
+                    },
+                  error: function(e, ts, et) { alert(ts) }
+              });
+        
+              
+              });
+                        
+                        });
+              
+              
+    </script>
     {% endblock %}

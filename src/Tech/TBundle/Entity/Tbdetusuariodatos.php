@@ -477,7 +477,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
  
     public function setVcontrato($vcontrato = null)
     {
-        $this->vrif = $vcontrato;
+        $this->vcontrato = $vcontrato;
     }
 //Para implementar los metodos de UserInterfaces
 

@@ -55,7 +55,7 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('Registro') }}">
-             Lista de Registro
+             Volver Listado de Solicitudes de Registro
         </a>
     </li>
     <li>
@@ -63,7 +63,9 @@
             Editar
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    
+    <li>   
+                <div style="display: none;">{{ form(delete_form) }}</div></li>
 </ul>
 {% endif %}
 {% endblock %}
