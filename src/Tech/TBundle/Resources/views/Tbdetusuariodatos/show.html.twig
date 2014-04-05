@@ -53,16 +53,18 @@
 {% if (app.session.get('usuario_rol')=="Empleado") %}
                         
         <ul class="record_actions">
+            <li>
+        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    <br><br>
     <li>
         <a href="{{ path('Registro') }}">
              Volver Listado de Solicitudes de Registro
         </a>
     </li>
-    <li>
-        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">
-            Editar
-        </a>
-    </li>
+    
     
     <li>   
                 <div style="display: none;">{{ form(delete_form) }}</div></li>

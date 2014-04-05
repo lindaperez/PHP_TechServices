@@ -22,6 +22,8 @@ class TbdetusuariodatosType extends AbstractType
     {
         
         $builder
+            ->add('vtipoCi','text',array ('invalid_message' => 'El valor de su Tipo de Cédula que introdujo no es correcto.'
+                . '. Ej. V-',  'required' => false))
             ->add('pkIci','integer',array ('invalid_message' => 'El valor de Cédula que introdujo no es correcto.'
                 . ' Debe introducir la cédula de tipo entero. Ej. 18915768'))
             ->add('vnombre','text',array ('invalid_message' => 'El valor Nombre que introdujo no es correcto.'

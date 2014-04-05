@@ -1,0 +1,85 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.10.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 04-04-2014 a las 22:15:27
+-- Versión del servidor: 5.5.35
+-- Versión de PHP: 5.5.10-1+deb.sury.org~precise+1
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Base de datos: `mydb`
+--
+
+--
+-- Volcado de datos para la tabla `tbdetContratoRif`
+--
+
+INSERT INTO `tbdetContratoRif` (`id`, `pk_iNRO_CONTRATO`, `fk_iRIF`) VALUES
+(1, 1595791, 1),
+(2, 6565453, 3);
+
+--
+-- Volcado de datos para la tabla `tbdetEmpresa`
+--
+
+INSERT INTO `tbdetEmpresa` (`id`, `pk_iRIF`, `vDIRECCION_FISCAL`) VALUES
+(1, 'G18915768-0', 'direc fisca'),
+(2, 'J-96166860', 'Makro'),
+(3, 'P-6454452-0', 'EXcelsior');
+
+--
+-- Volcado de datos para la tabla `tbdetUsuarioAcceso`
+--
+
+INSERT INTO `tbdetUsuarioAcceso` (`id`, `fk_iCI`, `fk_iID_ROL`, `fk_iID_ESTATUS`) VALUES
+(1, 1, 1, 2),
+(2, 2, 2, 1),
+(3, 3, 2, 1);
+
+--
+-- Volcado de datos para la tabla `tbdetUsuarioContrato`
+--
+
+INSERT INTO `tbdetUsuarioContrato` (`id`, `fk_iCI`, `fk_iNRO_CONTRATO`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 2);
+
+--
+-- Volcado de datos para la tabla `tbdetUsuarioDatos`
+--
+
+INSERT INTO `tbdetUsuarioDatos` (`id`, `pk_iCI`, `vTIPO_CI`, `vNOMBRE`, `vAPELLIDO`, `vCORREO_EMAIL`, `vTELF_LOCAL`, `vTELF_MOVIL`, `vCARGO`, `vDEPARTAMENTO`, `vSUCURSAL`, `vCLAVE`, `dFECHA_REGISTRO`) VALUES
+(1, 18915768, 'V-', 'Linda', 'Perez', 'rosmery.p.p@gmail.com', '04129511668', '02122817569', 'Empleado Administrador', 'Departamento Empleado', 'Sucursal Empleado', 'TygtKmJ4JLAF+jrkE1G5ht9u9PH09QO7hqkWiaLttp61S1AS311OqtirizZUOtdfOmr6JMIkRcdHHaZiolHxsw==', '2014-04-02 00:00:00'),
+(2, 1895761, 'V-', 'sdkhf', 'ksjdf', 'rosmery.p.p@gmail.com', '04129511668', '02122817569', 'Techtroll', 'Techtroll', 'Techtroll', 'ovg/SBCR9+nz9FuKxM972iQTcdSQGUEjFmSiuTLG2//UmlbXp8OkaWeuiQyXqPBfie0mXKD57cXgKV/6h1ZbPg==', '2014-04-04 22:04:20'),
+(3, 6546545, 'V-', 'sdfkh', 'jhsdfkj', 'rosmery.p.p@gmail.com', '04129511668', '04129954994', 'sdfs', 'sdlfk', 'sdf', 'R52lYBWp8sEmx0ypyAbGDLvzf2rNWNCPRaBgJ4Pv9P32mKpHs1GCeSPpx3DygAWq8bBFomQ6aO1hLqoj+q9TgA==', '2014-04-04 22:06:13');
+
+--
+-- Volcado de datos para la tabla `tbgenEstatusRegistroUsu`
+--
+
+INSERT INTO `tbgenEstatusRegistroUsu` (`id`, `vDESCRIPCION`) VALUES
+(1, 'Solicitud Registro'),
+(2, 'Solicitud Confirmada'),
+(3, 'Solicitud Anulada');
+
+--
+-- Volcado de datos para la tabla `tbgenRol`
+--
+
+INSERT INTO `tbgenRol` (`id`, `vDESCRIPCION`, `fk_iTIPO_ROL`) VALUES
+(1, 'Empleado', 1),
+(2, 'Cliente', 2);
+
+--
+-- Volcado de datos para la tabla `tbgenTipoRol`
+--
+
+INSERT INTO `tbgenTipoRol` (`id`, `vDESCRIPCION`) VALUES
+(1, 'Interno'),
+(2, 'Externo');
+

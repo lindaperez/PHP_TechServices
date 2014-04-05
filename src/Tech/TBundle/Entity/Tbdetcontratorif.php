@@ -41,8 +41,8 @@ class Tbdetcontratorif
      * })
      */
     private $fkIrif;
-    
- 
+
+
 
     /**
      * Get id

@@ -362,6 +362,7 @@ class TbdetusuariodatosController extends Controller
         $g_userName = $entity->getPkIci();
         $g_password = $this->makekey();
         $g_userInter=$this->makepassword($g_userName,$g_password);
+        $entity->setVtipoCi("V-");
         $entity->setVclave($g_userInter->getVclave());
        // print "clave:: ";
        // print_r ($g_password);
@@ -417,7 +418,7 @@ class TbdetusuariodatosController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
         $entity->setVrif(0);
-        $entity->setVcontrato("vacio");
+        $entity->setVcontrato(0);
         $entity->setUsuarioAcceso(null);
         
         $editForm = $this->createEditForm($entity);

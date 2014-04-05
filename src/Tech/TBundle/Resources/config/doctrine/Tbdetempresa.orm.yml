@@ -16,9 +16,10 @@ Tech\TBundle\Entity\Tbdetempresa:
                 strategy: IDENTITY
     fields:
         pkIrif:
-            type: integer
+            type: string
             nullable: false
-            unsigned: false
+            length: 15
+            fixed: false
             comment: ''
             column: pk_iRIF
         vdireccionFiscal:

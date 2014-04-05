@@ -108,6 +108,13 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @ORM\Column(name="vTIPO_CI", type="string", length=45, nullable=false)
+     */
+    private $vtipoCi;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="vNOMBRE", type="string", length=25, nullable=false)
      */
     private $vnombre;
@@ -208,6 +215,29 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     public function getPkIci()
     {
         return $this->pkIci;
+    }
+
+    /**
+     * Set vtipoCi
+     *
+     * @param string $vtipoCi
+     * @return Tbdetusuariodatos
+     */
+    public function setVtipoCi($vtipoCi)
+    {
+        $this->vtipoCi = $vtipoCi;
+
+        return $this;
+    }
+
+    /**
+     * Get vtipoCi
+     *
+     * @return string 
+     */
+    public function getVtipoCi()
+    {
+        return $this->vtipoCi;
     }
 
     /**

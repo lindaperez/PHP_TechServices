@@ -57,6 +57,7 @@
 
     <!--Campos ocultos -->
     <div style="display: none;">
+        {{ form_row(edit_form.vtipoCi, {'label': 'Tipo-Doc:','required' : 'false'})}}
         {{ form_row(edit_form.usuarioacceso.fkIci,{ 'required': 'false' }) }}
         {{ form_row(edit_form.vrif,{ 'required': 'false' }) }}
             {{ form_row(edit_form.vcontrato,{ 'required': 'false' }) }}

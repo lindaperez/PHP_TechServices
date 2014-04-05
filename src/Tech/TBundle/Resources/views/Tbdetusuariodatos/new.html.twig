@@ -13,7 +13,7 @@
     {{ form_start(form) }}
         {{ form_errors(form) }}
              
-    
+        
         {{ form_row(form.pkIci, {'label': 'Cedula:'}) }}
         {{ form_row(form.vnombre,  {'label': 'Nombre:'}) }}    
         {{ form_row(form.vapellido,  {'label': 'Apellido:'}) }}
@@ -53,6 +53,7 @@
         {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol:', 'required' : 'true'}) }}    
     <!--Campos ocultos -->
     <div style="display: none;">
+        {{ form_row(form.vtipoCi, {'label': 'Tipo-Doc:','required' : 'false'})}}
         {{ form_row(form.usuarioacceso.fkIci) }}
         {{ form_row(form.usuarioacceso.fkIidEstatus) }}
         {{ form_row(form.vclave) }}

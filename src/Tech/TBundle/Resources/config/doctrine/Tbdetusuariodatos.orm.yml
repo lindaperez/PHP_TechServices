@@ -21,6 +21,13 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
             unsigned: false
             comment: ''
             column: pk_iCI
+        vtipoCi:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vTIPO_CI
         vnombre:
             type: string
             nullable: false

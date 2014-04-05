@@ -22,9 +22,9 @@ class Tbdetempresa
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="pk_iRIF", type="integer", nullable=false)
+     * @ORM\Column(name="pk_iRIF", type="string", length=15, nullable=false)
      */
     private $pkIrif;
 
@@ -50,7 +50,7 @@ class Tbdetempresa
     /**
      * Set pkIrif
      *
-     * @param integer $pkIrif
+     * @param string $pkIrif
      * @return Tbdetempresa
      */
     public function setPkIrif($pkIrif)
@@ -63,7 +63,7 @@ class Tbdetempresa
     /**
      * Get pkIrif
      *
-     * @return integer 
+     * @return string 
      */
     public function getPkIrif()
     {

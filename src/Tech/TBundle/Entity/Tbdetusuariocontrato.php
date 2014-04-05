@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbdetusuariocontrato
  *
- * @ORM\Table(name="tbdetUsuarioContrato", indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"}), @ORM\Index(name="CI_idx", columns={"fk_iCI"})})
+ * @ORM\Table(name="tbdetUsuarioContrato", uniqueConstraints={@ORM\UniqueConstraint(name="fk_iCI_UNIQUE", columns={"fk_iCI"})}, indexes={@ORM\Index(name="NRO_CONTRATO_idx", columns={"fk_iNRO_CONTRATO"})})
  * @ORM\Entity
  */
 class Tbdetusuariocontrato
@@ -46,11 +46,11 @@ class Tbdetusuariocontrato
      * })
      */
     private $fkInroContrato;
-        
+
     public function __construct()
     {
         $this->usuariodatos = new Tbdetusuariodatos();
-        
+
     }
     public function addUsuarioDatos(Tbdetusuariodatos $usuariodatos)
     {
@@ -59,7 +59,7 @@ class Tbdetusuariocontrato
             $this->usuariodatos->add($usuariodatos);
         }else{
                 if (!$this->usuariodatos->contains($usuariodatos)) {
-                
+
                     $this->usuariodatos->add($usuariodatos);
                 }
             }
@@ -135,6 +135,6 @@ class Tbdetusuariocontrato
     return strval($this->id);
     
     
-    }
+}
     
     }

@@ -69,6 +69,6 @@ class Tbgenestatusregistrousu
 
     return $this->vdescripcion;
 
-    }
+}
     
     }
