@@ -268,13 +268,6 @@ class TbdetusuariodatosController extends Controller
             'form'   => $form->createView(),
                 ));   
             }
-            /*Guardar en la BD el Registro de datos de contrato y rif en tabla
-            Tbdetusuariodatos (No si se supone que ya existe)*/   
-                
-            //$usuario_contratorif = new Tbdetcontratorif();
-            //$usuario_contratorif->setPkInroContrato($form["contratos"][0]["pkInroContrato"]->getData());
-            //$usuario_contratorif->setFkIrif($existe_usuacontrif->getFkIrif());
-              //  print_r($existe_usuacontrif->getFkIrif());
             /*Guardar en la BD el Nro de contrato en la Tabla
             Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
             $usuario_contrato = new Tbdetusuariocontrato();
@@ -304,9 +297,10 @@ class TbdetusuariodatosController extends Controller
                 $em->flush();
                 //Envio de correo de confirmacion
             $session=$request->getSession();
+            $session->set('usuario_vcontrato',$form["vcontrato"]->getData());
+            $session->set('usuario_vrif',$form["vrif"]->getData());
             $key=$session->get('usuario_clave');
-            $this->mailer($entity->getVnombre()." ".$entity->getVapellido(),
-                    $entity->getPkIci(),$key,'Solicitud de Registro',$entity->getVcorreoEmail());       
+            $this->mailer($entity,$key,$entity->getVcorreoEmail());       
             return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
             }else{
                 if ($existe_usuario != null){
@@ -660,7 +654,7 @@ class TbdetusuariodatosController extends Controller
             return false;
               
     }
-    public function mailer($name,$user,$pass,$estatus,$to)
+    public function mailer($entity,$pass,$to)
     {
         
      $message = \Swift_Message::newInstance()
@@ -670,8 +664,7 @@ class TbdetusuariodatosController extends Controller
         ->setBody(
             $this->renderView(
                 'TechTBundle:Default:mail.html.twig',
-                array('name' => $name,'user' => $user
-             ,'pass' => $pass,'estatus' => $estatus)
+                array('entity' => $entity,'pass' => $pass)
             )
         ,'text/html')
     ;

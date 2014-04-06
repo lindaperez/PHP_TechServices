@@ -1,28 +1,28 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tblogestatususuario list</h1>
-
+{% block content %}
+    <h1>Listado de Estatus Asociados a Usuarios</h1>
+<br><br>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Dfechacambio</th>
-                <th>Actions</th>
+                
+                <td>Fecha de Cambio</td>
+                <td>Acciones</td>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('RegistroEstatus_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+               
                 <td>{% if entity.dfechaCambio %}{{ entity.dfechaCambio|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('RegistroEstatus_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('RegistroEstatus_show', { 'id': entity.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('RegistroEstatus_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('RegistroEstatus_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -34,7 +34,7 @@
         <ul>
         <li>
             <a href="{{ path('RegistroEstatus_new') }}">
-                Create a new entry
+              Crear nuevo Cambio.
             </a>
         </li>
     </ul>

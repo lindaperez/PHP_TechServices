@@ -1,14 +1,15 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tblogestatususuario creation</h1>
+{% block content %}
 
+    <h1>Creacion de Estatus de Usuario</h1>
+<br><br>
     {{ form(form) }}
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('RegistroEstatus') }}">
-            Back to the list
+            Volver a Listado de Registro de Estatus
         </a>
     </li>
 </ul>

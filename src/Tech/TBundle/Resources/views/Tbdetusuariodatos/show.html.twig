@@ -2,13 +2,13 @@
 
 {% block content %}
 <h1><strong>Confirmación de Registro</strong></h1>
-<br>
+<br><br>
     <table class="record_properties">
     
-      <tr><h1>Datos Personales</h1>
+      <tr><h1>Datos Registrados</h1>
         <br><br>
             <tr>
-            <td height="20">Cedula: </td>
+            <td width="210" height="20">Cedula: </td>
                 <td>{{ entity.pkIci }}</td>
             </tr>
             
@@ -59,6 +59,14 @@
                <tr>
                 <td height="20">Estatus en Registro: </td>
                 <td><em>{{ entity.usuarioacceso.fkIidEstatus.vdescripcion }}</em></td>
+            </tr>
+              <tr>
+                <td height="20">Contrato: </td>
+                <td><em>{{app.session.get('usuario_vcontrato')}}</em></td>
+            </tr>
+              <tr>
+                <td height="20">Rif: </td>
+                <td><em>{{app.session.get('usuario_vrif')}}</em></td>
             </tr>
             
          </tr>

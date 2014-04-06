@@ -1,14 +1,30 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgenfuncion creation</h1>
+{% block content %}
+    <h1><strong>Crear Función </strong></h1>
+<br>
+    {{ form_start(form) }}
+    {{ form_row(form.vdescripcion, {'label':'Descripcion: ', 'required' : 'true' }) }}
+ <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}            
+        
+    </div>
+   
+<br>
 
-    {{ form(form) }}
-
+    <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Crear</span>
+                </span>
+            </span>
+    </button>
+ {{ form_end(form) }}
+<br><br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Funciones') }}">
-            Back to the list
+          Volver a Lista de Funciones
         </a>
     </li>
 </ul>

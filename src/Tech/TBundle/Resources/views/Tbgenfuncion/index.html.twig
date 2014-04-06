@@ -1,28 +1,28 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgenfuncion list</h1>
-
+{% block content %}
+<h1><strong>Listado de Funciones</strong></h1>
+<br>
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Vdescripcion</th>
-                <th>Actions</th>
+                
+            <td width="200" height="40"><strong>Descripción</strong></td>
+            
+                <td><strong>Acciones</strong></td>
             </tr>
+            
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Funciones_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                
                 <td>{{ entity.vdescripcion }}</td>
                 <td>
                 <ul>
+         
                     <li>
-                        <a href="{{ path('Funciones_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('Funciones_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('Funciones_edit', { 'id': entity.id }) }}">Ver/Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -30,11 +30,11 @@
         {% endfor %}
         </tbody>
     </table>
-
+<br>
         <ul>
         <li>
             <a href="{{ path('Funciones_new') }}">
-                Create a new entry
+                Crear nueva Función
             </a>
         </li>
     </ul>

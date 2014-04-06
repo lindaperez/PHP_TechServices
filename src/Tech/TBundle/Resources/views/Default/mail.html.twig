@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,17 +29,86 @@
         <div style="clear: both"></div>
     
     <div class="block">
-            <h1 class="title">Registro Techtrol.</h1>
+            <h1 class="title">Confirmación de Registro Techtrol.</h1>
  
-       <p> Hola, <strong>{{ name }}</strong>, esperamos que tengas un buen dia.
-           <br><br>Te has registrado correctamente en el sistema. <em>--</em> <br>
-      <br>Tu estatus se encuentra en <strong><em>{{ estatus }}</em></strong>. <br>Para acceder a tu cuenta 
-      debes esperar el correo de confirmación que enviará techtrol al
-      haber revisado tu registro.<br>
+       <p> Hola, <strong>{{ entity.vnombre }}</strong>, esperamos que tengas un buen dia.
+           <br><br>Tu solicitud de Registro fue realizada correctamente en el sistema. <em></em> <br>
+           <br><br>Tus datos registrados fueron los siguientes:  <em></em> <br>
       <br>
-      Tus Datos de Acceso al Sistema son los siguientes::<br>
-      Tu usuario es: <strong><em> {{ user }}--</em></strong> <br>
-      Tu contraseña es: <strong><em> {{ pass }}--</em></strong><br>
+    <table class="record_properties">
+      <tr>
+        <br>
+            <tr>
+            <td width="250" height="20">Cedula: </td>
+                <td>{{ entity.pkIci }}</td>
+            </tr>
+            
+            <tr>
+            <td height="20">Nombre: </td>
+            <td><em> {{ entity.vnombre }}</em></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td height="20">Apellido: </td>
+                <td><em>{{ entity.vapellido }}</em></td>
+            </tr>
+            <tr>
+            <td height="20">Correo: </td>
+            <td><em>{{ entity.vcorreoEmail }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Telefono Local: </td>
+                <td><em>{{ entity.vtelfLocal }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Telefono Movil: </td>
+                <td><em>{{ entity.vtelfMovil }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Cargo: </td>
+                <td><em>{{ entity.vcargo }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Departamento: </td>
+                <td><em>{{ entity.vdepartamento }}</em></td>
+            </tr>
+            <tr>
+                <td height="20">Sucursal: </td>
+                <td><em>{{ entity.vsucursal }}</em></td>
+            </tr>
+            
+            <tr>
+                <td height="20">Fecha Registro : </td>
+                <td><em>{{ entity.dfechaRegistro|date('d-m-Y H:i:s') }}</em></td>
+            </tr>
+            
+            <tr>
+                <td height="20">Rol en el Sistema: </td>
+                <td><em>{{ entity.usuarioacceso.fkIidrol.vdescripcion }}</em></td>
+            </tr>
+            
+               <tr>
+                <td height="20">Estatus en Registro: </td>
+                <td><em>Solicitud Registro</em></td>
+            </tr>
+              <tr>
+                <td height="20">Contrato: </td>
+                <td><em>{{app.session.get('usuario_vcontrato')}}</em></td>
+            </tr>
+              <tr>
+                <td height="20">Rif: </td>
+                <td><em>{{app.session.get('usuario_vrif')}}</em></td>
+            </tr>
+            
+         </tr>
+    
+    </table>
+       <br><h1>Para acceder a tu cuenta </h1><br>
+      Debes esperar que Techtrol revise tu registro y te envíe un correo de confirmación de solicitud aceptada.<br>
+      <br>
+       Tus Datos de Acceso al Sistema son los siguientes::<br><br>
+      Usuario es: <strong><em> {{ entity.pkIci }}</em></strong> <br>
+      Contraseña es: <strong><em> {{ pass }}</em></strong><br>
        </p>
         </div>
 

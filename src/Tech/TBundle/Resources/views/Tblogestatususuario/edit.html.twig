@@ -1,14 +1,14 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tblogestatususuario edit</h1>
+{% block content %}
+    <h1>Editar Estatus Asociados a Usuarios</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('RegistroEstatus') }}">
-            Back to the list
+            Volver a Lista de Estatus Asociados
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

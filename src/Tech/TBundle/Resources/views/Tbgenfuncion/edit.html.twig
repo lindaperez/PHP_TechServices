@@ -1,14 +1,31 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgenfuncion edit</h1>
+{% block content %}
+    <h1>Editar Funcion</h1>
+<br>
+    {{ form_start(edit_form) }}
+    {{ form_row(edit_form.vdescripcion, {'label':'Descripcion: ', 'required' : 'true' }) }}
+ <div style="display: none;">
+        {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}            
+        
+    </div>
+<br>
 
-    {{ form(edit_form) }}
+    <button type="submit" class="sf-button">
+            <span class="border-l">
+                <span class="border-r">
+                    <span class="btn-bg">Editar</span>
+                </span>
+            </span>
+    </button>
 
+   
+    {{ form_end(edit_form) }}
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Funciones') }}">
-            Back to the list
+         Volver a la Lista de Funciones
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
