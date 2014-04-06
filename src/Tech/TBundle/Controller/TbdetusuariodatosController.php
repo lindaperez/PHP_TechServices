@@ -11,7 +11,7 @@ use Tech\TBundle\Entity\Tbdetusuarioacceso;
 use Tech\TBundle\Form\TbdetusuariodatosType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Tech\TBundle\Controller\DefaultController;
-
+use Tech\TBundle\Entity\Tblogestatususuario;
 
 /**
  * Tbdetusuariodatos controller.
@@ -538,21 +538,23 @@ class TbdetusuariodatosController extends Controller
            
            foreach ($usuario_contratos as &$contrato) { 
               if($contrato!=null && $contrato->getFkInroContrato()!=null){
-                //  print_r ($contrato->getFkInroContrato()->getPkInroContrato());
                   $nuevo_contrato=new Tbdetusuariocontrato();
                   $nuevo_contrato->setFkIci($entity);
                   $nuevo_contrato->setFkInroContrato($contrato->getFkInroContrato());
                   $nuevo_contrato->setUsuarioDatos($entity);
-                 // print_r($nuevo_contrato->getId());
                   $em->persist($nuevo_contrato);
                }
            
            } 
-            //Se buscan roles y estatus asociado al usuario.
+           
+                
+            //A. Se buscan roles y estatus asociado al usuario para actualizar
             $usuario_acc = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                 ->findOneBy(array('fkIci' => $entity));
-            //Se actualiza la relacion
             $id_u=$usuario_acc->getId();
+            $this->makeLogChangesStatus($em,$entity,$usuario_acc,$entity->getVcorreoEmail());
+            //B. Se actualiza la relacion
+            
             $usuario_acceso=$entity->getUsuarioAcceso();
             $id_rol=$usuario_acceso->getFkIidRol()->getId();
             $id_estatus=$usuario_acceso->getFkIidEstatus()->getId();
@@ -569,16 +571,15 @@ class TbdetusuariodatosController extends Controller
                     ->setParameter(3, $id_u)
                     ->getQuery();
             $p = $q->execute();
-            //$numUpdated = $q->execute();
             $em->flush();
             /*Se actualiza la session en caso de que se edite el usuario logeado
             puesto que se actualizo rol y estatus*/
             $session = $request->getSession();
             if($session->get('usuario_ci')==$entity->getPkIci()){
-            $session->set('usuario_rol',$acceso_rol);
-            $session->set('usuario_tipo_rol',$acceso_tipo_rol);
-            $session->set('usuario_estatus_registro',$acceso_estatus);
-        }
+                $session->set('usuario_rol',$acceso_rol);
+                $session->set('usuario_tipo_rol',$acceso_tipo_rol);
+                $session->set('usuario_estatus_registro',$acceso_estatus);
+            }
             return $this->redirect($this->generateUrl('Registro_edit', array('id' => $id)));
         }
 
@@ -587,6 +588,41 @@ class TbdetusuariodatosController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    public function makeLogChangesStatus($em,$entity,$acceso_old, $to){
+            if($entity!=null && $acceso_old!=null){
+                $acceso=$entity->getUsuarioAcceso();
+                if ($acceso!=null){
+                if($acceso->getFkIidEstatus()!=null){
+                $acceso_estatus=$acceso->getFkIidEstatus();
+            //1. Se compara con el ingresado 
+                $desc_nueva=$acceso_estatus->getVdescripcion();
+                $desc_vieja=$acceso_old->getFkIidEstatus()->getVdescripcion();
+                if($desc_nueva!=$desc_vieja){        
+                    print_r("PRINT CAMBIO DE ESTATUS'");
+                //3. Se almacena la fecha de registro de cambio.
+                    $usuario_log_cambio=new Tblogestatususuario();
+                    $usuario_log_cambio->setFkIci($entity);
+                    $usuario_log_cambio->setFkIidEstatus($acceso_estatus);
+                    date_default_timezone_set('America/Caracas');
+                    $date_changes=new \DateTime('NOW');
+                    $usuario_log_cambio->setDfechaCambio($date_changes);
+                    $em->persist($usuario_log_cambio);
+                    //Envio de correo de confirmacion 
+                    //Se consultan las funciones asociadas a esa CI dado el ROl
+                    if ($acceso->getFkIidRol()!==null){
+                        
+                   $funciones = $em->getRepository('TechTBundle:Tbdetrolfuncion')
+                                ->findOneBy(array('fkIidRol' => $acceso->getFkIidRol()));
+                   if ($funciones!=null){
+                       print ("SI HAY FUNCIONES");
+                    $this->mailerStatus($entity,$funciones,true,$to);
+                   }
+                    }
+                }
+                }
+                }
+            }
     }
     /**
      * Deletes a Tbdetusuariodatos entity.
@@ -672,5 +708,34 @@ class TbdetusuariodatosController extends Controller
 
         
     }
-    
+    public function mailerStatus($entity,$funciones,$confirmada,$to)
+    {
+        
+     $message = \Swift_Message::newInstance()
+        ->setSubject('Techtrol Confirmación de Registro')
+        ->setFrom('techtroll.ve@gmail.com')
+        ->setTo($to);
+        
+    if ($confirmada==true){
+        $message->setBody(
+            $this->renderView(
+                'TechTBundle:Default:mailconfirm.html.twig',
+                array('entity' => $entity,'funciones'=>$funciones)
+            )
+        ,'text/html')
+    ;
+    }else{
+        $message->setBody(
+            $this->renderView(
+                'TechTBundle:Default:mailanul.html.twig',
+                array('entity' => $entity)
+            )
+        ,'text/html')
+    ;
+        
+    }
+    $this->get('mailer')->send($message);
+
+        
+    }
     }
