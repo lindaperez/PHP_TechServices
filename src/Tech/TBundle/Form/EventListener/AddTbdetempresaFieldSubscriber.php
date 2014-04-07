@@ -33,7 +33,7 @@ class AddTbdetempresaFieldSubscriber implements EventSubscriberInterface
         $formOptions = array(
             'class'         => 'TechTBundle:Tbdetcontratorif',
             'empty_value'   => 'Nro',
-            'label'         => 'Contrato',
+            'label'         => 'Contrato:',
             'attr'          => array(
                 'class' => 'tbdetcontratorif_selector',
             ),

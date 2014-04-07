@@ -33,8 +33,12 @@
 {% endfor %}
 <br><br>
 <h1><strong>Edición de Solicitud de Registro</strong></h1>
- <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
-     <table border="1">       
+
+<div class="container" >
+
+    <section class="register">
+ <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post">
+     <table>       
          <tr>
         <td >
             <h1>Datos Personales</h1>
@@ -100,12 +104,10 @@
             <td>{{ form_widget(edit_form.vsucursal,{'required': 'true'}) }}</td>
         </table>
         
-            
-<br><br>
-        <td width="15"></td>
+        <td width="10"></td>
 <td>
 <h1>Contratos </h1>    
-<br><br>
+<br>
 
 <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         
@@ -113,10 +115,19 @@
          
             
         <li>
-           
-                {{ form_row(usuariocontrato.fkInroContrato) }}       
+             <div class="error">
+                {{ form_errors(usuariocontrato.fkInroContrato) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(usuariocontrato.fkInroContrato, 'Contrato:') }}</td>
+            <td>{{ form_widget(usuariocontrato.fkInroContrato)}}</td>
+        </table>
+             <div class="error">
+                {{ form_errors(usuariocontrato.fkInroContrato) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(usuariocontrato.tbdetcontratorif, 'Empresa:') }}</td>
+            <td>{{ form_widget(usuariocontrato.tbdetcontratorif) }}</td>
+        </table>   
        
-                {{ form_row(usuariocontrato.tbdetcontratorif) }}       
        
              
            </li> 
@@ -128,12 +139,26 @@
         <td width="10">
             
         </td>
-<br><br><br>
+
 <td>
 <h1>Sistema </h1>            
-<br>            <br>
-     {{ form_row(edit_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus', 'required' : 'true'}) }}
-       {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol', 'required' : 'true'}) }}    
+<br>   
+        <div class="error">
+                {{ form_errors(edit_form.usuarioacceso.fkIidEstatus) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.usuarioacceso.fkIidEstatus, 'Estatus:') }}</td>
+            <td>{{ form_widget(edit_form.usuarioacceso.fkIidEstatus,{'required': 'true'}) }}</td>
+        </table>
+     
+        <div class="error">
+                {{ form_errors(edit_form.usuarioacceso.fkIidRol) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.usuarioacceso.fkIidRol, 'Rol:') }}</td>
+            <td>{{ form_widget(edit_form.usuarioacceso.fkIidRol,
+            {'required': 'true'}) }}</td>
+        </table>
+     
+       
     <!--Campos ocultos -->
     <div style="display: none;">
         <div class="error">
@@ -159,24 +184,21 @@
         <td></td>
         <td></td>
         <td></td>
-    <td align="right">
-    <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Editar</span>
-                </span>
-            </span>
-    </button>
-    </td>
-    </tr>
+    
+       <td>
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Editar">
+                </td>
+     </tr>
+     
     {{ form_end(edit_form) }}         
-    </td>
+    
 
     
-    </tr>
+    
     </table>
     </form>
-<br><br>
+
         <ul class="record_actions">
    
     <li></li>
@@ -318,5 +340,9 @@ function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
               
               
     </script>
+</section>
+    </div>
+
 {% endblock %} 
+
 {% endblock %} 

@@ -12,24 +12,23 @@
     </p>
    
     <form action="{{ path('login_check') }}" method="post" id="login">
-        <div>
-            <label for="username">Cédula:</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required />
-        </div>
-<br>
-        <div >
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="_password" required/>
-        </div>
+        <table>
+            <td>
+           <label for="username">Cédula:</label></td>
+            <td><input type="text" id="username" name="_username" value="{{ last_username }}" required /></td>
+        </table>
+
+        <table>
+            <td>
+            <label for="password">Contraseña:</label></td><td>
+            <input type="password" id="password" name="_password" required/></td>
+        </table>
         
         <div align="right">
-        <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Login</span>
-                </span>
-            </span>
-        </button>
+             <br>
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Ingresar">
+                
         </div>
     </form>
 {% endblock %}

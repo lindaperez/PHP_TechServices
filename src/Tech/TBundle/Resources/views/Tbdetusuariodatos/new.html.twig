@@ -33,12 +33,12 @@
  
 <br><br>
   
-<h1><strong>Solicitud de Registro de Clientes</strong></h1>
+<h1><strong>Solicitud de Registro de Cliente</strong></h1>
 
 <div class="container" >
 
     <section class="register">
-
+        <h1>Ingrese los siguientes datos:</h1>
         <form action="{{ path('Registro_create') }}" method="post" >
               {{ form_start(form) }}
         {{ form_errors(form) }}  
@@ -47,8 +47,8 @@
                 <td>  
                     <div class="error">
                     </div>
-                    <h1>Datos Personales </h1>
-                    <br>            
+                    
+                    
                     <div class="error">
                         {{ form_errors(form.pkIci) }}</div>       
                     <table>  <td width="100">
@@ -78,11 +78,10 @@
                 {{ form_widget(form.vcontrato) }}<br><br></td></table>
 
                 </td>
-                <td width="100"></td>
+                <td width="60"></td>
                 <td>
 
-                    <h1>Contrato </h1>
-                    <br>
+                 
                     <div class="error"> {{ form_errors(form.vnombre) }} </div>
                     <table>  <td width="100"> {{ form_label(form.vnombre, 'Nombre:') }}<td>
                         <td> {{ form_widget(form.vnombre) }}</td>
@@ -105,11 +104,6 @@
         {{ form_label(form.vrif, 'Rif:') }}</td><td>
         {{ form_widget(form.vrif) }}<br><td></table>
 
-
-
-
-
-
                     <div style="display: none;">
                         <ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
 
@@ -128,13 +122,9 @@
 
                     </div>
                 </td>
-                <td width="100"></td>
+                <td width="60"></td>
                 <td>
-
-
-                    <h1>Privilegios</h1>
-                    <br>
-                    <div class="error">{{ form_errors(form.vapellido) }}</div>
+             <div class="error">{{ form_errors(form.vapellido) }}</div>
                     <table>  <td width="100">
         {{ form_label(form.vapellido, 'Apellido:') }}</td><td>
         {{ form_widget(form.vapellido) }}</td></table>
