@@ -64,8 +64,13 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
                 type: string
                 message: El rif {{ value }} no es válido {{ type }}.
             - Length:
-                max: 15
-                maxMessage: El rif  {{ value }} no debe exceder 15 caracteres.
+                max: 12
+                min: 12
+                exactMessage: El rif {{ value }} debe tener máximo 12 dígitos.
+            - Regex:
+                pattern:  "/^[JGVE][-][0-9]{8}[-][0-9]$/"
+                match: true
+                message: El rif debe contener un patrón como el siguiente J-98667543-4.
         vcargo:
             - Type:
                 type: string

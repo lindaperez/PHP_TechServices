@@ -1,151 +1,250 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-   
-    <h1><strong>Solicitud de Registro de Clientes</strong></h1>
-    <br>
-     <form action="{{ path('Registro_create') }}" method="post" id="login">
-         
-         <table border="1">
-             <tr>
-        <td>
-            <br>
-            <h1>Datos Personales </h1>
-    <br><br>
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {{ form_row(form.pkIci, {'label': 'Cédula:'}) }}<br>
-        {{ form_row(form.vnombre,  {'label': 'Nombre:'}) }}   
-        {{ form_row(form.vapellido,  {'label': 'Apellido:'}) }}<br>
-        {{ form_row(form.vcorreoEmail, {'label': 'Correo:'}) }}<br>
-        {{ form_row(form.vtelfLocal,  {'label': 'Telf Local:'}) }}
-        {{ form_row(form.vtelfMovil,  {'label': 'Telf Movil:'}) }}<br>
-        {{ form_row(form.vcargo,  {'label': 'Cargo:'}) }}
-        {{ form_row(form.vdepartamento,  {'label': 'Dpto:'}) }}
-        {{ form_row(form.vsucursal, {'label': 'Sucursal:'}) }}
-        </td>
-        <td width="12"></td>
-         <td>
-             <br>
-    <h1>Contrato </h1>
- <br><br>
- {{ form_row(form.vcontrato, {'label': 'Contrato: '}) }}   <br> 
-            {{ form_row(form.vrif, {'label': 'Rif: '}) }}    
-                 <div style="display: none;">
-<ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
-        
-    
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+<br><br>
+  
+<h1><strong>Solicitud de Registro de Clientes</strong></h1>
+
+<div class="container" >
+
+    <section class="register">
+
+        <form action="{{ path('Registro_create') }}" method="post" >
+              {{ form_start(form) }}
+        {{ form_errors(form) }}  
+            <table>
+
+                <td>  
+                    <div class="error">
+                    </div>
+                    <h1>Datos Personales </h1>
+                    <br>            
+                    <div class="error">
+                        {{ form_errors(form.pkIci) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(form.pkIci, 'Cédula:') }}</td>
+                        <td>{{ form_widget(form.pkIci) }}</td>
+                    </table>
+
+
+
+
+                    <div class="error">{{ form_errors(form.vcorreoEmail) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.vcorreoEmail, 'Correo:') }}</td><td>
+        {{ form_widget(form.vcorreoEmail) }}<br></td></table>
+
+
+
+                    <div class="error">
+                {{ form_errors(form.vcargo) }}</div>
+                    <table>  <td width="100">
+                {{ form_label(form.vcargo, 'Cargo:') }}</td><td>
+                {{ form_widget(form.vcargo) }}<br></td></table>
+                            <div class="error">
+                {{ form_errors(form.vcontrato) }}</div>
+                    <table>  
+                        <td width="100">{{ form_label(form.vcontrato, 'Contrato:') }}</td><td>
+                {{ form_widget(form.vcontrato) }}<br><br></td></table>
+
+                </td>
+                <td width="100"></td>
+                <td>
+
+                    <h1>Contrato </h1>
+                    <br>
+                    <div class="error"> {{ form_errors(form.vnombre) }} </div>
+                    <table>  <td width="100"> {{ form_label(form.vnombre, 'Nombre:') }}<td>
+                        <td> {{ form_widget(form.vnombre) }}</td>
+                    </table>
+                    <div class="error">{{ form_errors(form.vtelfLocal) }}</div>
+                    <table>  
+                        <td width="100">{{ form_label(form.vtelfLocal, 'Telf-Local:') }}</td>
+                        <td> {{ form_widget(form.vtelfLocal) }}</td></table>
+                    <div class="error"> {{ form_errors(form.vdepartamento) }}</div>
+                    <table>
+                        <td width="100">{{ form_label(form.vdepartamento, 'Dpto: ') }}</td>
+                        <td>{{ form_widget(form.vdepartamento) }}<br></td></table>
+
+
+
+
+                    <div class="error">
+            {{ form_errors(form.vrif) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.vrif, 'Rif:') }}</td><td>
+        {{ form_widget(form.vrif) }}<br><td></table>
+
+
+
+
+
+
+                    <div style="display: none;">
+                        <ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
+
+
          {% for usuariocontrato in form.contratos %}
-            <li> 
-                
+                            <li> 
+
 
                     {{ form_row(usuariocontrato.tbdetcontratorif, {'label': 'Contrato: '}) }}
                 {{ form_row(usuariocontrato.fkIci) }}       
                                     {{ form_row(usuariocontrato.fkInroContrato) }} 
-                    
-            </li>    
-        {% endfor %}
-            </ul>
 
-                     </div>
-    <br><br>
-         <td width="12"></td>
-    <td>
-        <br>
-    <h1>Privilegios</h1>
-    <br><br>
-        {{ form_row(form.usuarioacceso.fkIidRol, {'label': 'Rol:', 'required' : 'true'}) }}    
-    <!--Campos ocultos -->
-    <div style="display: none;">
+                            </li>    
+        {% endfor %}
+                        </ul>
+
+                    </div>
+                </td>
+                <td width="100"></td>
+                <td>
+
+
+                    <h1>Privilegios</h1>
+                    <br>
+                    <div class="error">{{ form_errors(form.vapellido) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.vapellido, 'Apellido:') }}</td><td>
+        {{ form_widget(form.vapellido) }}</td></table>
+
+                    <div class="error">
+        {{ form_errors(form.vtelfMovil) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.vtelfMovil, 'Telf-Movil:') }}</td><td>
+        {{ form_widget(form.vtelfMovil) }}<br></td></table>
+                    <div class="error">
+            {{ form_errors(form.vsucursal) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.vsucursal, 'Sucural:') }}</td>
+                        <td>
+        {{ form_widget(form.vsucursal) }}<br></td>
+                    </table>
+        <table>  <td width="100">
+        {{ form_label(form.usuarioacceso.fkIidRol, 'Rol:') }}</td><td>
+        {{ form_widget(form.usuarioacceso.fkIidRol,{'required': 'true'}) }}<br></td></table>
+                    
+        
+                    <!--Campos ocultos -->
+                    <div style="display: none;">
         {{ form_row(form.vtipoCi, {'label': 'Tipo-Doc:','required' : 'false'})}}
         {{ form_row(form.usuarioacceso.fkIci) }}
         {{ form_row(form.usuarioacceso.fkIidEstatus) }}
         {{ form_row(form.vclave) }}
         {{ form_row(form.dfechaRegistro) }}
 
-        {{ form_row(form.submit, { 'label': 'Registrar' }) }}
-    </div>
+        {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
 
-    </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td align="right">
-    <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Registrar</span>
-                </span>
-            </span>
-    </button>
-         </td>
-         </tr>
-   {{ form_end(form) }}     
-    </table>
- </form>           
-        
+                    </div>
+
+                </td>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Registrar">
+                </td>
+                </tr>
+                {{ form_end(form) }} 
+            </table>       
+        </form>  
+    </section>
+</div>
+
+
 <script >
-var $collectionHolder;
+    var $collectionHolder;
 // setup an "add a tag" link
-var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
-var $newLinkLi = $('<li></li>').append($addTbdetcontratorifLink);
+    var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
+    var $newLinkLi = $('<li></li>').append($addTbdetcontratorifLink);
 
-jQuery(document).ready(function() {
-    // Get the ul that holds the collection of tags
-    $collectionHolder = $('ul.contratos');
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('ul.contratos');
 // add a delete link to all of the existing tag form li elements
-    $collectionHolder.find('li').each(function() {
-        addTbdetcontratorifFormDeleteLink($(this));
+        $collectionHolder.find('li').each(function() {
+            addTbdetcontratorifFormDeleteLink($(this));
+        });
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLinkLi);
+        // 
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addTbdetcontratorifLink.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+            // add a new tag form (see next code block)
+            addTbdetcontratorifForm($collectionHolder, $newLinkLi);
+        });
+
     });
-    // add the "add a tag" anchor and li to the tags ul
-    $collectionHolder.append($newLinkLi);
-    // 
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+    function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
+        var $removeFormA = $('<td><a href="#">Quitar</a></td>');
+        $contratoFormLi.append($removeFormA);
 
-    $addTbdetcontratorifLink.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-        // add a new tag form (see next code block)
-        addTbdetcontratorifForm($collectionHolder, $newLinkLi);
-    });
-    
-}); 
-function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
-    var $removeFormA = $('<td><a href="#">Quitar</a></td>');
-    $contratoFormLi.append($removeFormA);
+        $removeFormA.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
 
-    $removeFormA.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
+            // remove the li for the tag form
+            $contratoFormLi.remove();
+        });
+    }
+    function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
 
-        // remove the li for the tag form
-        $contratoFormLi.remove();
-    });
-}
-function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
-    // Get the data-prototype explained earlier
-    var prototype = $collectionHolder.data('prototype');
+        // get the new index
+        var index = $collectionHolder.data('index');
 
-    // get the new index
-    var index = $collectionHolder.data('index');
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm = prototype.replace(/__name__/g, index);
 
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);
 
-    // increase the index with one for the next item
-    $collectionHolder.data('index', index + 1);
-
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
-    addTbdetcontratorifFormDeleteLink($newFormLi);
-}
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<li></li>').append(newForm);
+        $newLinkLi.before($newFormLi);
+        addTbdetcontratorifFormDeleteLink($newFormLi);
+    }
 </script>
- 
+
 {% endblock %}

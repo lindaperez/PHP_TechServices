@@ -1,6 +1,39 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+  
+<br>
 <h1><strong>Confirmación de Registro</strong></h1>
 <br><br>
     <table class="record_properties">

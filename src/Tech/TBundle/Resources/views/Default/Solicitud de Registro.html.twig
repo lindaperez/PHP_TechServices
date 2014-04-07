@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<!DOCTYPE html>
+<!-- saved from url=(0070)file:///home/mariana/Downloads/Violet%20Registration%20Form/index.html -->
+<div class="container">
+    <table>
+        <tbody><tr><td>
+                    <section class="register">
+                        <h1>Solicitud de Registro</h1>
+                        <form method="post" action="./Solicitud de Registro_files/Solicitud de Registro.html">
+                            <table>
+                                <tbody><tr><td>	
+                                            <div class="reg_section personal_info">
+                                                <h3>Datos Personales</h3>
+                                                <input type="text" name="username" value="" placeholder="Your Desired Username">
+                                                <input type="text" name="email" value="" placeholder="Your E-mail Address">
+                                            </div>
+                                        </td><td>
+                                            <div class="reg_section password">
+                                                <h3>Your Password</h3>
+                                                <input type="password" name="password" value="" placeholder="Your Password">
+                                                <input type="password" name="confirm" value="" placeholder="Confirm Password">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="reg_section password">
+                                                <h3>Sistema</h3>
+                                                <select>
+                                                    <option value="">Rol</option>
+                                                    <option value="">Palastine</option>
+                                                    <option value="">Syria</option>
+                                                    <option value="">Italy</option>
+                                                </select>
+                                                <textarea name="textarea" id="">Your Full Address</textarea>
+                                            </div>
+                                        </td>
+                                    </tr><tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <p class="submit"><input type="submit" name="commit" value="Sign Up"></p>
+                                        </td>
+                                    </tr>
+                                </tbody></table>	
+                        </form></section>
+                </td>
+
+
+            </tr></tbody></table>
+</div>
+
+<section class="about">
+    Download it for free from <a href="http://www.imomen.com/">iMomen</a>
+</section>
+
+
+
+
+{% endblock %}

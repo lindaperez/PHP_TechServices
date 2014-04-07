@@ -3,24 +3,103 @@
 {% block content %}
 
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+<br><br>
 <h1><strong>Edición de Solicitud de Registro</strong></h1>
  <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post" id="login">
      <table border="1">       
          <tr>
         <td >
             <h1>Datos Personales</h1>
-            <br><br>
+            <br>
       {{ form_start(edit_form) }}
       {{ form_errors(edit_form) }}
-        {{ form_row(edit_form.pkIci, {'label': 'Cédula: ', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vnombre,  {'label': 'Nombre: ', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vapellido,  {'label': 'Apellido: ', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vcorreoEmail,  {'label': 'Correo:', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vtelfLocal,  {'label': 'Telf-Local: ', 'required' : 'true'}) }}
-        {{ form_row(edit_form.vtelfMovil,  {'label': 'Telf-Movil: ', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vcargo,  {'label': 'Cargo', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vdepartamento,  {'label': 'Dpto: ', 'required' : 'true'}) }}<br>
-        {{ form_row(edit_form.vsucursal, {'label': 'Sucursal: ', 'required' : 'true'}) }}
+            <div class="error">
+                {{ form_errors(edit_form.pkIci) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.pkIci, 'Cédula:') }}</td>
+            <td>{{ form_widget(edit_form.pkIci,{'required': 'true'}) }}</td>
+        </table>
+                <div class="error">
+                {{ form_errors(edit_form.vnombre) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vnombre, 'Nombre:') }}</td>
+            <td>{{ form_widget(edit_form.vnombre,{'required': 'true'}) }}</td>
+        </table>
+            
+            <div class="error">
+                {{ form_errors(edit_form.vapellido) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vapellido, 'Apellido:') }}</td>
+            <td>{{ form_widget(edit_form.vapellido,{'required': 'true'}) }}</td>
+        </table>
+        <div class="error">
+                {{ form_errors(edit_form.vcorreoEmail) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vcorreoEmail, 'Correo:') }}</td>
+            <td>{{ form_widget(edit_form.vcorreoEmail,{'required': 'true'}) }}</td>
+        </table>
+        <div class="error">
+                {{ form_errors(edit_form.vtelfLocal) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vtelfLocal, 'Telf-Local:') }}</td>
+            <td>{{ form_widget(edit_form.vtelfLocal,{'required': 'true'}) }}</td>
+        </table>
+        <div class="error">
+                {{ form_errors(edit_form.vtelfMovil) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vtelfMovil, 'Telf-Movil:') }}</td>
+            <td>{{ form_widget(edit_form.vtelfMovil,{'required': 'true'}) }}</td>
+        </table>
+            
+            <div class="error">
+                {{ form_errors(edit_form.vcargo) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vcargo, 'Cargo:') }}</td>
+            <td>{{ form_widget(edit_form.vcargo,{'required': 'true'}) }}</td>
+        </table>
+            
+            <div class="error">
+                {{ form_errors(edit_form.vdepartamento) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vdepartamento, 'Dpto:') }}</td>
+            <td>{{ form_widget(edit_form.vdepartamento,{'required': 'true'}) }}</td>
+        </table>
+            
+            <div class="error">
+                {{ form_errors(edit_form.vsucursal) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vsucursal, 'Sucursal:') }}</td>
+            <td>{{ form_widget(edit_form.vsucursal,{'required': 'true'}) }}</td>
+        </table>
+        
             
 <br><br>
         <td width="15"></td>
@@ -57,7 +136,14 @@
        {{ form_row(edit_form.usuarioacceso.fkIidRol, {'label': 'Rol', 'required' : 'true'}) }}    
     <!--Campos ocultos -->
     <div style="display: none;">
-        {{ form_row(edit_form.vtipoCi, {'label': 'Tipo-Doc:','required' : 'false'})}}
+        <div class="error">
+                {{ form_errors(edit_form.vtipoCi) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(edit_form.vtipoCi, 'Cédula:') }}</td>
+            <td>{{ form_widget(edit_form.vtipoCi,{'required': 'false'}) }}</td>
+        </table>
+
+        
         {{ form_row(edit_form.usuarioacceso.fkIci,{ 'required': 'false' }) }}
         {{ form_row(edit_form.vrif,{ 'required': 'false' }) }}
             {{ form_row(edit_form.vcontrato,{ 'required': 'false' }) }}
