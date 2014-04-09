@@ -1,48 +1,46 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-<h1><strong>Editar Contrato</strong></h1> <br><br><br>
-<h1>Edición de Contrato: <strong> {{entity.pkInroContrato }}</strong></h1>
-<br><br>
-    <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" id="login">
+<h1><strong>Editar Contrato</strong></h1>
+<div class="container" >
+
+    <section class="register">
+
+        <h1>Edición de Contrato: <strong> {{entity.pkInroContrato }}</strong></h1>
+        <br>
+        <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" id="login">
 {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
         {{ form_row(edit_form.pkInroContrato, {'label': 'Contrato: ','required': 'true'}) }}<br>
         {{ form_row(edit_form.fkIrif, {'label': 'Rif: ','required': 'true'}) }}
-        <div style="display: none;">
-        
+            <div style="display: none;">
+
                 {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
-        </div>
-        <br>
-        
-<button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Editar</span>
-                </span>
-            </span>
-    </button>
-        
+            </div>
+
+            <p class="submit">   
+                <input type="submit" name="commit" value="Editar">
+            </p>
+
 {{ form_end(edit_form) }}
-    </form>
-
-
-
-<br><br><br>
-        <ul class="record_actions">
+        </form>
+    </section>
+</div>
+<br><br>
+<ul class="record_actions">
     <li>
         <a href="{{ path('Contratos_show',{'id': entity.id }) }}">
-           Volver a Ver Contrato
+            Volver a Ver Contrato
         </a>
     </li>
     <li>
         <a href="{{ path('Contratos') }}">
-           Volver a  Lista de Contratos
+            Volver a  Lista de Contratos
         </a>
     </li>
-    
-    
-    
-    
+
+
+
+
 </ul>
 {% endblock %}

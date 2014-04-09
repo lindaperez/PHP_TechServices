@@ -2,28 +2,27 @@
 
 {% block content -%}
     <h1>Creación de Contrato </h1>
-    <br><br>
+    
+    <div class="container" >
+
+    <section class="register">
         <form action="{{ path('Contratos_create') }}" method="post" id="login">
 {{ form_start(form) }}
         {{ form_errors(form) }}
         {{ form_row(form.pkInroContrato, {'label': 'Contrato: ','required': 'true'}) }}
-        {{ form_row(form.fkIrif, {'label': 'Rif: ','required': 'true'} }}
+        {{ form_row(form.fkIrif, {'label': 'Rif: ','required': 'true'}) }}
         <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
         
         </div>
-
-        <br>
-    <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Crear</span>
-                </span>
-            </span>
-    </button>
+      
+            <p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+      </p>
         {{ form_end(form) }}
     </form>
-
+</section>
+    </div>
     <br><br>
         <ul class="record_actions">
             

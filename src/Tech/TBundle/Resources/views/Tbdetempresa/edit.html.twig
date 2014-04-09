@@ -2,6 +2,9 @@
 
 {% block content -%}
 <h1>Edición de Empresa</h1>
+  <div class="container" >
+
+    <section class="register">
 <br><br>
     <form action="{{ path('Empresa_update',{ 'id': entity.id }) }}" method="post" id="login">
  {{ form_start(edit_form) }}
@@ -14,18 +17,17 @@
         {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
         </div>
     <br>
-    <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Editar</span>
-                </span>
-            </span>
-    </button>
+    
+<p class="submit">   
+                <input type="submit" name="commit" value="Editar">
+            </p>
+        
     
    {{ form_end(edit_form) }}     
 
 </form>
-
+</section>
+      </div>
 <br><br>
 
         <ul class="record_actions">

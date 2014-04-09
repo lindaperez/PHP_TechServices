@@ -10,28 +10,28 @@ border-radius:.5em;
 }
 .isa_info{
     color: #00529B;
-    width: 800px;
+    width: 750px;
     background-color: #D5F1FF;
     background-image: url('../images/info.png');
 }
 .isa_success {
     color: #4F8A10;
     
-    width: 800px;
+    width: 750px;
     background-color: #DBF8AA;
     background-image:url('../images/success.png');
 }
 .isa_warning {
     color: #9F6000;
     
-    width: 800px;
+    width: 750px;
     background-color: #FCE99E;
     background-image: url('../images/warning.png');
 }
 .isa_error {
     color: #D8000C;
     
-    width: 800px;
+    width: 750px;
     background-color: #FFCDCD;
     background-image: url('../images/error.png');
 }

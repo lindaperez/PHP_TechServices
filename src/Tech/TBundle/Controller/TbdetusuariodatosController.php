@@ -12,6 +12,7 @@ use Tech\TBundle\Form\TbdetusuariodatosType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Tech\TBundle\Controller\DefaultController;
 use Tech\TBundle\Entity\Tblogestatususuario;
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 
 /**
  * Tbdetusuariodatos controller.
@@ -90,7 +91,10 @@ class TbdetusuariodatosController extends Controller {
             if ($dfechaRegistro != null) {
                 $qb->andwhere('ud.dfechaRegistro=?10')->setParameter(10, $dfechaRegistro);
             }
-            $entities = $qb->getQuery()->execute();
+             $query_pages=$qb->getQuery();
+             $entities =$query_pages->execute();
+             
+
         }
         foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
@@ -103,11 +107,18 @@ class TbdetusuariodatosController extends Controller {
             $contrato_collection = new ArrayCollection($contratos);
             $entity->setContratos($contrato_collection);
         }
-
+        //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                3/*limit per page*/
+            );
         return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
                     'entities' => $entities,
                     'entity' => $entity_search,
                     'search_form' => $searchForm->createView(),
+                    'pagination' => $pagination,
         ));
     }
 
@@ -149,6 +160,7 @@ class TbdetusuariodatosController extends Controller {
 
         //Si todos los campos son vacios.
         $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
+        
         foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
             $usuario_acceso = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
@@ -160,11 +172,18 @@ class TbdetusuariodatosController extends Controller {
             $contrato_collection = new ArrayCollection($contratos);
             $entity->setContratos($contrato_collection);
         }
-
+            //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                10/*limit per page*/
+            );
         return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
                     'entities' => $entities,
                     'entity' => $entity_search,
                     'search_form' => $searchForm->createView(),
+                    'pagination' => $pagination,
         ));
     }
 
@@ -502,6 +521,7 @@ class TbdetusuariodatosController extends Controller {
             print "1";
             $i = $i + 1;
             if ($contrato == null) {
+                  print "3";
                 $message_error = "No debe agregar contratos vacios. Elija los cotratos que requiere."
                         . "y quite los que no va a asociar al cliente.";
                 $this->get('session')->getFlashBag()->add('flash_error', $message_error);
@@ -523,6 +543,7 @@ class TbdetusuariodatosController extends Controller {
                                 'delete_form' => $deleteForm->createView(),
                     ));
                 }
+                  print "2";
             }
         }
         if ($editForm->isValid()) {
@@ -577,7 +598,7 @@ class TbdetusuariodatosController extends Controller {
                 $session->set('usuario_rol', $acceso_rol);
                 $session->set('usuario_tipo_rol', $acceso_tipo_rol);
                 $session->set('usuario_estatus_registro', $acceso_estatus);
-            }
+            }   
                 $message_success = "Sus cambios se han actualizado correctamente.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
             return $this->redirect($this->generateUrl('Registro_edit', array('id' => $id)));

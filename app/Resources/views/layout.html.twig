@@ -8,11 +8,7 @@
 {% block title 'Techtrol' %}
 
 {% block body %}
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div class="flash-message">
-            <em>Notice</em>: {{ flashMessage }}
-        </div>
-    {% endfor %}
+
 <br><br>
     {% block content_header %}
         <ul id="menu">
@@ -22,8 +18,8 @@
             
     {{ parent() }}
     {% if app.user!=null %}
-    <li>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> ::{{app.session.get('usuario_rol')}}
- ::{{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} <a href="{{ path('logout') }}">Logout</a></li>
+    <ul>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> ::{{app.session.get('usuario_rol')}}
+ ::{{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} <a href="{{ path('logout') }}">Logout</a></ul>
     
     {% else %}
     <li><a href="{{ path('login') }}">Login</a></li>  
@@ -39,8 +35,8 @@
 
     <div class="block">
         {% block content %}
-    
+        
 {% endblock %}
-    </div>
+</div>
 
 {% endblock %}

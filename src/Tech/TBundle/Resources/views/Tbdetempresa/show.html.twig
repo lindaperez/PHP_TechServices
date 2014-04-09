@@ -3,23 +3,27 @@
 {% block content -%}
     <h1>Empresa </h1>
 <br><br>
+  <div class="container" >
+
+    <section class="register">
     <table class="record_properties">
         <tbody>
+            
+               
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Rif: </th>
+            <td width="140">Rif: </td>  
                 <td>{{ entity.pkIrif }}</td>
             </tr>
+            <tr><td height="20"></td></tr>
             <tr>
-                <th>Dirección Fiscal: </th>
+                <td>Dirección Fiscal: </td>
                 <td>{{ entity.vdireccionFiscal }}</td>
             </tr>
         </tbody>
     </table>
-<br><br>
+</section>
+      </div>
+        <br><br>
 
 <br>
         <ul class="record_actions">

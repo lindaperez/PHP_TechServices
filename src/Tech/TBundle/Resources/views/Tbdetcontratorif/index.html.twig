@@ -1,7 +1,11 @@
 {% extends '::layout.html.twig' %}
 
 {% block content -%}
+
     <h1><strong>Listado de Contratos</strong></h1>
+    <div class="container" >
+
+    <section class="register">
 <br><br>
     <table class="records_list">
         <thead>
@@ -43,6 +47,9 @@
         </tbody>
     </table>
 <br>
+</section>
+        </div>
+    <br>
         <ul>
         <li>
             <a href="{{ path('Contratos_new') }}">

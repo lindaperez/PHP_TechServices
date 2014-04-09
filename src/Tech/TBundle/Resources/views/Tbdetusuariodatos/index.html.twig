@@ -2,9 +2,15 @@
 
 {% block content %}
 <h1><strong>Confirmación de Solicitud de Registro de Clientes</strong></h1>
-<br><br>
+
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+
+<div class="container" >
+
+    <section class="register">
 <h1>Consulta de Solicitudes de Registro</h1>
+
 <form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
     
     {{ form_start(search_form) }}
@@ -13,8 +19,18 @@
         <tr>
     <td>
         
-        {{ form_row(search_form.pkIci, {'label': 'Cédula:'}) }}<br>
-        {{ form_row(search_form.vcargo,  {'label': 'Cargo:'}) }}<br>
+             <div class="error">
+                {{ form_errors(search_form.pkIci) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.pkIci, 'Cédula:') }}</td>
+            <td>{{ form_widget(search_form.pkIci) }}</td>
+        </table>
+           <div class="error">
+                {{ form_errors(search_form.vcargo) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.vcargo, 'Cargo:') }}</td>
+            <td>{{ form_widget(search_form.vcargo,{'required': 'true'}) }}</td>
+        </table>
         <ul class="contratos" data-prototype="{{ form_widget(search_form.contratos.vars.prototype)|e }}">
         
          {% for usuariocontrato in search_form.contratos %}
@@ -22,8 +38,20 @@
                  <div style="display: none;">
                      {{ form_row(usuariocontrato.fkIci) }}       
                  </div>
-                {{ form_row(usuariocontrato.fkInroContrato) }}       
-                {{ form_row(usuariocontrato.tbdetcontratorif) }}       
+                 <div class="error">
+                {{ form_errors(usuariocontrato.fkInroContrato) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(usuariocontrato.fkInroContrato, 'Contrato:') }}</td>
+            <td>{{ form_widget(usuariocontrato.fkInroContrato) }}</td>
+        </table>   
+                
+                      <div class="error">
+                {{ form_errors(usuariocontrato.tbdetcontratorif) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(usuariocontrato.tbdetcontratorif, 'Empresa:') }}</td>
+            <td>{{ form_widget(usuariocontrato.tbdetcontratorif) }}</td>
+        </table>   
+       
             </li>
         {% endfor %}
     
@@ -32,17 +60,38 @@
     </td>
     <td width="10"></td>
     <td>
-        {{ form_row(search_form.vnombre,  {'label': 'Nombre:'}) }}<br>
-        {{ form_row(search_form.vsucursal, {'label': 'Sucursal:'}) }}<br>
-        {{ form_row(search_form.dfechaRegistro) }}<br>
+                  <div class="error">
+                {{ form_errors(search_form.vnombre) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.vnombre, 'Nombre:') }}</td>
+            <td>{{ form_widget(search_form.vnombre) }}</td>
+        </table>
+               <div class="error">
+                {{ form_errors(search_form.vsucursal) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.vsucursal, 'Sucursal:') }}</td>
+            <td>{{ form_widget(search_form.vsucursal) }}</td>
+        </table>
+        {{ form_row(search_form.dfechaRegistro) }}
             
             </td>
     <td width="10"></td>
-    <br>    
+    
     <td>
-       {{ form_row(search_form.vapellido,  {'label': 'Apellido'}) }}<br>
-       {{ form_row(search_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus:'}) }}<br>
-     {{ form_row(search_form.usuarioacceso.fkIidRol, {'label': 'Rol:'}) }}<br>    
+          <div class="error">
+                {{ form_errors(search_form.vapellido) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.vapellido, 'Apellido:') }}</td>
+            <td>{{ form_widget(search_form.vapellido) }}</td>
+        </table>
+       {{ form_row(search_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus:'}) }}
+      <div class="error">
+                {{ form_errors(search_form.usuarioacceso.fkIidRol) }}</div>       
+        <table>  <td width="100">
+                {{ form_label(search_form.usuarioacceso.fkIidRol, 'Rol:') }}</td>
+            <td>{{ form_widget(search_form.usuarioacceso.fkIidRol,
+            {'required': 'true'}) }}</td>
+        </table>
         </td>
      </tr>
      <tr>
@@ -50,17 +99,14 @@
          <td></td>
          <td></td>
          <td></td>
-     <td align="right"> 
-        <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Buscar</span>
-                </span>
-            </span>
-        </button>
-     </td>
-     </tr>
-    <br>
+     
+        <td>
+            <p class="submit">   
+                <input type="submit" name="commit" value="Buscar">
+        </td>
+     
+     
+    
     <!--Campos ocultos -->
     <div style="display: none;">
         
@@ -83,13 +129,29 @@
     {{ form_end(search_form) }}
 </form>
 
+</section>
+    </div>
 
-<br>
+<div class="container" >
 
+    <section class="register">
 <h1>Listado de Solicitudes de Registro</h1>
 <br><br>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }} Total: {{ pagination.getTotalItemCount }}
+</div>
+
+<br>
+      
     <table class="records_list">
-        <thead>
+        <thead> 
+      
+            <tr>
+{# sorting of properties based on query components #}
+    <th>{{ knp_pagination_sortable(pagination, 'Id', 'Tbdetusuariodatos.id') }}</th>
+    <th{% if pagination.isSorted('Tbdetusuariodatos.pkIci') %} class="sorted"{% endif %}>
+        {{ knp_pagination_sortable(pagination, 'Cedula', 'Tbdetusuariodatos.pkIci') }}</th>
+</tr>
             <tr>
             <td width="80"><h4> Cédula</h4></td>
             <td width="20"></td>
@@ -152,7 +214,7 @@
         {% endfor %}
         </tbody>
     </table>
-<br>
+
         <ul>
         <li>
             <a href="{{ path('Registro_new') }}">
@@ -160,6 +222,8 @@
             </a>
         </li>
     </ul>
+</section>
+    </div>
 <script>
         $(function(){
          $(document).on('change', '.tbdetcontratorif_selector', function(){

@@ -2,8 +2,10 @@
 
 {% block content -%}
     <h1>Creación de Empresa</h1>
-<br><br>
-    
+
+  <div class="container" >
+
+    <section class="register">    
 <form action="{{ path('Empresa_create') }}" method="post" id="login">
  {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -13,22 +15,20 @@
         <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
     </div>
-    <br>
-    <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">Crear</span>
-                </span>
-            </span>
-    </button>
     
+<p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+            </p>    
    {{ form_end(form) }}     
 
 </form>
-<br><br>
+
+</section>
+</div>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Empresa') }}">
+            <br><br>
             Lista de Empresas
         </a>
     </li>

@@ -38,7 +38,9 @@
 <div class="container" >
 
     <section class="register">
+        <br>
         <h1>Ingrese los siguientes datos:</h1>
+        <br>
         <form action="{{ path('Registro_create') }}" method="post" >
               {{ form_start(form) }}
         {{ form_errors(form) }}  
@@ -78,7 +80,7 @@
                 {{ form_widget(form.vcontrato) }}<br><br></td></table>
 
                 </td>
-                <td width="60"></td>
+                <td width="20"></td>
                 <td>
 
                  
@@ -122,7 +124,7 @@
 
                     </div>
                 </td>
-                <td width="60"></td>
+                <td width="20"></td>
                 <td>
              <div class="error">{{ form_errors(form.vapellido) }}</div>
                     <table>  <td width="100">
