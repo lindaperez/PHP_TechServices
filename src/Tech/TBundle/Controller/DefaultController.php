@@ -38,6 +38,10 @@ class DefaultController extends Controller
             }
         }
         //print_r("End");
+        
+        
+        
+        
         return $this->render('TechTBundle:Default:index.html.twig');
     }
  
@@ -75,7 +79,8 @@ class DefaultController extends Controller
        if ($contrato==null){
        return new JsonResponse(array('id' => "", 'name' => "Rif" ));    
        }
-       return new JsonResponse(array('id' => $contrato->getFkIrif()->getId(), 'name' => $contrato->getFkIrif()->getPkIrif() ));
+       return new JsonResponse(array('id' => $contrato->getFkIrif()->getId(),
+           'name' => $contrato->getFkIrif()->getPkIrif() ));
 }
     
      public function erroraccesoAction()
@@ -83,5 +88,5 @@ class DefaultController extends Controller
         return $this->render('TechTBundle:Default:erroracceso.html.twig');
        
     }
-    
+ 
 }

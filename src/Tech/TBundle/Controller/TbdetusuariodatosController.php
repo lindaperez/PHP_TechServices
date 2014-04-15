@@ -29,6 +29,10 @@ class TbdetusuariodatosController extends Controller {
         }
         $em = $this->getDoctrine()->getManager();
         $entity_search = new Tbdetusuariodatos();
+        
+        $contrato_registro = new Tbdetusuariocontrato();
+        $entity_search->getContratos()->add($contrato_registro);
+        
         $searchForm = $this->createSearchForm($entity_search);
         $searchForm->handleRequest($request);
         $vacio = false;
@@ -38,19 +42,28 @@ class TbdetusuariodatosController extends Controller {
         $vcargo = $searchForm['vcargo']->getData();
         $vsucursal = $searchForm['vsucursal']->getData();
         $dfechaRegistro = $searchForm['dfechaRegistro']->getData();
-        $entidad_estatus = $searchForm['usuarioacceso']->getData()->getFkIidEstatus();
-        $entidad_rol = $searchForm['usuarioacceso']->getData()->getFkIidRol();
+        $estatus=$searchForm['usuarioacceso']->getData();
+        $entidad_estatus=null;
+        $entidad_rol=null;
+        if ($estatus!==null){
+            
+            $entidad_estatus = $estatus->getFkIidEstatus();
+        }
+        $rol=$searchForm['usuarioacceso']->getData();
+        if ($rol!==null){
+            $entidad_rol = $rol->getFkIidRol();
+        }
         $entidad_contrato = $searchForm['contratos']->getData()->get(0);
-
-
         if ($pkIci == null && $vnombre == null && $vapellido == null &&
-                $vcargo == null && $vsucursal == null && $dfechaRegistro == null && $entidad_estatus == null && $entidad_estatus == null &&
-                $entidad_rol == null && $entidad_rol == null && $entidad_contrato == null) {
+                $vcargo == null && $vsucursal == null && 
+                $dfechaRegistro == null && $estatus == null &&
+                $rol == null && $entidad_contrato == null) {
+            
             $vacio = true;
         }
         //Si todos los campos son vacios.
         if ($vacio == true) {
-            $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
+            $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
         } else {
 
             $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
@@ -67,11 +80,13 @@ class TbdetusuariodatosController extends Controller {
                 }
             }
             if ($entidad_contrato != null) {
-
+                $entidad_contrato_idd=$entidad_contrato->getFkInroContrato();
+                if($entidad_contrato_idd){
+                    
                 $qb->leftjoin('TechTBundle:Tbdetusuariocontrato', 'uc', 'WITH', 'ud.id=uc.fkIci');
-                $entidad_contrato_id = $searchForm['contratos']->getData()->
-                                get(0)->getFkInroContrato()->getId();
+                $entidad_contrato_id = $entidad_contrato_idd->getId();
                 $qb->andwhere('uc.fkInroContrato=?9')->setParameter(9, $entidad_contrato_id);
+                }
             }
             if ($pkIci != null) {
                 $qb->andwhere('ud.pkIci=?1')->setParameter(1, $pkIci);
@@ -91,11 +106,10 @@ class TbdetusuariodatosController extends Controller {
             if ($dfechaRegistro != null) {
                 $qb->andwhere('ud.dfechaRegistro=?10')->setParameter(10, $dfechaRegistro);
             }
-             $query_pages=$qb->getQuery();
-             $entities =$query_pages->execute();
-             
-
+            
         }
+         $query_pages=$qb->getQuery();
+             $entities =$query_pages->execute();
         foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
             $usuario_acceso = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
@@ -112,8 +126,9 @@ class TbdetusuariodatosController extends Controller {
             $pagination = $paginator->paginate(
                 $entities,
                 $this->get('request')->query->get('page', 1)/*page number*/,
-                3/*limit per page*/
+                7/*limit per page*/
             );
+            
         return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
                     'entities' => $entities,
                     'entity' => $entity_search,
@@ -159,7 +174,10 @@ class TbdetusuariodatosController extends Controller {
 
 
         //Si todos los campos son vacios.
-        $entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
+        //$entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
+        $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
+        $query_pages=$qb->getQuery();
+        $entities =$query_pages->execute();
         
         foreach ($entities as &$entity) {
             //Buscar en tabla acceso la cedula extraer rol y estatus
@@ -177,8 +195,9 @@ class TbdetusuariodatosController extends Controller {
             $pagination = $paginator->paginate(
                 $entities,
                 $this->get('request')->query->get('page', 1)/*page number*/,
-                10/*limit per page*/
+                7/*limit per page*/
             );
+      
         return $this->render('TechTBundle:Tbdetusuariodatos:index.html.twig', array(
                     'entities' => $entities,
                     'entity' => $entity_search,

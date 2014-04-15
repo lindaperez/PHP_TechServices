@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-<h1><strong>Confirmación de Solicitud de Registro de Clientes</strong></h1>
+ <h1>Confirmación de Solicitud de Registro de Clientes</h1>
 
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 
@@ -9,30 +9,30 @@
 <div class="container" >
 
     <section class="register">
-<h1>Consulta de Solicitudes de Registro</h1>
+        <a href="#" name="consulta_link"><h1>Consulta de Solicitudes de Registro</h1></a>
+        <div style="display: none;" align="center" class="form_search">
+        <form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
 
-<form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
-    
     {{ form_start(search_form) }}
     {{ form_errors(search_form) }}
-    <table border="1" cellpadding="1" cellspacing="1">
-        <tr>
-    <td>
-        
-             <div class="error">
+            <table border="1" cellpadding="1" cellspacing="1">
+                <tr>
+                <td>
+
+                    <div class="error">
                 {{ form_errors(search_form.pkIci) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.pkIci, 'Cédula:') }}</td>
-            <td>{{ form_widget(search_form.pkIci) }}</td>
-        </table>
-           <div class="error">
+                        <td>{{ form_widget(search_form.pkIci) }}</td>
+                    </table>
+                    <div class="error">
                 {{ form_errors(search_form.vcargo) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.vcargo, 'Cargo:') }}</td>
-            <td>{{ form_widget(search_form.vcargo,{'required': 'true'}) }}</td>
-        </table>
-        <ul class="contratos" data-prototype="{{ form_widget(search_form.contratos.vars.prototype)|e }}">
-        
+                        <td>{{ form_widget(search_form.vcargo,{'required': 'true'}) }}</td>
+                    </table>
+                    <ul class="contratos" data-prototype="{{ form_widget(search_form.contratos.vars.prototype)|e }}">
+
          {% for usuariocontrato in search_form.contratos %}
              <li>
                  <div style="display: none;">
@@ -44,7 +44,7 @@
                 {{ form_label(usuariocontrato.fkInroContrato, 'Contrato:') }}</td>
             <td>{{ form_widget(usuariocontrato.fkInroContrato) }}</td>
         </table>   
-                
+
                       <div class="error">
                 {{ form_errors(usuariocontrato.tbdetcontratorif) }}</div>       
         <table>  <td width="100">
@@ -55,65 +55,76 @@
             </li>
         {% endfor %}
     
-        </ul>
-        
-    </td>
-    <td width="10"></td>
-    <td>
-                  <div class="error">
+                    </ul>
+
+                </td>
+                <td width="10"></td>
+                <td>
+                    <div class="error">
                 {{ form_errors(search_form.vnombre) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.vnombre, 'Nombre:') }}</td>
-            <td>{{ form_widget(search_form.vnombre) }}</td>
-        </table>
-               <div class="error">
+                        <td>{{ form_widget(search_form.vnombre) }}</td>
+                    </table>
+                    <div class="error">
                 {{ form_errors(search_form.vsucursal) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.vsucursal, 'Sucursal:') }}</td>
-            <td>{{ form_widget(search_form.vsucursal) }}</td>
-        </table>
-        {{ form_row(search_form.dfechaRegistro) }}
-            
-            </td>
-    <td width="10"></td>
-    
-    <td>
-          <div class="error">
+                        <td>{{ form_widget(search_form.vsucursal) }}</td>
+                    </table>
+        <div class="error">
+                {{ form_errors(search_form.dfechaRegistro) }}</div>       
+                    <table>  <td width="100">
+                {{ form_label(search_form.dfechaRegistro, 'Fecha Registro:') }}</td>
+                        <td>{{ form_widget(search_form.dfechaRegistro) }}</td>
+                    </table>
+
+                </td>
+                <td width="10"></td>
+
+                <td>
+                    <div class="error">
                 {{ form_errors(search_form.vapellido) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.vapellido, 'Apellido:') }}</td>
-            <td>{{ form_widget(search_form.vapellido) }}</td>
-        </table>
-       {{ form_row(search_form.usuarioacceso.fkIidEstatus,{'label': 'Estatus:'}) }}
-      <div class="error">
+                        <td>{{ form_widget(search_form.vapellido) }}</td>
+                    </table>
+                    <div class="error">
+                {{ form_errors(search_form.usuarioacceso.fkIidEstatus) }}</div>       
+                    <table>  <td width="100">
+                {{ form_label(search_form.usuarioacceso.fkIidEstatus, 'Estatus:') }}</td>
+                        <td>{{ form_widget(search_form.usuarioacceso.fkIidEstatus) }}</td>
+                    </table>
+                    
+                    <div class="error">
                 {{ form_errors(search_form.usuarioacceso.fkIidRol) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(search_form.usuarioacceso.fkIidRol, 'Rol:') }}</td>
-            <td>{{ form_widget(search_form.usuarioacceso.fkIidRol,
+                        <td>{{ form_widget(search_form.usuarioacceso.fkIidRol,
             {'required': 'true'}) }}</td>
-        </table>
-        </td>
-     </tr>
-     <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-     
-        <td>
-            <p class="submit">   
-                <input type="submit" name="commit" value="Buscar">
-        </td>
-     
-     
-    
-    <!--Campos ocultos -->
-    <div style="display: none;">
-        
+                    </table>
+                </td>
+                </tr>
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Buscar">
+                </td>
+
+
+
+                <!--Campos ocultos -->
+                <div style="display: none;">
+
         {{ form_row(search_form.vrif) }}
         {{ form_row(search_form.vcontrato) }}
         {{ form_row(search_form.vclave) }}
-        
+
         {{ form_row(search_form.usuarioacceso.fkIci) }}
         {{ form_row(search_form.vcorreoEmail,  {'label': 'Correo:'}) }}
         {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}  
@@ -121,146 +132,161 @@
         {{ form_row(search_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
         {{ form_row(search_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
         {{ form_row(search_form.vtipoCi, {'label': 'Tipo-CI:'}) }}
-    </div>    
-    
-    
-    </table>
-    
-    {{ form_end(search_form) }}
-</form>
+                </div>    
 
-</section>
-    </div>
+
+            </table>
+
+    {{ form_end(search_form) }}
+        </form>
+        </div>
+    </section>
+</div>
 
 <div class="container" >
 
     <section class="register">
-<h1>Listado de Solicitudes de Registro</h1>
-<br><br>
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }} Total: {{ pagination.getTotalItemCount }}
-</div>
+        <h1>Listado de Solicitudes de Registro. ({{ pagination.getTotalItemCount }})</h1>
+        <br>
+        <div class="navigation" align="right">
+    {{ knp_pagination_render(pagination) }} 
+        </div>
 
-<br>
-      
-    <table class="records_list">
-        <thead> 
-      
-            <tr>
-{# sorting of properties based on query components #}
-    <th>{{ knp_pagination_sortable(pagination, 'Id', 'Tbdetusuariodatos.id') }}</th>
-    <th{% if pagination.isSorted('Tbdetusuariodatos.pkIci') %} class="sorted"{% endif %}>
-        {{ knp_pagination_sortable(pagination, 'Cedula', 'Tbdetusuariodatos.pkIci') }}</th>
-</tr>
-            <tr>
-            <td width="80"><h4> Cédula</h4></td>
-            <td width="20"></td>
-                <td width="80">Nombre</td>
-                <td width="20"></td>
-                <td width="80">Apellido</td>
-                <td width="20"></td>
-                <td width="80">Cargo</td>
-                <td width="20"></td>
-                <td width="80" >Sucursal</td>
-                <td width="20"></td>
-                <td width="80">Contratos</td>
-                <td width="20"></td>
-                <td width="80">Estatus Actual</td>
-                <td width="20"></td>
-                <td width="80">Fecha de Registro</td>
-                <td width="20"></td>
-                <td width="80">Rol Sistema</td>
-                <td width="20"></td>
-                <td width="80">Acciones</td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                
+        <br>
+        <br> 
+        <table class="records_list">
+            {% if (pagination.getTotalItemCount!=0) %}
+            <thead> 
+                <tr>
+                <td width="80"><h1><strong>{{ knp_pagination_sortable(pagination, 'Cédula', 'ud.pkIci') }}</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Nombre</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Apellido</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Cargo</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Sucursal</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Contratos</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Estatus</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Fecha Reg.</strong></h1></td>
+                <td width="40"></td>
+                <!--td width="80"><h1><strong>Rol</strong></h1></td-->
+                <td width="40"></td>
+                <td width="80"><h1><strong>Acciones</strong></h1></td>
+                </tr>
+            </thead>
+{% else %}
+            <thead><div align="left"> 
+                <h1><strong>No se encontraron coincidencias. </strong></h1></div>
+                </thead> 
+{% endif %}
+            <tbody>
+        {% for entity in pagination %}
+                <tr {% if loop.index is odd %} bgcolor="#F0EEEE" {% endif %}>
+
                 <td>{{ entity.pkIci }}</td>
-                <td width="5"></td>
+                <td width="40"></td>
                 <td>{{ entity.vnombre }}</td>
-                <td width="5"></td>
+                <td width="20"></td>
                 <td>{{ entity.vapellido }}</td>
-                <td width="5"></td>
+                <td width="40"></td>
                 <td>{{ entity.vcargo }}</td>
-                <td width="5"></td>
+                <td width="40"></td>
                 <td>{{ entity.vsucursal }}</td>
-                <td width="5"></td>
+                <td width="40"></td>
                 <td>{% for contrato in entity.contratos  %}
-                      
+
                     <a href="{{ path('Contratos_show', { 'id': contrato.fkInroContrato.id }) }}">{{ contrato.fkInroContrato.pkInroContrato }}</a>
                    {% endfor %}
                 </td>
-                <td width="5"></td>
+                <td width="40"></td>
                 <td>{{ entity.usuarioacceso.fkIidEstatus }}</td>
-                <td width="5"></td>
-                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d-m-Y H:i') }}{% endif %}</td>
-                <td width="5"></td>
-                <td>{{ entity.usuarioacceso.fkIidRol }}</td>
-                <td width="5"></td>
+                <td width="40"></td>
+                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d\'m\'Y H:i') }}{% endif %}</td>
+                <td width="40"></td>
+                <!--td>{{ entity.usuarioacceso.fkIidRol }}</td-->
+                <td width="40"></td>
                 <td>
-                <ul>
-                    <li>
-                        <!--a href="{{ path('Registro_show', { 'id': entity.id }) }}">Ver</a-->
-                    </li>
-                    <li>
-                        <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">Ver/Editar</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <!--a href="{{ path('Registro_show', { 'id': entity.id }) }}">Ver</a-->
+                        </li>
+                        <li>
+                            <a href="{{ path('Registro_edit', { 'id': entity.id }) }}">Editar</a>
+                        </li>
+                    </ul>
                 </td>
-            </tr>
+                </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
+            </tbody>
+        </table>
+    </section>
+    <br><br>
+    <ul>
         <li>
             <a href="{{ path('Registro_new') }}">
                 Realizar Solicitud de Registro de Cliente
             </a>
         </li>
     </ul>
-</section>
-    </div>
-<script>
-        $(function(){
-         $(document).on('change', '.tbdetcontratorif_selector', function(){
-             //alert("Han cambiado mi valor");
-             var $this = $(this);
-             var $arreglo=$this.attr("id");
-             var $val=$arreglo.split('_')[4];
-             
-             var data = {
-                 tbdetcontratorif_id: $this.val()
-             };
 
-             $.ajax({
-                  type: 'post',
-                  url: '{{ path("rifs") }}',
-                  data: data,
-                  dataType: 'json',
-                  success: function(data,val) {
-                      if (data.error !== undefined && data.error != '') {
-                          alert(data.error);
-                      } else {
-                          var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
-                         
-                         // alert("Han cambiado mi valor"+ $val);
-                           $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").html('<option>Rif</option>');
-                            $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").append('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
-                         
+</div>
+<script>
+    
+    $(function() {
+        $(document).on('change', '.tbdetcontratorif_selector', function() {
+            //alert("Han cambiado mi valor");
+            var $this = $(this);
+            var $arreglo = $this.attr("id");
+            var $val = $arreglo.split('_')[4];
+
+            var data = {
+                tbdetcontratorif_id: $this.val()
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ path("rifs") }}',
+                data: data,
+                dataType: 'json',
+                success: function(data, val) {
+                    if (data.error !== undefined && data.error != '') {
+                        alert(data.error);
+                    } else {
+                        var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
+
+                        // alert("Han cambiado mi valor"+ $val);
+                        $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").html('<option>Rif</option>');
+                        $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+
                     }
-                    },
-                  error: function(e, ts, et) { alert(ts) }
-              });
-        
-              
-              });
-                        
-                        });
-              
-              
+                },
+                error: function(e, ts, et) {
+                    alert(ts)
+                }
+            });
+
+
+        });
+
+    });
+
+
+</script>
+<script>
+    
+    $('a[href="#"]').click(function() {
+      if($('.form_search').is(':visible')) {
+          $('.form_search').fadeOut();
+    }else{
+    $('.form_search').fadeIn('slow');
+
+}
+});
+
     </script>
     {% endblock %}
