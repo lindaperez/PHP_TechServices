@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://librosweb.es/symfony_1_4/capitulo_8/no_crees_el_modelo_dos_veces.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml" xml:lang="es" lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <title>8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)</title>
+        <link href="./8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)_files/main_aea292d.css" rel="stylesheet" type="text/css">
+        <link href="./8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)_files/css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" async="" src="./8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)_files/ga.js"></script><script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-82842-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <link rel="apple-touch-icon" type="image/png" href="http://librosweb.es/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" type="image/png" href="http://librosweb.es/apple-touch-icon.png">
+        <meta name="apple-mobile-web-app-title" content="LibrosWeb">
+        <link rel="shortcut icon" type="image/png" href="http://librosweb.es/favicon.png">
+        <meta name="site-version" content="aea292d">
+        <link rel="publisher" href="http://plus.google.com/112008023125011571577">
+        <link rel="prev" href="http://librosweb.es/symfony_1_4/capitulo_8/sintaxis_extendida_del_esquema.html">
+        <link rel="next" href="http://librosweb.es/symfony_1_4/capitulo_8/resumen_8.html">
+        <link rel="start" href="http://librosweb.es/symfony_1_4">
+        <meta name="twitter:site" content="@librosweb">
+        <link rel="search" type="application/opensearchdescription+xml" href="http://librosweb.es/opensearch/documentation.xml" title="Libros y tutoriales de LibrosWeb.es">
+        <meta property="fb:page_id" content="437758756273955">
+        <meta property="fb:app_id" content="437758756273955">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)">
+        <meta property="og:image" content="http://www.gravatar.com/avatar/9f219b4dfaa677bfd0f47753c02d5126.png?s=200">
+        <meta name="msapplication-TileColor" content="#CC1414">
+        <meta name="application-name" content="LibrosWeb">
+        <meta name="msapplication-tooltip" content="Libros y tutoriales sobre HTML, CSS, JavaScript, PHP y otras tecnologías web.">
+    </head>
+    <body class="books book_page symfony_1_4">
+    <div id="header"><div class="container">
+        <a class="span2 logo" href="http://librosweb.es/" title="LibrosWeb.es">LibrosWeb</a>
+        <ul class="span5 inline">
+            <li><a href="http://librosweb.es/libros/">libros</a></li>
+            <li><a href="http://librosweb.es/tutoriales/">tutoriales</a></li>
+            <li><a href="http://librosweb.es/eventos/">eventos</a></li>
+            <li><a href="http://librosweb.es/foro/">foro</a></li>
+        </ul>
+        <form class="span5" action="http://librosweb.es/buscar"><input id="query" type="search" placeholder="buscar..." name="q"></form>
+    </div></div>
+    <div id="container" class="container">
+        <div id="content" class="row">
+        <ul class="breadcrumbs span12">
+  <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://librosweb.es/" itemprop="url"><span itemprop="title">Inicio</span></a></li>
+  <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://librosweb.es/symfony_1_4/" itemprop="url"><span itemprop="title">Symfony 1.4, la guía definitiva</span></a></li>
+  <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="http://librosweb.es/symfony_1_4/capitulo_8.html" itemprop="url"><span itemprop="title">Capítulo 8. El modelo (Doctrine)</span></a></li>
+  <li class="current"><span>8.8. No crees el modelo dos veces</span></li>
+</ul>
+
+<div class="span9" id="main">
+    <h1 id="no_crees_el_modelo_dos_veces"><span>8.8.</span> No crees el modelo dos veces</h1>
+    
+
+<p>La desventaja de utilizar un ORM es que se debe definir la estructura de datos 2 veces: una para la base de datos y otra para el modelo de objetos. Por suerte, Symfony dispone de utilidades de línea de comandos para generar uno en función del otro, de modo que se evita duplicar el trabajo.</p>
+
+<h3 id="construir_la_estructura_sql_de_la_base_de_datos_en_funcion_de_un_esquema_existente">8.8.1. Construir la estructura SQL de la base de datos en función de un esquema existente</h3>
+
+<p>Si se crea la aplicación escribiendo el archivo <code>schema.yml</code>, Symfony puede generar las instrucciones SQL que crean las tablas directamente a partir del modelo de datos en YAML. Para generarlas, se ejecuta el siguiente comando desde el directorio raíz del proyecto:</p>
+
+<div class="code cli">
+<pre class="cli">$ php symfony doctrine:build-sql</pre>
+</div>
+
+<p>El anterior comando crea un archivo <code>schema.sql</code> en el directorio <code>miproyecto/data/sql/</code>. El código SQL generado se optimiza para el sistema gestor de bases de datos definido en el archivo <code>databases.yml</code>.</p>
+
+<p>Puedes utilizar este archivo <code>schema.sql</code> para construir la base de datos. Si utilizas MySQL, puedes hacerlo con el siguiente comando:</p>
+
+<div class="code cli">
+<pre class="cli">$ mysqladmin -u root -p create blog
+$ mysql -u root -p blog &lt; data/sql/schema.sql</pre>
+</div>
+
+<p>El código SQL generado también es útil para reconstruir la base de datos en otro entorno o para cambiar de sistema gestor de bases de datos.</p>
+
+<div class="admonition note"><p><strong class="title">Nota</strong> La línea de comandos también incluye una tarea para volcar los contenidos de un archivo de texto a la base de datos. El Capítulo 16 incluye más información sobre la tarea <code>doctrine:data-load</code> y sobre los archivos de datos en formato YAML llamados <em>"fixtures"</em>.</p></div>
+
+<h3 id="construir_un_modelo_de_datos_en_formato_yaml_a_partir_de_una_base_de_datos_existente">8.8.2. Construir un modelo de datos en formato YAML a partir de una base de datos existente</h3>
+
+<p>Symfony puede utilizar la capa de acceso a bases de datos proporcionada por Doctrine para generar un archivo <code>schema.yml</code> a partir de una base de datos existente, gracias a la introspección (que es la capacidad de las bases de datos para determinar la estructura de las tablas que la forman). Se trata de una opción muy útil cuando se hace ingeniería inversa o si se prefiere trabajar primero en la base de datos antes de trabajar con el modelo de objetos.</p>
+
+<p>Para construir el modelo, el archivo <code>databases.yml</code> del proyecto debe apuntar a la base de datos correcta y debe tener todas las opciones de conexión. Después, ejecuta el comando <code>doctrine:build-schema</code>:</p>
+
+<div class="code cli">
+<pre class="cli">$ php symfony doctrine:build-schema</pre>
+</div>
+
+<p>Se genera un nuevo archivo <code>schema.yml</code> a partir de la estructura de la base de datos y se almacena en el directorio <code>config/doctrine</code>. Ahora se puede construir el modelo a partir de este esquema.</p>
+
+
+
+
+
+    <div class="adslot rectangular">
+<script async="" src="./8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)_files/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1491000300253750" data-ad-slot="9509081224" data-adsbygoogle-status="done"><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+    <div class="navigation row">
+            <a class="span4 prev" href="http://librosweb.es/symfony_1_4/capitulo_8/sintaxis_extendida_del_esquema.html">← Anterior <span>8.7. Sintaxis extendida del esquema</span></a>
+            
+            <a class="span5 next" href="http://librosweb.es/symfony_1_4/capitulo_8/resumen_8.html">Siguiente → <span>8.9. Resumen</span></a>
+        </div>
+
+</div>
+
+<div class="span3" id="side">
+<h3 class="underline"><span>Compartir</span></h3>
+<ul class="share inline">
+    <li><a id="share_twitter" href="https://twitter.com/share?text=No%20crees%20el%20modelo%20dos%20veces%20%28Symfony%201.4%2C%20la%20gu%C3%ADa%20definitiva%29&lang=es" title="Compartir en Twitter">TW</a></li>
+    <li><a id="share_facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Flibrosweb.es%2Fsymfony_1_4%2Fcapitulo_8%2Fno_crees_el_modelo_dos_veces.html&t=No%20crees%20el%20modelo%20dos%20veces%20%28Symfony%201.4%2C%20la%20gu%C3%ADa%20definitiva%29" title="Compartir en Facebook">FB</a></li>
+    <li><a id="share_google" href="https://plus.google.com/share?url=http%3A%2F%2Flibrosweb.es%2Fsymfony_1_4%2Fcapitulo_8%2Fno_crees_el_modelo_dos_veces.html&hl=es" title="Compartir en Google+">G+</a></li>
+</ul>
+
+<script type="text/javascript">
+var title    = 'No%20crees%20el%20modelo%20dos%20veces%20%28Symfony%201.4%2C%20la%20gu%C3%ADa%20definitiva%29';
+var page_url = encodeURIComponent(window.location);
+var options  = 'menubar=no,toolbar=no,resizable=yes,scrollbars=no,width=640,height=350';
+var services = {
+    share_twitter:  'https://twitter.com/share?text=' + title + '&lang=es',
+    share_facebook: 'http://www.facebook.com/sharer.php?u=' + page_url + '&t=' + title,
+    share_google:   'https://plus.google.com/share?url=' + page_url + '&hl=es'
+};
+
+for (var id in services) {
+    if (services.hasOwnProperty(id)) {
+        document.getElementById(id).href = services[id];
+        document.getElementById(id).onclick = function(a) {
+            a = a || window.event;
+            a = a.target || a.srcElement;
+            _gaq.push(['_trackEvent', 'share', a.id.substr(6), 'Symfony%201.4%2C%20la%20gu%C3%ADa%20definitiva : No%20crees%20el%20modelo%20dos%20veces']);
+            window.open(services[a.id], a.title, options);
+
+            return false;
+        };
+    }
+}
+</script>
+
+
+
+
+
+<h3 class="underline"><span>Indice de contenidos</span></h3>
+<ul class="toc">
+    <li class="level-1">
+        <span>1.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_1.html"> Introducción a Symfony</a>
+    </li>
+    <li class="level-1">
+        <span>2.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_2.html"> Explorando el interior de Symfony</a>
+    </li>
+    <li class="level-1">
+        <span>3.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_3.html"> Ejecutar aplicaciones Symfony</a>
+    </li>
+    <li class="level-1">
+        <span>4.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_4.html"> Introducción a la creación de páginas</a>
+    </li>
+    <li class="level-1">
+        <span>5.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_5.html"> Configurar Symfony</a>
+    </li>
+    <li class="level-1">
+        <span>6.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_6.html"> El Controlador</a>
+    </li>
+    <li class="level-1">
+        <span>7.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_7.html"> La Vista</a>
+    </li>
+    <li class="level-1 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8.html">
+            <span>Capítulo 8.</span> El modelo (Doctrine)
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/por_que_utilizar_un_orm_y_una_capa_de_abstraccion.html">
+            <span>8.1.</span> ¿Por qué utilizar un ORM y una capa de abstracción?
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/esquema_de_base_de_datos_de_symfony.html">
+            <span>8.2.</span> Esquema de base de datos de Symfony
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/las_clases_del_modelo.html">
+            <span>8.3.</span> Las clases del modelo
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/acceso_a_los_datos.html">
+            <span>8.4.</span> Acceso a los datos
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/conexiones_con_la_base_de_datos.html">
+            <span>8.5.</span> Conexiones con la base de datos
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/extender_el_modelo.html">
+            <span>8.6.</span> Extender el modelo
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/sintaxis_extendida_del_esquema.html">
+            <span>8.7.</span> Sintaxis extendida del esquema
+        </a>
+    </li>
+    <li class="level-2 active">
+        <a href="./8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva)_files/8.8. No crees el modelo dos veces (Symfony 1.4, la guía definitiva).html">
+            <span>8.8.</span> No crees el modelo dos veces
+        </a>
+    </li>
+    <li class="level-2 ">
+        <a href="http://librosweb.es/symfony_1_4/capitulo_8/resumen_8.html">
+            <span>8.9.</span> Resumen
+        </a>
+    </li>
+    <li class="level-1">
+        <span>9.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_9.html"> Enlaces y sistema de enrutamiento</a>
+    </li>
+    <li class="level-1">
+        <span>10.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_10.html"> Formularios</a>
+    </li>
+    <li class="level-1">
+        <span>11.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_11.html"> Emails</a>
+    </li>
+    <li class="level-1">
+        <span>12.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_12.html"> Uso de la cache</a>
+    </li>
+    <li class="level-1">
+        <span>13.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_13.html"> Internacionalización y localización</a>
+    </li>
+    <li class="level-1">
+        <span>14.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_14.html"> Generador de la parte de administración</a>
+    </li>
+    <li class="level-1">
+        <span>15.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_15.html"> Pruebas unitarias y funcionales</a>
+    </li>
+    <li class="level-1">
+        <span>16.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_16.html"> Herramientas para la administración de aplicaciones</a>
+    </li>
+    <li class="level-1">
+        <span>17.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_17.html"> Personalizar Symfony</a>
+    </li>
+    <li class="level-1">
+        <span>18.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_18.html"> Rendimiento</a>
+    </li>
+    <li class="level-1">
+        <span>19.</span> <a href="http://librosweb.es/symfony_1_4/capitulo_19.html"> Configuración avanzada</a>
+    </li>
+</ul>
+</div>
+        </div>
+        <div id="footer" class="row">
+            <span class="span9">© 2014 LibrosWeb.es
+            <a href="https://plus.google.com/+librosweb">Novedades</a>
+            <a href="http://librosweb.es/sitio/condiciones">Condiciones</a>
+            <a href="http://librosweb.es/sitio/privacidad">Privacidad</a>
+            </span>
+            <span class="span3 text-right">2.656 días online</span>
+        </div>
+    </div>
+    
+
+</body></html>

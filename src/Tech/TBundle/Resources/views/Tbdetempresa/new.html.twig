@@ -9,9 +9,19 @@
 <form action="{{ path('Empresa_create') }}" method="post" id="login">
  {{ form_start(form) }}
         {{ form_errors(form) }}
+          <div class="error">
+            {{ form_errors(form.pkIrif) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.pkIrif, 'Rif:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.pkIrif) }}</td>
+        </table>
+        <div class="error">
+        {{ form_errors(form.vdireccionFiscal) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.vdireccionFiscal, 'Dir-Fiscal:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.vdireccionFiscal) }}</td>
+        </table>
         
-        {{ form_row(form.pkIrif, {'label': 'Rif:', 'required': 'true','attr': {'oninvalid': 'sdflsdh'}})}}
-        {{ form_row(form.vdireccionFiscal, {'label': 'Dir-Fiscal:', 'required': 'true'}) }}
         <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
     </div>

@@ -1,0 +1,55 @@
+%YAML 1.1
+---
+# database_symfony.category
+-
+  id: 1
+  name: "categoria1"
+# database_symfony.job
+-
+  id: 1
+  type: "Type1"
+  company: "Company1"
+  position: "Position1"
+  location: "Location1"
+  description: "Description1"
+  how_to_apply: "How to Apply1"
+  token: "Token1"
+  is_public: 0
+  is_activated: 0
+  email: "ro1"
+  expires_at: "2009-01-01 00:00:00"
+  created_at: "2009-01-01 00:00:00"
+-
+  id: 2
+  type: "seugundo"
+  company: "sdkfj"
+  logo: "slsdfj"
+  url: "sdklfjlskj"
+  position: "lsdkjf"
+  location: "lk"
+  description: "sdklfjsldk"
+  how_to_apply: "skdljf"
+  token: "skldfj"
+  is_public: 0
+  is_activated: 0
+  email: "skldfj"
+  expires_at: "2009-01-01 00:00:00"
+  created_at: "2009-01-01 00:00:00"
+# database_symfony.user
+-
+  id: 3
+  username: "root"
+  password: "3lKE6EZYz8XrKhrsrFBpq7rdPWNkxkUugXnfV+v8Il1ZEDFe3wiZFH6DEYMDd9cyIYzC74DswFFqonNgbc4BPw=="
+-
+  id: 5
+  username: "bella"
+  password: "uAuRGx+2eJOnhrKRFaIForoAEjPBpLsZveBvDWPOLt5b4O3IXp0LbwaPfxb+87wpW1Js0ZXrzjBNT+nU48Nqvg=="
+-
+  id: 7
+  username: "user"
+  password: "x3YY0zu6OIKH3LxeQhcafJJkQRrmSnkEC9EodaiBHKraBtkC7IMg1v394JSprafCuzDFYwcUTfaKDaYO0UaqpA=="
+-
+  id: 8
+  username: "admin"
+  password: "Oob0FmH8l5IkiIuMaHmbxA2SrO/6o3yiRCtIs4JS7ZWBHirzUZwxCWbSLVbGT+f3H8cqUIcta5hkWfmo/+LJgA=="
+...

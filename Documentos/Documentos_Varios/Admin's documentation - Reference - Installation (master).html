@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!-- saved from url=(0121)http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#configuring-sonataadminbundle-dependencies -->
+<html prefix="og: http://ogp.me/ns#" class="loaded"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+            <script type="text/javascript" async="" src="./Admin's documentation - Reference - Installation (master)_files/ga.js"></script><script id="twitter-wjs" src="./Admin's documentation - Reference - Installation (master)_files/widgets.js"></script><script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><title>Admin's documentation - Reference - Installation  (master)</title>
+            <meta property="og:type" content="article">
+
+
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="./Admin's documentation - Reference - Installation (master)_files/css" rel="stylesheet" type="text/css">
+                <link href="./Admin's documentation - Reference - Installation (master)_files/sonata.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="./Admin's documentation - Reference - Installation (master)_files/odometer-theme-default.css" type="text/css" rel="stylesheet" media="screen">
+
+                <script src="./Admin's documentation - Reference - Installation (master)_files/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="./Admin's documentation - Reference - Installation (master)_files/jquery.scrollTo-1.4.3.1-min.js" type="text/javascript"></script>
+    <script src="./Admin's documentation - Reference - Installation (master)_files/jquery.parallax.min.js" type="text/javascript"></script>
+    <script src="./Admin's documentation - Reference - Installation (master)_files/startup-kit.js" type="text/javascript"></script>
+    <script src="./Admin's documentation - Reference - Installation (master)_files/script.js" type="text/javascript"></script>
+
+    <link href="http://sonata-project.org/blog/tag/symfony.rss" title="Sonata Project : symfony" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/general.rss" title="Sonata Project : general" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/phpcr.rss" title="Sonata Project : phpcr" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/security.rss" title="Sonata Project : security" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/changelog.rss" title="Sonata Project : changelog" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/cmf.rss" title="Sonata Project : cmf" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/block.rss" title="Sonata Project : block" type="application/rss+xml" rel="alternate">
+<link href="http://sonata-project.org/blog/tag/ecommerce.rss" title="Sonata Project : ecommerce" type="application/rss+xml" rel="alternate">
+
+            <script src="./Admin's documentation - Reference - Installation (master)_files/bootstrap.min.js" type="text/javascript"></script>
+        </head>
+    
+    <body class="sonata-bc" data-twttr-rendered="true">
+
+                                                         
+            <nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="http://sonata-project.org/">
+                    <img class="header-logo" src="./Admin's documentation - Reference - Installation (master)_files/logo.png" alt="Sonata Project" title="Sonata Project">
+                    <span class="light">Sonata-Project</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                
+
+                    <div id="cms-block-8" class="cms-block cms-block-element">
+        <ul class="nav navbar-nav">
+                <li>
+            <a href="http://sonata-project.org/about">About</a>
+        </li>
+        <li>
+            <a href="http://sonata-project.org/get-started">Get started</a>
+        </li>
+        <li>
+            <a href="http://sonata-project.org/bundles/">Documentation</a>
+        </li>
+        <li>
+            <a href="http://sonata-project.org/contributing">Contribute</a>
+        </li>
+        <li>
+            <a href="http://sonata-project.org/blog/archive">Blog</a>
+        </li>
+    </ul>
+
+    <form class="navbar-form pull-left">
+        <a class="btn btn-try-it" href="http://demo.sonata-project.org/" target="_blank">Try our demo</a>
+    </form>
+</div>
+
+        
+
+            </div>
+        </div>
+    </nav>
+
+
+
+
+        <!--<section class="manual-pages">
+        <div class="container">
+            <div class="edito">-->
+                
+
+            
+
+
+                                        <div class="container">
+        <div class="row doc-header">
+            <h1>
+                <a href="http://sonata-project.org/bundles/admin" style=""><strong>Admin</strong></a> - <a href="http://sonata-project.org/bundles/admin/master/doc/index.html">Documentation</a>
+                                                                                        <span class="bundle-version"><a href="http://sonata-project.org/bundles/admin/2-0/doc/index.html">2.0</a></span>
+                                                                                                                                    <span class="bundle-version"><a href="http://sonata-project.org/bundles/admin/2-1/doc/index.html">2.1</a></span>
+                                                                                                                                    <span class="bundle-version label label-inverse">master</span>
+                                                                        </h1>
+        </div>
+
+        <div class="row">
+            <link rel="stylesheet" href="./Admin's documentation - Reference - Installation (master)_files/basic.css" type="text/css" media="screen, projection">
+            <link rel="stylesheet" href="./Admin's documentation - Reference - Installation (master)_files/pygments.css" type="text/css" media="screen, projection">
+            <link rel="stylesheet" href="./Admin's documentation - Reference - Installation (master)_files/default.css" type="text/css" media="screen, projection">
+
+            
+
+  
+<p class="topless pull-right"><a href="http://sonata-project.org/bundles/admin/master/doc/reference/getting_started.html" title="next chapter">2. Getting started with SonataAdminBundle</a> »</p>
+  <p class="topless">« <a href="http://sonata-project.org/bundles/admin/master/doc/index.html" title="previous chapter">Admin Bundle</a></p>
+  <div class="sphinxsidebar col-sm-4">
+    <div class="sphinxsidebarwrapper">
+  <h3><a href="http://sonata-project.org/bundles/admin/master/doc/index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#">1. Installation</a><ul>
+<li><a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#downloading-the-code">1.1. Downloading the code</a></li>
+<li><a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#selecting-and-downloading-a-storage-bundle">1.2. Selecting and downloading a storage bundle</a></li>
+<li><a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#enabling-sonataadminbundle-and-its-dependencies">1.3. Enabling SonataAdminBundle and its dependencies</a></li>
+<li><a class="reference internal" href="./Admin's documentation - Reference - Installation (master)_files/Admin's documentation - Reference - Installation (master).html">1.4. Configuring SonataAdminBundle dependencies</a></li>
+<li><a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#cleaning-up">1.5. Cleaning up</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+      <div class="document col-sm-8">
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="installation">
+<h1>1. Installation<a class="headerlink" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#installation" title="Permalink to this headline">¶</a></h1>
+<p>SonataAdminBundle can be installed at any moment during a project’s lifecycle,
+whether it’s a clean Symfony2 installation or an existing project.</p>
+<div class="section" id="downloading-the-code">
+<h2>1.1. Downloading the code<a class="headerlink" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#downloading-the-code" title="Permalink to this headline">¶</a></h2>
+<p>Use composer to manage your dependencies and download SonataAdminBundle:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php composer.phar require sonata-project/admin-bundle
+</pre></div>
+</div>
+<p>You’ll be asked to type in a version constraint. ‘dev-master’ will get you the latest
+version, compatible with the latest Symfony2 version. Check <a class="reference external" href="https://packagist.org/packages/sonata-project/admin-bundle">packagist</a>
+for older versions:</p>
+<div class="highlight-bash"><div class="highlight"><pre>Please provide a version constraint <span class="k">for </span>the sonata-project/admin-bundle requirement: dev-master
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-and-downloading-a-storage-bundle">
+<h2>1.2. Selecting and downloading a storage bundle<a class="headerlink" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#selecting-and-downloading-a-storage-bundle" title="Permalink to this headline">¶</a></h2>
+<p>SonataAdminBundle is storage agnostic, meaning it can work with several storage
+mechanism. Depending on which you are using on your project, you’ll need to install
+one of the following bundles. In the respective links you’ll find simple installation
+instructions for each of them:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://sonata-project.org/bundles/doctrine-orm-admin/master/doc/reference/installation.html">SonataDoctrineORMAdminBundle</a></li>
+<li><a class="reference external" href="https://github.com/sonata-project/SonataDoctrineMongoDBAdminBundle/blob/master/Resources/doc/reference/installation.rst">SonataDoctrineMongoDBAdminBundle</a></li>
+<li><a class="reference external" href="http://sonata-project.org/bundles/propel-admin/master/doc/reference/installation.html">SonataPropelAdminBundle</a></li>
+<li><a class="reference external" href="https://github.com/sonata-project/SonataDoctrinePhpcrAdminBundle/blob/master/Resources/doc/reference/installation.rst">SonataDoctrinePhpcrAdminBundle</a></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t know which to choose? Most new users prefer SonataDoctrineORMAdmin, to interact with traditional relational databases (MySQL, PostgreSQL, etc)</p>
+</div>
+</div>
+<div class="section" id="enabling-sonataadminbundle-and-its-dependencies">
+<h2>1.3. Enabling SonataAdminBundle and its dependencies<a class="headerlink" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#enabling-sonataadminbundle-and-its-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>SonataAdminBundle relies on other bundles to implement some features.
+Besides the storage layer mentioned on step 2, there are other bundles needed
+for SonataAdminBundle to work:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://sonata-project.org/bundles/block/master/doc/reference/installation.html">SonataBlockBundle</a></li>
+<li><a class="reference external" href="https://github.com/sonata-project/SonatajQueryBundle/blob/master/Resources/doc/reference/installation.rst">SonatajQueryBundle</a></li>
+<li><a class="reference external" href="https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#installation">KnpMenuBundle</a> (Version 1.1.*)</li>
+</ul>
+</div></blockquote>
+<p>These bundles are automatically downloaded by composer as a dependency of SonataAdminBundle.
+However, you have to enable them in your AppKernel.php, and configure them manually. Don’t
+forget to enable SonataAdminBundle too:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/AppKernel.php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">registerBundles</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+        <span class="c1">// ...</span>
+
+        <span class="c1">// Add your dependencies</span>
+        <span class="k">new</span> <span class="nx">Sonata\CoreBundle\SonataCoreBundle</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="nx">Sonata\BlockBundle\SonataBlockBundle</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="nx">Sonata\jQueryBundle\SonatajQueryBundle</span><span class="p">(),</span>
+        <span class="k">new</span> <span class="nx">Knp\Bundle\MenuBundle\KnpMenuBundle</span><span class="p">(),</span>
+        <span class="c1">//...</span>
+
+        <span class="c1">// If you haven't already, add the storage bundle</span>
+        <span class="c1">// This example uses SonataDoctrineORMAdmin but</span>
+        <span class="c1">// it works the same with the alternatives</span>
+        <span class="k">new</span> <span class="nx">Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle</span><span class="p">(),</span>
+
+        <span class="c1">// Then add SonataAdminBundle</span>
+        <span class="k">new</span> <span class="nx">Sonata\AdminBundle\SonataAdminBundle</span><span class="p">(),</span>
+        <span class="c1">// ...</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a dependency is already enabled somewhere in your AppKernel.php,
+you don’t need to enable it again.</p>
+</div>
+</div>
+<div class="section" id="configuring-sonataadminbundle-dependencies">
+<h2>1.4. Configuring SonataAdminBundle dependencies<a class="headerlink" href="./Admin's documentation - Reference - Installation (master)_files/Admin's documentation - Reference - Installation (master).html" title="Permalink to this headline">¶</a></h2>
+<p>You will need to configure SonataAdminBundle’s dependencies. For each of the above
+mentioned bundles, check their respective installation/configuration instructions
+files to see what changes you have to make to your Symfony2 configuration.</p>
+<p>SonataAdminBundle provides a SonataBlockBundle block that’s used on the administration
+dashboard. To be able to use it, make sure it’s enabled on SonataBlockBundle’s configuration:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">sonata_block</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">default_contexts</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">cms</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">blocks</span><span class="p-Indicator">:</span>
+        <span class="c1"># Enable the SonataAdminBundle block</span>
+        <span class="l-Scalar-Plain">sonata.admin.block.admin_list</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">contexts</span><span class="p-Indicator">:</span>   <span class="p-Indicator">[</span><span class="nv">admin</span><span class="p-Indicator">]</span>
+        <span class="c1"># Your other blocks</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don’t worry too much if, at this point, you don’t yet understand fully
+what a block is. SonataBlockBundle is a useful tool, but it’s not vital
+that you understand right now.</p>
+</div>
+</div>
+<div class="section" id="cleaning-up">
+<h2>1.5. Cleaning up<a class="headerlink" href="http://sonata-project.org/bundles/admin/master/doc/reference/installation.html#cleaning-up" title="Permalink to this headline">¶</a></h2>
+<p>Now, install the assets from the bundles:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console assets:install web
+</pre></div>
+</div>
+<p>Usually, when installing new bundles, it’s good practice to also delete your cache:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console cache:clear
+</pre></div>
+</div>
+<p>At this point, your Symfony2 installation should be fully functional, with no errors
+showing up from SonataAdminBundle or its dependencies. SonataAdminBundle is installed
+but not yet configured (more on that in the next section), so you won’t be able to
+use it yet.</p>
+<p>If, at this point or during the installation, you come across any errors, don’t panic:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Read the error message carefully. Try to find out exactly which bundle is causing the error. Is it SonataAdminBundle or one of the dependencies?</li>
+<li>Make sure you followed all the instructions correctly, for both SonataAdminBundle and it’s dependencies</li>
+<li>Odds are that someone already had the same problem, and it’s documented somewhere. Check <a class="reference external" href="http://www.google.com/">Google</a>, <a class="reference external" href="https://groups.google.com/group/sonata-users">Sonata Users Group</a>, <a class="reference external" href="https://groups.google.com/group/symfony2">Symfony2 Users Group</a> and <a class="reference external" href="http://sonata-project.org/bundles/admin/master/doc/reference/forum.symfony-project.org">Symfony Forum</a> to see if you can find a solution.</li>
+<li>Still no luck? Try checking the project’s open issues on GitHub.</li>
+</ul>
+</div></blockquote>
+<p>After you have successfully installed the above bundles you need to configure
+SonataAdminBundle for administering your models. All that is needed to quickly
+set up SonataAdminBundle is described in the <a class="reference internal" href="http://sonata-project.org/bundles/admin/master/doc/reference/getting_started.html"><em>Getting started with SonataAdminBundle</em></a> chapter.</p>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="clearer"></div>
+      </div>
+
+        </div>
+    </div>
+    <section class="horizon-divider fork">
+        <div class="container">
+            <p>
+                Found a typo? Something is wrong in this documentation?
+                Just <a href="https://github.com/sonata-project/SonataAdminBundle/edit/master/Resources/doc/reference/installation.rst">fork and edit</a> it!
+            </p>
+            <i class="fa fa-github"></i>
+        </div>
+    </section>
+
+                            <!--</div>
+        </div>
+    </section>-->
+
+    <script>
+        $(window).ready(function() {
+            $('.navbar').addClass('top-nav-collapse');
+        });
+    </script>
+
+    <footer class="site-footer__primary">
+        <div class="container">
+            <div class="row v-center">
+                <div class="col-lg-6 " data-twttr-id="twttr-sandbox-0">
+                    <h4>Latest tweets</h4>
+                    <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-timeline twitter-timeline-rendered" title="Twitter Timeline" width="520" height="250" style="border: none; max-width: 100%; min-width: 180px;"></iframe>
+                    <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                </div>
+                <div class="col-lg-6">
+                    
+
+                    
+
+    <div class="recent-blog-posts">
+                    <h4>Recent Posts</h4>
+        
+        <div class="sonata-blog-post-container">
+                                                <article class="recent-blog-post">
+                        <span class="recent-blog-post__date pull-right">Mar 19, 2014</span>
+                        <a class="recent-blog-post__permalink" href="http://sonata-project.org/blog/2014/3/19/sonata-block-bundle-sfpot-march-2014">Sonata Block Bundle - sfPot March 2014</a>
+                        <p class="recent-blog-post__abstract">The french Symfony user group organizes every month an event based on Symfony2 and its ecosystem. This...</p>
+                    </article>
+                                                                <article class="recent-blog-post">
+                        <span class="recent-blog-post__date pull-right">Mar 14, 2014</span>
+                        <a class="recent-blog-post__permalink" href="http://sonata-project.org/blog/2014/3/14/what-s-been-keeping-us-busy-march-2014-edition">What's been keeping us busy, March 2014 Edition</a>
+                        <p class="recent-blog-post__abstract">We have been pretty busy these last 3 months. So, let’s try to summarize what we have done so far...</p>
+                    </article>
+                                                                <article class="recent-blog-post">
+                        <span class="recent-blog-post__date pull-right">Mar 11, 2014</span>
+                        <a class="recent-blog-post__permalink" href="http://sonata-project.org/blog/2014/3/11/new-sonata-project-website">New Sonata Project website</a>
+                        <p class="recent-blog-post__abstract">The sonata-project website has been revamped to be more welcoming and cleaner for new comers.</p>
+                    </article>
+                                    </div>
+
+                    <a class="btn-more pull-right" href="http://sonata-project.org/blog/archive"> View posts <i class="fa fa-chevron-circle-right"></i></a>
+            </div>
+
+
+        
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <footer class="site-footer__secondary">
+        <div class="container text-center">
+            <div class="col-sm-12">
+                © 2014 - Sonata
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25614705-1']);
+        _gaq.push(['_setDomainName', 'sonata-project.org']);
+        _gaq.push(['_setAllowHash', false]);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+                                                         <script>
+                        
+                    </script>
+
+                    <style>
+                        
+                    </style>
+                                                <style type="text/css" media="screen">
+</style>
+                
+                    
+        <!-- monitoring:3e9fda56df2cdd3b039f189693ab7844fbb2d4f6 -->
+    <script type="text/javascript">if(!NREUMQ.f){NREUMQ.f=function(){NREUMQ.push(["load",new Date().getTime()]);var e=document.createElement("script");e.type="text/javascript";e.src=(("http:"===document.location.protocol)?"http:":"https:")+"//"+"js-agent.newrelic.com/nr-100.js";document.body.appendChild(e);if(NREUMQ.a)NREUMQ.a();};NREUMQ.a=window.onload;window.onload=NREUMQ.f;};NREUMQ.push(["nrfj","beacon-4.newrelic.com","b2f481bbdc","2523488,2523618","NFAEZRBYDUpZUUddWg0aJ1IWUAxXF1BGWlEPUDlHC1wUZlxdUEFYBlsSUBZQDFc=",0,201,new Date().getTime(),"","","","",""]);</script>
+
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" style="display: none;"></iframe><script type="text/javascript" src="./Admin's documentation - Reference - Installation (master)_files/nr-100.js"></script><script type="text/javascript" src="./Admin's documentation - Reference - Installation (master)_files/b2f481bbdc"></script></body></html>

@@ -1,0 +1,230 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+DROP SCHEMA IF EXISTS `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+SHOW WARNINGS;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_usuario_datos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_usuario_datos` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_usuario_datos` (
+  `CI` INT NOT NULL ,
+  `DIRECCION_FISCAL` VARCHAR(100) NULL ,
+  `TELF_LOCAL` VARCHAR(15) NULL ,
+  `TELF_MOVIL` VARCHAR(15) NULL ,
+  `ESTADO` VARCHAR(15) NULL ,
+  `SUCURSAL` VARCHAR(15) NULL ,
+  `CARGO` VARCHAR(15) NULL ,
+  `DEPARTAMENTO` VARCHAR(20) NULL ,
+  `CORREO_EMAIL` VARCHAR(20) NULL ,
+  PRIMARY KEY (`CI`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gen_rol`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`gen_rol` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`gen_rol` (
+  `ID_ROL` INT NOT NULL ,
+  `DESCRIPCION` VARCHAR(45) NULL ,
+  PRIMARY KEY (`ID_ROL`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gen_estatus_registro_usu`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`gen_estatus_registro_usu` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`gen_estatus_registro_usu` (
+  `ID_ESTATUS` INT NOT NULL ,
+  `DESCRIPCION` VARCHAR(45) NULL ,
+  PRIMARY KEY (`ID_ESTATUS`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_usuario_acceso`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_usuario_acceso` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_usuario_acceso` (
+  `CLAVE` VARCHAR(45) NULL ,
+  `CI` INT NULL ,
+  `ID_ROL` INT NULL ,
+  `ID_ESTATUS` INT NULL ,
+  CONSTRAINT `ID_ROL`
+    FOREIGN KEY (`ID_ROL` )
+    REFERENCES `mydb`.`gen_rol` (`ID_ROL` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `CI`
+    FOREIGN KEY (`CI` )
+    REFERENCES `mydb`.`det_usuario_datos` (`CI` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_ESTATUS`
+    FOREIGN KEY (`ID_ESTATUS` )
+    REFERENCES `mydb`.`gen_estatus_registro_usu` (`ID_ESTATUS` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `ID_ROL_idx` ON `mydb`.`det_usuario_acceso` (`ID_ROL` ASC) ;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `CI_UNIQUE` ON `mydb`.`det_usuario_acceso` (`CI` ASC) ;
+
+SHOW WARNINGS;
+CREATE INDEX `ID_ESTATUS_idx` ON `mydb`.`det_usuario_acceso` (`ID_ESTATUS` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_empresa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_empresa` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_empresa` (
+  `RIF` INT NULL ,
+  `DIRECCION FISCAL` VARCHAR(45) NULL ,
+  PRIMARY KEY (`RIF`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `RIF_UNIQUE` ON `mydb`.`det_empresa` (`RIF` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_contrato_rif`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_contrato_rif` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_contrato_rif` (
+  `NRO_CONTRATO` INT NULL ,
+  `RIF` INT NULL ,
+  PRIMARY KEY (`NRO_CONTRATO`) ,
+  CONSTRAINT `RIF`
+    FOREIGN KEY (`RIF` )
+    REFERENCES `mydb`.`det_empresa` (`RIF` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `RIF_idx` ON `mydb`.`det_contrato_rif` (`RIF` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gen_funcion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`gen_funcion` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`gen_funcion` (
+  `ID_FUNCION` INT NOT NULL ,
+  `DESCRIPCION` VARCHAR(45) NULL ,
+  PRIMARY KEY (`ID_FUNCION`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_rol_funcion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_rol_funcion` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_rol_funcion` (
+  `ID_ROL` INT NULL ,
+  `ID_FUNCION` INT NULL ,
+  CONSTRAINT `ID_ROL`
+    FOREIGN KEY (`ID_ROL` )
+    REFERENCES `mydb`.`gen_rol` (`ID_ROL` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_FUNCION`
+    FOREIGN KEY (`ID_FUNCION` )
+    REFERENCES `mydb`.`gen_funcion` (`ID_FUNCION` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `ID_ROL_idx` ON `mydb`.`det_rol_funcion` (`ID_ROL` ASC) ;
+
+SHOW WARNINGS;
+CREATE INDEX `ID_FUNCION_idx` ON `mydb`.`det_rol_funcion` (`ID_FUNCION` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`gen_parametros`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`gen_parametros` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`gen_parametros` (
+  `ID_PARAMETRO` INT NULL ,
+  `DESCRIPCION` VARCHAR(45) NULL ,
+  `MAX_ACCESO` INT NULL ,
+  PRIMARY KEY (`ID_PARAMETRO`) )
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `ID_PARAMETRO_UNIQUE` ON `mydb`.`gen_parametros` (`ID_PARAMETRO` ASC) ;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`det_usuario_contrato`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`det_usuario_contrato` ;
+
+SHOW WARNINGS;
+CREATE  TABLE IF NOT EXISTS `mydb`.`det_usuario_contrato` (
+  `CI` INT NULL ,
+  `NRO_CONTRATO` INT NULL ,
+  CONSTRAINT `CI`
+    FOREIGN KEY (`CI` )
+    REFERENCES `mydb`.`det_usuario_datos` (`CI` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `NRO_CONTRATO`
+    FOREIGN KEY (`NRO_CONTRATO` )
+    REFERENCES `mydb`.`det_contrato_rif` (`NRO_CONTRATO` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `NRO_CONTRATO_idx` ON `mydb`.`det_usuario_contrato` (`NRO_CONTRATO` ASC) ;
+
+SHOW WARNINGS;
+CREATE INDEX `CI_idx` ON `mydb`.`det_usuario_contrato` (`CI` ASC) ;
+
+SHOW WARNINGS;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

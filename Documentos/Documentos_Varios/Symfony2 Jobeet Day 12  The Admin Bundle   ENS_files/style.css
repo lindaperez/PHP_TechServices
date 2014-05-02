@@ -1,0 +1,61 @@
+/*
+Theme Name: Twenty Eleven Child
+Template: twentyeleven
+*/
+
+@import url("../twentyeleven/style.css");
+
+#site-title {
+  padding-top: 20px;
+}
+
+#site-title a {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px #000000;
+  filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+#site-description {
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 1px #000000;
+  filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+#branding #searchform {
+  top: 34px;
+}
+
+#branding hgroup {
+  position: absolute;
+  margin: 35px 40px 0;
+}
+
+#branding > a {
+  display: block;
+  height: 200px;
+  overflow: hidden;
+}
+
+#branding #s {
+  background-color: #F9F9F9;
+}
+
+#page {
+  border-right: 2px solid #BBBBBB;
+  border-left: 2px solid #BBBBBB;
+  border-bottom: 2px solid #BBBBBB;
+}
+
+.singular .entry-header, .singular .entry-content, .singular footer.entry-meta, .singular #comments-title {
+  width: auto;
+}
+
+.singular .entry-meta .edit-link a {
+  top: 0px;
+  left: -55px;
+}
+
+.singular .hentry {
+  padding-top: 0px;
+}

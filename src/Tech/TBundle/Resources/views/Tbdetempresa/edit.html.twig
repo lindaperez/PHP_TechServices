@@ -9,9 +9,19 @@
     <form action="{{ path('Empresa_update',{ 'id': entity.id }) }}" method="post" id="login">
  {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
+         <div class="error">
+            {{ form_errors(edit_form.pkIrif) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.pkIrif, 'Rif:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.pkIrif) }}</td>
+        </table>
+        <div class="error">
+        {{ form_errors(edit_form.vdireccionFiscal) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.vdireccionFiscal, 'Dir-Fiscal:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(edit_form.vdireccionFiscal) }}</td>
+        </table>
         
-        {{ form_row(edit_form.pkIrif, {'label': 'Rif:','required': 'true'}) }}
-        {{ form_row(edit_form.vdireccionFiscal, {'label': 'Dir-Fiscal:' ,'required': 'true'}) }}
         <div style="display: none;">
         {{ form_row(edit_form.submit, { 'label': 'Actualizar' }) }}
         {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}

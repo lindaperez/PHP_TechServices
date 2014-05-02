@@ -11,8 +11,19 @@
         <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" id="login">
 {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
-        {{ form_row(edit_form.pkInroContrato, {'label': 'Contrato: ','required': 'true'}) }}<br>
-        {{ form_row(edit_form.fkIrif, {'label': 'Rif: ','required': 'true'}) }}
+               <div class="error">
+                        {{ form_errors(edit_form.pkInroContrato) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(edit_form.pkInroContrato, 'Contrato:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(edit_form.pkInroContrato) }}</td>
+                    </table>
+                <div class="error">
+                        {{ form_errors(edit_form.fkIrif) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(edit_form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(edit_form.fkIrif) }}</td>
+                    </table>
+            
             <div style="display: none;">
 
                 {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}
