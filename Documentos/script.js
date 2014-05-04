@@ -1,33 +1,44 @@
+var $collectionHolder;
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-/*$(function(){
-            $(document).on('change', '.tbdetcontratorif_selector', function(){
-                 alert("Han cambiado mi valor");
-                //$("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html("<option value='1'>Some oranges</option><option value='2'>More Oranges</option><option value='3'>Even more oranges</option>"); 	
-                var $this = $(this);
-                var data = {
-                    tbdetcontratorif_id: $this.val()
-                };
-                  alert("El ID del objeto es ");
-                $.ajax({
-                    type: 'post',
-                    url: '{{ path("rifs") }}',
-                    data: data,
-                    success: function(data) {
-                       $("#tech_tbundle_tbdetusuariocontrato_fkInroContrato").html("<option value='1'>Some oranges</option><option value='2'>More Oranges</option><option value='3'>Even more oranges</option>"); 
-                        //var $tbdetempresa_selector = $this.closest('.contratoss').find('.tbdetempresa_selector');
-                        //$tbdetempresa_selector.html("<option value='1'>Some oranges</option><option value='2'>More Oranges</option><option value='3'>Even more oranges</option>");
-                        //$tbdetempresa_selector.html('<option value="" selected="selected">Rif</option>');
-                        //$tbdetempresa_selector.append('<option value="' + 44 + '">' + 33333333 + '</option>');
-                     
-                    }   
-                });
-                
-                                
-            });
-        
-             
-        });
-          */
-             
-        
+// setup an "add a tag" link
+var $addTbdetusuariodatosLink = $('<a href="#" class="add_tag_link">Agregar contrato.</a>');
+var $newLinkLi = $('<li></li>').append($addTagLink);
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('ul.contratos');
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addTagLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // add a new tag form (see next code block)
+        addTagForm($collectionHolder, $newLinkLi);
+    });
+});
+
+function addTagForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+
+    // get the new index
+    var index = $collectionHolder.data('index');
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li></li>').append(newForm);
+    $newLinkLi.before($newFormLi);
+}

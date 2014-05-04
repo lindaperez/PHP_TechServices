@@ -1,0 +1,25 @@
+NOTAS APACHE
+
+<VirtualHost *:8048>
+    ServerName techtrol.local
+    DocumentRoot /home/mariana/Documents/Symfony/techproject/web
+    DirectoryIndex app.php
+    ErrorLog /var/log/apache2/techtrol-error.log
+    CustomLog /var/log/apache2/techtrol-access.log combined
+    <Directory "/home/mariana/Documents/Symfony/techproject/web">
+        AllowOverride All
+        Allow from All
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName myproject.local
+    DocumentRoot /home/mariana/Desktop/Synfony/Proyectos/Techtrol/myproject/web
+    DirectoryIndex app.php
+    ErrorLog /var/log/apache2/myproject-error.log
+    CustomLog /var/log/apache2/myproject-access.log combined
+    <Directory "/home/mariana/Desktop/Synfony/Proyectos/Techtrol/myproject/web">
+        AllowOverride All
+        Allow from All
+    </Directory>
+</VirtualHost>

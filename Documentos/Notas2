@@ -1,0 +1,18 @@
+DATOS QUE SE DEBEN CARGAR 
+
+
+
+1. DATOS DEL USUARIO ADMINISTRADOR
+
+INSERT INTO `mydb`.`tbdetUsuarioDatos` (`id`, `pk_iCI`, `vTIPO_CI`, `vNOMBRE`, `vAPELLIDO`, `vCORREO_EMAIL`, `vTELF_LOCAL`, `vTELF_MOVIL`, `vCARGO`, `vDEPARTAMENTO`, `vSUCURSAL`, `vCLAVE`, `dFECHA_REGISTRO`) VALUES (NULL, '18915768', 'V-', 'Linda', 'Perez', 'rosmery.p.p@gmail.com', '04129511668', '02122817569', 'Empleado Administrador', 'Departamento Empleado', 'Sucursal Empleado', 'TygtKmJ4JLAF+jrkE1G5ht9u9PH09QO7hqkWiaLttp61S1AS311OqtirizZUOtdfOmr6JMIkRcdHHaZiolHxsw==', '2014-05-02');
+
+
+2. ESTATUS USUARIO
+
+INSERT INTO `mydb`.`tbgenEstatusRegistroUsu` (`id`, `vDESCRIPCION`) VALUES (NULL, 'Solicitud Anulada');
+INSERT INTO `mydb`.`tblogEstatusUsuario` (`id`, `fk_iCI`, `fk_iID_ESTATUS`, `dFECHA_CAMBIO`) VALUES (NULL, '1', '2', '2014-05-02 00:00:00');
+
+
+3. Rol Administrador, Empleado , Cliente
+
+4. Tipo ROl Empleado, Cliente
