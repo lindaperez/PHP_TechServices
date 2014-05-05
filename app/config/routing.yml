@@ -1,4 +1,10 @@
-tech_t:
+TechTBundle_homepage:
+    pattern:  /
+    defaults: { _controller: TechTBundle:Default:index}
+    requirements:
+        _method:  GET
+
+-tech_t:
     resource: "@TechTBundle/Resources/config/routing.yml"
     prefix:   /
 

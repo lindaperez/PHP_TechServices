@@ -90,7 +90,7 @@ class moduleDependant {
                 }
             }
         }
-        print_r($records);
+      //  print_r($records);
         /* Inserting in database */
         /*
         $connection = mysql_connect($this->host, $this->username, $this->password) or die(mysql_error());
