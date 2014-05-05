@@ -537,10 +537,10 @@ class TbdetusuariodatosController extends Controller {
         $usuario_contratos = $entity->getContratos();
         $i = 0;
         foreach ($usuario_contratos as &$contrato) {
-            print "1";
+            //print "1";
             $i = $i + 1;
             if ($contrato == null) {
-                  print "3";
+                  //print "3";
                 $message_error = "No debe agregar contratos vacios. Elija los cotratos que requiere."
                         . "y quite los que no va a asociar al cliente.";
                 $this->get('session')->getFlashBag()->add('flash_error', $message_error);
@@ -562,7 +562,7 @@ class TbdetusuariodatosController extends Controller {
                                 'delete_form' => $deleteForm->createView(),
                     ));
                 }
-                  print "2";
+                //  print "2";
             }
         }
         if ($editForm->isValid()) {
