@@ -457,7 +457,7 @@ class TbdetusuariodatosController extends Controller {
         $entity->setVrif("V-00000000-0");
         $entity->setVcontrato(0);
         $entity->setUsuarioAcceso(null);
-
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<!-- saved from url=(0098)https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps -->
+<html class="wf-proximanova-i4-active wf-proximanova-i6-active wf-proximanova-i7-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active wf-athelas-i7-active wf-athelas-n4-active wf-athelas-n7-active wf-museoslab-i1-active wf-museoslab-i3-active wf-museoslab-i5-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n5-active wf-museoslab-n7-active wf-athelas-i4-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>How To Configure Virtual Memory (Swap File) on a VPS | DigitalOcean</title>
+<meta content="This article will cover the pros and cons of using virtual memory or a swap file (paging), determining if your droplet already uses virtual memory or paging, the differences between a swap partition and a swap file, information on how to create a swap file, and how to configure the system&#39;s &quot;swappiness&quot; (how likely it is to use virtual memory as well as determining the appropriate size to use)." name="description">
+<meta content="[&quot;Linux Basics&quot;, &quot;Ubuntu&quot;, &quot;CentOS&quot;, &quot;Miscellaneous&quot;, &quot;Server Optimization&quot;, &quot;Debian&quot;, &quot;Fedora&quot;]" name="keywords">
+<!-- Twitter Meta -->
+<meta content="summary" name="twitter:card">
+<meta content="@digitalocean" name="twitter:site">
+<meta content="@digitalocean" name="twitter:creator">
+<meta content="How To Configure Virtual Memory (Swap File) on a VPS" name="twitter:title">
+<meta content="This article will cover the pros and cons of using virtual memory or a swap file (paging), determining if your droplet already uses virtual memory or paging, the differences between a swap partition and a swap file, information on how to create a swap file, and how to configure the system&#39;s &quot;swappiness&quot; (how likely it is to use virtual memory as well as determining the appropriate size to use)." name="twitter:description">
+<!-- Facebook Meta -->
+<meta content="How To Configure Virtual Memory (Swap File) on a VPS" name="og:title">
+<meta content="This article will cover the pros and cons of using virtual memory or a swap file (paging), determining if your droplet already uses virtual memory or paging, the differences between a swap partition and a swap file, information on how to create a swap file, and how to configure the system&#39;s &quot;swappiness&quot; (how likely it is to use virtual memory as well as determining the appropriate size to use)." name="og:description">
+<meta content="DigitalOcean" name="og:site_name">
+<meta content="article" name="og:type">
+
+
+<link href="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/application-e952adb8f46040a3fd5061f0512f97e7.css" media="screen" rel="stylesheet" type="text/css">
+<meta content="authenticity_token" name="csrf-param">
+<meta content="vqtKYaG8O35hws0hn1IDW2+6a+bcS2pPNJymSZYd2PA=" name="csrf-token">
+<script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/cb=gapi.loaded_1" async=""></script><script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/51c8920f71ca6dc47d00002f.js"></script><script async="" id="hn-button.js" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/hn-button.js"></script><script type="text/javascript" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/all.js"></script><script type="text/javascript" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/mixpanel-2.2.min.js"></script><script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/5850.js" async="" type="text/javascript"></script><script id="twitter-wjs" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/widgets.js"></script><script type="text/javascript" async="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/ga.js"></script><script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/mwy0yxy.js" type="text/javascript" async=""></script><script type="text/javascript" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/izu1uqu.js"></script>
+<style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/ae5c56/proxima-nova:i4:i6:i7:n4:n6:n7.b5x:N:2,b5z:N:2,b61:N:2,b5w:N:2,b5y:N:2,bBh:N:2/d?3bb2a6e53c9684ffdc9a9bf71c5b2a6272be58e6824d2f2e6fb239e8cf530957f482d5909fc66614ec7c022e6f1235ecd5bfda812199b1cf834e6f6acb6a84db0b5078ab5744cd8f773a40a408237cb9324a3a4231b625f85779706fb2296ce0d2325abc62be67b2ea0a857c19b08673a264e947"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script>
+  //<![CDATA[
+    (function() {
+      var config = {
+        kitId: 'mwy0yxy',
+        scriptTimeout: 3000
+      };
+      var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+    })();
+    
+    var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-26573244-1']);
+     _gaq.push(['_trackPageview']);
+    
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    
+     /* <![CDATA[ */
+     var google_conversion_id = 1010666955;
+     var google_conversion_language = "en";
+     var google_conversion_format = "3";
+     var google_conversion_color = "ffffff";
+     var google_conversion_label = "g5d3CM2C9QIQy5v24QM";
+     var google_conversion_value = 0;
+     /* ]]> */
+  //]]>
+</script><style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-athelas{font-family:"athelas",serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/090721/athelas:i4:i7:n4:n7,museo-slab:i1:i3:i5:i7:n1:n3:n5:n7.NSP:K:2,NSR:K:2,NSN:K:2,NSQ:K:2,QKx:K:2,SLT:K:2,QL0:K:2,QL2:K:2,QL7:K:2,SKB:K:2,WH7:K:2,VnC:K:2/d?3bb2a6e53c9684ffdc9a9bf71f5b2a623df248a4a1ae63c3259906c962603aefaf8a34e2f8bdd8fd5060cf93f14f1b88372f7ccbb873cd31e33ef485b27658f393dd60ab6f9d9f5af648f9b4bd7bcc452465f073001257e6372e1dbc6fb7addb1dbc958c10f9f449897c04e241cd21369db154">
+<img src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/seg" width="1" height="1" border="0"><img src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/saved_resource" width="1" height="1" border="0"><script async="true" type="text/javascript" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/roundtrip.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,.fb_connect_bar_container span,.fb_connect_bar_container a,.fb_connect_bar_container img,.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}.fb_connect_bar a:hover{color:#fff}.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}.fb_connect_bar div a,.fb_connect_bar span,.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style><script async="true" type="text/javascript" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/4IDGVTPEAFC4TM2QKYNQ53"></script><div style="width: 1px; height: 1px; display: inline;"><img height="1" width="1" style="border-style:none;" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/out(2)">
+<img height="1" width="1" alt="" style="display:none" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/tr"><img height="1" width="1" style="border-style:none;" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/saved_resource(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/out(3)">
+<img src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/seg(1)" width="1" height="1">
+</div></head>
+<body class="community" data-twttr-rendered="true">
+<header>
+	<div class="wrapper">
+
+    <a href="https://www.digitalocean.com/" class="logo"></a>
+
+      <div id="entrance">
+        <a href="https://cloud.digitalocean.com/registrations/new" class="button" id="sign-up">Sign Up</a>
+        <a href="https://cloud.digitalocean.com/login" class="button" id="log-in">Log In</a>
+      </div>
+
+    <nav>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community/" class="community">Community</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tags">Explore</a></li>
+        <li class="irc-link"><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#">IRC</a></li>
+      </ul>
+
+      <div class="overlay" style="display:none;"></div>
+      <div class="box">
+       <a class="boxclose"></a>
+       <h1>Before you continue...</h1>
+       <p>
+        You are about to enter a community-supported IRC chat.  DigitalOcean is not responsible for its content. If you require immediate assistance, please open a <a href="https://cloud.digitalocean.com/support">support ticket</a>.
+       </p>
+       <a href="http://webchat.freenode.net/?channels=digitalocean&uio=d4" class="continue">Continue to IRC Chat</a>
+      </div>
+    </nav>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" data-remote="true" id="search" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="vqtKYaG8O35hws0hn1IDW2+6a+bcS2pPNJymSZYd2PA="></div>
+      <input type="text" name="search[query]" id="search_query" placeholder="Search the Community" value="">
+
+      <button type="submit" class="icon-btn">
+        <span class="icon-arrow-down"></span>
+      </button>
+</form>  </div>
+</header>
+<div class="tutorial-single wrapper">
+
+<div id="tutorial-wrapper">
+  <div id="table-of-contents" class="tocify" style="display: block; bottom: 0px; position: fixed;">
+  <h3 id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#">
+    Contents
+    <span class="icon-navicon"></span>
+    </a>
+  </h3>
+  <ul id="tocify-header0" class="tocify-header"><li class="tocify-item" data-unique="TableofContents&amp;Preface"><a>Table of Contents &amp; Preface</a></li></ul><ul id="tocify-header1" class="tocify-header"><li class="tocify-item" data-unique="Introduction-RequirementsandWhy"><a>Introduction - Requirements and Why</a></li></ul><ul id="tocify-header2" class="tocify-header"><li class="tocify-item" data-unique="Pros&amp;Cons-Droplet"><a>Pros &amp; Cons - Droplet</a></li></ul><ul id="tocify-header3" class="tocify-header"><li class="tocify-item" data-unique="CheckifEnabledonyourVPS"><a>Check if Enabled on your VPS</a></li></ul><ul id="tocify-header4" class="tocify-header"><li class="tocify-item" data-unique="SwapPartitions,SwapFiles,&amp;DiskImages"><a>Swap Partitions, Swap Files, &amp; Disk Images</a></li></ul><ul id="tocify-header5" class="tocify-header"><li class="tocify-item tocify-focus" data-unique="CreatingtheSwapFile"><a>Creating the Swap File</a></li></ul><ul id="tocify-header6" class="tocify-header"><li class="tocify-item" data-unique="EnablingandDisablingSwap"><a>Enabling and Disabling Swap</a></li></ul><ul id="tocify-header7" class="tocify-header"><li class="tocify-item" data-unique="Configuration,Priorityandsysctlsettings"><a>Configuration, Priority and sysctl settings</a></li></ul><ul id="tocify-header8" class="tocify-header"><li class="tocify-item" data-unique="Conclusion"><a>Conclusion</a></li></ul><ul id="tocify-header9" class="tocify-header"><li class="tocify-item" data-unique="ReferencesandAppendix"><a>References and Appendix</a></li></ul></div>
+
+  <div id="slim-sidebar" style="position: fixed; margin-left: 0px; top: 0px;">
+    <div class="big-upvote"></div>
+    <p class="author"></p>
+    <p class="date">November 15, 2013</p>
+    <span class="difficulty-level advanced">Advanced</span>
+  </div>
+
+  <div class="slim-body" id="tutorial-body" style="margin-left: 214px;">
+  <h1>How To Configure Virtual Memory (Swap File) on a VPS</h1>
+    <div id="tags">
+      <span>Tagged In: </span>
+      <a href="https://www.digitalocean.com/community/tags/linux-basics">Linux Basics</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/centos">Cent Os</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/server-optimization">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/debian">Debian</a>, <a href="https://www.digitalocean.com/community/tags/fedora">Fedora</a>
+    </div>
+
+  <div class="tutorial-content">
+    <div name="TableofContents&amp;Preface" data-unique="TableofContents&amp;Preface"></div><h2>Table of Contents &amp; Preface</h2>
+<ol>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#1">Introduction - Requirements and Why</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#2">Pros &amp; Cons - Droplet</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#3">Check if Enabled on your VPS</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#4">Swap Partitions, Swap Files, &amp; Disk Images</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#5">Creating the Swap File</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#6">Enabling and Disabling Swap</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#7">Configuration, Priority and sysctl settings</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#8">Conclusion</a></li>
+</ol>
+
+<h3>Preface</h3><hr>
+
+<p>This article will cover the pros and cons of using virtual memory or a swap file (paging), determining if your droplet already uses virtual memory or paging, the differences between a swap partition and a swap file, information on how to create a swap file, and how to configure the system's "swappiness" (how likely it is to use virtual memory as well as determining the appropriate size to use).</p>
+
+<p>You can read more about <a href="http://en.wikipedia.org/wiki/Swap_file">Swap (Paging)</a> and <a href="http://en.wikipedia.org/wiki/Virtual_memory">Virtual Memory</a> on Wikipedia. It will answer a lot of questions outside the scope of this article.</p>
+
+<p><strong>A quote from the Paging (swap file) article on Wikipedia: (emphasis on the second paragraph for its clear explanation)</strong></p>
+<p>"In computer operating systems, paging is one of the memory-management schemes by which a computer can store and retrieve data from secondary storage for use in main memory. In the paging memory-management scheme, the operating system retrieves data from secondary storage in same-size blocks called pages. The main advantage of paging over memory segmentation is that it allows the physical address space of a process to be non-contiguous. Before paging came into use, systems had to fit whole programs into storage contiguously, which caused various storage and fragmentation problems."</p><p>
+
+</p><p>"Paging is an important part of virtual memory implementation in most contemporary general-purpose operating systems, allowing them to use disk storage for data that does not fit into physical random-access memory (RAM)."</p>
+
+<a name="1"></a>
+
+<div name="Introduction-RequirementsandWhy" data-unique="Introduction-RequirementsandWhy"></div><h2>Introduction - Requirements and Why</h2><hr>
+
+<h3>What is it and why would I use it?</h3><hr>
+<p>Whether you have a 512mb droplet or a 8gb droplet; Arch, Fedora, CentOS, Debian, or Ubuntu; applications or servers/daemons may need more memory (or sometimes more memory allocated) than you have physically. More specifically in our case, what has been allocated to the virtual server to get the job done.</p>
+
+<p>If you're dealing with any production server, you need to know that if virtual memory is not enabled and your system has no more free memory...then if a program or service - perhaps your web server - needs to allocate more memory, it will fail! Depending on your platform and configuration, this can result in many undesirable or unstable conditions including other applications (i.e. other processes than the one asking for memory) being forced to close to free the needed memory, to it failing and crashing the program - or whole server - entirely.</p>
+
+<p>Because of this, I personally recommend anyone, on nearly any system - be it a droplet, dedicated server, your Windows PC or Mac or even your Android tablet or phone - should have at least a small amount of virtual memory enabled.</p>
+
+<h3>How it Works</h3><hr>
+
+<p>Virtual memory allows your system (and thus your apps) additional virtual RAM beyond what your system physically has - or in the case of droplets, what is allocated. It does this by using your disk for the extra, 'virtual' memory and swaps data in and out of system memory and virtual memory as it's needed.</p>
+
+<p>You should be aware that reading/writing from disk (even DigitalOcean's lightning fast SSDs) is at least several times slower than reading/writing from real system RAM. While virtual memory will give you wiggle room, allow more applications/servers to run on one droplet and guard against out-of-memory errors, it is not a replacement solution in cases where you actually need more memory/to upgrade your virtual server.</p>
+
+<p>While the contents of this article may seem trivial to seasoned admins, I feel it is valuable information for anyone using DigitalOcean's hosting services, especially those new to DigitalOcean, VPS systems in general, or to managing their own servers.</p>
+
+<h3>Requirements</h3><hr>
+<p>The requirements are pretty simple and this technique should work on all distributions and droplet types - in fact, it will even work on your Android phone or tablet (if you have root &amp; busybox installed).</p>
+<ul>
+<li>a droplet or virtual server, powered on (or a dedicated server, a linux-based system, etc.)</li><br>
+<li>root terminal access (ssh, vnc, local)</li><br>
+<li>the commands <b>free</b>, <b>swapon</b>, <b>swapoff</b>, <b>dd</b>, <b>mkswap</b> will be used, and these all should be available on any platform you use with your droplet.</li><br>
+</ul>
+<p>Most platforms automatically use and manage virtual memory and will create either a special swap partition or a file on the system partition automatically during installation with the size usually being based on, or a multiple of, available system RAM, eg. 1024mb swap for 512mb RAM.</p>
+<p>This isn't always the case with virtual servers, including DigialOcean's droplets.</p>
+
+<a name="2"></a>
+
+<div name="Pros&amp;Cons-Droplet" data-unique="Pros&amp;Cons-Droplet"></div><h2>Pros &amp; Cons - Droplet</h2><hr>
+
+<p>DigitalOcean's droplets use SSDs (solid state disks) which are several times faster than regular hard drives and do not suffer from low seek times (caused by a hard drive's head having to physically move across the disk to read data) and low IO requests per second. SSDs can read from multiple areas simultaneously while hard drives can generally only read from one area at a time.</p>
+
+<p>While it is never a good idea - especially with web, mail, db servers - to rely heavily on virtual memory, DO's SSDs help using virtual memory be less painful and more logical.</p>
+
+<h3>Pros</h3><hr>
+<ul>
+<li>Protection against OOM (out of memory) errors, crashes, memory-related system unpredictability/instability.</li><br>
+<li>Increases available memory to the system and allows more programs to be run concurrently &amp; more safely</li><br>
+<li>DigtalOcean's SSD storage reduces VM-associated lag and thrashing while increases paging response times</li><br>
+</ul>
+<h3>Cons</h3><hr>
+<ul>
+<li>Thrashing is a possibility: when the system is busy and actively using on average more memory than is available physically, the VM system is forced to continually 'swap' program data to and from disk and in and out of RAM as needed. We have probably all seen the result of this in a Windows PC slightly overloaded with the hard drive seemingly grinding away endlessly. It's unbearably slow and not fun. It can, however, be avoided with correct configuration and this is one con that is not as bad here - again due to the speed of DigitalOcean's SSDs.</li><br>
+<li>Uses disk space, generally depending on system memory. If your droplet has 512mb, I recommend using 512mb-1.5gb for swap; however that is 512mb-1.5gb less space you will have available on your droplet's disk. </li><br>
+<li>It is generally recommended and preferred to use a dedicated disk partition for swap; however this is not possible in a droplet and we must use a swap file/disk image instead.</li>
+</ul>
+
+<a name="3"></a>
+
+<div name="CheckifEnabledonyourVPS" data-unique="CheckifEnabledonyourVPS"></div><h2>Check if Enabled on your VPS</h2><hr>
+
+<p>It is entirely possible your configuration already makes use of virtual memory. The commands below will show you how to determine whether it is enabled or not, and if it is, it's size and configuration.</p>
+
+<p>Open a terminal or SSH/VNC to your server - these commands are all performed in a terminal or shell.</p>
+
+<p>Don't forget, to make changes, you need to be root. You can check what user you are logged in with the command <b>whoami</b>. If it does not respond with root or 0, you can type <code>su</code> to start a root shell.</p>
+
+  <p>You can check if your droplet already has virtual memory enabled by typing the "free" command at the prompt in a terminal:</p>
+  <pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# free</pre>
+
+  <p>The "free" command shows your system's available physical and virtual memory.</p>
+
+  <p>If you have virtual memory enabled already, you can skip ahead to "A Note About Swap Partitions" and then the configuration section. When enabled, the output will look like this:</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# free
+             total       used       free     shared    buffers     cached
+Mem:        361996     360392       1604          0       1988      54376
+-/+ buffers/cache:     304028      57968
+Swap:       249896          0     249896
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# _
+</pre>
+
+  <p>If it is not enabled, the output will look like this:</p>
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# free
+             total       used       free     shared    buffers     cached
+Mem:        361996     360392       1604          0       2320      54444
+-/+ buffers/cache:     303628      58368
+Swap:            0          0          0
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# _
+</pre>
+	<p>You can also narrow down the output with <code>free | grep Swap</code>. This will only show the <b>Swap:</b> line, total, used and free VM. (Remember, by default, grep is case sensitive!)</p>
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# free | grep Swap
+Swap:       249896          0     249896
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# _</pre>
+
+<a name="4"></a>
+
+<div name="SwapPartitions,SwapFiles,&amp;DiskImages" data-unique="SwapPartitions,SwapFiles,&amp;DiskImages"></div><h2>Swap Partitions, Swap Files, &amp; Disk Images</h2><hr>
+
+<h3>A Note About Swap Partitions</h3><hr>
+<p>Generally, for Linux-based systems, it is preferred to have a dedicated swap partition on your hard disk. Most systems will automatically do this during a normal installation, and if your swap is already configured, it may very well be possible it is setup with a partition. Unfortunately, other than configuring the below <b>sysctl</b> settings, resizing swap partitions is outside the scope of this article.</p>
+<p>You can however still use the method presented here to add a swap file and increase available virtual memory above and beyond the partitioned swap area. But if a swap is already configured and managed by the system, additional virtual memory may be unnecessary and it may be better to leave the default settings unless you know what you are doing.</p> 
+
+<h3>What is a Swap File?</h3><hr>
+
+<p>Instead of using a dedicated partition, some systems (especially Windows) will store their virtual memory in a special file. This is also an option when partitioning is not possible or feasible. On Linux, this file is actually a disk image.</p>
+
+<h3>What is a Disk Image?</h3><hr>
+
+<p>A disk image normally includes files and information about those files, as well as the filesystem that contains them.</p> 
+
+<p>Examples include your droplet's snapshots (which I like to call snowflakes - frozen droplets), a function which creates a disk image of your entire droplet for backup, duplication, migration, etc.</p>
+
+<p>Another prime example is most Linux distributions (or distros) come as disk images, usually in <b>.iso</b> format, which allows you to either mount them or burn them to a disk.</p>
+
+<p>Whatever way you use an image, the important thing to remember is that they store the filesystem information, and as such they can be used just like the filesystem they were imaged from - or recreate it entirely.</p> 
+
+<a name="5"></a>
+
+<div name="CreatingtheSwapFile" data-unique="CreatingtheSwapFile"></div><h2>Creating the Swap File</h2><hr>
+
+<p>In the case of a droplet, we cannot partition our storage, so we need to use a disk image. *NIX operating systems use a dedicated filesystem for swap, this is why as I said above that using a partition is preferred. What we can do is create an empty disk image sized according to required virtual memory, initialize it with a swap filesystem, then turn it on.</p>
+
+<p>First, you need to decide where to put this file. You need to have enough space free on the partition you put it on for whatever amount of MB you use for swap, eg. 512mb of swap creates a ~512mb swap file.</p>
+
+<p>You can use the command <b>df -h</b> to view your mounted partitions and filesystems, as well as their sizes &amp; free space.</p>
+
+<p>I recommend placing this file in /var and calling it "swap.img". We will cd to /var and create this file, then set its permissions to 600.<br><br>
+
+NOTE: It is important for security to set the file permissions to 600 so no other users can read the file directly, otherwise system memory could be read or worse.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/# cd /var
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# touch swap.img
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# chmod 600 swap.img
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<h3>Sizing</h3><hr>
+
+<p>Now we will size the file. Sizing is important, and the best size will vary depending on your system and use case.</p>
+
+<p>In general, I recommend 1-2x the available system RAM. So, if you have a 512mb droplet, use 512mb-1gb swap. If you have a 1gb droplet use 1gb-2gb swap, etc.<br><br>
+This is not a hard and fast rule, for example if you have a 4gb droplet it may be best to use little (512mb) or no swap at all.</p>
+
+<p>It entirely depends on your use, but these instructions are tailored for a 512mb droplet. We will use the command <b>dd</b> to fill our swap file with zeroes or nothingness to stretch it to the size we need. In this case we are using 1gb or 1024mb. This may take a minute.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# dd if=/dev/zero of=/var/swap.img bs=1024k count=1000
+1000+0 records in
+1000+0 records out
+1048576000 bytes (1.0 GB) copied, 4.0868896 s, 253 MB/s
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<h3>Preparing the Disk Image</h3><hr>
+
+<p>And here, we will initialize the swap filesystem.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# mkswap /var/swap.img
+Setting up swapspace version 1, size = 1020 GiB
+no label, UUID=72761533-8xbe-436l-b07e-c0sabe9cedf3
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<p>Once that's done, it's ready for use!</p>
+
+<a name="6"></a>
+
+<div name="EnablingandDisablingSwap" data-unique="EnablingandDisablingSwap"></div><h2>Enabling and Disabling Swap</h2><hr>
+
+<h3>Enable your Swap File</h3><hr>
+
+<p>We will use <b>swapon</b>to enable it. Upon success there will be no output, but you can check with <code>free</code>.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# swapon /var/swap.img
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# free
+             total       used       free     shared    buffers     cached
+Mem:        503596     478928      24668          0      38832     102384
+-/+ buffers/cache:     337712     165884
+Swap:      1048572       1780    1046792
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<p>You can use <code>swapoff /var/swap.img</code> to turn it off.</p>
+
+<h3>Enable your Swap File During Boot</h3><hr>
+
+<p>Note that <b>swapon</b> only enables the file for your current boot; if you reboot it will not come back online unless you either script your <code>swapon</code> to run at boot, or change your <code>/etc/fstab</code> which in most cases is much easier and is the method we will use here.</p>
+
+<p>All you have to do is add a line to your <code>/etc/fstab</code> file to make it ready at boot. Be careful! This file can break your system if it isn't formatted correctly or if it's overwritten. If you put your swap.img in /var, you can copy/paste the below command with no issue. (If you type it, make sure there are two &gt; symbols, using one will overwrite the file instead of appending a line at the end.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# echo "/var/swap.img    none    swap    sw    0    0" &gt;&gt; /etc/fstab
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<a name="7"></a>
+
+<div name="Configuration,Priorityandsysctlsettings" data-unique="Configuration,Priorityandsysctlsettings"></div><h2>Configuration, Priority and sysctl settings</h2><hr>
+<h3>Configuration</h3><hr>
+
+<p>Once your swap space is online, there is not much that needs to be configured. You could even stop here, if you aren't interested in the nitty gritty details - once it's enabled generally it will work just fine for most setups.</p>
+
+<h3>Priorities</h3>
+
+<p>If you are going to be using swap files or partitions spanning multiple devices and device types (unlikely on a droplet), you may want to order the priority for each of these swap areas, either using the faster or more idle storage over slower and/or busier storage. In most cases, you can specify the priority as a parameter to <b>swapon</b> or in your <code>/etc/fstab</code>.</p>
+
+<p>The system will use swap areas of higher priority before using swap areas of lower priority. <code>swaon -p</code> Example:</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# swapon -p 100 /var/swap.img
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# swapon -p 10 /mnt/SecondDrive/swap.img
+</pre>
+
+<p>And, for <code>/etc/fstab</code> priorities can be set using the <code>pri=</code> parameter, like this:</p>
+
+<pre>/var/swap.img none swap defaults,pri=100 0 0
+/mnt/SecondDrive/swap.img none swap defaults,pri=10 0 0
+</pre>
+
+<h3>sysctl settings (and sysfs)</h3><hr>
+
+<p>We will use the command <b>sysctl</b> to change settings dedicated to the Linux virtual memory manager.</p>
+
+<p>There is only one setting I would recommend changing: <code>vm.swappiness</code>. This setting tells the Linux kernel/VM handler how likely it should be to use VM. It is a percent value, between 0 &amp; 100.</p>
+
+<p>If you set this value to 0, the VM handler will be least likely to use any available swap space, and should use all available system memory first. If you set it to 100, the VM handler will be most likely to use available swap space and will try to leave a greater portion of system memory free for use.</p>
+
+<p>I personally recommend using a value of 30%, this should be a happy medium between swapping and system memory. Please note that this value is more of a target goal than a hard rule.</p>
+
+<p>Below is an example on how to modify sysctl settings. For more info, you can type <code>sysctl --help</code> or <code>man sysctl</code>.</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# sysctl -w vm.swappiness=30
+vm.swappiness = 30
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<p>You can also run <code>sysctl -a</code> to list ALL sysctl options (not just VM) or <code>sysctl -a | grep vm.</code>.</p>
+
+<p>Or, to view a single setting (you can change the key name after the grep command for each setting):</p>
+
+<pre>bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# sysctl -a | grep vm.swappiness
+vm.swappiness = 30
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# _
+</pre>
+
+<p>There are many other settings for the Linux VM (vm.*) - though they are outside of the general scope of this article and I generally recommend not changing their settings. I have, however, included a small list of options at the end of this article (in the APPENDIX) that may be worth tweaking or learning about and I added my recommended values (in brackets) for those options.</p>
+
+<p>The Linux kernel website has a full list of options and their use, though not every kernel may implement all options. At the time of writing, this document is already slightly out of date but by no means useless or depricated. Here's the link: <a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">https://www.kernel.org/doc/Documentation/sysctl/vm.txt</a>.</p>
+
+<p>Please note that some of the descriptions in that document refer to the settings as 'files' and that is because they are also accessible/configurable through Linux's <a href="http://en.wikipedia.org/wiki/Sysfs">SysFS (Wikipedia)</a> system.
+
+<a name="8"></a>
+
+</p><div name="Conclusion" data-unique="Conclusion"></div><h2>Conclusion</h2><hr>
+
+<p>Thank you for reading my article. You should now have an understanding of the importance of paging / swap files on stability for production environments and within a droplet or virtual machine context.</p>
+
+<p>Comments, corrections, cookies are appreciated! nom..nom..nom..</p>
+
+<div name="ReferencesandAppendix" data-unique="ReferencesandAppendix"></div><h2>References and Appendix</h2><hr>
+
+<p><strong>References used, links:</strong><br><br>
+<a href="https://www.kernel.org/doc/Documentation/sysctl/vm.txt">Linux kernel VM documentation</a> (kernel.org)<br>
+<a href="http://en.wikipedia.org/wiki/Sysfs">SysFS system</a> (Wikipedia)<br>
+<a href="http://en.wikipedia.org/wiki/Swap_file">Swap (Paging)</a> (Wikipedia)<br>
+<a href="http://en.wikipedia.org/wiki/Virtual_memory">Virtual Memory</a> (Wikipedia)<br>
+</p>
+
+<p>Below is a list of sysctl/sysfs vm-related options that may be worth tweaking or learning about, as well as my suggested value for some settings. These descriptions are intentionally short - please refer to the kernel.org reference link for full details.</p>
+
+<pre>dirty_background_bytes**
+	
+	Contains the amount of dirty memory at which the background kernel flusher threads
+	will start writeback.
+		
+	Note: dirty_background_bytes is the counterpart of dirty_background_ratio. Only
+	one of them may be specified at a time. When one sysctl is written it is
+	immediately taken into account to evaluate the dirty memory limits and the
+	other appears as 0 when read.
+
+dirty_background_ratio**
+	
+	Contains, as a percentage of total system memory, the number of pages at which
+	the background kernel flusher threads will start writing out dirty data.
+	
+	Note: dirty_background_ratio is the counterpart of dirty_background_bytes. Only
+	one of them may be specified at a time. See above.
+
+dirty_bytes**
+	
+	Contains the amount of dirty memory at which a process generating disk writes
+	will itself start writeback.
+	
+	Note: dirty_bytes is the counterpart of dirty_ratio. Only one of them may be
+	specified at a time. When one sysctl is written it is immediately taken into
+	account to evaluate the dirty memory limits and the other appears as 0 when
+	read.
+
+dirty_expire_centisecs**
+
+	This tunable is used to define when dirty data is old enough to be eligible
+	for writeout by the kernel flusher threads.  It is expressed in 100'ths
+	of a second.  Data which has been dirty in-memory for longer than this
+	interval will be written out next time a flusher thread wakes up.
+
+dirty_ratio**
+
+	Contains, as a percentage of total system memory, the number of pages at which
+	a process which is generating disk writes will itself start writing out dirty
+	data.
+	
+	Note: dirty_bytes is the counterpart of dirty_ratio. Only one of them may be
+	specified at a time. See above.
+
+dirty_writeback_centisecs**
+
+	The kernel flusher threads will periodically wake up and write `old' data
+	out to disk.  This tunable expresses the interval between those wakeups, in
+	100'ths of a second.
+	
+	Setting this to zero disables periodic writeback altogether.
+
+drop_caches**
+
+	Writing to this will cause the kernel to drop clean caches, dentries and
+	inodes from memory, causing that memory to become free.
+
+laptop_mode** (0 or Off for servers)
+
+	laptop_mode is a knob that controls "laptop mode". All the things that are
+	controlled by this knob are discussed in Documentation/laptops/laptop-mode.txt.
+
+memory_failure_recovery** (1 or On if supported)
+
+	Enable memory failure recovery (when supported by the platform)
+	
+	1: Attempt recovery.
+	
+	0: Always panic on a memory failure.
+
+min_free_kbytes** (2048kb to 4096kb)
+
+	This is used to force the Linux VM to keep a minimum number
+	of kilobytes free.  The VM uses this number to compute a
+	watermark[WMARK_MIN] value for each lowmem zone in the system.
+	Each lowmem zone gets a number of reserved free pages based
+	proportionally on its size.
+	
+	Some minimal amount of memory is needed to satisfy PF_MEMALLOC
+	allocations; if you set this to lower than 1024KB, your system will
+	become subtly broken, and prone to deadlock under high loads.
+	
+	Setting this too high will OOM your machine instantly.
+
+oom_dump_tasks**
+
+	Enables a system-wide task dump (excluding kernel threads) to be
+	produced when the kernel performs an OOM-killing and includes such
+	information as pid, uid, tgid, vm size, rss, nr_ptes, swapents,
+	oom_score_adj score, and name.  This is helpful to determine why the
+	OOM killer was invoked, to identify the rogue task that caused it,
+	and to determine why the OOM killer chose the task it did to kill.
+	
+oom_kill_allocating_task**
+
+	This enables or disables killing the OOM-triggering task in
+	out-of-memory situations.
+	
+overcommit_memory**
+
+	This value contains a flag that enables memory overcommitment.
+
+overcommit_ratio**
+
+	When overcommit_memory is set to 2, the committed address
+	space is not permitted to exceed swap plus this percentage
+	of physical RAM.  See above.
+
+page-cluster**
+
+	page-cluster controls the number of pages up to which consecutive pages
+	are read in from swap in a single attempt. This is the swap counterpart
+	to page cache readahead.
+	
+panic_on_oom** (0 or Off/disabled)
+
+	This enables or disables panic on out-of-memory feature.
+
+swappiness** (30 to 50)
+
+	This control is used to define how aggressive the kernel will swap
+	memory pages.  Higher values will increase agressiveness, lower values
+	decrease the amount of swap.
+
+vfs_cache_pressure**
+
+	Controls the tendency of the kernel to reclaim the memory which is used for
+	caching of directory and inode objects.
+</pre>
+
+<p><small>Quoted portions that may be copyrighted or otherwise protected are used for instructional purposes as their fair-use qualification.</small></p>
+
+ <div class="author">Submitted by: <a href="mailto:jai@shaped.ca">Jai Boudreau</a></div>
+
+  </div>
+
+  
+  <div class="related">
+      <h3>Related Articles</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-download-software-and-content-onto-your-linux-vps">How To Download Software and Content onto your Linux VPS</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-add-swap-on-ubuntu-14-04">How To Add Swap on Ubuntu 14.04</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps">How To Add and Delete Users on an Ubuntu 14.04 VPS</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-use-dvtm-and-dtach-as-a-terminal-window-manager-on-an-ubuntu-vps">How To Use DVTM and Dtach as a Terminal Window Manager on an Ubuntu VPS</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/an-introduction-to-regular-expressions">An Introduction To Regular Expressions</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-use-z-shell-zsh-on-a-cloud-server">How to Use Z Shell (zsh) on a Cloud Server</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-install-z-shell-zsh-on-a-cloud-server">How To Install Z Shell (zsh) on a Cloud Server</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/how-to-write-a-simple-shell-script-on-a-vps-part-3">How To Write a Simple Shell Script on a VPS (Part 3)</a></li>
+      </ul>
+  </div>
+
+  <div id="sharing-is-caring">
+  <h2>Share this Tutorial</h2>
+  <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/tweet_button.1399334259.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe>
+  <div id="fb-root" class=" fb_reset">
+    <div class="fb-link" data-href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+  <div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/dgdTycPTSRj.html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f73a62828" frameborder="0" allowtransparency="true" scrolling="no" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/ping.html" style="display: none;"></iframe></div></div></div>
+  <div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 82px; height: 20px; background-position: initial initial; background-repeat: initial initial;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 82px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1399336562914" name="I0_1399336562914" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/sharebutton.html" data-gapiattached="true" title="+Share"></iframe></div>
+  <iframe src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/saved_resource.html" name="hn-button-hjohcya" id="hn-button-hjohcya" class="hn-button" data-title="How To Configure Virtual Memory (Swap File) on a VPS | DigitalOcean" data-url="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps" data-count="horizontal" title="Hacker News Button" height="20" width="79" frameborder="0"></iframe>
+</div>
+
+
+  <br>
+<div class="do-form tutorial-call-action" id="register">
+<div class="form-wrap">
+<h2><strong>Try this tutorial</strong> on an SSD cloud server.</h2>
+<p class="copy">Includes 512MB RAM, 20GB SSD Disk, and 1TB Transfer for
+<strong>$5/mo</strong>! <a class="learn-more" href="https://www.digitalocean.com/pricing">Learn more</a></p>
+<form accept-charset="UTF-8" action="https://cloud.digitalocean.com/registrations" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="vqtKYaG8O35hws0hn1IDW2+6a+bcS2pPNJymSZYd2PA="></div><fieldset>
+<input id="user_signup_form_name" name="user[signup_form_name]" type="hidden" value="articles">
+  <fieldset id="register">
+    <legend>Create an account or login:</legend>
+
+    <div class="field">
+      <input id="user_email" name="user[email]" placeholder="Email" required="required" type="text">
+    </div>
+
+    <div class="field">
+      <input data-toggle="tooltip" id="user_password" name="user[password]" placeholder="Password" rel="tooltip-focus" required="required" title="Must be at least 6 characters long and it must contain at least one letter" type="password">
+    </div>
+  </fieldset>
+
+<div class="field">
+<input class="button" name="commit" type="submit" value="Get Started!">
+</div>
+</fieldset>
+</form>
+
+</div>
+</div>
+
+
+  <div id="comment-wrapper" class="tutorial-comments">
+    <h4>9 Comments</h4>
+    <a href="https://www.digitalocean.com/community/get-paid-to-write" class="write">
+      <span class="icon-edit"></span> Write Tutorial
+</a>    <div>
+  <ul class="comment-responses ">
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/95754857d3557bf9b829ced36c2774ca" width="80">
+  <a class="full-name">csfalcao</a>
+  <span id="1386461131" class="time-ago" title="2013-12-08 00:05:31 UTC">5 months</span>
+  <p class="comment-copy">Very good article.</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/08e2d6bef783d7952c83aec59a8e1a3e" width="80">
+  <a class="full-name">ADETUNJI OPAYELE</a>
+  <span id="1388296744" class="time-ago" title="2013-12-29 05:59:04 UTC">4 months</span>
+  <p class="comment-copy">Great! Thanks a lot for your detail.</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/00c5baad8202922a141d477b173471f9" width="80">
+  <a class="full-name">alex.dicianu</a>
+  <span id="1390038640" class="time-ago" title="2014-01-18 09:50:40 UTC">4 months</span>
+  <p class="comment-copy">The swappiness level should be zero or as close to zero as possible. If you are running servers, you don't want swapping to appear unless it's absolutely necessary.</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/db4f00653b6aa6f30b162a878dc75272" width="80">
+  <a class="full-name">henry</a>
+  <span id="1394709405" class="time-ago" title="2014-03-13 11:16:45 UTC">about 1 month</span>
+  <p class="comment-copy">great article!</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/612d6f1b5d6e9c68d611faeb37e25441" width="80">
+  <a class="full-name">Christoph Spiegl</a>
+  <span id="1395336216" class="time-ago" title="2014-03-20 17:23:36 UTC">about 1 month</span>
+  <p class="comment-copy">This tutorial is one I use on every droplet I spin up. It is amazing fast and simple!</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/9b8b11dc8f47ccd79a3f692da0fc0a9a" width="80">
+  <a class="full-name">QinYu</a>
+  <span id="1395854621" class="time-ago" title="2014-03-26 17:23:41 UTC">about 1 month</span>
+  <p class="comment-copy">I use 2G 
+bash-root@my.droplet<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:/var# dd if=/dev/zero of=/var/swap.img bs=2048k count=1000</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/e6f6142860e3868dd6d79300343a1509" width="80">
+  <a class="full-name">ddascalescu+digiocean</a>
+  <span id="1396223479" class="time-ago" title="2014-03-30 23:51:19 UTC">about 1 month</span>
+  <p class="comment-copy">This article gives a lot of unnecessary details about Windows, Android and whatnot. If you care about Digital Ocean specifically (why else would you be here?), then go straight to
+
+https://www.digitalocean.com/community/articles/how-to-add-swap-on-ubuntu-12-04</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/af679ff0ba809393c2dd3bb22397535d" width="80">
+  <a class="full-name">g.ratnakarreddy</a>
+  <span id="1398799471" class="time-ago" title="2014-04-29 19:24:31 UTC">6 days</span>
+  <p class="comment-copy">Very good article. I would like to ask you one question.
+
+What is the configuration file file for paging ?</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/db4889196da92520f1d49efe2a920627" width="80">
+  <a class="full-name">adrianrgc+digitalocean</a>
+  <span id="1398917848" class="time-ago" title="2014-05-01 04:17:28 UTC">5 days</span>
+  <p class="comment-copy">Excellent article, full of information but right to the point</p>
+  <div class="comment-actions">
+    <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+  </ul>
+</div>
+
+    <div id="tutorial-comment-submit">
+  <h4>Leave a Comment</h4>
+  <div id="signed-in">
+  </div>
+
+  <div class="comments">
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps/comments" class="simple_form new_comment" data-remote="true" id="new_comment" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="vqtKYaG8O35hws0hn1IDW2+6a+bcS2pPNJymSZYd2PA="></div>
+      <div class="control-group text required"><div class="controls"><textarea class="text required textarea" cols="40" id="comment_content" name="comment[content]" placeholder="Leave a comment..." rows="20"></textarea></div></div>
+
+        <fieldset id="register">
+    <legend>Create an account or login:</legend>
+
+    <div class="field">
+      <input id="user_email" name="user[email]" placeholder="Email" required="required" type="text">
+    </div>
+
+    <div class="field">
+      <input data-toggle="tooltip" id="user_password" name="user[password]" placeholder="Password" rel="tooltip-focus" required="required" title="Must be at least 6 characters long and it must contain at least one letter" type="password">
+    </div>
+  </fieldset>
+
+
+      <div class="errors" style="clear:both;"></div>
+
+      <div class="field">
+        <input id="submit-comment" name="commit" type="submit" value="Submit Comment">      </div>
+</form>  </div>
+</div>
+
+<div class="new-comment loading">
+  <img alt="Ajax-loader" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/ajax-loader-338c17cb4b726875e8bd8c70442e2bc4.gif">
+</div>
+  </div>
+  </div>
+</div>
+</div>
+<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+      <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#" class="cloud-icon"></a>
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/community/articles/how-to-configure-virtual-memory-swap-file-on-a-vps#">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://api.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/">Getting Started</a></li>
+        <li><a href="http://digitalocean.uservoice.com/forums/136585-digital-ocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="http://www.digitaloceanstatus.com/" target="_blank">Network Status</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community/">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/overview">Overview</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">1,589,265</span> Droplets Launched
+    </div>
+  </div>
+</footer>
+<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&"www.cloudflare.com/email-protection"==a.substr(7 ,35)){s='';j=43;r=parseInt(a.substr(j,2),16);for(j+=2;a.length-j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+
+<script type="text/javascript" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/conversion.js">
+</script><img height="1" width="1" border="0" alt="" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/saved_resource(2)">
+<noscript>
+&lt;div style="display:hidden;position:absolute;top:-1000px;"&gt;
+&lt;img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1010666955/?value=0&amp;amp;label=g5d3CM2C9QIQy5v24QM&amp;amp;guid=ON&amp;amp;script=0"/&gt;
+&lt;/div&gt;
+</noscript>
+<script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid('l4etp');</script>
+<noscript>
+&lt;img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l4etp&amp;p_id=Twitter" /&gt;
+&lt;img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l4etp&amp;p_id=Twitter" /&gt;
+</noscript>
+<script>
+  //<![CDATA[
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  //]]>
+</script>
+<script>
+  //<![CDATA[
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/5850.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  //]]>
+</script>
+<script src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/application-3323b6d7d1860c78cdcd62c730a5e85c.js" type="text/javascript"></script>
+<script>
+  //<![CDATA[
+    (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+    typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+    b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("155e217a94fcfc75058909a4489b9c58");
+  //]]>
+</script>
+
+
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=439858199408280";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.___gcfg = {
+      lang: 'en-US',
+      parsetags: 'onload'
+    };
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+
+    var HN=[];HN.factory=function(e){return function(){HN.push([e].concat(Array.prototype.slice.call(arguments,0)))};},HN.on=HN.factory("on"),HN.once=HN.factory("once"),HN.off=HN.factory("off"),HN.emit=HN.factory("emit"),HN.load=function(){var e="hn-button.js";if(document.getElementById(e))return;var t=document.createElement("script");t.async=true;t.id=e,t.src="//hn-button.herokuapp.com/hn-button.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)},HN.load();
+  </script>
+<script>
+  //<![CDATA[
+    mixpanel.track("Page View");
+  //]]>
+</script>
+
+<script type="text/javascript">
+  (function() {
+    window._pa = window._pa || {};
+    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/51c8920f71ca6dc47d00002f.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+  })();
+</script>
+<script type="text/javascript">
+  adroll_adv_id = "S4BPDI4QWNB57PEKEZSLIP";
+  adroll_pix_id = "4IDGVTPEAFC4TM2QKYNQ53";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+</script>
+
+
+<iframe name="oauth2relay405188485" id="oauth2relay405188485" src="./How To Configure Virtual Memory (Swap File) on a VPS   DigitalOcean_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
