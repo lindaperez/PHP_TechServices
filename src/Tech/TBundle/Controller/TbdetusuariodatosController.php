@@ -210,7 +210,7 @@ class TbdetusuariodatosController extends Controller {
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         $cad = "";
         for ($i = 0; $i < 6; $i++) {
-            $cad .= substr($str, rand(0, 62), 1);
+            $cad .= substr($str, rand(0, 61), 1);
         }
         return $cad;
     }
@@ -227,17 +227,7 @@ class TbdetusuariodatosController extends Controller {
         return $user;
     }
 
-    protected function descriptpassword($username, $password) {
-        $user = new Tbdetusuariodatos();
-        $user->setUsername($username);
-        // encode the password
-
-        $factory = $this->get('security.encoder_factory');
-        $encoder = $factory->getEncoder($user);
-        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
-        $user->setPassword($encodedPassword);
-        return $user;
-    }
+    
 
     /**
      * Creates a new Tbdetusuariodatos entity.
@@ -248,6 +238,7 @@ class TbdetusuariodatosController extends Controller {
         $entity = new Tbdetusuariodatos();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        
         //Verificacion de campos vacios 
         if ($form["vrif"]->getData() == null ||
                 $form["usuarioacceso"]["fkIidRol"]->getData() == null ||
@@ -260,8 +251,9 @@ class TbdetusuariodatosController extends Controller {
                         'form' => $form->createView(),
             ));
         }
-
+        
         if ($form->isValid()) {
+        
             /* Verificar que no exista el usuario en Tbdetusuariodatos */
             $em = $this->getDoctrine()->getManager();
             $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
@@ -322,11 +314,27 @@ class TbdetusuariodatosController extends Controller {
                                 'form' => $form->createView(),
                     ));
                 }
+                /* Generacion de clave */
+                $g_userName = $entity->getPkIci();
+                $g_password = $this->makekey();
+                $g_userInter = $this->makepassword($g_userName, $g_password);
+                //$g_userInter = $this->makepassword($g_userName, "rDM9IC");
+                
+                $entity->setVclave($g_userInter->getVclave());
+                print "username :";
+                print $g_userName; 
+                print "clave:: ---";
+                 
+                 print_r ($g_password);
+                 print " ";
+                print_r( $entity->getVclave());
+                print "finclave ";
+                
                 $usuario_acceso = new Tbdetusuarioacceso();
                 $usuario_acceso->setFkIci($entity);
                 $usuario_acceso->setFkIidRol($form["usuarioacceso"]["fkIidRol"]->getData());
                 $usuario_acceso->setFkIidEstatus($usuario_estatus_registro);
-
+        
                 $em->persist($entity);
                 $em->persist($usuario_contrato);
                 $em->persist($usuario_acceso);
@@ -335,8 +343,7 @@ class TbdetusuariodatosController extends Controller {
                 $session = $request->getSession();
                 $session->set('usuario_vcontrato', $form["vcontrato"]->getData());
                 $session->set('usuario_vrif', $form["vrif"]->getData());
-                $key = $session->get('usuario_clave');
-                $this->mailer($entity, $key, $entity->getVcorreoEmail());
+                $this->mailer($entity, $g_password, $entity->getVcorreoEmail());
 
                 $message_success = "Su registro ha sido Completado Exitosamente";
                 $message_info = "Recurde revisar su correo electrónico.";
@@ -390,14 +397,15 @@ class TbdetusuariodatosController extends Controller {
         }
         $entity = new Tbdetusuariodatos();
         /* Generacion de clave */
-        $g_userName = $entity->getPkIci();
-        $g_password = $this->makekey();
-        $g_userInter = $this->makepassword($g_userName, $g_password);
+        //$g_userName = $entity->getPkIci();
+        //$g_password = $this->makekey();
+        //$g_userInter = $this->makepassword($g_userName, $g_password);
+        //$g_userInter = $this->makepassword($g_userName, "rDM9IC");
         $entity->setVtipoCi("V-");
-        $entity->setVclave($g_userInter->getVclave());
-        // print "clave:: ";
-        // print_r ($g_password);
-        // print " ";
+        $entity->setVclave(0000);
+         //print "clave:: ";
+         //print_r ($g_password);
+         //print " ";
         //print_r( $entity->getVclave());
         //print "finclave ";
         $contrato_registro = new Tbdetusuariocontrato();
