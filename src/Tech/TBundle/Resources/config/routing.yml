@@ -17,6 +17,15 @@ rifs:
 logout:
      pattern: /logout
 
+forgotpass:
+    pattern:  /forgotpass
+    defaults: { _controller: "TechTBundle:Default:newforgot" }
+
+createforgot:
+    pattern:  /createforgot
+    defaults: { _controller: "TechTBundle:Default:createforgot" }
+    requirements: { _method: post }
+
 TechTBundle_Registro:
     resource: "@TechTBundle/Resources/config/routing/tbdetusuariodatos.yml"
     prefix:   /Registro

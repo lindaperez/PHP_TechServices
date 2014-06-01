@@ -10,8 +10,29 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tbgenFuncion")
  * @ORM\Entity
  */
-class Tbgenfuncion
+class Tbgenfuncion implements \Serializable
 {
+    
+    
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->vdescripcion,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->vdescripcion,
+        ) = unserialize($serialized);
+    }    
+    
     /**
      * @var integer
      *

@@ -106,16 +106,19 @@
                 </td>
                 </tr>
                 <tr>
-                <td></td>
+                         
+                <td>
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>
 
                 <td>
                     <p class="submit">   
+                        <input type="reset" name="clear" value="Limpiar"> 
                         <input type="submit" name="commit" value="Buscar">
+                    </p>
                 </td>
-
 
 
                 <!--Campos ocultos -->
@@ -128,6 +131,7 @@
         {{ form_row(search_form.usuarioacceso.fkIci) }}
         {{ form_row(search_form.vcorreoEmail,  {'label': 'Correo:'}) }}
         {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}  
+        {{ form_row(search_form.reset, { 'label': 'Limpiar' }) }}  
         {{ form_row(search_form.vdepartamento,  {'label': 'Departamento'}) }}
         {{ form_row(search_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
         {{ form_row(search_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
@@ -158,7 +162,8 @@
             {% if (pagination.getTotalItemCount!=0) %}
             <thead> 
                 <tr>
-                <td width="80"><h1><strong>{{ knp_pagination_sortable(pagination, 'Cédula', 'ud.pkIci') }}</strong></h1></td>
+                <!--td width="80"><h1><strong>knp_pagination_sortable(pagination, 'Cédula', 'ud.pkIci') }}</strong></h1></td-->
+                <td width="80"><h1><strong>Cédula</strong></h1></td>
                 <td width="40"></td>
                 <td width="80"><h1><strong>Nombre</strong></h1></td>
                 <td width="40"></td>
@@ -206,7 +211,7 @@
                 <td width="40"></td>
                 <td>{{ entity.usuarioacceso.fkIidEstatus }}</td>
                 <td width="40"></td>
-                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d\'m\'Y H:i') }}{% endif %}</td>
+                <td>{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d\-m\-y') }}{% endif %}</td>
                 <td width="40"></td>
                 <!--td>{{ entity.usuarioacceso.fkIidRol }}</td-->
                 <td width="40"></td>

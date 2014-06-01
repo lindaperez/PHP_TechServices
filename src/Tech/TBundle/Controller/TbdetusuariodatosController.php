@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Tech\TBundle\Controller\DefaultController;
 use Tech\TBundle\Entity\Tblogestatususuario;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
-
+use DateTime;
 /**
  * Tbdetusuariodatos controller.
  *
@@ -151,7 +151,7 @@ class TbdetusuariodatosController extends Controller {
         ));
 
         $form->add('submit', 'submit', array('label' => 'Buscar'));
-
+        $form->add('reset', 'button', array('label' => 'Limpiar'));
         return $form;
     }
 
@@ -279,7 +279,7 @@ class TbdetusuariodatosController extends Controller {
             if ($existe_usuario == null && $existe_usuacontrif != null) {
                 //Almacenar Fecha de Registro
                 date_default_timezone_set('America/Caracas');
-                $date = new \DateTime('NOW');
+                $date = new DateTime('NOW');
                 $entity->setDfechaRegistro($date);
 
                 /* Verificar si el rif del cotnrato existente coincide con el 
@@ -318,17 +318,10 @@ class TbdetusuariodatosController extends Controller {
                 $g_userName = $entity->getPkIci();
                 $g_password = $this->makekey();
                 $g_userInter = $this->makepassword($g_userName, $g_password);
-                //$g_userInter = $this->makepassword($g_userName, "rDM9IC");
+                
                 
                 $entity->setVclave($g_userInter->getVclave());
-                print "username :";
-                print $g_userName; 
-                print "clave:: ---";
-                 
-                 print_r ($g_password);
-                 print " ";
-                print_r( $entity->getVclave());
-                print "finclave ";
+             
                 
                 $usuario_acceso = new Tbdetusuarioacceso();
                 $usuario_acceso->setFkIci($entity);
@@ -349,7 +342,11 @@ class TbdetusuariodatosController extends Controller {
                 $message_info = "Recurde revisar su correo electrónico.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
                 $this->get('session')->getFlashBag()->add('flash_info', $message_info);
-                return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
+                //return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
+                return $this->render('TechTBundle:Tbdetusuariodatos:confirm.html.twig', array(
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+        ));
             } else {
                 if ($existe_usuario != null) {
                     $message_error = "El usuario ya existe. No debe registrarse otra vez.";
@@ -396,11 +393,6 @@ class TbdetusuariodatosController extends Controller {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         $entity = new Tbdetusuariodatos();
-        /* Generacion de clave */
-        //$g_userName = $entity->getPkIci();
-        //$g_password = $this->makekey();
-        //$g_userInter = $this->makepassword($g_userName, $g_password);
-        //$g_userInter = $this->makepassword($g_userName, "rDM9IC");
         $entity->setVtipoCi("V-");
         $entity->setVclave(0000);
          //print "clave:: ";
@@ -412,8 +404,6 @@ class TbdetusuariodatosController extends Controller {
         $entity->getContratos()->add($contrato_registro);
         $form = $this->createCreateForm($entity);
         //print_r($form['contratos']->getData());
-        $session = $request->getSession();
-        $session->set('usuario_clave', $g_password);
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -462,7 +452,7 @@ class TbdetusuariodatosController extends Controller {
         }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
-        $entity->setVrif("V-00000000-0");
+        $entity->setVrif("V000000000");
         $entity->setVcontrato(0);
         $entity->setUsuarioAcceso(null);
         
@@ -652,7 +642,7 @@ class TbdetusuariodatosController extends Controller {
                     $desc_nueva = $acceso_estatus->getVdescripcion();
                     $desc_vieja = $acceso_old->getFkIidEstatus()->getVdescripcion();
                     if ($desc_nueva != $desc_vieja) {
-                        print_r("PRINT CAMBIO DE ESTATUS'");
+                      //  print_r("PRINT CAMBIO DE ESTATUS'");
                         //3. Se almacena la fecha de registro de cambio.
                         $usuario_log_cambio = new Tblogestatususuario();
                         $usuario_log_cambio->setFkIci($entity);
@@ -666,7 +656,7 @@ class TbdetusuariodatosController extends Controller {
                         if ($acceso->getFkIidRol() !== null) {
 
                             $funciones = $em->getRepository('TechTBundle:Tbdetrolfuncion')
-                                    ->findOneBy(array('fkIidRol' => $acceso->getFkIidRol()));
+                                    ->findBy(array('fkIidRol' => $acceso->getFkIidRol()));
                             if ($funciones != null) {
                                 print ("SI HAY FUNCIONES");
                                 $this->mailerStatus($entity, $funciones, true, $to);
@@ -779,5 +769,6 @@ class TbdetusuariodatosController extends Controller {
         }
         $this->get('mailer')->send($message);
     }
-
+    
+    
 }

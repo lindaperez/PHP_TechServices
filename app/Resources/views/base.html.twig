@@ -43,6 +43,9 @@
                                         {% if app.session.get('usuario_rol')=="Empleado" %}
                                         <li><a href="{{ path('Registro') }}">Listado de Solicitudes</a></li>
                                         {% endif %}
+                                        {% if app.session.get('usuario_rol')=="Cliente" %}
+                                        <li><a href="{{ path('Registro') }}">Solicitud de Servicio</a></li>
+                                        {% endif %}
 				</ul>
 			</li>
                         {% endif %}

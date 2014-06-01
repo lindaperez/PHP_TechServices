@@ -29,22 +29,21 @@
         <div style="clear: both"></div>
     
     <div class="block">
-            <h1 class="title">Confirmación de Registro Techtrol.</h1>
+            <h1 class="title">Restablecimiento de Contraseña Techtrol.</h1>
  
-       <p> Hola, <strong>{{ entity.vnombre }}</strong>, esperamos que tengas un buen dia.
-           <br><br>Tu solicitud de Registro fue revisada y aprobada por Techtrol. <em></em> <br>
-           
-       <br><h1>Para acceder a tu cuenta </h1><br>
-      Debes ingresar con tu usuario y contraseña ya suministrados en el correo de registro. <br><br>
-      Tus funciones dentro del Sistema son las siguientes: <br>
-        {% for funcion in funciones  %}
-                <p>{{ funcion.fkIidFuncion.vdescripcion }}</p>
-      
-            {% endfor %}
-      
-      </div>
+       <p> Hola, <strong>{{ vnombre }}</strong>, esperamos que tengas un buen dia.
+           <br><br>Realizaste la solicitud de restablecimiento de contraseña <em></em> <br>
+      <br>
+       Tus Datos de Acceso al Sistema son los siguientes:<br><br>
+      Usuario: <strong><em> {{ pkIci }}</em></strong> <br>
+      Contraseña: <strong><em> {{ pass }}</em></strong><br>
+       </p>
         </div>
-                </div>
+
             </div>
+        </div>
+            </div>
+    
+
 </body>
 </html>

@@ -64,13 +64,13 @@ Tech\TBundle\Entity\Tbdetusuariodatos:
                 type: string
                 message: El rif {{ value }} no es válido {{ type }}.
             - Length:
-                max: 12
-                min: 12
-                exactMessage: El rif {{ value }} debe tener máximo 12 dígitos.
+                max: 10
+                min: 10
+                exactMessage: El rif {{ value }} debe tener máximo 10 dígitos.
             - Regex:
-                pattern:  "/^[JGVE][-][0-9]{8}[-][0-9]$/"
+                pattern:  "/^[JGVE][0-9]{8}[0-9]$/"
                 match: true
-                message: El rif debe contener un patrón como el siguiente J-98667543-4.
+                message: El rif debe contener un patrón letra números (Ej. J986675434)
         vcargo:
             - Type:
                 type: string
@@ -117,13 +117,13 @@ Tech\TBundle\Entity\Tbdetempresa:
                 type: string
                 message: El rif {{ value }} no es válido {{ type }}.
             - Length:
-                max: 12
-                min: 12
-                exactMessage: El rif {{ value }} debe tener máximo 12 dígitos.
+                max: 10
+                min: 10
+                exactMessage: El rif {{ value }} debe tener máximo 10 dígitos.
             - Regex:
-                pattern:  "/^[JGVE][-][0-9]{8}[-][0-9]$/"
+                pattern:  "/^[JGVE][0-9]{8}[0-9]$/"
                 match: true
-                message: El rif debe contener un patrón como el siguiente J-98667543-4.
+                message: El rif debe contener un patrón letra números (Ej. J986675434).
         vdireccionFiscal:
             - Type:
                 type: string
@@ -132,3 +132,24 @@ Tech\TBundle\Entity\Tbdetempresa:
                 pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
                 match: false
                 message: La dirección fiscal no debe contener números o caracteres especiales.
+Tech\TBundle\Form\ForgotpassType:
+    properties:
+        pkIci:
+            - Type:
+                type: integer
+                message: El valor {{ value }} no es válido {{ type }}.
+            - Length:
+                min: 6
+                max: 8
+                minMessage: La cédula {{ value }} debe tener al menos 6 números.
+                maxMessage: La cédula {{ value }} debe tener máximo 8 números.
+            - Regex:
+               pattern: "/\d/"
+               match:   true
+               message: Su cédula no debe contener letras, caracteres especial o más de 8 dígitos.
+        vcorreoEmail:
+            - Email:
+                message: El corrreo "{{ value }}" no es un correo válido.
+            - Length:
+                max: 40
+                maxMessage: El correo {{ value }} debe tener máximo 40 números.

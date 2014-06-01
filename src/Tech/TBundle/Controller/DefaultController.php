@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tech\TBundle\Entity\Utilities;
+use Tech\TBundle\Entity\Tbdetusuariodatos;
+use Tech\TBundle\Form\ForgotpassType;
 
 class DefaultController extends Controller
 {
@@ -34,6 +36,11 @@ class DefaultController extends Controller
             $session->set('usuario_tipo_rol',$tipo_rol);   
             $session->set('usuario_estatus_registro',$estatus);   
             $session->set('usuario_ci',$user->getPkIci());   
+            // Se deben agregar las Funciones para ese usuario dado el Rol
+            // que posee
+            $funciones = $em->getRepository('TechTBundle:Tbdetrolfuncion')
+               ->findBy(array('fkIidRol'=> $usuario_acceso->getFkIidRol()));  
+            $session->set('usuario_funciones',$funciones);   
             if($estatus=="Solicitud Anulada" || $estatus=="Solicitud Registro"){
                 
                 return $this->render('TechTBundle:Default:erroracceso.html.twig');
@@ -114,4 +121,125 @@ class DefaultController extends Controller
        
     }
  
-}
+/*Forgot Password method*/
+    public function  newforgotAction() {
+        $request = $this->getRequest();
+        $session = $request->getSession();
+      
+        // Llenar entity con el usuario que olvido su clave
+        // Muestra campos del formulario
+        
+        $data = array();
+        $form = $this->createForm(new ForgotpassType(),$data,array(
+            'action' => $this->generateUrl('createforgot'),
+            'method' => 'POST',
+        
+            ));
+        $form->add('submit', 'submit', array('label' => 'Enviar'));
+        
+        
+        return $this->render('TechTBundle:Default:envioOlvidoContrasena.html.twig', array(
+                    'entity' => $data,
+                    'form' => $form->createView(),
+        ));
+    }
+
+     public function createforgotAction(Request $request) {
+        
+        $request = $this->getRequest();
+        $data = array();
+  
+        $form = $this->createForm(new ForgotpassType(), $data, array(
+            'action' => $this->generateUrl('createforgot'),
+            'method' => 'POST',
+        
+            ));
+        $form->add('submit', 'submit', array('label' => 'Enviar'));
+        $form->handleRequest($request);
+   
+        
+        if ($form->isValid()) {
+        //Buscar usuario con ese correo especifico
+            
+            $usuario= new \Tech\TBundle\Entity\Tbdetusuariodatos();
+            $em = $this->getDoctrine()->getManager();
+            $usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+        ->findOneBy(array('vcorreoEmail' => $form['vcorreoEmail']->getData(),
+            'pkIci' => $form['pkIci']->getData()));
+        
+            if ($usuario!=null){
+            
+                          /* Generacion de clave */
+                $g_userName = $usuario->getPkIci();
+                $g_password = $this->makekey();
+                $g_userInter = $this->makepassword($g_userName, $g_password);
+                $usuario->setVclave($g_userInter->getVclave());  
+                //print $g_password;
+                //print "---";
+                //print $usuario->getVclave();
+                
+                //Enviar correo
+                //Si se envio entonces guardar sino reportar error
+                $result=$this->mailerPass($usuario->getVnombre(),
+                        $g_userName, $g_password,$usuario->getVcorreoEmail());
+                if($result==1){
+                    $em->flush();
+                
+                $message_success = "Su contraseña ha sido restablecida exitosamente";
+                $message_info = "Recuerde revisar su correo electrónico para poder ingresar al sistema.";
+                $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+                $this->get('session')->getFlashBag()->add('flash_info', $message_info);
+                return $this->render('TechTBundle:Default:successOlvidoContrasena.html.twig');
+                }
+                
+            }
+        }
+        //Converion de contra a SHA2 
+          $message_error = "Ocurrió un error con sus datos o envío de los mismos. "
+                        . "Su contraseña no fue restablecida.";
+          $message_info = "Revise que el correo electrónico que introdujo exista.";
+          $this->get('session')->getFlashBag()->add('flash_info', $message_info);
+                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+           return $this->render('TechTBundle:Default:envioOlvidoContrasena.html.twig', array(
+                    'entity' => $data,
+                    'form' => $form->createView(),
+        ));
+         
+    }
+ protected function makekey() {
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        $cad = "";
+        for ($i = 0; $i < 6; $i++) {
+            $cad .= substr($str, rand(0, 61), 1);
+        }
+        return $cad;
+    }
+  protected function makepassword($username, $password) {
+        $user = new Tbdetusuariodatos();
+        $user->setUsername($username);
+        // encode the password
+
+        $factory = $this->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+        $user->setPassword($encodedPassword);
+        return $user;
+    }
+    public function mailerPass($vnombre, $pkici, $pass,$to) {
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Techtrol Restablecimiento contraseña')
+                ->setFrom('techtroll.ve@gmail.com')
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                        'TechTBundle:Default:mailcontrasena.html.twig',
+                        array('vnombre' => $vnombre,'pkIci' => $pkici, 'pass' => $pass)
+                )
+                , 'text/html')
+        ;
+        $result=$this->get('mailer')->send($message);
+        
+        return $result;
+    }
+        }

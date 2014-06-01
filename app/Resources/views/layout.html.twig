@@ -22,6 +22,7 @@
  ::{{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} <a href="{{ path('logout') }}">Salir</a></ul>
     
     {% else %}
+    <li><a href="{{ path('Registro_new') }}">Registrarse</a></li>  
     <li><a href="{{ path('login') }}">Ingresar</a></li>  
     {% endif%}
                 

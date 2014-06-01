@@ -37,6 +37,7 @@ class AddTbdetcontratorifFieldSubscriber implements EventSubscriberInterface
             'empty_value'   => 'Rif',
             'label'         => 'Empresa: ',
             'mapped'        => false,
+            'disabled'      => true,
             'attr'          => array(
                 'class' => 'tbdetempresa_selector',
             ),

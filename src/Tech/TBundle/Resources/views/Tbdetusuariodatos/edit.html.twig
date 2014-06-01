@@ -2,37 +2,30 @@
 
 {% block content %}
 
-
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
-    </div>
+</div>
 <br><br>
 {% endfor %}
-
-
 {% for flashMessage in app.session.flashbag.get('flash_warning') %}
 <div class="isa_warning">
         {{ flashMessage }}
-    </div>
+</div>
 <br><br>
 {% endfor %}
- 
-
 
 {% for flashMessage in app.session.flashbag.get('flash_error') %}
 <div class="isa_error">
         {{ flashMessage }}
-    </div>
+</div>
 <br><br>
 {% endfor %}
- 
-
 
 {% for flashMessage in app.session.flashbag.get('flash_success') %}
 <div class="isa_success">
         {{ flashMessage }}
-    </div>
+</div>
 <br><br>
 {% endfor %}
 
@@ -41,136 +34,143 @@
 <div class="container" >
 
     <section class="register">
- <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post">
-     <table>       
-         <tr>
-        <td >
-            <h1>Datos Personales</h1>
-            <br>
+        <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post">
+            <table>       
+                <tr>
+                <td >
+                    <h1>Datos Personales</h1>
+                    <br>
       {{ form_start(edit_form) }}
       {{ form_errors(edit_form) }}
-            <div class="error">
+                    <div class="error">
                 {{ form_errors(edit_form.pkIci) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.pkIci, 'Cédula:') }}</td>
-            <td>{{ form_widget(edit_form.pkIci,{'required': 'true'}) }}</td>
-        </table>
-                <div class="error">
+                        <td>{{ form_widget(edit_form.pkIci,{'required': 'true'}) }}</td>
+                    </table>
+                    <div class="error">
                 {{ form_errors(edit_form.vnombre) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vnombre, 'Nombre:') }}</td>
-            <td>{{ form_widget(edit_form.vnombre,{'required': 'true'}) }}</td>
-        </table>
-            
-            <div class="error">
+                        <td>{{ form_widget(edit_form.vnombre,{'required': 'true'}) }}</td>
+                    </table>
+
+                    <div class="error">
                 {{ form_errors(edit_form.vapellido) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vapellido, 'Apellido:') }}</td>
-            <td>{{ form_widget(edit_form.vapellido,{'required': 'true'}) }}</td>
-        </table>
-        <div class="error">
-                {{ form_errors(edit_form.vcorreoEmail) }}</div>       
-        <table>  <td width="100">
-                {{ form_label(edit_form.vcorreoEmail, 'Correo:') }}</td>
-            <td>{{ form_widget(edit_form.vcorreoEmail,{'required': 'true'}) }}</td>
-        </table>
-        <div class="error">
+                        <td>{{ form_widget(edit_form.vapellido,{'required': 'true'}) }}</td>
+                    </table>
+                    
+                    <div class="error">
                 {{ form_errors(edit_form.vtelfLocal) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vtelfLocal, 'Telf-Local:') }}</td>
-            <td>{{ form_widget(edit_form.vtelfLocal,{'required': 'true'}) }}</td>
-        </table>
-        <div class="error">
+                        <td>{{ form_widget(edit_form.vtelfLocal,{'required': 'true'}) }}</td>
+                    </table>
+                    <div class="error">
                 {{ form_errors(edit_form.vtelfMovil) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vtelfMovil, 'Telf-Movil:') }}</td>
-            <td>{{ form_widget(edit_form.vtelfMovil,{'required': 'true'}) }}</td>
-        </table>
-            
-            <div class="error">
+                        <td>{{ form_widget(edit_form.vtelfMovil,{'required': 'true'}) }}</td>
+                    </table>
+
+                
+<td width="10"></td>
+                <td width="250">
+                    <h1>_ </h1>            
+                    <br>   <div class="error">
+                {{ form_errors(edit_form.vcorreoEmail) }}</div>       
+                    <table>  <td width="100">
+                {{ form_label(edit_form.vcorreoEmail, 'Correo:') }}</td>
+                        <td>{{ form_widget(edit_form.vcorreoEmail,{'required': 'true'}) }}</td>
+                    </table>
+                    
+                        <div class="error">
                 {{ form_errors(edit_form.vcargo) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vcargo, 'Cargo:') }}</td>
-            <td>{{ form_widget(edit_form.vcargo,{'required': 'true'}) }}</td>
-        </table>
-            
-            <div class="error">
+                        <td>{{ form_widget(edit_form.vcargo,{'required': 'true'}) }}</td>
+                    </table>
+
+                    <div class="error">
                 {{ form_errors(edit_form.vdepartamento) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vdepartamento, 'Dpto:') }}</td>
-            <td>{{ form_widget(edit_form.vdepartamento,{'required': 'true'}) }}</td>
-        </table>
-            
-            <div class="error">
+                        <td>{{ form_widget(edit_form.vdepartamento,{'required': 'true'}) }}</td>
+                    </table>
+
+                    <div class="error">
                 {{ form_errors(edit_form.vsucursal) }}</div>       
-        <table>  <td width="100">
+                    <table>  <td width="100">
                 {{ form_label(edit_form.vsucursal, 'Sucursal:') }}</td>
-            <td>{{ form_widget(edit_form.vsucursal,{'required': 'true'}) }}</td>
-        </table>
-        
-        <td width="10"></td>
-        <td width="250">
-<h1>Contratos </h1>    
+                        <td>{{ form_widget(edit_form.vsucursal,{'required': 'true'}) }}</td>
+                    </table>
+</td>
+                <td width="10"></td>
+                <td width="250">
+
+                    <h1>Sistema </h1>            
+                    <br>   
+                    <div class="error">
+                {{ form_errors(edit_form.usuarioacceso.fkIidEstatus) }}</div>       
+                    <table>  <td width="100">
+                {{ form_label(edit_form.usuarioacceso.fkIidEstatus, 'Estatus:') }}</td>
+                        <td>{{ form_widget(edit_form.usuarioacceso.fkIidEstatus,{'required': 'true'}) }}</td>
+                    </table>
+
+                    <div class="error">
+                {{ form_errors(edit_form.usuarioacceso.fkIidRol) }}</div>       
+                    <table>  <td width="100">
+                {{ form_label(edit_form.usuarioacceso.fkIidRol, 'Rol:') }}</td>
+                        <td>{{ form_widget(edit_form.usuarioacceso.fkIidRol,
+            {'required': 'true'}) }}</td>
+                    </table>
+</td>
+</table>
+            <table>
+<tr>
+<td width="800px"><br>
+                <h1>Contratos </h1>    
 <br>
 
 <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
-        
+        {% set k =1 %}
          {% for usuariocontrato in edit_form.contratos %}
          
             
-        <li>
-             
-        <table>  <td width="100">
-                {{ form_label(usuariocontrato.fkInroContrato, 'Contrato:') }}</td>
-            <td>{{ form_widget(usuariocontrato.fkInroContrato)}}</td>
-        </table>
-             
-        <table>  <td width="100">
-                {{ form_label(usuariocontrato.tbdetcontratorif, 'Empresa:') }}</td>
-            <td>{{ form_widget(usuariocontrato.tbdetcontratorif) }}</td>
+    <li>            
+        <table>  <tr>
+            <td>
+                {% if k==1 %}
+                <h1>Contrato: </h1>                 
+                {%  endif %}
+            {{ form_widget(usuariocontrato.fkInroContrato)}}
+            </td>
+            <td width="20"></td>
+            <td>
+                 {% if k==1 %}
+                <h1>Rif: </h1> 
+                {% set k=2 %}
+                {%  endif %}
+            {{ form_widget(usuariocontrato.tbdetcontratorif) }}
+</td></tr>
         </table>   
-       
-       
              
-           </li> 
+    </li>
         {% endfor %}
     
 </ul>
-   </td>     
-                
-        <td width="10">
-            
-        </td>
-
-<td>
-<h1>Sistema </h1>            
-<br>   
-        <div class="error">
-                {{ form_errors(edit_form.usuarioacceso.fkIidEstatus) }}</div>       
-        <table>  <td width="100">
-                {{ form_label(edit_form.usuarioacceso.fkIidEstatus, 'Estatus:') }}</td>
-            <td>{{ form_widget(edit_form.usuarioacceso.fkIidEstatus,{'required': 'true'}) }}</td>
-        </table>
-     
-        <div class="error">
-                {{ form_errors(edit_form.usuarioacceso.fkIidRol) }}</div>       
-        <table>  <td width="100">
-                {{ form_label(edit_form.usuarioacceso.fkIidRol, 'Rol:') }}</td>
-            <td>{{ form_widget(edit_form.usuarioacceso.fkIidRol,
-            {'required': 'true'}) }}</td>
-        </table>
-     
-       
-    <!--Campos ocultos -->
-    <div style="display: none;">
-        <div class="error">
+<!--Campos ocultos -->
+                    <div style="display: none;">
+                        <div class="error">
                 {{ form_errors(edit_form.vtipoCi) }}</div>       
-        <table>  <td width="100">
+                        <table>  <td>
                 {{ form_label(edit_form.vtipoCi, 'Cédula:') }}</td>
-            <td>{{ form_widget(edit_form.vtipoCi,{'required': 'false'}) }}</td>
-        </table>
+                            <td>{{ form_widget(edit_form.vtipoCi,{'required': 'false'}) }}</td>
+                        </table>
 
-        
+
         {{ form_row(edit_form.usuarioacceso.fkIci,{ 'required': 'false' }) }}
         {{ form_row(edit_form.vrif,{ 'required': 'false' }) }}
             {{ form_row(edit_form.vcontrato,{ 'required': 'false' }) }}
@@ -180,165 +180,185 @@
         {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
         {{ form_row(edit_form.submit, { 'label': 'Editar' }) }}            
 
-    </div>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+                    </div>
+   </td>     
+ </tr>
+                    
+                
+                    <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
 
-<td>
-    <p class="submit">   
-        <input type="submit" name="commit" value="Editar">
-</td>
-     </tr>
-     
+                <td>
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Editar">
+                </td>
+                </tr>
+
     {{ form_end(edit_form) }}         
-    
-    </table>
-    </form>
+
+            </table>
+
+        </form>
 
         <ul class="record_actions">
-     <li>
-        <a href="{{ path('Registro') }}">
-            Volver Listado de Solicitudes de Registro
-        </a>
-    </li>
-</ul>
+            <li>
+                <a href="{{ path('Registro') }}">
+                    Volver Listado de Solicitudes de Registro
+                </a>
+            </li>
+        </ul>
 
 {% block javascripts %}
     {{ parent() }}
-<script>
-    
-var $collectionHolder;
+        <script>
 
-// setup an "add a tag" link
+            var $collectionHolder;
 
-var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
+            // setup an "add a tag" link
 
-var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
+            var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
+
+            var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
 
 
-jQuery(document).ready(function() {
-    // Get the ul that holds the collection of tags
-    $collectionHolder = $('ul.contratos');
-    
-// add a delete link to all of the existing tag form li elements
-    
-    $collectionHolder.find('li').each(function() {
-        addTbdetcontratorifFormDeleteLink($(this));
-    });
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.contratos');
 
-    
-    // add the "add a tag" anchor and li to the tags ul
-    $collectionHolder.append($newLinkLi);
-    // 
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find('li').length);
-    
-        //alert("Han cambiado mi valor"+ $collectionHolder.data('index'));
-    
-    $addTbdetcontratorifLink.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-        // add a new tag form (see next code block)
-        addTbdetcontratorifForm($collectionHolder, $newLinkLi);
-    });
-    
-}); 
-function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
-    var $removeFormA = $('<td><a href="#">Quitar</a></td>');
-        $contratoFormLi.append($removeFormA);
-        
-        $removeFormA.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        var $collectionHolder = $('ul.contratos');
-        var index=$collectionHolder.find('li').length;
-        
-        if(index===1){
-            alert("Estimado. Recuerde que debe existir al menos un contrato.\n\
-                    --No puede eliminar el que único que existe.");
-        }else{
-        
-        $contratoFormLi.remove();
-        }
-        e.preventDefault();
-           // remove the li for the tag form
-    });
-}
-function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
-    // Get the data-prototype explained earlier
-    var prototype = $collectionHolder.data('prototype');
-    //alert("Prototype "+ prototype);
-    // get the new index
-    var index = $collectionHolder.data('index');
-    //alert("Han cambiado mi valorPPP"+ $collectionHolder.data('index'));
+                // add a delete link to all of the existing tag form li elements
 
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
-     
-     var newFormD = "<div><label for=tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos]["+index+"][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
-    // increase the index with one for the next item
-    $collectionHolder.data('index', index + 1);
+                $collectionHolder.find('li').each(function() {
+                    addTbdetcontratorifFormDeleteLink($(this));
+                });
 
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm).append(newFormD);
-        $newLinkLi.before($newFormLi);
-        addTbdetcontratorifFormDeleteLink($newFormLi);
-    var $cucu=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index+'_fkInroContrato');  
-    var $cucu4=$cucu.addClass("tbdetcontratorif_selector");
-    var $cucu10=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index+'_fkInroContrato');
-    var $cucu11= $cucu10.find('> option:first').attr('value',0);  
-    var $cucu12= $cucu10.find('> option[value='+0+']').text('Nro');  
-    var $cucu5=$('#tech_tbundle_tbdetusuariodatos_contratos_'+index).find(':first');
-    var $cucu6=$cucu5.css('display', 'none');
-    var $cucu8= $("label[for='tech_tbundle_tbdetusuariodatos_contratos_"+index+"_fkInroContrato']").text("Contrato: ");
-}
 
-</script>
-<script>
-        $(function(){
-         $(document).on('change', '.tbdetcontratorif_selector', function(){
-             //alert("Han cambiado mi valor");
-             var $this = $(this);
-             var $arreglo=$this.attr("id");
-             var $val=$arreglo.split('_')[4];
-             
-             var data = {
-                 tbdetcontratorif_id: $this.val()
-             };
+                // add the "add a tag" anchor and li to the tags ul
+                $collectionHolder.append($newLinkLi);
+                // 
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find('li').length);
 
-             $.ajax({
-                  type: 'post',
-                  url: '{{ path("rifs") }}',
-                  data: data,
-                  dataType: 'json',
-                  success: function(data,val) {
-                      if (data.error !== undefined && data.error != '') {
-                          alert(data.error);
-                      } else {
-                          var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
-                         
-                         // alert("Han cambiado mi valor"+ $val);
-                           $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").html('<option>Rif</option>');
-                            $("#tech_tbundle_tbdetusuariodatos_contratos_"+$val+"_tbdetcontratorif").append('<option value="'+data.id +'" selected="selected">'+data.name+'</option>'); 	
-                         
+                //alert("Han cambiado mi valor"+ $collectionHolder.data('index'));
+
+                $addTbdetcontratorifLink.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    // add a new tag form (see next code block)
+                    addTbdetcontratorifForm($collectionHolder, $newLinkLi);
+                });
+
+            });
+            function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
+                var $removeFormA = $('<table align="right"><td><a href="#">Quitar</a></td></table>');
+                $contratoFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    var $collectionHolder = $('ul.contratos');
+                    var index = $collectionHolder.find('li').length;
+
+                    if (index === 1) {
+                        alert("Estimado. Recuerde que debe existir al menos un contrato.\n\
+                            --No puede eliminar el que único que existe.");
+                    } else {
+
+                        $contratoFormLi.remove();
                     }
-                    },
-                  error: function(e, ts, et) { alert(ts) }
-              });
-        
-              
-              });
-                        
-                        });
-              
-              
-    </script>
-</section>
-    </div>
+                    e.preventDefault();
+                    // remove the li for the tag form
+                });
+            }
+            function addTbdetcontratorifForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+                //alert("Prototype "+ prototype);
+                // get the new index
+                var index = $collectionHolder.data('index');
+                //alert("Han cambiado mi valorPPP"+ $collectionHolder.data('index'));
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                //var newFormD = "<label for=tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
+                var newFormD = "<select id='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm).append(newFormD);
+                alert("Type: "+ $newFormLi);
+                $newFormLi.each(function() {
+                var text = $(this).html();
+                text = text.replace('<div', '<td');
+                $(this).html(text);
+                });
+                
+                $newLinkLi.before($newFormLi);
+                
+                
+                addTbdetcontratorifFormDeleteLink($newFormLi);
+                
+                
+                var $cucu = $('#tech_tbundle_tbdetusuariodatos_contratos_' + index + '_fkInroContrato');
+                var $cucu4 = $cucu.addClass("tbdetcontratorif_selector");
+                var $cucu10 = $('#tech_tbundle_tbdetusuariodatos_contratos_' + index + '_fkInroContrato');
+                var $cucu11 = $cucu10.find('> option:first').attr('value', 0);
+                var $cucu12 = $cucu10.find('> option[value=' + 0 + ']').text('Nro');
+                var $cucu5 = $('#tech_tbundle_tbdetusuariodatos_contratos_' + index).find(':first');
+                var $cucu6 = $cucu5.css('display', 'none');
+                var $cucu8 = $("label[for='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_fkInroContrato']").text(" ");
+            }
+
+        </script>
+        <script>
+            $(function() {
+                $(document).on('change', '.tbdetcontratorif_selector', function() {
+                    //alert("Han cambiado mi valor");
+                    var $this = $(this);
+                    var $arreglo = $this.attr("id");
+                    var $val = $arreglo.split('_')[4];
+
+                    var data = {
+                        tbdetcontratorif_id: $this.val()
+                    };
+
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("rifs") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function(data, val) {
+                            if (data.error !== undefined && data.error != '') {
+                                alert(data.error);
+                            } else {
+                                var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
+
+                                // alert("Han cambiado mi valor"+ $val);
+                                $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").html('<option>Rif</option>');
+                                $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").
+                                        append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>').prop('disabled','disabled');
+
+                            }
+                        },
+                        error: function(e, ts, et) {
+                            alert(ts)
+                        }
+                    });
+
+
+                });
+
+            });
+
+
+        </script>
+    </section>
+</div>
 
 {% endblock %} 
 

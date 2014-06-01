@@ -6,7 +6,7 @@
 <div class="isa_info">
         {{ flashMessage }}
     </div>
-<br><br>
+<br>
 {% endfor %}
  
 
@@ -14,7 +14,7 @@
 <div class="isa_warning">
         {{ flashMessage }}
     </div>
-<br><br>
+<br>
 {% endfor %}
  
 
@@ -23,7 +23,7 @@
 <div class="isa_error">
         {{ flashMessage }}
     </div>
-<br><br>
+<br>
 {% endfor %}
  
 
@@ -37,20 +37,23 @@
  
 
   
-<h1>Solicitud de Registro de Cliente</h1>
+<h1>Registro de Cliente</h1>
 
 <div class="container" >
 
     <section class="register">
         <br>
-        <h1>Ingrese los siguientes datos:</h1>
+        <h1>Sus datos almacenados fueron los siguientes:</h1>
         <br>
         <form action="{{ path('Registro_create') }}" method="post" >
               {{ form_start(form) }}
         {{ form_errors(form) }}  
             <table>
 
-                <td>                      
+                <td>  
+                    <div class="error">
+                    </div>
+                    
                     
                     <div class="error">
                         {{ form_errors(form.pkIci) }}</div>       
@@ -168,8 +171,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <p class="submit">   
-                        <input type="submit" name="commit" value="Registrar">
+                  
                 </td>
                 </tr>
                 {{ form_end(form) }} 

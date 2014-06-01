@@ -10,8 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tbdetRolFuncion", indexes={@ORM\Index(name="ID_ROL_idx_RF", columns={"fk_iID_ROL"}), @ORM\Index(name="ID_FUNCION_idx", columns={"fk_iID_FUNCION"})})
  * @ORM\Entity
  */
-class Tbdetrolfuncion
+class Tbdetrolfuncion implements \Serializable
 {
+    
+       public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            
+        ) = unserialize($serialized);
+    }   
     /**
      * @var integer
      *

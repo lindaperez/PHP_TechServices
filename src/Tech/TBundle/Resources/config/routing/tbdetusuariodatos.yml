@@ -36,3 +36,5 @@ Registro_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TechTBundle:Tbdetusuariodatos:delete" }
     requirements: { _method: post|delete }
+
+
