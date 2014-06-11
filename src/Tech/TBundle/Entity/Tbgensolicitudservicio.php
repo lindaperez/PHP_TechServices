@@ -46,16 +46,6 @@ class Tbgensolicitudservicio
      *   @ORM\JoinColumn(name="fk_iID_DETALLE_USUARIO", referencedColumnName="id")
      * })
      */
-    private $fkIidDetalleUsuario;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
-     * })
-     */
     private $fkIidEspSol;
     
     private $vdetalles;
@@ -199,29 +189,6 @@ class Tbgensolicitudservicio
     public function getFkIidUsuaDatos()
     {
         return $this->fkIidUsuaDatos;
-    }
-
-    /**
-     * Set fkIidDetalleUsuario
-     *
-     * @param \Tech\TBundle\Entity\Tbdetdetalleusuario $fkIidDetalleUsuario
-     * @return Tbgensolicitudservicio
-     */
-    public function setFkIidDetalleUsuario(\Tech\TBundle\Entity\Tbdetdetalleusuario $fkIidDetalleUsuario = null)
-    {
-        $this->fkIidDetalleUsuario = $fkIidDetalleUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidDetalleUsuario
-     *
-     * @return \Tech\TBundle\Entity\Tbdetdetalleusuario 
-     */
-    public function getFkIidDetalleUsuario()
-    {
-        return $this->fkIidDetalleUsuario;
     }
 
     /**

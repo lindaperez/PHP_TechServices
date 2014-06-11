@@ -1,6 +1,10 @@
 Tech\TBundle\Entity\Tbdetdetalleusuario:
     type: entity
     table: tbdetDetalleUsuario
+    indexes:
+        fk_iID_SOL_USU:
+            columns:
+                - fk_iID_SOL_USU
     id:
         id:
             type: integer
@@ -18,9 +22,20 @@ Tech\TBundle\Entity\Tbdetdetalleusuario:
             comment: ''
             column: iID_DETALLE
         vdetalle:
-            type: integer
+            type: string
             nullable: false
-            unsigned: false
+            length: 200
+            fixed: false
             comment: ''
             column: vDETALLE
+    manyToOne:
+        fkIidSolUsu:
+            targetEntity: Tbgensolicitudservicio
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_SOL_USU:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -21,14 +21,6 @@ SET time_zone = "+00:00";
 --
 
 --
--- Volcado de datos para la tabla `tbdetContratoRif`
---
-
-INSERT INTO `tbdetContratoRif` (`id`, `pk_iNRO_CONTRATO`, `fk_iRIF`) VALUES
-(1, 9834, 1),
-(2, 1448, 1);
-
---
 -- Volcado de datos para la tabla `tbdetDetalleUsuario`
 --
 
@@ -95,6 +87,14 @@ INSERT INTO `tbgenEspecSolicitud` (`id`, `vNOMBRE_ESP_SOL`, `fk_iID_ESP_SOL`) VA
 (11, 'Costo del Servicio', 6),
 (12, 'Servicio', 6),
 
+
+--
+-- Volcado de datos para la tabla `tbdetContratoRif`
+--
+
+INSERT INTO `tbdetContratoRif` (`id`, `pk_iNRO_CONTRATO`, `fk_iRIF`) VALUES
+(1, 9834, 1),
+(2, 1448, 1);
 
 --
 -- Volcado de datos para la tabla `tbgenEstatusRegistroUsu`

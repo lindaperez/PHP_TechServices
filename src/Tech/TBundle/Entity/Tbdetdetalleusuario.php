@@ -21,12 +21,6 @@ class Tbdetdetalleusuario
      */
     private $id;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="iID_DETALLE", type="integer", nullable=false)
-     */
-    private $iidDetalle;
 
     /**
      * @var integer
@@ -47,30 +41,8 @@ class Tbdetdetalleusuario
         return $this->id;
     }
 
-    /**
-     * Set iidDetalle
-     *
-     * @param integer $iidDetalle
-     * @return Tbdetdetalleusuario
-     */
-    public function setIidDetalle($iidDetalle)
-    {
-        $this->iidDetalle = $iidDetalle;
-
-        return $this;
-    }
-
-    /**
-     * Get iidDetalle
-     *
-     * @return integer 
-     */
-    public function getIidDetalle()
-    {
-        return $this->iidDetalle;
-    }
-
-    /**
+ 
+   /**
      * Set vdetalle
      *
      * @param integer $vdetalle
@@ -92,10 +64,39 @@ class Tbdetdetalleusuario
     {
         return $this->vdetalle;
     }
+    /**
+     * @var \Tech\TBundle\Entity\Tbgensolicitudservicio
+     */
+    private $fkIidSolUsu;
+
+
+    /**
+     * Set fkIidSolUsu
+     *
+     * @param \Tech\TBundle\Entity\Tbgensolicitudservicio $fkIidSolUsu
+     * @return Tbdetdetalleusuario
+     */
+    public function setFkIidSolUsu(\Tech\TBundle\Entity\Tbgensolicitudservicio $fkIidSolUsu = null)
+    {
+        $this->fkIidSolUsu = $fkIidSolUsu;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidSolUsu
+     *
+     * @return \Tech\TBundle\Entity\Tbgensolicitudservicio 
+     */
+    public function getFkIidSolUsu()
+    {
+        return $this->fkIidSolUsu;
+    }
+
         //to string method   
     public function __toString()
     {
-
+        
     return strval($this->getVdetalle());
-}
-}
+    }
+    }

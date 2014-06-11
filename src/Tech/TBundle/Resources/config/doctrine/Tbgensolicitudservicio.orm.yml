@@ -2,9 +2,6 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
     type: entity
     table: tbgenSolicitudServicio
     indexes:
-        fk_iID_DETALLE_USUARIO:
-            columns:
-                - fk_iID_DETALLE_USUARIO
         fk_iID_USUA_DATOS:
             columns:
                 - fk_iID_USUA_DATOS
@@ -34,15 +31,6 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             inversedBy: null
             joinColumns:
                 fk_iID_USUA_DATOS:
-                    referencedColumnName: id
-            orphanRemoval: false
-        fkIidDetalleUsuario:
-            targetEntity: Tbdetdetalleusuario
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_DETALLE_USUARIO:
                     referencedColumnName: id
             orphanRemoval: false
         fkIidEspSol:
