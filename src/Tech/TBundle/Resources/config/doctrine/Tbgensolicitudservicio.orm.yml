@@ -1,0 +1,57 @@
+Tech\TBundle\Entity\Tbgensolicitudservicio:
+    type: entity
+    table: tbgenSolicitudServicio
+    indexes:
+        fk_iID_DETALLE_USUARIO:
+            columns:
+                - fk_iID_DETALLE_USUARIO
+        fk_iID_USUA_DATOS:
+            columns:
+                - fk_iID_USUA_DATOS
+        fk_iID_TIPO_SOL:
+            columns:
+                - fk_iID_ESP_SOL
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dfechaCreacion:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dFECHA_CREACION
+    manyToOne:
+        fkIidUsuaDatos:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_USUA_DATOS:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidDetalleUsuario:
+            targetEntity: Tbdetdetalleusuario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_DETALLE_USUARIO:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEspSol:
+            targetEntity: Tbgenespecsolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESP_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+SolicitudServicio:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:index" }
+
+SolicitudServicio_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:show" }
+
+SolicitudServicio_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:new" }
+
+SolicitudServicio_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:create" }
+    requirements: { _method: post }
+
+SolicitudServicio_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:edit" }
+
+SolicitudServicio_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:update" }
+    requirements: { _method: post|put }
+
+SolicitudServicio_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:delete" }
+    requirements: { _method: post|delete }

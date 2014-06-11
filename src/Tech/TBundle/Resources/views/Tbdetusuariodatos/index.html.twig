@@ -72,11 +72,13 @@
                 {{ form_label(search_form.vsucursal, 'Sucursal:') }}</td>
                         <td>{{ form_widget(search_form.vsucursal) }}</td>
                     </table>
+                    
+                    
         <div class="error">
                 {{ form_errors(search_form.dfechaRegistro) }}</div>       
                     <table>  <td width="100">
                 {{ form_label(search_form.dfechaRegistro, 'Fecha Registro:') }}</td>
-                        <td>{{ form_widget(search_form.dfechaRegistro) }}</td>
+                        <td>{{ form_widget(search_form.dfechaRegistro,{'type':'date'}) }}</td>
                     </table>
 
                 </td>

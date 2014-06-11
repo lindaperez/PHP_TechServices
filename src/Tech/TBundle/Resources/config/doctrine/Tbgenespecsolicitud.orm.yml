@@ -1,0 +1,35 @@
+Tech\TBundle\Entity\Tbgenespecsolicitud:
+    type: entity
+    table: tbgenEspecSolicitud
+    indexes:
+        fk_iID_ESP_SOLD:
+            columns:
+                - fk_iID_ESP_SOL
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vnombreEspSol:
+            type: string
+            nullable: false
+            length: 80
+            fixed: false
+            comment: ''
+            column: vNOMBRE_ESP_SOL
+    manyToOne:
+        fkIidEspSol:
+            targetEntity: Tbgentiposolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESP_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

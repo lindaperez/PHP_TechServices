@@ -1,0 +1,30 @@
+CalidadRespuestas:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:index" }
+
+CalidadRespuestas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:show" }
+
+CalidadRespuestas_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:new" }
+
+CalidadRespuestas_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:create" }
+    requirements: { _method: post }
+
+CalidadRespuestas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:edit" }
+
+CalidadRespuestas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:update" }
+    requirements: { _method: post|put }
+
+CalidadRespuestas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgencalidadservresp:delete" }
+    requirements: { _method: post|delete }

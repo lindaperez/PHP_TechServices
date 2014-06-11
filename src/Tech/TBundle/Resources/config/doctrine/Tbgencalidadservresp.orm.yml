@@ -1,0 +1,21 @@
+Tech\TBundle\Entity\Tbgencalidadservresp:
+    type: entity
+    table: tbgenCalidadServResp
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vrespuesta:
+            type: string
+            nullable: false
+            length: 80
+            fixed: false
+            comment: ''
+            column: vRESPUESTA
+    lifecycleCallbacks: {  }

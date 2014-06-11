@@ -712,7 +712,7 @@ class TbdetusuariodatosController extends Controller {
         ;
     }
 
-    private function verifaccesoemplAction(Request $request) {
+    public function verifaccesoemplAction(Request $request) {
         $session = $request->getSession();
         $tipo_usuario = $session->get('usuario_rol');
         if ($tipo_usuario == "Empleado") {

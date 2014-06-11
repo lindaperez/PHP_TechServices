@@ -95,6 +95,14 @@ Cada vez que se actualice la BD
 
 	php5 app/console doctrine:schema:update --force
 
+Para actualizar un Formulario  
+Borrar el Form luego 
+
+	php app/console generate:doctrine:form TechTBundle:Tbdetempresa 
+ 
+Acomodar los view probar los controladores en la acciones asociadas
+para los campos agregados
+
 
 
 php5 app/console doctrine:mapping:import --force TechTBundle yml && php5 app/console doctrine:mapping:convert annotation ./src --force && php5 app/console doctrine:generate:entities TechTBundle && php5 app/console doctrine:schema:update --force && php5 app/console cache:clear --env=prod && php5 app/console cache:clear --env=dev 
@@ -123,7 +131,12 @@ Database schema updated successfully! "7" queries were executed
 php5 app/console doctrine:generate: --entity=TechMyprojectBundle:Job --route-prefix=ens_job --with-write --format=yml
 php5 app/console doctrine:generate:crud --entity=TechMyprojectBundle:Category --route-prefix=ens_category --with-write --format=yml
 
+Renombrar el controlador 
 Si el comando es Ambiguo usar php5 app/console generate:doctrine:crud
+Cambiar el routing (Actualizarlo)
+
+MEJOR HACER LO SIGUIENTE 
+CREAR EL FORM Y LUEGO LOS SETTER Y GETTERS
 
 
 16. Poner en routing.yml el parametro que importa las url
@@ -265,9 +278,6 @@ php5 app/console doctrine:generate: --entity=TechMyprojectBundle:Tblogestatususu
 php5 app/console doctrine:generate: --entity=TechMyprojectBundle:Tbgenfunciones --route-prefix=Funciones --with-write --format=yml
 
 php5 app/console doctrine:generate: --entity=TechMyprojectBundle:Tbgenrol --route-prefix=Parametros --with-write --format=yml
-
-
-
 
 rm src/Tech/TBundle/Form/Tb*.php
 mariana@mariana-Satellite-P755:~/Documents/Symfony/techproject$ rm src/Tech/TBundle/Entity/Tb*.php

@@ -1,0 +1,30 @@
+Especificaciones:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:index" }
+
+Especificaciones_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:show" }
+
+Especificaciones_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:new" }
+
+Especificaciones_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:create" }
+    requirements: { _method: post }
+
+Especificaciones_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:edit" }
+
+Especificaciones_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:update" }
+    requirements: { _method: post|put }
+
+Especificaciones_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenespecsolicitud:delete" }
+    requirements: { _method: post|delete }

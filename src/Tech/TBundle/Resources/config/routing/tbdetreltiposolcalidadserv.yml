@@ -1,0 +1,30 @@
+TipoSolCalidad:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:index" }
+
+TipoSolCalidad_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:show" }
+
+TipoSolCalidad_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:new" }
+
+TipoSolCalidad_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:create" }
+    requirements: { _method: post }
+
+TipoSolCalidad_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:edit" }
+
+TipoSolCalidad_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:update" }
+    requirements: { _method: post|put }
+
+TipoSolCalidad_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:TbdetreltiposolCalidadserv:delete" }
+    requirements: { _method: post|delete }

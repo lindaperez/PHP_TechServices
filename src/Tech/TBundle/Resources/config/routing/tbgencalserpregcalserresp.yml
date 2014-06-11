@@ -1,0 +1,30 @@
+PregResp:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:index" }
+
+PregResp_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:show" }
+
+PregResp_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:new" }
+
+PregResp_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:create" }
+    requirements: { _method: post }
+
+PregResp_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:edit" }
+
+PregResp_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:update" }
+    requirements: { _method: post|put }
+
+PregResp_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:TbgencalserpregCalserresp:delete" }
+    requirements: { _method: post|delete }

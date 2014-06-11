@@ -149,7 +149,7 @@ class TbdetempresaController extends Controller
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
-    }
+}
     /**
      * Edits an existing Tbdetempresa entity.
      *

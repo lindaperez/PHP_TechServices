@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>TbgensolservCalserv list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Icalsolpreg</th>
+                <th>Irespuesta</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('CalidadServicio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.icalSolPreg }}</td>
+                <td>{{ entity.irespuesta }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('CalidadServicio_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('CalidadServicio_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('CalidadServicio_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

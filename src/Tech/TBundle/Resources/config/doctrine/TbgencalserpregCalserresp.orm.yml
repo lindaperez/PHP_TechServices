@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\TbgencalserpregCalserresp:
+    type: entity
+    table: tbgenCalSerPreg_CalSerResp
+    indexes:
+        fk_iID_CAL_SER_PREG:
+            columns:
+                - fk_iID_CAL_SER_PREG
+        fk_iID_CAL_SER_RESP:
+            columns:
+                - fk_iID_CAL_SER_RESP
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        fkIidCalSerPreg:
+            targetEntity: Tbgencalidadservpreg
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_CAL_SER_PREG:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidCalSerResp:
+            targetEntity: Tbgencalidadservresp
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_CAL_SER_RESP:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

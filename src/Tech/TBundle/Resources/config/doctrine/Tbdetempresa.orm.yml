@@ -29,4 +29,18 @@ Tech\TBundle\Entity\Tbdetempresa:
             fixed: false
             comment: ''
             column: vDIRECCION_FISCAL
+        vnombre:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vNOMBRE
+        vrazonSocial:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vRAZON_SOCIAL
     lifecycleCallbacks: {  }

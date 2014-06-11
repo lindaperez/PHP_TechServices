@@ -1,0 +1,40 @@
+Tech\TBundle\Entity\TbgensolservCalserv:
+    type: entity
+    table: tbgenSolServ_CalServ
+    indexes:
+        fk_iID_SOL_SERV:
+            columns:
+                - fk_iID_SOL
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        icalSolPreg:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: iCAL_SOl_PREG
+        irespuesta:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: iRESPUESTA
+    manyToOne:
+        fkIidSol:
+            targetEntity: Tbgensolicitudservicio
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

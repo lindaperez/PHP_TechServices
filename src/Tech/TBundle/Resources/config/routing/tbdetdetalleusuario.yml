@@ -1,0 +1,30 @@
+DetalleUsuario:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:index" }
+
+DetalleUsuario_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:show" }
+
+DetalleUsuario_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:new" }
+
+DetalleUsuario_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:create" }
+    requirements: { _method: post }
+
+DetalleUsuario_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:edit" }
+
+DetalleUsuario_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:update" }
+    requirements: { _method: post|put }
+
+DetalleUsuario_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetdetalleusuario:delete" }
+    requirements: { _method: post|delete }

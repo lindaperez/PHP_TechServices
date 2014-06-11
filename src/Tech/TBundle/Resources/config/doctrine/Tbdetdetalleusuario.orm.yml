@@ -1,0 +1,26 @@
+Tech\TBundle\Entity\Tbdetdetalleusuario:
+    type: entity
+    table: tbdetDetalleUsuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        iidDetalle:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: iID_DETALLE
+        vdetalle:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: vDETALLE
+    lifecycleCallbacks: {  }

@@ -16,8 +16,18 @@
             </tr>
             <tr><td height="20"></td></tr>
             <tr>
-                <td>Dirección Fiscal: </td>
+                <td width="140">Dirección Fiscal: </td>
                 <td>{{ entity.vdireccionFiscal }}</td>
+            </tr>
+                        <tr><td height="20"></td></tr>
+            <tr>
+                <td width="140">Nombre</td>
+                <td>{{ entity.vnombre }}</td>
+            </tr>
+                        <tr><td height="20"></td></tr>
+            <tr>
+                <td width="140">Razon Social</td>
+                <td>{{ entity.vrazonSocial }}</td>
             </tr>
         </tbody>
     </table>
@@ -27,7 +37,7 @@
 
 <br>
         <ul class="record_actions">
-            <li>
+    <li>
         <a href="{{ path('Empresa_edit', { 'id': entity.id }) }}">
             Editar Empresa
         </a>

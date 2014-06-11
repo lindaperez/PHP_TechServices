@@ -17,6 +17,8 @@ class TbdetempresaType extends AbstractType
         $builder
             ->add('pkIrif')
             ->add('vdireccionFiscal','text',array('label' => 'Dir-Fiscal: ','required' => false))
+            ->add('vnombre')
+            ->add('vrazonSocial')
         ;
     }
     

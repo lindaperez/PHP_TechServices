@@ -1,0 +1,30 @@
+Detalles:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgendetalle:index" }
+
+Detalles_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgendetalle:show" }
+
+Detalles_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgendetalle:new" }
+
+Detalles_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgendetalle:create" }
+    requirements: { _method: post }
+
+Detalles_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgendetalle:edit" }
+
+Detalles_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgendetalle:update" }
+    requirements: { _method: post|put }
+
+Detalles_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgendetalle:delete" }
+    requirements: { _method: post|delete }

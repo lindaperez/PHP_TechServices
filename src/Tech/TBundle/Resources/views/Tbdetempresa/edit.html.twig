@@ -9,6 +9,18 @@
     <form action="{{ path('Empresa_update',{ 'id': entity.id }) }}" method="post" id="login">
  {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
+        <div class="error">
+            {{ form_errors(edit_form.vnombre) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.vnombre, 'Nombre:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.vnombre) }}</td>
+        </table>
+        <div class="error">
+            {{ form_errors(edit_form.vrazonSocial) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.vrazonSocial, 'Razón Social:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.vrazonSocial) }}</td>
+        </table>
          <div class="error">
             {{ form_errors(edit_form.pkIrif) }}</div>       
         <table>  <td width="100">

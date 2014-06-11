@@ -1,0 +1,30 @@
+CalidadServicio:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:index" }
+
+CalidadServicio_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:show" }
+
+CalidadServicio_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:new" }
+
+CalidadServicio_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:create" }
+    requirements: { _method: post }
+
+CalidadServicio_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:edit" }
+
+CalidadServicio_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:update" }
+    requirements: { _method: post|put }
+
+CalidadServicio_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:delete" }
+    requirements: { _method: post|delete }

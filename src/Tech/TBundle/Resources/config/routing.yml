@@ -14,6 +14,14 @@ rifs:
     pattern:   /rifs
     defaults:  { _controller: TechTBundle:Default:rifs }
 
+especs:
+    pattern:   /especs
+    defaults:  { _controller: TechTBundle:Default:especs }
+
+detalls:
+    pattern:   /detalls
+    defaults:  { _controller: TechTBundle:Default:detalls }
+
 logout:
      pattern: /logout
 
@@ -83,4 +91,53 @@ TechTBundle_RegistroEstatus:
     resource: "@TechTBundle/Resources/config/routing/tblogestatususuario.yml"
     prefix:   /RegistroEstatus
 
+
+TechTBundle_SolicitudServicio:
+    resource: "@TechTBundle/Resources/config/routing/tbgensolicitudservicio.yml"
+    prefix:   /SolicitudServicio
+
+
+
+
+TechTBundle_Servicios:
+    resource: "@TechTBundle/Resources/config/routing/tbgentiposolicitud.yml"
+    prefix:   /Servicios
+
+
+
+TechTBundle_Especificaciones:
+    resource: "@TechTBundle/Resources/config/routing/tbgenespecsolicitud.yml"
+    prefix:   /Especificaciones
+
+
+TechTBundle_Detalles:
+    resource: "@TechTBundle/Resources/config/routing/tbgendetalle.yml"
+    prefix:   /Detalles
+
+
+TechTBundle_CalidadPreguntas:
+    resource: "@TechTBundle/Resources/config/routing/tbgencalidadservpreg.yml"
+    prefix:   /CalidadPreguntas
+
+
+TechTBundle_CalidadRespuestas:
+    resource: "@TechTBundle/Resources/config/routing/tbgencalidadservresp.yml"
+    prefix:   /CalidadRespuestas
+
+TechTBundle_TipoSolCalidad:
+    resource: "@TechTBundle/Resources/config/routing/tbdetreltiposolcalidadserv.yml"
+    prefix:   /TipoSolCalidad
+
+TechTBundle_PregResp:
+    resource: "@TechTBundle/Resources/config/routing/tbgencalserpregcalserresp.yml"
+    prefix:   /PregResp
+
+
+TechTBundle_DetalleUsuario:
+    resource: "@TechTBundle/Resources/config/routing/tbdetdetalleusuario.yml"
+    prefix:   /DetalleUsuario
+
+TechTBundle_CalidadServicio:
+    resource: "@TechTBundle/Resources/config/routing/tbgensolservcalserv.yml"
+    prefix:   /CalidadServicio
 

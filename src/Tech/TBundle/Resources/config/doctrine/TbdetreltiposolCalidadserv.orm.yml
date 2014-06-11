@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\TbdetreltiposolCalidadserv:
+    type: entity
+    table: tbdetRelTipoSol_CalidadServ
+    indexes:
+        fk_tbdetRelTipoSol1:
+            columns:
+                - fk_iTIPO_SOl
+        fk_tbdetRelTipoSol2:
+            columns:
+                - fk_iCAL_SERV
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        fkItipoSol:
+            targetEntity: Tbgentiposolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iTIPO_SOl:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIcalServ:
+            targetEntity: Tbgencalidadservpreg
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCAL_SERV:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

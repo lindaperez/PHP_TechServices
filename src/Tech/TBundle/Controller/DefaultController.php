@@ -242,4 +242,53 @@ class DefaultController extends Controller
         
         return $result;
     }
+        //
+    //Especificaciones
+    
+    //TERMINANTEMENTE PROHIBIDO LOS PRINT PARA EL JSON RESPONSE
+       public function especsAction(Request $request)
+{
+    $tbgentiposolicitud_id = $request->request->get('tbgentiposolicitud_id');
+    
+    
+       $em = $this->getDoctrine()->getManager();
+       
+       $especif = $em->getRepository('TechTBundle:Tbgenespecsolicitud')
+                ->findBy(array('fkIidEspSol'=> $tbgentiposolicitud_id));        
+       
+       $data=array();
+       if ($especif!=null){  
+        for ($i = 0; $i < count($especif); $i++) {
+            $data[$i]=array('id'=>$especif[$i]->getId(),'name'=>$especif[$i]->getVnombreEspSol());
+        }
+       return new JsonResponse($data);
+       }else{
+       return new JsonResponse(null);    
+       }
+}
+//Detalles
+    
+    //TERMINANTEMENTE PROHIBIDO LOS PRINT PARA EL JSON RESPONSE
+       public function detallsAction(Request $request)
+{
+    $tbgenespecsolicitud_id = $request->request->get('tbgenespecsolicitud_id');
+    
+       $em = $this->getDoctrine()->getManager();
+       $detalle = $em->getRepository('TechTBundle:Tbgendetalle')
+                ->findBy(array('fkIidEspSol'=> $tbgenespecsolicitud_id));
+       
+       $data=array();
+       if ($detalle!=null){  
+            for ($i = 0; $i < count($detalle); $i++) {
+                $data[$i]=array('id'=>$detalle[$i]->getId(),
+                    'name'=>$detalle[$i]->getVdescripcion());
+            }
+            return new JsonResponse($data);
+       }else{
+            return new JsonResponse(null);    
+       }
+}
+
+       
+    
         }
