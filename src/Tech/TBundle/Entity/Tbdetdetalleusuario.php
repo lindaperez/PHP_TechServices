@@ -97,6 +97,6 @@ class Tbdetdetalleusuario
     public function __toString()
     {
         
-    return strval($this->getVdetalle());
+    return strval($this->vdetalle);
     }
     }

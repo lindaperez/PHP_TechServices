@@ -15,8 +15,8 @@ class TbdetdetalleusuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('iidDetalle')
             ->add('vdetalle')
+            ->add('fkIidSolUsu')
         ;
     }
     

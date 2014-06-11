@@ -58,20 +58,24 @@ class TbgensolicitudservicioController extends Controller
                     $det3= new Tbdetdetalleusuario();
                     $det4= new Tbdetdetalleusuario();
                     $det->setVdetalle($entity->getVpersona());    
-                    
+                    $det->setFkIidSolUsu($entity);
                     $det2->setVdetalle($entity->getVtelefono());    
+                    $det2->setFkIidSolUsu($entity);
                     $det3->setVdetalle($entity->getVcorreo());    
+                    $det3->setFkIidSolUsu($entity);
                     $det4->setVdetalle($entity->getVdireccion());    
+                    $det4->setFkIidSolUsu($entity);
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
                     //DESPLIEGUE DE DETALLE
                      $det->setVdetalle($entity->getVdetalles());
-                     
+                     $det->setFkIidSolUsu($entity);
                 
                 
                 }elseif ($idEsp==8 || $idEsp==9) {
                     //DESCRIPCION
                     $det->setVdetalle($entity->getVdescripcion());
+                    $det->setFkIidSolUsu($entity);
                      
                 }
             }

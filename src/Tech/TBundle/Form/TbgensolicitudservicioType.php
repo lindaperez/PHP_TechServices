@@ -24,7 +24,6 @@ class TbgensolicitudservicioType extends AbstractType
 
             ->add('dfechaCreacion','date',array( 'required' => false))
             ->add('fkIidUsuaDatos')
-            ->add('fkIidDetalleUsuario')
             ->add('fkIidEspSol','choice',array( 'required' => true))
             ->add('vdetalles')
             ->addEventSubscriber(new AddTbgentiposolicitudFieldSubscriber(
