@@ -7,8 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Tech\TBundle\Entity\Tbgensolicitudservicio;
 use Tech\TBundle\Form\TbgensolicitudservicioType;
-use Tech\TBundle\Entity\Tbdetusuariodatos;u
-se Tech\TBundle\Entity\Tbdetdetalleusuario;
+use Tech\TBundle\Entity\Tbdetusuariodatos;
+use Tech\TBundle\Entity\Tbdetdetalleusuario;
 use Tech\TBundle\Controller\TbdetusuariodatosController;
 
 use DateTime;
@@ -70,8 +70,8 @@ class TbgensolicitudservicioController extends Controller
                 }elseif ($idEsp==9 || $idEsp==13) {
                     
                 }
-                }
             }
+            
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
