@@ -27,9 +27,30 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbgentiposolicitudForm($form, $tbgenespecsolicitud_id,$tbgenespecsolicitud = null)
+    private function addTbgentiposolicitudForm($form, $tbgenespecsolicitud, $tbgentiposolicitud_id,
+            $value)
     {
-   
+    if ($tbgentiposolicitud_id!==null){
+        $formOptions = array(
+            'class'         => 'TechTBundle:Tbgentiposolicitud',
+            'label'         => 'Tipo Solicitud: ',
+            'mapped'        => false,
+            'attr'          => array(
+                'class' => 'tbgentiposolicitud_selector',
+            ),
+            'query_builder' => function (EntityRepository $repository) use ($tbgentiposolicitud_id) {
+                $qb = $repository->createQueryBuilder('tbgentiposolicitud')
+                    ->where('tbgentiposolicitud.id = :id')
+                    ->setParameter('id', $tbgentiposolicitud_id)
+                ;
+ 
+                return $qb;
+            }
+            );
+        
+        
+    }else{
+        
         $formOptions = array(
             'class'         => 'TechTBundle:Tbgentiposolicitud',
             'empty_value'   => 'Seleccionar',
@@ -38,13 +59,11 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
             'attr'          => array(
                 'class' => 'tbgentiposolicitud_selector',
             ),
-           
         );
-
- 
-        if ($tbgenespecsolicitud) {
-            $formOptions['data'] = $tbgenespecsolicitud;
-            
+    }
+        if ($tbgentiposolicitud_id) {
+                       $formOptions['data'] = $tbgentiposolicitud_id;
+         //   print $tbgenespecsolicitud_id;
         }
  
         $form->add('tbgentiposolicitud', 'entity', $formOptions);
@@ -54,18 +73,18 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
- 
+        
         if (null === $data) {
             return;
         }
- 
+
         $accessor = PropertyAccess::getPropertyAccessor();
         
         $tbgenespecsolicitud        = $accessor->getValue($data, $this->propertyPathToTbgenespecsolicitud);
         $tbgenespecsolicitud_id    = ($tbgenespecsolicitud) ? $tbgenespecsolicitud->getFkIidEspSol()->getId() : null;
-        
+        $value    = ($tbgenespecsolicitud) ? $tbgenespecsolicitud->getFkIidEspSol()->getVnombreTipoSol() : null;
 
-        $this->addTbgentiposolicitudForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id);
+        $this->addTbgentiposolicitudForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id,$value);
         
         
     }
@@ -78,9 +97,8 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
         
         $tbgentiposolicitud_id = array_key_exists('tbgentiposolicitud', $data) ? $data['tbgentiposolicitud'] : null;
         
-        $this->addTbgentiposolicitudForm($form,null,$tbgentiposolicitud_id );
+        $this->addTbgentiposolicitudForm($form,$tbgentiposolicitud_id,$tbgentiposolicitud_id, null );
         //
-        
-        
+      
     }
 }

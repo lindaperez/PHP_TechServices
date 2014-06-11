@@ -1,23 +1,55 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgensolicitudservicio list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
+{% block content %}
+ <h1>Listado Solicitud de Servicios de Clientes</h1>
 
-                <th>Dfechacreacion</th>
-                <th>Actions</th>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+
+
+<div class="container" >
+
+    <section class="register">
+        <h1>Listado de Solicitudes de Servicio. ()</h1>
+        <br>
+        <div class="navigation" align="right">
+    
+        </div>
+
+        <br>
+        <br> 
+        <table class="records_list">
+           
+            <thead> 
+                <tr>
+                <td width="80"><h1><strong>Nro Solicitud</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Usuario</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Tipo Solicitud</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Especificación</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Fecha Reg.</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><strong>Acciones</strong></td>
+                    
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-
-                <td>{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td width="40"></td>
+                <td width="80">{{ entity.fkIidUsuaDatos.vnombre}} {{ entity.fkIidUsuaDatos.vapellido}} </td>
+                <td width="40"></td>
+                <td width="80">{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol}} </td>
+                <td width="40"></td>                    
+                <td width="80">{{ entity.fkIidEspSol.vnombreEspSol}} </td>
+                <td width="40"></td>
+                <td width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td width="40"></td>
                 <td>
                 <ul>
                     <li>
@@ -30,14 +62,23 @@
                 </td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
+       
+            
+            
+            
+            
+           </tbody>
+        </table>
+    </section>
+    <br><br>
+    <ul>
         <li>
             <a href="{{ path('SolicitudServicio_new') }}">
-                Create a new entry
+                Realizar Solicitud de Servicio
             </a>
         </li>
     </ul>
+
+</div>
+        
     {% endblock %}

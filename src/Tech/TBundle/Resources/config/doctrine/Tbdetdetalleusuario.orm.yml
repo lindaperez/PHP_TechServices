@@ -15,12 +15,6 @@ Tech\TBundle\Entity\Tbdetdetalleusuario:
             generator:
                 strategy: IDENTITY
     fields:
-        iidDetalle:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: iID_DETALLE
         vdetalle:
             type: string
             nullable: false

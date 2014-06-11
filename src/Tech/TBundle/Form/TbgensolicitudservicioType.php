@@ -20,6 +20,7 @@ class TbgensolicitudservicioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $propertyPathToTbgenespecsolicitud = 'fkIidEspSol';
+        $propertyPathToTbgendetalle = 'vdetalles';
         $builder
 
             ->add('dfechaCreacion','date',array( 'required' => false))
@@ -31,7 +32,7 @@ class TbgensolicitudservicioType extends AbstractType
             ->addEventSubscriber(new AddTbgenespecsolicitudFieldSubscriber(
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
-              $propertyPathToTbgenespecsolicitud))
+              $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
             ->add('vdescripcion','text',array( 'required' => false))
             ->add('vpersona','text',array( 'required' => false))
             ->add('vtelefono','text',array( 'required' => false))

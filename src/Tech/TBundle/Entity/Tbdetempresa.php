@@ -107,12 +107,7 @@ class Tbdetempresa
         return $this->vdireccionFiscal;
     }
 
-    //to string method   
-    public function __toString()
-    {
-        
-    return strval($this->getVnombre());
-    }
+
     /**
      * Get vnombre
      *
@@ -150,5 +145,12 @@ class Tbdetempresa
     public function getVrazonSocial()
     {
         return $this->vrazonSocial;
+    }
+    
+        //to string method   
+    public function __toString()
+    {
+        
+    return strval($this->getVnombre());
     }
 }

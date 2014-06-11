@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetdetalleusuario
  *
- * @ORM\Table(name="tbdetDetalleUsuario")
+ * @ORM\Table(name="tbdetDetalleUsuario", indexes={@ORM\Index(name="fk_iID_SOL_USU", columns={"fk_iID_SOL_USU"})})
  * @ORM\Entity
  */
 class Tbdetdetalleusuario
@@ -21,13 +21,22 @@ class Tbdetdetalleusuario
      */
     private $id;
 
-
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="vDETALLE", type="integer", nullable=false)
+     * @ORM\Column(name="vDETALLE", type="string", length=200, nullable=false)
      */
     private $vdetalle;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbgensolicitudservicio
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgensolicitudservicio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_SOL_USU", referencedColumnName="id")
+     * })
+     */
+    private $fkIidSolUsu;
 
 
 
@@ -41,11 +50,10 @@ class Tbdetdetalleusuario
         return $this->id;
     }
 
- 
-   /**
+    /**
      * Set vdetalle
      *
-     * @param integer $vdetalle
+     * @param string $vdetalle
      * @return Tbdetdetalleusuario
      */
     public function setVdetalle($vdetalle)
@@ -58,17 +66,12 @@ class Tbdetdetalleusuario
     /**
      * Get vdetalle
      *
-     * @return integer 
+     * @return string 
      */
     public function getVdetalle()
     {
         return $this->vdetalle;
     }
-    /**
-     * @var \Tech\TBundle\Entity\Tbgensolicitudservicio
-     */
-    private $fkIidSolUsu;
-
 
     /**
      * Set fkIidSolUsu
@@ -92,11 +95,11 @@ class Tbdetdetalleusuario
     {
         return $this->fkIidSolUsu;
     }
-
-        //to string method   
+    
+          //to string method   
     public function __toString()
     {
         
     return strval($this->vdetalle);
     }
-    }
+}

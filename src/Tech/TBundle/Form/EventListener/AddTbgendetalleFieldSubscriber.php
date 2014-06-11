@@ -12,10 +12,12 @@ use Doctrine\ORM\EntityRepository;
 class AddTbgendetalleFieldSubscriber implements EventSubscriberInterface
 {
     private $propertyPathToTbgenespecsolicitud;
+    
  
-    public function __construct($propertyPathToTbgenespecsolicitud)
+    public function __construct($propertyPathToTbgenespecsolicitud, $propertyPathToTbgendetalle_id)
     {
         $this->propertyPathToTbgenespecsolicitud = $propertyPathToTbgenespecsolicitud;
+        $this->propertyPathToTbgendetalle_id = $propertyPathToTbgendetalle_id;
     }
  
     public static function getSubscribedEvents()
@@ -26,21 +28,47 @@ class AddTbgendetalleFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbgendetalleForm($form,$tbgenespecsolicitud_id)
+    private function addTbgendetalleForm($form,$tbgenespecsolicitud_id,$propertyPathToTbgendetalle_id)
     {
-        
+        print $tbgenespecsolicitud_id;
+        if ($tbgenespecsolicitud_id!=null){
              $formOptions = array(
             'class'         => 'TechTBundle:Tbgendetalle',
-            'mapped'         => 'false',
+            'mapped'         => false,
             'label'         => 'Detalles: ',
             'empty_value'   => 'Seleccionar',
             'attr'          => array(
             'class' => 'vdetalles_selector'),
             
         );
-        print $tbgenespecsolicitud_id;
-        $form->add('vdetalles', 'entity', $formOptions);
+        }else{
+            
+        $formOptions = array(
+            'class'         => 'TechTBundle:Tbdetdetalleusuario',
+            'mapped'         => false,
+            'label'         => 'Detalles: ',
+            'attr'          => array(
+            'class' => 'vdetalles_selector'),
+              'query_builder' => function (EntityRepository $repository) use ($propertyPathToTbgendetalle_id) {
+                $qb = $repository->createQueryBuilder('tbdetdetalleusuario')
+                    ->where('tbdetdetalleusuario.id = :id')
+                    ->setParameter('id', 2)
+                ;
+ 
+                return $qb;
+            }
+
+        );
+        }
+             
+        if ($tbgenespecsolicitud_id) {
+            
+            $formOptions['data'] = $tbgenespecsolicitud_id;
+        }else{
         
+            $formOptions['data'] = $this->propertyPathToTbgendetalle_id;
+        }
+        $form->add('vdetalles', 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)
@@ -57,11 +85,11 @@ class AddTbgendetalleFieldSubscriber implements EventSubscriberInterface
        //$tbgenespecsolicitud        = $accessor->getValue($data, $this->propertyPathToTbgenespecsolicitud);
        
        //$tbgenespecsolicitud_id = ($tbgenespecsolicitud) ? $tbgenespecsolicitud->getId() : null;
-        $tbgenespecsolicitud_id =array_key_exists('fkIidEspSol', $data) ? $data['fkIidEspSol']['id'] : null;
+        $tbgenespecsolicitud_id =array_key_exists('fkIidEspSol', $data) ? $data['fkIidEspSol'] : null;
    
    
        
-   $this->addTbgendetalleForm($form,$tbgenespecsolicitud_id);
+   $this->addTbgendetalleForm($form,$tbgenespecsolicitud_id,$this->propertyPathToTbgendetalle_id);
         
     }
  
@@ -72,7 +100,7 @@ class AddTbgendetalleFieldSubscriber implements EventSubscriberInterface
  
         $tbgenespecsolicitud = array_key_exists('vdetalles', $data) ? $data['vdetalles'] : null;
         
-        $this->addTbgendetalleForm($form,$tbgenespecsolicitud);
-      
+        $this->addTbgendetalleForm($form,$tbgenespecsolicitud,$this->propertyPathToTbgendetalle_id);
+        
     }
 }

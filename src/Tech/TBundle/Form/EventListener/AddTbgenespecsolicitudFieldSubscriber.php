@@ -27,8 +27,9 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbgenespecsolicitudForm($form,$tbgenespecsolicitud_id)
+    private function addTbgenespecsolicitudForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id)
     {
+        if ($tbgenespecsolicitud_id==null){
              $formOptions = array(
             'class'         => 'TechTBundle:Tbgenespecsolicitud',
             'mapped'        => false,
@@ -44,9 +45,26 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
                 ;
  
                 return $qb;
-            }
-
+          }  
         );
+        }else{
+             $formOptions = array(
+            'class'         => 'TechTBundle:Tbgenespecsolicitud',
+            'mapped'        => false,
+            'label'         => 'Especificación: ',
+            'attr'          => array(
+                'class' => 'tbgenespecsolicitud_selector',
+            ),
+          'query_builder' => function (EntityRepository $repository) use ($tbgenespecsolicitud_id) {
+                $qb = $repository->createQueryBuilder('tbgenespecsolicitud')
+                    ->where('tbgenespecsolicitud.id = :id')
+                    ->setParameter('id', $tbgenespecsolicitud_id)
+                ;
+ 
+                return $qb;
+          }  
+        );
+        }
    if ($tbgenespecsolicitud_id) {
             $formOptions['data'] = $tbgenespecsolicitud_id;
             
@@ -73,7 +91,7 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
         $tbgenespecsolicitud_id = ($tbgenespecsolicitud) ? $tbgenespecsolicitud->getId() : null;
         
         //$this->addTbgenespecsolicitudForm($form, $tbgentiposolicitud_id);
-        $this->addTbgenespecsolicitudForm($form,$tbgenespecsolicitud_id,$tbgenespecsolicitud);
+        $this->addTbgenespecsolicitudForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id);
         
     }
  
@@ -84,9 +102,9 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
  
         $tbgenespsol = array_key_exists('fkIidEspSol', $data) ? $data['fkIidEspSol'] : null;
         
-        $this->addTbgenespecsolicitudForm($form,$tbgenespsol);
         
-    //
+        $this->addTbgenespecsolicitudForm($form,$tbgenespsol,$tbgenespsol);
+
       
     }
 }

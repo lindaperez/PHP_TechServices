@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbgensolicitudservicio
  *
- * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_DETALLE_USUARIO", columns={"fk_iID_DETALLE_USUARIO"}), @ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"})})
+ * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"})})
  * @ORM\Entity
  */
 class Tbgensolicitudservicio
@@ -20,7 +20,7 @@ class Tbgensolicitudservicio
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
+
     /**
      * @var \DateTime
      *
@@ -39,22 +39,22 @@ class Tbgensolicitudservicio
     private $fkIidUsuaDatos;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetdetalleusuario
+     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetdetalleusuario")
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_DETALLE_USUARIO", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
      * })
      */
     private $fkIidEspSol;
-    
+
     private $vdetalles;
     private $vdescripcion;
     private $vpersona;
     private $vdireccion;
     private $vtelefono;
     private $vcorreo;
-    
+
     public function setVdetalles($vdetalles)
     {
         $this->vdetalles = $vdetalles;
@@ -213,4 +213,12 @@ class Tbgensolicitudservicio
     {
         return $this->fkIidEspSol;
     }
+
+        //to string method   
+    public function __toString()
+    {
+        
+    return strval($this->getId());
+    }
+    
 }

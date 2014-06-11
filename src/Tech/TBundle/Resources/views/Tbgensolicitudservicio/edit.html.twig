@@ -1,16 +1,276 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgensolicitudservicio edit</h1>
+{% block content %}
 
-    {{ form(edit_form) }}
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+</div>
+<br><br>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+</div>
+<br><br>
+{% endfor %}
 
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+</div>
+<br><br>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+</div>
+<br><br>
+{% endfor %}
+
+<h1>Edición de Solicitud de Servicio</h1>
+
+<div class="container" >
+
+    <section class="register">
+<form action="{{ path('SolicitudServicio_update',{ 'id': entity.id }) }}" method="post" class="login">
+    
+              {{ form_start(edit_form) }}
+        {{ form_errors(edit_form) }}  
+            <table>
+                <tr>
+                    
+                         <div style="display: none;">     
+                {{ form_row(edit_form.dfechaCreacion, {'required' : false})}}
+                {{ form_row(edit_form.fkIidUsuaDatos, {'required' : false})}}
+                                      
+                {{ form_row(edit_form.submit, { 'label': 'Registrar' }) }}        
+                </div>  
+       
+             <td>
+                 <div class="error">
+                {{ form_errors(edit_form.tbgentiposolicitud) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
+                        <td>{{ form_widget(edit_form.tbgentiposolicitud,{'required': true}) }}</td>
+                    </table>
+                 
+                <div class="error" >
+                {{ form_errors(edit_form.fkIidEspSol) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.fkIidEspSol, 'Especificación:') }}</td>
+                        <td>{{ form_widget(edit_form.fkIidEspSol,{'required': true}) }}</td>
+                    </table>
+                 <div id="campos4">
+                <div class="error" >
+                {{ form_errors(edit_form.vdetalles) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vdetalles, 'Detalles:') }}</td>
+                    <td>{{ form_widget(edit_form.vdetalles,{'required': false}) }}</td>
+                    </table>
+                 </div>
+                 </td>
+                 <td width="40">
+                     </td>
+                     <td id="campos1">
+                         
+                 <div class="error">
+                {{ form_errors(edit_form.vdescripcion) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vdescripcion, 'Descripción:') }}</td>
+                    <td>{{ form_widget(edit_form.vdescripcion,{'required': false}) }}</td>
+                    </table>
+             </td>
+                <td id="campos2">
+                    <div class="error" id="det">
+                {{ form_errors(edit_form.vpersona) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vpersona, 'Persona Contacto:') }}</td>
+                    <td>{{ form_widget(edit_form.vpersona,{'required': false}) }}</td>
+                    </table>
+                <div class="error" id="det">
+                {{ form_errors(edit_form.vtelefono) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vtelefono, 'Teléfono:') }}</td>
+                    <td>{{ form_widget(edit_form.vtelefono,{'required': false}) }}</td>
+                    </table>
+                    </td>
+                    <td width="40">
+                        </td>
+                    <td id="campos3">
+                    <div class="error" id="det">
+                {{ form_errors(edit_form.vcorreo) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vcorreo, 'Correo:') }}</td>
+                    <td>{{ form_widget(edit_form.vcorreo,{'required': false}) }}</td>
+                    </table>
+                    <div class="error" id="det">
+                {{ form_errors(edit_form.vdireccion) }}</div>       
+                    <table>  <td width="95">
+                {{ form_label(edit_form.vdireccion, 'Direccion:') }}</td>
+                    <td>{{ form_widget(edit_form.vdireccion,{'required': false}) }}</td>
+                    </table>
+                    </td>
+                
+                <tr>
+                    <td width="95"></td>
+                    <td width="95"></td>
+                    <td width="95"></td>
+                    <td width="95"></td>
+                    <td width="95"></td>
+                    <td width="95"></td>
+                
+                <td>    
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Editar">
+                        </p>
+                </td>
+                    
+                </tr>
+                
+
+                {{ form_end(edit_form) }} 
+            </table>       
+        </form>  <br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('SolicitudServicio') }}">
-            Back to the list
+            Listado de Solicitudes de Servicios
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+
 </ul>
+        </section>
+        </div>
+
+ <script>
+     $('#campos1').hide();
+     $('#campos2').hide();
+     $('#campos3').hide();
+     //$('#campos4').hide();
+            $(function() {
+                $(document).on('change', '.tbgentiposolicitud_selector', function() {
+//                    alert("Han cambiado mi valor");
+                    var data = {
+                        tbgentiposolicitud_id: $(this).val()
+                    };
+
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("especs") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.error !== undefined && data.error !== '') {
+                                alert(data.error);
+                            } else {
+                                var $tbgenespecsolicitud_selector = $('#tech_tbundle_tbgensolicitudservicio_fkIidEspSol');
+                                    $tbgenespecsolicitud_selector.html('<option>Seleccionar</option>');  
+                                if (data.length!== undefined ){
+                                    for (var i=0, total = data.length; i < total; i++) {
+                                        $tbgenespecsolicitud_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                                    }
+                                    $tbgenespecsolicitud_selector .prop('disabled',false);  
+                                }else{
+                                    $tbgenespecsolicitud_selector .html('<option> No Seleccionar</option>');
+                                    $tbgenespecsolicitud_selector .prop('disabled','disabled');  
+                                    var $tbgendetalle_selector = $('#tech_tbundle_tbgensolicitudservicio_vdetalles');
+                            $tbgendetalle_selector.html('<option> No Seleccionar</option>');
+                            $tbgendetalle_selector.prop('disabled','disabled');  
+                                }
+                            }
+                        },
+                        error: function(e, ts, et) {
+                            alert(ts);
+                            
+                        }
+                    });
+
+
+                });
+
+            });
+            $(function() {
+                $(document).on('change', '.tbgenespecsolicitud_selector', function() {
+//                    alert("Han cambiado mi valor");
+                  var $name = $(this).find(":selected").text();
+                  //alert($name);
+                  if(($name==='Cambio de modelo de camaras' || $name==='Camaras adicionales')){
+                        $('#campos1').hide();     
+                        $('#campos2').hide();     
+                        $('#campos3').hide();     
+                        $('#campos4').show();     
+                        
+                  }else{
+                      if (($name==='Notas de Credito' || $name==='Motivo')){
+                        $('#campos1').show();     
+                        $('#campos2').hide();     
+                        $('#campos3').hide();     
+                        $('#campos4').hide();     
+                        
+                  }else{
+                        if ($name==='Nueva Localidad'){
+                        $('#campos1').hide();
+                        $('#campos3').show();
+                        $('#campos2').show();     
+                        $('#campos4').hide();     
+                          //  alert('noes');
+                        }else{
+                        $('#campos1').hide();
+                        $('#campos2').hide();     
+                        $('#campos3').hide();     
+                        $('#campos4').hide();         
+                        }
+                    }
+                }
+                    var data = {
+                        tbgenespecsolicitud_id: $(this).val()
+                        
+                    };
+                    //alert("Valor"+$(this).val());
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("detalls") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.error !== undefined && data.error !== '') {
+                                alert(data.error);
+                            } else {
+                            var $tbgendetalle_selector = $('#tech_tbundle_tbgensolicitudservicio_vdetalles');
+                            
+                            $tbgendetalle_selector.html('<option>Seleccionar</option>');
+                            
+                            if (data.length!== undefined ){
+                            for (var i=0, total = data.length; i < total; i++) {
+                       
+                                  $tbgendetalle_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                       
+                                  }
+                                  $tbgendetalle_selector.prop('disabled',false);  
+                                  $tbgendetalle_selector.prop('required',true);  
+                        }else{
+                            $tbgendetalle_selector.html('<option> No Seleccionar</option>');
+                            $tbgendetalle_selector.prop('disabled','disabled');  
+                            $tbgendetalle_selector.prop('required',false);  
+                            
+                        }
+                    }
+                        },
+                        error: function(e, ts, et) {
+                            alert(ts);
+                            
+                        }
+                    });
+
+
+                });
+
+            });
+  
+
+
+        </script>
+
 {% endblock %}
