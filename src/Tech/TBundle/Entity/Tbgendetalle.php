@@ -100,5 +100,5 @@ class Tbgendetalle
     {
 
     return strval($this->vdescripcion);
-    }
+}
 }

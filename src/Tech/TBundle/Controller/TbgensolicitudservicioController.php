@@ -42,33 +42,37 @@ class TbgensolicitudservicioController extends Controller
         $entity = new Tbgensolicitudservicio();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        //print $form['fkIidEspSol']->getData()->getId();
-        //print "HERE";
-        //print_r ($form->getData());
-        //print "/\n";
-        //print_r ($form['fkIidEspSol']->getData()->getId());
-        //print_r ($form['tbgentiposolicitud']->getData());
-        //print_r ($form['fkIidEspSol']->getData());
-        //$form->add($this->propertyPathToTbgenespecsolicitud, 'entity', $formOptions);
-        //print "HERE";
         
-        if ($form->isValid()) {
+        if ($form->isValid()) {    
+            //El usuario existe o no 
             
+            //Si existe Cambiar el detalle
+            //Sino crear los detalles en detalleusuario
             $esp=$entity->getFkIidEspSol();
             if($esp!=null){
                 $idEsp=$esp->getId();
+                $det= new Tbdetdetalleusuario();
                 if ($idEsp==1){
+                    //CAMPOS DE USUARIO
+                    $det2= new Tbdetdetalleusuario();
+                    $det3= new Tbdetdetalleusuario();
+                    $det4= new Tbdetdetalleusuario();
+                    $det->setVdetalle($entity->getVpersona());    
                     
+                    $det2->setVdetalle($entity->getVtelefono());    
+                    $det3->setVdetalle($entity->getVcorreo());    
+                    $det4->setVdetalle($entity->getVdireccion());    
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
-                     $detalle=$entity->getVdetalles();
-                     $det= new Tbdetdetalleusuario();
-                     $det->setVdetalle($detalle);
-                     $entity->setFkIidDetalleUsuario($det);
+                    //DESPLIEGUE DE DETALLE
+                     $det->setVdetalle($entity->getVdetalles());
+                     
                 
                 
-                }elseif ($idEsp==9 || $idEsp==13) {
-                    
+                }elseif ($idEsp==8 || $idEsp==9) {
+                    //DESCRIPCION
+                    $det->setVdetalle($entity->getVdescripcion());
+                     
                 }
             }
             
@@ -129,8 +133,6 @@ class TbgensolicitudservicioController extends Controller
         $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($ci);
         $entity->setFkIidUsuaDatos($usu);
         
-        $detalle = $em->getRepository('TechTBundle:Tbdetdetalleusuario')->find(1);
-        $entity->setFkIidDetalleUsuario($detalle);
         
         //$detalles = $em->getRepository('TechTBundle:Tbdetdetalleusuario')->findAll();
         //print_r($detalles);

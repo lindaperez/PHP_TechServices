@@ -101,6 +101,6 @@ class Tbgenespecsolicitud
     {
 
     return strval($this->getVnombreEspSol());
-    }
+}
     
     }

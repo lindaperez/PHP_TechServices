@@ -97,5 +97,5 @@ class Tbdetdetalleusuario
     {
 
     return strval($this->getVdetalle());
-    }
+}
 }

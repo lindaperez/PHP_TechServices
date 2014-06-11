@@ -110,7 +110,7 @@ class Tbdetempresa
     //to string method   
     public function __toString()
     {
-
+        
     return strval($this->getVnombre());
     }
     /**
