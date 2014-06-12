@@ -1,40 +1,102 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbgensolicitudservicio</h1>
+{% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+   <br>
+<h1>Datos de Solicitud de Servicio </h1>
 
     <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+        <br><br>
+             <tr>
+                <td width="210" height="20">Número de Solicitud: </td>
+                <td><em>{{ entity.id }}</em></td>
             </tr>
             <tr>
-                <th>Itiposol</th>
-                <td>{{ entity.fkIidEspSol }}</td>
+                <td width="210" height="20">Usuario </td>
+                <td><em>{{ entity.fkIidUsuaDatos.vnombre }} {{ entity.fkIidUsuaDatos.vapellido }}</em></td>
             </tr>
             <tr>
-                <th>Iespecificacion</th>
-                
+                 <td width="210" height="20">Tipo Solicitud: </td>
+                 <td><em>{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol }}</em></td>
             </tr>
             <tr>
-                <th>Dfechacreacion</th>
-                <td>{{ entity.dfechaCreacion|date('Y-m-d H:i:s') }}</td>
+                 <td width="210" height="20">Especificación: </td>
+                <td><em>{{ entity.fkIidEspSol.vnombreEspSol }}</em></td>
+            </tr>
+            {%if ((entity.fkIidEspSol.id==7) or 
+                    (entity.fkIidEspSol.id==8) or
+                     (   entity.fkIidEspSol.id==9))  %}
+            <tr>
+                 <td width="210" height="20">Descripción: </td>
+                <td><em>{{ entity.vdescripcion }}</em></td>
+            </tr>
+            
+
+            {% elseif((entity.fkIidEspSol.id==2) or (entity.fkIidEspSol.id==5))%}
+            <tr>
+                 <td width="210" height="20">Detalle: </td>
+                <td><em>{{ entity.vdetalles }}</em></td>
+            </tr>
+            
+                    {% elseif(entity.fkIidEspSol.id==1 )%}
+            <tr>
+                 <td width="210" height="20">Persona: </td>
+                 <td><em>{{ entity.vpersona}}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Correo: </td>
+                <td><em>{{ entity.vcorreo}}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Telefono:  </td>
+                <td><em>{{ entity.vtelefono }}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Direccion: </td>
+                <td><em>{{ entity.vdireccion}}</em></td>
+                    
+                {%endif %}
+            <tr>
+                 <td width="210" height="20">Fecha Creación: </td>
+                <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
+            </tr>
+            
             </tr>
         </tbody>
     </table>
-
+<br><br>
         <ul class="record_actions">
     <li>
         <a href="{{ path('SolicitudServicio') }}">
-            Back to the list
+            Lista de Servicios
         </a>
     </li>
     <li>
         <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}">
-            Edit
+            Cambiar estatus de Solicitud de Registro
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    
 </ul>
 {% endblock %}

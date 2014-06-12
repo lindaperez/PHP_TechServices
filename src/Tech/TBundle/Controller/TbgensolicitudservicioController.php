@@ -38,6 +38,7 @@ class TbgensolicitudservicioController extends Controller
      */
     public function createAction(Request $request)
     {
+        
         $entity = new Tbgensolicitudservicio();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -45,14 +46,18 @@ class TbgensolicitudservicioController extends Controller
         
         if ($form->isValid()) {    
             //El usuario existe o no 
+            
             $ci=$request->getSession()->get('usuario_ci');
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
             //print_r($usu);
             $entity->setFkIidUsuaDatos($usu);
+            
             $esp=$form['fkIidEspSol']->getData();
+            
             if($esp!=null){
                 $idEsp=$esp->getId();
+                print $idEsp;
                 $especif = $em->getRepository('TechTBundle:Tbgenespecsolicitud')
                     ->find($esp);
                 $entity->setFkIidEspSol($especif);
@@ -74,24 +79,26 @@ class TbgensolicitudservicioController extends Controller
                     $em->persist($det2);
                     $em->persist($det3);
                     $em->persist($det4);
+                    $em->persist($det);
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
                     //DESPLIEGUE DE DETALLE
-                    print "2.5";
+                     $entity->setVdetalles($form['vdetalles']->getData()->getVdescripcion());
                      $det->setVdetalle($entity->getVdetalles());
                      $det->setFkIidSolUsu($entity);
+                     $em->persist($det);
                 
-                
-                }elseif ($idEsp==8 || $idEsp==9) {
+                }elseif ($idEsp==7 || $idEsp==8 || $idEsp==9) {
                     print "8,9";
                     //DESCRIPCION
                     $det->setVdetalle($entity->getVdescripcion());
                     $det->setFkIidSolUsu($entity);
-                     
+                    
+                     $em->persist($det);
                 }
-                $em->persist($det);
-            }
                 
+            }
+            print "VACIO";
             $em->persist($entity);
             $em->flush();
     
@@ -99,7 +106,10 @@ class TbgensolicitudservicioController extends Controller
             return $this->redirect($this->generateUrl('SolicitudServicio_show', array('id' => $entity->getId())));
         }
 
-    
+        return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
+            
+            'form'   => $form->createView(),
+        ));
     }
 
     /**
@@ -161,7 +171,35 @@ class TbgensolicitudservicioController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
-
+        //$entity= new Tbgensolicitudservicio();
+        
+        $idEsp=$entity->getFkIidEspSol()->getId();
+              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
+                  
+                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                          findOneBy(array('fkIidSolUsu'=>$entity));
+                  //print $detalle->getVdetalle();
+                  $entity->setVdescripcion($detalle->getVdetalle());
+                  //print $entity->getVdescripcion();
+                  
+              }elseif($idEsp==1 ){
+                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                          findBy(array('fkIidSolUsu'=>$entity));
+                  $entity->setVpersona($detalles[3]->getVdetalle());
+                  $entity->setVcorreo($detalles[1]->getVdetalle());
+                  $entity->setVdireccion($detalles[2]->getVdetalle());
+                  $entity->setVtelefono($detalles[0]->getVdetalle());
+                  
+                  print $entity->getVdescripcion();
+                  
+              }elseif ($idEsp==2 || $idEsp==5) {
+                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                   findOneBy(array('fkIidSolUsu'=>$entity));
+                  //print $detalle->getVdetalle();
+                  $entity->setVdetalles($detalle->getVdetalle());
+                  //print $entity->getVdescripcion();
+              }  
+    
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TechTBundle:Tbgensolicitudservicio:show.html.twig', array(
@@ -192,7 +230,8 @@ class TbgensolicitudservicioController extends Controller
         $editForm = $this->createEditForm($entity);
         print $entity->getFkIidEspSol()->getId();
         //$editForm['vdetalles']->setData($detalle->getVdetalle());
-        $editForm['tbgentiposolicitud']->setData(2);
+        //$editForm['tbgentiposolicitud']->setData(2);
+        $editForm['vdetalles']->setData(array(1=>'carajo'));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TechTBundle:Tbgensolicitudservicio:edit.html.twig', array(

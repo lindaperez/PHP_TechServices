@@ -41,13 +41,20 @@
 				<ul>
 					<li><a href="{{ path('Registro_new') }}">Solicitud de Registro</a></li>
                                         {% if app.session.get('usuario_rol')=="Empleado" %}
-                                        <li><a href="{{ path('Registro') }}">Listado de Solicitudes</a></li>
+                                        
+                                        <li><a href="{{ path('Registro') }}">Listado de Solicitudes de Registro</a></li>
                                         {% endif %}
                                         {% if app.session.get('usuario_rol')=="Cliente" %}
-                                        <li><a href="{{ path('Registro') }}">Solicitud de Servicio</a></li>
+                            
                                         {% endif %}
 				</ul>
 			</li>
+                        <li><a href="#"><span class="iconic plus-alt"></span> Servicios</a>
+                        <ul>
+                            <li><a href="{{ path('SolicitudServicio_new') }}">Solicitud de Servicio</a></li>
+                            <li><a href="{{ path('SolicitudServicio') }}">Listado de Solicitudes de Servicio</a></li>
+                        </ul> 
+                        </li>
                         {% endif %}
     {% if app.session.get('usuario_rol')=="Empleado" %}
                         <li><a href="#"><span class="iconic magnifying-glass"></span> Contratos</a>

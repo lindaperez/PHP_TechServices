@@ -33,10 +33,15 @@
                 <td width="40"></td>
                 <td width="80"><h1><strong>Fecha Reg.</strong></h1></td>
                 <td width="40"></td>
-                <td width="80"><strong>Acciones</strong></td>
+                <td width="80"><h1><strong>Estado</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Acciones</strong></h1></td>
                     
             </tr>
         </thead>
+         <thead><div align="left"> 
+                <h1><strong>No se encontraron coincidencias. </strong></h1></div>
+                </thead> 
         <tbody>
         {% for entity in entities %}
             <tr>
@@ -50,13 +55,15 @@
                 <td width="40"></td>
                 <td width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td width="40"></td>
+                <td width="80">Estado del Servicio </td>
+                <td width="40"></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">Ver/</a>
                     </li>
                     <li>
-                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>

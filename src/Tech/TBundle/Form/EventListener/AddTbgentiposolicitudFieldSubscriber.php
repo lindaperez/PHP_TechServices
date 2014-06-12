@@ -29,28 +29,7 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
  
     private function addTbgentiposolicitudForm($form, $tbgenespecsolicitud, $tbgentiposolicitud_id,
             $value)
-    {
-    if ($tbgentiposolicitud_id!==null){
-        $formOptions = array(
-            'class'         => 'TechTBundle:Tbgentiposolicitud',
-            'label'         => 'Tipo Solicitud: ',
-            'mapped'        => false,
-            'attr'          => array(
-                'class' => 'tbgentiposolicitud_selector',
-            ),
-            'query_builder' => function (EntityRepository $repository) use ($tbgentiposolicitud_id) {
-                $qb = $repository->createQueryBuilder('tbgentiposolicitud')
-                    ->where('tbgentiposolicitud.id = :id')
-                    ->setParameter('id', $tbgentiposolicitud_id)
-                ;
- 
-                return $qb;
-            }
-            );
-        
-        
-    }else{
-        
+    {    
         $formOptions = array(
             'class'         => 'TechTBundle:Tbgentiposolicitud',
             'empty_value'   => 'Seleccionar',
@@ -60,7 +39,7 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
                 'class' => 'tbgentiposolicitud_selector',
             ),
         );
-    }
+    
         if ($tbgentiposolicitud_id) {
                        $formOptions['data'] = $tbgentiposolicitud_id;
          //   print $tbgenespecsolicitud_id;

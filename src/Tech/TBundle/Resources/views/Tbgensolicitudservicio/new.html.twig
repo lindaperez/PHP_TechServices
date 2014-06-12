@@ -46,102 +46,121 @@
         <form action="{{ path('SolicitudServicio_create') }}" method="post" class="login">
               {{ form_start(form) }}
         {{ form_errors(form) }}  
-            <table>
-                         <div style="display: none;">     
+            <table width="800">
+                <tr>
+                        
+             <td id="campos5">
+                 
+                 <div class="error">
+                {{ form_errors(form.tbgentiposolicitud) }}</div>       
+                    <table>  <td width="115"><h2>1.</h2>
+                {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
+                        <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
+                    
+                 <td width="5"></td>
+                <div class="error" >
+                {{ form_errors(form.fkIidEspSol) }}</div>       
+                      <td width="118"><h2>2.</h2>
+                {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
+                        <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
+                 
+                 <td width="5"></td>
+                <div class="error" >
+                {{ form_errors(form.vdetalles) }}</div>       
+                      <td width="80"><h2>3.</h2>
+                {{ form_label(form.vdetalles, 'Detalles:') }}</td>
+                    <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
+                    </table>
+                 
+                 </td>
+                 
+             
+             
+             </tr>
+             <tr>
+                         
+             <td id="campos1">
+                 <div class="error">
+                {{ form_errors(form.vdescripcion) }}</div>       
+                    <table >  
+                    <td width="110"><h2>4.</h2>
+                    {{ form_label(form.vdescripcion, 'Descripción:') }}</td>
+                        <tr></tr>
+                    <td  width="110">{{ form_widget(form.vdescripcion,{'required': false}) }}</td>
+                    
+                    </table>
+             </td>
+              
+                <table id="campos3">
+                    <tr>
+                        <td width="115">
+                            <br><br>
+                            <h2>4.</h2> Datos Persona Contacto
+                            
+                        </td>
+                        
+                        </tr>
+                    <tr>
+                        <td width="300">
+                    <div class="error" id="det">
+                {{ form_errors(form.vpersona) }}</div>       
+                    <table> 
+                       <td width="115">
+                {{ form_label(form.vpersona, 'Nombre:') }}</td>
+                    <td>{{ form_widget(form.vpersona,{'required': false}) }}</td>
+                    </table>
+                            </td>
+                            <td width="10"></td>
+                    <td>
+                <div class="error" id="det">
+                {{ form_errors(form.vtelefono) }}</div>       
+                    <table>  <td width="80">
+                {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
+                    <td>{{ form_widget(form.vtelefono,{'required': false}) }}</td>
+                    </table>
+                   </td>
+                    <td width="10"></td>
+                   <td>
+                    <div class="error" id="det">
+                {{ form_errors(form.vcorreo) }}</div>       
+                    <table>  <td width="80">
+                {{ form_label(form.vcorreo, 'Correo:') }}</td>
+                    <td>{{ form_widget(form.vcorreo,{'required': false}) }}</td>
+                    </table>
+                    </td>
+                    </tr>                      
+                    </table>
+                    <table id="campos2">
+                    <tr>
+                    
+                    <div class="error" id="det">
+                    {{ form_errors(form.vdireccion) }}</div>       
+                    <td width="10">
+                    {{ form_label(form.vdireccion, 'Dirección:') }}
+                    {{ form_widget(form.vdireccion,{'required': false}) }}</td>
+                    
+                    </tr>
+                    
+                    </table>
+                     <h1><br></h1><br>
+                     <div style="display: none;">     
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
                 {{ form_row(form.fkIidUsuaDatos, {'required' : false})}}
                                       
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
                 </div>  
-             <td>
-     
-             </td>
-             <td>
-                 <div class="error">
-                {{ form_errors(form.tbgentiposolicitud) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
-                        <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
-                    </table>
-                 
-                <div class="error" >
-                {{ form_errors(form.fkIidEspSol) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
-                        <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
-                    </table>
-                 <div id="campos4">
-                <div class="error" >
-                {{ form_errors(form.vdetalles) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vdetalles, 'Detalles:') }}</td>
-                    <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
-                    </table>
-                 </div>
-                 </td>
-                 <td width="40">
-                     </td>
-                     <td id="campos1">
-                         
-                 <div class="error">
-                {{ form_errors(form.vdescripcion) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vdescripcion, 'Descripción:') }}</td>
-                    <td>{{ form_widget(form.vdescripcion,{'required': false}) }}</td>
-                    </table>
-             </td>
-                <td id="campos2">
-                    <div class="error" id="det">
-                {{ form_errors(form.vpersona) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vpersona, 'Persona Contacto:') }}</td>
-                    <td>{{ form_widget(form.vpersona,{'required': false}) }}</td>
-                    </table>
-                <div class="error" id="det">
-                {{ form_errors(form.vtelefono) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
-                    <td>{{ form_widget(form.vtelefono,{'required': false}) }}</td>
-                    </table>
-                    </td>
-                    <td width="40">
-                        </td>
-                    <td id="campos3">
-                    <div class="error" id="det">
-                {{ form_errors(form.vcorreo) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vcorreo, 'Correo:') }}</td>
-                    <td>{{ form_widget(form.vcorreo,{'required': false}) }}</td>
-                    </table>
-                    <div class="error" id="det">
-                {{ form_errors(form.vdireccion) }}</div>       
-                    <table>  <td width="95">
-                {{ form_label(form.vdireccion, 'Direccion:') }}</td>
-                    <td>{{ form_widget(form.vdireccion,{'required': false}) }}</td>
-                    </table>
-                    </td>
-                <td width="20"></td>
-                <td>
-                    <!--Campos ocultos -->
-      
-                </td>
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-                </tr>
-                {{ form_end(form) }} 
-            </table>       
-        </form>  <br>
-        <br>
-        
-        
-        <br>
+                  <td>
                     <p class="submit">   
-                        <input type="submit" name="commit" value="Siguiente">
+                        <input type="submit" name="commit" value="Guardar">
+                    </p>
+                    </td>
+                    </tr>
+                   
+                {{ form_end(form) }} 
                 
+            </table>       
+        </form>  
+                   
     </section>
 </div>
 {% block javascripts %}
@@ -151,10 +170,17 @@
      $('#campos1').hide();
      $('#campos2').hide();
      $('#campos3').hide();
+     $('#campos4').hide();  
+     
      //$('#campos4').hide();
             $(function() {
                 $(document).on('change', '.tbgentiposolicitud_selector', function() {
 //                    alert("Han cambiado mi valor");
+                        $('#campos1').hide();     
+                        $('#campos2').hide();     
+                        $('#campos3').hide();     
+                        $('#campos4').hide();     
+                        
                     var data = {
                         tbgentiposolicitud_id: $(this).val()
                     };
@@ -175,6 +201,7 @@
                                         $tbgenespecsolicitud_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
                                     }
                                     $tbgenespecsolicitud_selector .prop('disabled',false);  
+                                    
                                 }else{
                                     $tbgenespecsolicitud_selector .html('<option> No Seleccionar</option>');
                                     $tbgenespecsolicitud_selector .prop('disabled','disabled');  

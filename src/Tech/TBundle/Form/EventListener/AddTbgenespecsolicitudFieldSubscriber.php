@@ -69,7 +69,7 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
             $formOptions['data'] = $tbgenespecsolicitud_id;
             
         }     
-    
+        
         $form->add($this->propertyPathToTbgenespecsolicitud, 'entity', $formOptions);
         
     }
@@ -102,7 +102,7 @@ class AddTbgenespecsolicitudFieldSubscriber implements EventSubscriberInterface
  
         $tbgenespsol = array_key_exists('fkIidEspSol', $data) ? $data['fkIidEspSol'] : null;
         
-        
+     
         $this->addTbgenespecsolicitudForm($form,$tbgenespsol,$tbgenespsol);
 
       

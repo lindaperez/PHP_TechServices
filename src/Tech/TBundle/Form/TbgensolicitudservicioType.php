@@ -33,10 +33,10 @@ class TbgensolicitudservicioType extends AbstractType
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
-            ->add('vdescripcion','text',array( 'required' => false))
+            ->add('vdescripcion','textarea',array( 'required' => false))
             ->add('vpersona','text',array( 'required' => false))
             ->add('vtelefono','text',array( 'required' => false))
-            ->add('vdireccion','text',array( 'required' => false))
+            ->add('vdireccion','textarea',array( 'required' => false))
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
                 
