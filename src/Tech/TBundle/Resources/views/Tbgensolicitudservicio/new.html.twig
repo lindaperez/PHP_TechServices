@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
@@ -146,7 +146,7 @@
                      <div style="display: none;">     
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
                 {{ form_row(form.fkIidUsuaDatos, {'required' : false})}}
-                                      
+                {{ form_row(form.iid, {'required' : false})}}                      
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
                 </div>  
                   <td>
@@ -233,7 +233,7 @@
                         $('#campos4').show();     
                         
                   }else{
-                      if (($name==='Notas de Credito' || $name==='Motivo')){
+                      if (($name==='Notas de Credito' || $name==='Motivo A' || $name==='Motivo B')){
                         $('#campos1').show();     
                         $('#campos2').hide();     
                         $('#campos3').hide();     

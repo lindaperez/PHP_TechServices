@@ -2,6 +2,14 @@ SolicitudServicio:
     pattern:  /
     defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:index" }
 
+SolicitudServicio_index:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:index" }
+
+SolicitudServicio_search:
+    pattern:  /search
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:search" }
+
 SolicitudServicio_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:show" }

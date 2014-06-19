@@ -8,9 +8,10 @@
         <link href="{{ asset('bundles/techt/css/style.css') }}" rel="stylesheet" type="text/css" media="screen" />
      <link href="{{ asset('bundles/techt/css/styleform.css') }}" rel="stylesheet" type="text/css" media="screen" />
     <script src="{{ asset('bundles/techt/js/jquery-2.1.0.min.js') }}" type="text/javascript"></script>
-           
-     
-      
+         <link href="{{ asset('bundles/techt/css/rating.css') }}" rel="stylesheet" type="text/css" media="screen" />
+         <script src="{{ asset('bundles/techt/js/rate.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/techt/js/jquery-1.4.2.min.js') }}" type="text/javascript"></script>
+    
         {% block head %}
         {% endblock %}
     </head>
@@ -52,6 +53,7 @@
                         <li><a href="#"><span class="iconic plus-alt"></span> Servicios</a>
                         <ul>
                             <li><a href="{{ path('SolicitudServicio_new') }}">Solicitud de Servicio</a></li>
+                            <li><a href="{{ path('SolicitudServicio') }}">Consulta Solicitudes de Servicio</a></li>
                             <li><a href="{{ path('SolicitudServicio') }}">Listado de Solicitudes de Servicio</a></li>
                         </ul> 
                         </li>

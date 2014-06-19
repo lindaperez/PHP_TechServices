@@ -2,6 +2,18 @@ CalidadServicio:
     pattern:  /
     defaults: { _controller: "TechTBundle:TbgensolservCalserv:index" }
 
+CalidadServicio_calif:
+    pattern:  /calif
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:calif" }
+
+CalidadServicio_getcalif:
+    pattern:  /getcalif
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:getcalif" }
+
+CalidadServicio_popupcalif:
+    pattern:  /popupcalif
+    defaults: { _controller: "TechTBundle:TbgensolservCalserv:popupcalif" }
+
 CalidadServicio_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:TbgensolservCalserv:show" }

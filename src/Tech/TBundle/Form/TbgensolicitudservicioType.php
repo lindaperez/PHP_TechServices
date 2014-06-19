@@ -23,7 +23,11 @@ class TbgensolicitudservicioType extends AbstractType
         $propertyPathToTbgendetalle = 'vdetalles';
         $builder
 
-            ->add('dfechaCreacion','date',array( 'required' => false))
+
+            ->add('dfechaCreacion','date', array('required' => false,'label'=> 'Fecha Creación:',
+             'widget' => 'single_text'
+             // this is actually the default format for single_text
+             ))
             ->add('fkIidUsuaDatos')
             ->add('fkIidEspSol','choice',array( 'required' => true))
             ->add('vdetalles')
@@ -39,7 +43,7 @@ class TbgensolicitudservicioType extends AbstractType
             ->add('vdireccion','textarea',array( 'required' => false))
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
-                
+            ->add('iid','integer',array( 'required' => false))    
         ;
     }
     

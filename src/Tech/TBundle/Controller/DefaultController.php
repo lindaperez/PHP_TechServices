@@ -46,33 +46,8 @@ class DefaultController extends Controller
                 return $this->render('TechTBundle:Default:erroracceso.html.twig');
             }
         }
-        //print_r("End");
-        //PRueba CRM
-        /* NOTE: Define your mysql database parameters in moduleDependant class */
-
-        /* Constant Declarations */
-        define("TARGETURL", "https://crm.zoho.com/crm/private/xml/Leads/getMyRecords");
-
-        /* user related parameter */
-        define("AUTHTOKEN", "765bcbd04cea00ac192ad4545457b8ab");
-        define("SCOPE", "crmapi");
-
-        /* create a object */
-        $utilObj = new Utilities();
-
-
-        /* set parameters */
-        $parameter = "";
-        $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
-        $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
-        $parameter = $utilObj->setParameter("selectColumns", "Leads(LEADID,First Name,"
-                . "Last Name,Company)", $parameter);
-
-        /* Call API */
-        $response = $utilObj->sendCurlRequest(TARGETURL, $parameter);
-        $utilObj->parseXMLandInsertInDB($response);
         
-        
+
         
         return $this->render('TechTBundle:Default:index.html.twig');
     }

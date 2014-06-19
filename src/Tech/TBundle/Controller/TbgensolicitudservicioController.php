@@ -9,6 +9,8 @@ use Tech\TBundle\Entity\Tbgensolicitudservicio;
 use Tech\TBundle\Form\TbgensolicitudservicioType;
 use Tech\TBundle\Entity\Tbdetdetalleusuario;
 use Tech\TBundle\Controller\TbdetusuariodatosController;
+use Tech\TBundle\Entity\Utilities;
+
 
 use DateTime;
 /**
@@ -17,6 +19,79 @@ use DateTime;
  */
 class TbgensolicitudservicioController extends Controller
 {
+    public function searchAction() {
+        //Verificacion del empleado
+        
+        $request = $this->getRequest();
+        $verif = new TbdetusuariodatosController();
+        $verif1 = $verif->verifaccesoemplAction($request);
+        if ($verif1 == false) {
+            return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        $searchForm->handleRequest($request);
+        //Valores introducidos
+        $fecha=$searchForm['dfechaCreacion']->getData();
+        $especificacion=$searchForm['fkIidEspSol']->getData();
+        $codigo=$searchForm['iid']->getData();
+        
+        $tipo=null;
+        if ($especificacion!=null){
+            $tipo=$especificacion->getFkIidEspSol();
+        }
+        $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
+    if ($especificacion!=null || $fecha != null ||  $codigo != null) {
+
+            if ($codigo != null) {
+                $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
+            }
+            if ( $fecha!= null) {
+                $qb->andwhere('ss.dfechaCreacion=?2')->setParameter(2, $fecha);
+            }
+            if ($especificacion!= null) {
+                $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
+            }
+        
+        }
+         $query_pages=$qb->getQuery();
+             $entities =$query_pages->execute();
+        //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+            
+        return $this->render('TechTBundle:Tbgensolicitudservicio:index.html.twig', array(
+                    'entities' => $entities,
+                    'entity' => $entity_search,
+                    'search_form' => $searchForm->createView(),
+                    'pagination' => $pagination,
+        ));
+    }
+
+    /**
+     * Creates a form to edit a Tbgensolicitudservicio entity.
+     *
+     * @param Tbgensolicitudservicio $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSearchForm(Tbgensolicitudservicio $entity) {
+        $form = $this->createForm(new TbgensolicitudservicioType(), $entity, array(
+            'action' => $this->generateUrl('SolicitudServicio_index'),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Buscar'));
+        $form->add('reset', 'button', array('label' => 'Limpiar'));
+        return $form;
+    }
+
 
     /**
      * Lists all Tbgensolicitudservicio entities.
@@ -26,10 +101,55 @@ class TbgensolicitudservicioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->findAll();
+        //$entities = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->findAll();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
+        $query_pages=$qb->getQuery();
+        $entities =$query_pages->execute();
+            //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+        //print_r("End");
+        //PRueba CRM
+        /* NOTE: Define your mysql database parameters in moduleDependant class */
 
+        /* Constant Declarations */
+        define("TARGETURL", "https://crm.zoho.com/crm/private/xml/Cases/getMyRecords");
+
+        /* user related parameter */
+        define("AUTHTOKEN", "3a0bbe151b5ae35cbf3161aceb283386");
+        define("SCOPE", "crmapi");
+
+        /* create a object */
+        $utilObj = new Utilities();
+
+
+        /* set parameters */
+        $parameter = "";
+        $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+        $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+        $parameter2 = $utilObj->setParameter("selectColumns", "Cases(CASEID,Case Number,"
+                . "Case Owner,Case Origin,Subject,Account Name,Phone,Email,"
+                . "Status,Case Reason,Priority,Reported By)", $parameter);
+        $parameter = $utilObj->setParameter("selectColumns", "Cases(CASEID,Case Number,"
+                . "Case Owner,Case Origin,Subject,Account Name,Phone,Email,"
+                . "Status,Case Reason,Priority,Reported By)", $parameter);
+        
+        /* Call API */
+        $response = $utilObj->sendCurlRequest(TARGETURL, $parameter);
+        $utilObj->parseXMLandInsertInDB($response);
+        
+        
         return $this->render('TechTBundle:Tbgensolicitudservicio:index.html.twig', array(
-            'entities' => $entities,
+              'entities' => $entities,
+                'entity' => $entity_search,
+                'search_form' => $searchForm->createView(),
+                'pagination' => $pagination,
         ));
     }
     /**

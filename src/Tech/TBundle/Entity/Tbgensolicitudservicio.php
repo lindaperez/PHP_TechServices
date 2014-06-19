@@ -54,7 +54,20 @@ class Tbgensolicitudservicio
     private $vdireccion;
     private $vtelefono;
     private $vcorreo;
+    private $iid;
 
+      public function setIid($iid)
+    {
+        $this->iid= $iid;
+
+        return $this;
+    }
+
+    
+    public function getIid()
+    {
+        return $this->id;
+    }
     public function setVdetalles($vdetalles)
     {
         $this->vdetalles = $vdetalles;
