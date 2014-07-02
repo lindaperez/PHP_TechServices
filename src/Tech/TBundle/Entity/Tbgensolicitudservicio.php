@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbgensolicitudservicio
  *
- * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"})})
+ * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="fk_iID_ESTATUS", columns={"fk_iID_ESTATUS"})})
  * @ORM\Entity
  */
 class Tbgensolicitudservicio
@@ -55,29 +55,18 @@ class Tbgensolicitudservicio
     private $vtelefono;
     private $vcorreo;
     private $iid;
-    private $vestado;
-/**
-     * Set vestado
-     *
-     * @param string $vestado
-     * @return Tbgentiposolicitud
-     */
-    public function setVestado($vestado)
-    {
-        $this->vestado= $vestado;
-
-        return $this;
-    }
-
+    
     /**
-     * Get vestado
+     * @var \Tech\TBundle\Entity\Tbgenestatussolicitud
      *
-     * @return string 
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatussolicitud")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="id")
+     * })
      */
-    public function getVestado()
-    {
-        return $this->vestado;
-    }
+    private $fkIidEstatus;
+
+
       public function setIid($iid)
     {
         $this->iid= $iid;
@@ -249,6 +238,29 @@ class Tbgensolicitudservicio
         return $this->fkIidEspSol;
     }
 
+    /**
+     * Set fkIidEstatus
+     *
+     * @param \Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus
+     * @return Tbgensolicitudservicio
+     */
+    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus = null)
+    {
+        $this->fkIidEstatus = $fkIidEstatus;
+        return $this;
+    }
+
+    /**
+     * Get fkIidEstatus
+     *
+     * @return \Tech\TBundle\Entity\Tbgenestatussolicitud 
+     */
+    public function getFkIidEstatus()
+    {
+        return $this->fkIidEstatus;
+    }
+    
+    
         //to string method   
     public function __toString()
     {
@@ -257,3 +269,4 @@ class Tbgensolicitudservicio
     }
     
 }
+

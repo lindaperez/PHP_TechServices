@@ -8,6 +8,9 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
         fk_iID_TIPO_SOL:
             columns:
                 - fk_iID_ESP_SOL
+        fk_iID_ESTATUS:
+            columns:
+                - fk_iID_ESTATUS
     id:
         id:
             type: integer
@@ -40,6 +43,15 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             inversedBy: null
             joinColumns:
                 fk_iID_ESP_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEstatus:
+            targetEntity: Tbgenestatussolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESTATUS:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

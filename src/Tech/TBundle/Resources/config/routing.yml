@@ -141,3 +141,10 @@ TechTBundle_CalidadServicio:
     resource: "@TechTBundle/Resources/config/routing/tbgensolservcalserv.yml"
     prefix:   /CalidadServicio
 
+
+
+TechTBundle_EstadosSolicitud:
+    resource: "@TechTBundle/Resources/config/routing/tbgenestatussolicitud.yml"
+    prefix:   /EstadosSolicitud
+
+

@@ -60,15 +60,15 @@
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
                         <td width="5"></td>
                         <div class="error">
-                {{ form_errors(search_form.vestado) }}</div>       
+                {{ form_errors(search_form.fkIidEstatus) }}</div>       
                     <td width="130">
-                {{ form_label(search_form.vestado, 'Estado:') }}</td>
-                        <td>{{ form_widget(search_form.vestado,{'required': false })}}</td>
+                {{ form_label(search_form.fkIidEstatus, 'Estado:') }}</td>
+                    <td>{{ form_widget(search_form.fkIidEstatus,{'required': false })}}</td>
                         
                    </tr>
                    
                      <div style="display: none;">     
-                {{ form_row(search_form.vestado, {'required' : false})}}
+                
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      

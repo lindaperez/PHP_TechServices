@@ -1,0 +1,21 @@
+Tech\TBundle\Entity\Tbgenestatussolicitud:
+    type: entity
+    table: tbgenEstatusSolicitud
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+    lifecycleCallbacks: {  }

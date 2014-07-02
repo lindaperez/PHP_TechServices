@@ -37,12 +37,8 @@ class TbgensolicitudservicioType extends AbstractType
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
-            ->add('vestado','choice',array( 'required' => true, 'label'=>'Estado:',
-                'choices'   => array(
-                        'morning'   => 'En Espera',
-                        'afternoon' => 'Aprobada',
-                        'evening'   => 'Anulada',
-                    ),'empty_data' => 'Seleccionar' ))
+            ->add('fkIidEstatus','text',array( 'required' => true, 'label'=>'Estado:'
+                ,'empty_data' => 'Seleccionar' ))
             ->add('vdescripcion','textarea',array( 'required' => false,
                 'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
             ->add('vpersona','text',array( 'required' => false))

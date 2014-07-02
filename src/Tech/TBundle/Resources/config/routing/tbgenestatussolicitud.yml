@@ -1,0 +1,30 @@
+EstadosSolicitud:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:index" }
+
+EstadosSolicitud_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:show" }
+
+EstadosSolicitud_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:new" }
+
+EstadosSolicitud_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:create" }
+    requirements: { _method: post }
+
+EstadosSolicitud_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:edit" }
+
+EstadosSolicitud_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:update" }
+    requirements: { _method: post|put }
+
+EstadosSolicitud_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbgenestatussolicitud:delete" }
+    requirements: { _method: post|delete }

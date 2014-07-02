@@ -18,15 +18,6 @@ Tech\TBundle\Entity\TbdetreltiposolCalidadserv:
             generator:
                 strategy: IDENTITY
     manyToOne:
-        fkIcalServ:
-            targetEntity: Tbgencalidadservpreg
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iCAL_SERV:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkItipoSol:
             targetEntity: Tbgentiposolicitud
             cascade: {  }
@@ -34,6 +25,15 @@ Tech\TBundle\Entity\TbdetreltiposolCalidadserv:
             inversedBy: null
             joinColumns:
                 fk_iTIPO_SOl:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIcalServ:
+            targetEntity: Tbgencalidadservpreg
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCAL_SERV:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

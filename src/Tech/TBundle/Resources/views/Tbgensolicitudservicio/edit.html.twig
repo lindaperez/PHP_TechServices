@@ -112,10 +112,10 @@
                 <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
             </tr>
             <div class="error" id="det">
-                {{ form_errors(edit_form.vestado) }}</div>       
+                {{ form_errors(edit_form.fkIidEstatus) }}</div>       
                     <table>  <td width="210">
-                {{ form_label(edit_form.vestado, 'Estado:') }}</td>
-                    <td>{{ form_widget(edit_form.vestado,{'required': false}) }}</td>
+                {{ form_label(edit_form.fkIidEstatus, 'Estado:') }}</td>
+                    <td>{{ form_widget(edit_form.fkIidEstatus,{'required': false}) }}</td>
                     </table>
                 <tr>
                     <td width="95"></td>
