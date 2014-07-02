@@ -34,6 +34,7 @@ class AddTbgentiposolicitudFieldSubscriber implements EventSubscriberInterface
             'class'         => 'TechTBundle:Tbgentiposolicitud',
             'empty_value'   => 'Seleccionar',
             'label'         => 'Tipo Solicitud: ',
+           'invalid_message' => 'El valor del Tipo de Solicitud no puede ser vacio',
             'mapped'        => false,
             'attr'          => array(
                 'class' => 'tbgentiposolicitud_selector',

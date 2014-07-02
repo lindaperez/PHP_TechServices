@@ -115,35 +115,6 @@ class TbgensolicitudservicioController extends Controller
                 7/*limit per page*/
             );
         //print_r("End");
-        //PRueba CRM
-        /* NOTE: Define your mysql database parameters in moduleDependant class */
-
-        /* Constant Declarations */
-        define("TARGETURL", "https://crm.zoho.com/crm/private/xml/Cases/getMyRecords");
-
-        /* user related parameter */
-        define("AUTHTOKEN", "3a0bbe151b5ae35cbf3161aceb283386");
-        define("SCOPE", "crmapi");
-
-        /* create a object */
-        $utilObj = new Utilities();
-
-
-        /* set parameters */
-        $parameter = "";
-        $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
-        $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
-        $parameter2 = $utilObj->setParameter("selectColumns", "Cases(CASEID,Case Number,"
-                . "Case Owner,Case Origin,Subject,Account Name,Phone,Email,"
-                . "Status,Case Reason,Priority,Reported By)", $parameter);
-        $parameter = $utilObj->setParameter("selectColumns", "Cases(CASEID,Case Number,"
-                . "Case Owner,Case Origin,Subject,Account Name,Phone,Email,"
-                . "Status,Case Reason,Priority,Reported By)", $parameter);
-        
-        /* Call API */
-        $response = $utilObj->sendCurlRequest(TARGETURL, $parameter);
-        $utilObj->parseXMLandInsertInDB($response);
-        
         
         return $this->render('TechTBundle:Tbgensolicitudservicio:index.html.twig', array(
               'entities' => $entities,
@@ -203,10 +174,12 @@ class TbgensolicitudservicioController extends Controller
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
                     //DESPLIEGUE DE DETALLE
+                    if ($form['vdetalles']->getData()!=null){
                      $entity->setVdetalles($form['vdetalles']->getData()->getVdescripcion());
                      $det->setVdetalle($entity->getVdetalles());
                      $det->setFkIidSolUsu($entity);
                      $em->persist($det);
+                    }
                 
                 }elseif ($idEsp==7 || $idEsp==8 || $idEsp==9) {
                     print "8,9";
@@ -218,11 +191,43 @@ class TbgensolicitudservicioController extends Controller
                 }
                 
             }
-            print "VACIO";
+            
             $em->persist($entity);
             $em->flush();
     
-       
+            
+            define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
+            /* user related parameter */
+            define("AUTHTOKEN", "3a0bbe151b5ae35cbf3161aceb283386");
+            define("SCOPE", "crmapi");
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            $parameter = "";
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            $records = array(
+            'Case Number' => $entity->getId(),
+            'Case Owner' => 'SAC', 'Status' => 'Abierto',
+            'Priority' => 'RnX', 'Case Reason' => '---------------',
+            'Case Origin' => 'Web',
+            'Subject' => "Solicitud de: ".$entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol().
+                ". Especificación: ".$entity->getFkIidEspSol()->getVnombreEspSol(),
+            'Reported By' => 'Web', 
+            'Email' => $usu->getVcorreoEmail(),
+            'Phone' => $usu->getVtelfLocal(),
+            'Account Name' => $usu->getVnombre().$usu->getVapellido());
+            
+            $dataXml=$utilObj->parseXMLandInsertInBd($records);
+            if ($dataXml!=null){
+                print $dataXml;
+             }
+            $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
+            /* Call API */
+            $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
+            
+            /*CRM        * */
             return $this->redirect($this->generateUrl('SolicitudServicio_show', array('id' => $entity->getId())));
         }
 
@@ -272,6 +277,8 @@ class TbgensolicitudservicioController extends Controller
         $entity->setDfechaCreacion($date_changes);
         
         $form   = $this->createCreateForm($entity);
+        
+            
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -316,12 +323,15 @@ class TbgensolicitudservicioController extends Controller
                     $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
                    findOneBy(array('fkIidSolUsu'=>$entity));
                   //print $detalle->getVdetalle();
+                    if ($detalle!=null){
                   $entity->setVdetalles($detalle->getVdetalle());
                   //print $entity->getVdescripcion();
+                    }
               }  
-    
+        
         $deleteForm = $this->createDeleteForm($id);
-
+        
+           
         return $this->render('TechTBundle:Tbgensolicitudservicio:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
@@ -341,17 +351,38 @@ class TbgensolicitudservicioController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
-        //Buscar en la tabla detalle la solicitud
-        //Si//$detalle= $em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-             //   findOneBy(array('fkIidSolUsu'=>$id));
-        //Si//DETALLE print_r($detalle->getVdetalle());
-        //$entity->setVdetalles($detalle->getVdetalle());
+        //**
+        $idEsp=$entity->getFkIidEspSol()->getId();
+              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
+                  
+                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                          findOneBy(array('fkIidSolUsu'=>$entity));
+                  //print $detalle->getVdetalle();
+                  $entity->setVdescripcion($detalle->getVdetalle());
+                  //print $entity->getVdescripcion();
+                  
+              }elseif($idEsp==1 ){
+                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                          findBy(array('fkIidSolUsu'=>$entity));
+                  $entity->setVpersona($detalles[3]->getVdetalle());
+                  $entity->setVcorreo($detalles[1]->getVdetalle());
+                  $entity->setVdireccion($detalles[2]->getVdetalle());
+                  $entity->setVtelefono($detalles[0]->getVdetalle());
+                  
+                  print $entity->getVdescripcion();
+                  
+              }elseif ($idEsp==2 || $idEsp==5) {
+                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+                   findOneBy(array('fkIidSolUsu'=>$entity));
+                  //print $detalle->getVdetalle();
+                    if ($detalle!=null){
+                  $entity->setVdetalles($detalle->getVdetalle());
+                  //print $entity->getVdescripcion();
+                    }
+              }  
         
+        //**
         $editForm = $this->createEditForm($entity);
-        print $entity->getFkIidEspSol()->getId();
-        //$editForm['vdetalles']->setData($detalle->getVdetalle());
-        //$editForm['tbgentiposolicitud']->setData(2);
-        $editForm['vdetalles']->setData(array(1=>'carajo'));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TechTBundle:Tbgensolicitudservicio:edit.html.twig', array(
@@ -386,7 +417,7 @@ class TbgensolicitudservicioController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
 
         if (!$entity) {
@@ -399,7 +430,7 @@ class TbgensolicitudservicioController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+        
             return $this->redirect($this->generateUrl('SolicitudServicio_edit', array('id' => $id)));
         }
 

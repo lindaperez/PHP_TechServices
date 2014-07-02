@@ -21,21 +21,27 @@ class Utilities {
         return $parameter;
     }
 
-    public function parseXMLandInsertInDB($xmldata) {
+    public function parseXMLandPrintfields($xmldata) {
         $xmlString = <<<XML
 $xmldata 
 XML;
         $xml = simplexml_load_string($xmlString);
         if (isset($xml->result)) {
             $modeuleDependantObj = new moduleDependant();
-          //  $output = $modeuleDependantObj->insertInDB($xml);
             $output = $modeuleDependantObj->printObj($xml);
+            
         } else if (isset($xml->error)) {
             echo "Error code: " . $xml->error->code . "<br/>";
             echo "Error message: " . $xml->error->message;
         }
     }
-
+    
+    public function parseXMLandInsertInBd($records) {
+        
+            $modeuleDependantObj = new moduleDependant();
+            $outputDb = $modeuleDependantObj->loadXml($records);
+            return $outputDb;
+    }
     public function sendCurlRequest($url, $parameter) {
         try {
             /* initialize curl handle */

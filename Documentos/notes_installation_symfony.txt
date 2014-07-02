@@ -263,3 +263,40 @@ php5 app/console cache:clear --env=prod
  
 
 
+
+
+   BBuffaloBundle_ens_medidas:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbmedida.yml"
+        prefix:   /ens_medidas
+
+
+
+    BBuffaloBundle_ens_ingredientes:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbingrediente.yml"
+        prefix:   /ens_ingredientes
+
+
+
+    BBuffaloBundle_ens_platos:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbplato.yml"
+        prefix:   /ens_platos
+
+
+    BBuffaloBundle_ens_solicitud:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbcompra.yml"
+        prefix:   /ens_solicitud
+
+
+   BBuffaloBundle_ens_mesas:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbmesa.yml"
+        prefix:   /ens_mesas
+
+    BBuffaloBundle_ens_pedidos:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbrelcompraplato.yml"
+        prefix:   /ens_pedidos
+
+    BBuffaloBundle_ens_inventario:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbrelplatoingrediente.yml"
+        prefix:   /ens_inventario
+
+

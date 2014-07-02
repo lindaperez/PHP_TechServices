@@ -55,7 +55,29 @@ class Tbgensolicitudservicio
     private $vtelefono;
     private $vcorreo;
     private $iid;
+    private $vestado;
+/**
+     * Set vestado
+     *
+     * @param string $vestado
+     * @return Tbgentiposolicitud
+     */
+    public function setVestado($vestado)
+    {
+        $this->vestado= $vestado;
 
+        return $this;
+    }
+
+    /**
+     * Get vestado
+     *
+     * @return string 
+     */
+    public function getVestado()
+    {
+        return $this->vestado;
+    }
       public function setIid($iid)
     {
         $this->iid= $iid;

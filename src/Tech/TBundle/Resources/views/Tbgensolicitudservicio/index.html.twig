@@ -36,13 +36,14 @@
                       <td width="100"><h2>2.</h2>
                 {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
-                 <div class="error" >
-                     <td width="5"></td>
+                 <td width="5"></td>
+                        <div class="error" >
                 {{ form_errors(search_form.vdetalles) }}</div>       
                       <td width="95"><h2>3.</h2>
                 {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
                         <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
              
+                        
                      </tr>
                      
                         <tr>
@@ -57,11 +58,17 @@
                     <td width="130">
                 {{ form_label(search_form.dfechaCreacion, 'Fecha Creación:') }}</td>
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
+                        <td width="5"></td>
+                        <div class="error">
+                {{ form_errors(search_form.vestado) }}</div>       
+                    <td width="130">
+                {{ form_label(search_form.vestado, 'Estado:') }}</td>
+                        <td>{{ form_widget(search_form.vestado,{'required': false })}}</td>
                         
                    </tr>
                    
                      <div style="display: none;">     
-                
+                {{ form_row(search_form.vestado, {'required' : false})}}
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      

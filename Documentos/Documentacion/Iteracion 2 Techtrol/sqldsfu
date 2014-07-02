@@ -1,0 +1,11 @@
+}
+               /*
+               'query_builder' => function (EntityRepository $repository) use ($espsol_id) {
+           
+                $qb = $repository->createQueryBuilder('q')
+                        ->from('TechTBundle:Tbgenespecsolicitud', 'esp')
+                        ->join('esp.fkIidEspSol','fkIidEspSol')
+                        ->where('esp.fkIidEspSol= :id')
+                        ->setParameter('id', '2')
+                
+                */ ;

@@ -29,6 +29,7 @@ print_r("End");
         /* set parameters */
         $parameter = "";
         $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+	
         $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
         $parameter = $utilObj->setParameter("selectColumns", "Leads(LEADID,First Name,"
                 . "Last Name,Company)", $parameter);
@@ -42,3 +43,29 @@ print_r("End");
 #Mon Apr 14 14:25:55 PDT 2014
 AUTHTOKEN=765bcbd04cea00ac192ad4545457b8ab
 RESULT=TRUE
+
+
+//PRueba CRM
+        /* NOTE: Define your mysql database parameters in moduleDependant class */
+
+        /* Constant Declarations */
+        define("TARGETURLCON", "https://crm.zoho.com/crm/private/xml/Cases/getMyRecords");
+        /* user related parameter */
+        define("AUTHTOKEN", "3a0bbe151b5ae35cbf3161aceb283386");
+        define("SCOPE", "crmapi");
+
+        /* create a object */
+        $utilObj = new Utilities();
+
+
+        /* set parameters */
+        $parameter = "";
+        $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+        $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);        
+        $parameter = $utilObj->setParameter("selectColumns", "Cases(Case Number,"
+                . "Case Owner,Case Origin,Subject,Account Name,Phone,Email,"
+                . "Status,Case Reason,Priority,Reported By)", $parameter);
+        /* Call API */
+        $responseCON = $utilObj->sendCurlRequest(TARGETURLCON, $parameter);
+        $utilObj->parseXMLandPrintfields($responseCON);
+        

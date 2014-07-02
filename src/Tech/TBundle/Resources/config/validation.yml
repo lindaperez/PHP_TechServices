@@ -154,13 +154,14 @@ Tech\TBundle\Form\ForgotpassType:
                 max: 40
                 maxMessage: El correo {{ value }} debe tener máximo 40 números.
 Tech\TBundle\Entity\Tbgensolicitudservicio:
-       vcorreo:
+    properties:
+        vcorreo:
             - Email:
                 message: El corrreo "{{ value }}" no es un correo válido.
             - Length:
                 max: 40
                 maxMessage: El correo {{ value }} debe tener máximo 40 números.
-       vpersona:
+        vpersona:
             - Type:
                 type: string
                 message: El valor {{ value }} no es válido, debe ser una cadena de letras.
@@ -169,22 +170,22 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 match: false
                 message: El Nombre no debe contener números o caracteres especiales.
             - Length:
-                max: 25
+                max: 30
                 maxMessage: El nombre {{ value }} debe tener máximo 25 caracteres.
-       vtelefono:
+        vtelefono:
             - Regex:
                pattern: "/([0-9]{3})([0-9]{7})/"
                match:   true
                message: El teléfono debe contener 10 dígitos.
-       vdireccion:
+        vdireccion:
             - Type:
                 type: string
                 message: La dirección {{ value }} no es válida {{ type }}.
             - Regex:
-                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                pattern:  "/[\$\(\)\*\+\?\[\\\^\{\|!@%&_'`<>~#=\"\\/]/"
                 match: false
-                message: La dirección no debe contener números o caracteres especiales.
-       vdescripcion:
+                message: La dirección no debe contener caracteres especiales.
+        vdescripcion:
             - Type:
                 type: string
                 message: La descripción {{ value }} no es válida {{ type }}.
@@ -192,11 +193,15 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 pattern:  "/[\$\(\)\*\+\.\?\[\\\^\{\|!@%&_:;'`<>,~#=\"\\/]/"
                 match: false
                 message: La dirección no debe contener caracteres especiales.
-       vdetalles:
+        vdetalles:
             - Type:
-                type: string
+                type: choice
                 message: El detalle {{ value }} no es válido {{ type }}.
             - Regex:
-                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\{\|!@%&_:;'`,~#=\"\\/]/"
+                pattern:  "/[\$\(\)\*\+\?\[\\\^\{\|!@%&_'`~#\"\\/]/"
                 match: false
                 message: El detalle no debe contener caracteres especiales.
+            - 'Null':
+                message: Debe completar el campo de Detalle
+            - Blank: 
+                message: Debe completar el campo de Detalle 

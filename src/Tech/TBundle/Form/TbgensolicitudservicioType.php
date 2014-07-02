@@ -29,18 +29,27 @@ class TbgensolicitudservicioType extends AbstractType
              // this is actually the default format for single_text
              ))
             ->add('fkIidUsuaDatos')
-            ->add('fkIidEspSol','choice',array( 'required' => true))
-            ->add('vdetalles')
+            ->add('fkIidEspSol','choice',array( 'required' => false))
+            ->add('vdetalles','choice', array ('invalid_message' => 'Not an integer'))
             ->addEventSubscriber(new AddTbgentiposolicitudFieldSubscriber(
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgenespecsolicitudFieldSubscriber(
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
-            ->add('vdescripcion','textarea',array( 'required' => false))
+            ->add('vestado','choice',array( 'required' => true, 'label'=>'Estado:',
+                'choices'   => array(
+                        'morning'   => 'En Espera',
+                        'afternoon' => 'Aprobada',
+                        'evening'   => 'Anulada',
+                    ),'empty_data' => 'Seleccionar' ))
+            ->add('vdescripcion','textarea',array( 'required' => false,
+                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
             ->add('vpersona','text',array( 'required' => false))
             ->add('vtelefono','text',array( 'required' => false))
-            ->add('vdireccion','textarea',array( 'required' => false))
+            ->add('vdireccion','textarea',array( 'required' => false,
+                    'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px'),
+                ))
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
