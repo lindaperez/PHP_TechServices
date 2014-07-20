@@ -37,13 +37,13 @@ class TbgensolicitudservicioController extends Controller
         $fecha=$searchForm['dfechaCreacion']->getData();
         $especificacion=$searchForm['fkIidEspSol']->getData();
         $codigo=$searchForm['iid']->getData();
-        
+        $estatus=$searchForm['fkIidEstatus']->getData();
         $tipo=null;
         if ($especificacion!=null){
             $tipo=$especificacion->getFkIidEspSol();
         }
         $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
-    if ($especificacion!=null || $fecha != null ||  $codigo != null) {
+    if ($especificacion!=null || $fecha != null ||  $codigo != null || $estatus!=null) {
 
             if ($codigo != null) {
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
@@ -53,6 +53,9 @@ class TbgensolicitudservicioController extends Controller
             }
             if ($especificacion!= null) {
                 $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
+            }
+            if ($estatus!= null) {
+                $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
             }
         
         }
@@ -148,13 +151,13 @@ class TbgensolicitudservicioController extends Controller
             
             if($esp!=null){
                 $idEsp=$esp->getId();
-                print $idEsp;
+              //  print $idEsp;
                 $especif = $em->getRepository('TechTBundle:Tbgenespecsolicitud')
                     ->find($esp);
                 $entity->setFkIidEspSol($especif);
                 $det= new Tbdetdetalleusuario();
                 if ($idEsp==1){
-                    print "1";
+                 //   print "1";
                     //CAMPOS DE USUARIO
                     $det2= new Tbdetdetalleusuario();
                     $det3= new Tbdetdetalleusuario();
@@ -182,7 +185,7 @@ class TbgensolicitudservicioController extends Controller
                     }
                 
                 }elseif ($idEsp==7 || $idEsp==8 || $idEsp==9) {
-                    print "8,9";
+                  //  print "8,9";
                     //DESCRIPCION
                     $det->setVdetalle($entity->getVdescripcion());
                     $det->setFkIidSolUsu($entity);
@@ -198,7 +201,8 @@ class TbgensolicitudservicioController extends Controller
             
             define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
             /* user related parameter */
-            define("AUTHTOKEN", "3a0bbe151b5ae35cbf3161aceb283386");
+            define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
+            
             define("SCOPE", "crmapi");
             /* create a object */
             $utilObj = new Utilities();
@@ -208,7 +212,7 @@ class TbgensolicitudservicioController extends Controller
             $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
             $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
             $records = array(
-            'Case Number' => $entity->getId(),
+            'Case Number' => $entity->getId()+2000,
             'Case Owner' => 'SAC', 'Status' => 'Abierto',
             'Priority' => 'RnX', 'Case Reason' => '---------------',
             'Case Origin' => 'Web',
@@ -221,14 +225,23 @@ class TbgensolicitudservicioController extends Controller
             
             $dataXml=$utilObj->parseXMLandInsertInBd($records);
             if ($dataXml!=null){
-                print $dataXml;
+        //       print $dataXml;
              }
             $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
             /* Call API */
             $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
             
             /*CRM        * */
-            return $this->redirect($this->generateUrl('SolicitudServicio_show', array('id' => $entity->getId())));
+            $message_info = "Recuerde revisar su correo electrónico.";
+            $message_success= "Su solicitud ha sido registrada correctamente.";
+                $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+                $this->get('session')->getFlashBag()->add('flash_info', $message_info);
+                //Envio de correo de registro de caso 
+                $this->mailer($entity,$usu->getVcorreoEmail(),$usu->getVnombre(),'TechTBundle:Tbgensolicitudservicio:mail.html.twig');
+        return $this->render('TechTBundle:Tbgensolicitudservicio:confirm.html.twig', array('id' => $entity->getId(),
+
+            'form'   => $form->createView(),
+        ));
         }
 
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
@@ -263,6 +276,7 @@ class TbgensolicitudservicioController extends Controller
     public function newAction()
     {
         $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
         $method= new TbdetusuariodatosController();
         $verif = $method->verifaccesoemplAction($request);
         if ($verif == false) {
@@ -276,6 +290,13 @@ class TbgensolicitudservicioController extends Controller
         $date_changes = new DateTime('NOW');
         $entity->setDfechaCreacion($date_changes);
         
+        $contratos= $em->getRepository('TechTBundle:Tbdetusuariocontrato')->
+                findBy(array('fkIci'=>$entity->getFkIidUsuaDatos()));
+        
+        $entity->setContratos($contratos);
+        
+        $fkIidEstatus= $em->getRepository('TechTBundle:Tbgenestatussolicitud')->find(3);
+        $entity->setFkIidEstatus($fkIidEstatus);
         $form   = $this->createCreateForm($entity);
         
             
@@ -317,7 +338,7 @@ class TbgensolicitudservicioController extends Controller
                   $entity->setVdireccion($detalles[2]->getVdetalle());
                   $entity->setVtelefono($detalles[0]->getVdetalle());
                   
-                  print $entity->getVdescripcion();
+                //  print $entity->getVdescripcion();
                   
               }elseif ($idEsp==2 || $idEsp==5) {
                     $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
@@ -346,8 +367,7 @@ class TbgensolicitudservicioController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
-        //Cargar parametors del Entitty
-        //$entity = new Tbgensolicitudservicio();
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
@@ -369,7 +389,7 @@ class TbgensolicitudservicioController extends Controller
                   $entity->setVdireccion($detalles[2]->getVdetalle());
                   $entity->setVtelefono($detalles[0]->getVdetalle());
                   
-                  print $entity->getVdescripcion();
+               //   print $entity->getVdescripcion();
                   
               }elseif ($idEsp==2 || $idEsp==5) {
                     $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
@@ -419,21 +439,35 @@ class TbgensolicitudservicioController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
-
+        $entity_old = $entity;
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
-
+        
+        
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
+        $estatus=$editForm['fkIidEstatus']->getData()->getVdescripcion();
         $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
         
+        if ($editForm->isValid()) {
+            if ($estatus!=$entity_old->getFkIidEstatus()->getVdescripcion()){
+                //print "true";
+                $usu=$entity_old->getFkIidUsuaDatos();
+                
+                $this->mailer($entity_old,$usu->getVcorreoEmail(),
+                            $usu->getVnombre(),
+                            'TechTBundle:Tbgensolicitudservicio:mailCamEstado.html.twig');
+                }
+            $em->flush();
+        $message_info = "Recuerde revisar su correo electrónico.";
+            $message_success= "Su solicitud ha sido editada correctamente.";
+                $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+                $this->get('session')->getFlashBag()->add('flash_info', $message_info);
             return $this->redirect($this->generateUrl('SolicitudServicio_edit', array('id' => $id)));
         }
-
+        
         return $this->render('TechTBundle:Tbgensolicitudservicio:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -480,4 +514,19 @@ class TbgensolicitudservicioController extends Controller
             ->getForm()
         ;
     }
+      public function mailer($entity,$to, $vnombre,$url) {
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Techtrol Registro de caso exitoso')
+                ->setFrom('techtroll.ve@gmail.com')
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                        $url, array('entity' => $entity,'vnombre'=>$vnombre)
+                )
+                , 'text/html')
+        ;
+        $this->get('mailer')->send($message);
+    }
+
 }

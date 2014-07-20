@@ -319,9 +319,8 @@ class TbdetusuariodatosController extends Controller {
                 $g_password = $this->makekey();
                 $g_userInter = $this->makepassword($g_userName, $g_password);
                 
-                
                 $entity->setVclave($g_userInter->getVclave());
-             
+                /*Fin Clave*/
                 
                 $usuario_acceso = new Tbdetusuarioacceso();
                 $usuario_acceso->setFkIci($entity);
@@ -395,11 +394,6 @@ class TbdetusuariodatosController extends Controller {
         $entity = new Tbdetusuariodatos();
         $entity->setVtipoCi("V-");
         $entity->setVclave(0000);
-         //print "clave:: ";
-         //print_r ($g_password);
-         //print " ";
-        //print_r( $entity->getVclave());
-        //print "finclave ";
         $contrato_registro = new Tbdetusuariocontrato();
         $entity->getContratos()->add($contrato_registro);
         $form = $this->createCreateForm($entity);
@@ -658,7 +652,7 @@ class TbdetusuariodatosController extends Controller {
                             $funciones = $em->getRepository('TechTBundle:Tbdetrolfuncion')
                                     ->findBy(array('fkIidRol' => $acceso->getFkIidRol()));
                             if ($funciones != null) {
-                                print ("SI HAY FUNCIONES");
+                                //print ("SI HAY FUNCIONES");
                                 $this->mailerStatus($entity, $funciones, true, $to);
                             }
                         }

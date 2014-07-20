@@ -300,3 +300,19 @@ php5 app/console cache:clear --env=prod
         prefix:   /ens_inventario
 
 
+   BBuffaloBundle_ens_edoMesa:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbestadomesa.yml"
+        prefix:   /ens_edoMesa
+
+
+
+ BBuffaloBundle_ens_edoPlato:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbestadoplato.yml"
+        prefix:   /ens_edoPlato
+
+    BBuffaloBundle_ens_edoIngrediente:
+        resource: "@BBuffaloBundle/Resources/config/routing/tbestadoing.yml"
+        prefix:   /ens_edoIngrediente
+
+
+

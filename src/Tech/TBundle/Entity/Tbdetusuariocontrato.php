@@ -133,7 +133,7 @@ class Tbdetusuariocontrato
     public function __toString()
     {
 
-    return strval($this->id);
+    return strval($this->getFkInroContrato()->getPkInroContrato()).'--'.$this->getFkInroContrato()->getFkIrif()->getPkIrif();
     
     
 }

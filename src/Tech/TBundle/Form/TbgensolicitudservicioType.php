@@ -1,5 +1,4 @@
 <?php
-
 namespace Tech\TBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -10,6 +9,9 @@ use Tech\TBundle\Form\TbgenestatusregistrousuType;
 use Tech\TBundle\Form\EventListener\AddTbgenespecsolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgentiposolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgendetalleFieldSubscriber;
+use Tech\TBundle\Entity\Tbgenestatussolicitud;
+use Doctrine\ORM\EntityRepository;
+
 
 class TbgensolicitudservicioType extends AbstractType
 {
@@ -19,12 +21,13 @@ class TbgensolicitudservicioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $propertyPathToTbgenespecsolicitud = 'fkIidEspSol';
         $propertyPathToTbgendetalle = 'vdetalles';
+        
+
         $builder
-
-
-            ->add('dfechaCreacion','date', array('required' => false,'label'=> 'Fecha Creación:',
+             ->add('dfechaCreacion','date', array('required' => false,'label'=> 'Fecha Creación:',
              'widget' => 'single_text'
              // this is actually the default format for single_text
              ))
@@ -37,11 +40,10 @@ class TbgensolicitudservicioType extends AbstractType
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
-            ->add('fkIidEstatus','text',array( 'required' => true, 'label'=>'Estado:'
-                ,'empty_data' => 'Seleccionar' ))
-            ->add('vdescripcion','textarea',array( 'required' => false,
-                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
+            ->add('fkIidEstatus')
             ->add('vpersona','text',array( 'required' => false))
+                ->add('vdescripcion','textarea',array( 'required' => false,
+                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
             ->add('vtelefono','text',array( 'required' => false))
             ->add('vdireccion','textarea',array( 'required' => false,
                     'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px'),
@@ -49,6 +51,9 @@ class TbgensolicitudservicioType extends AbstractType
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
+            ->add('contratos','entity', array('empty_value'=>'Seleccionar',
+                'class' => 'Tech\TBundle\Entity\Tbdetusuariocontrato',
+             ))
         ;
     }
     

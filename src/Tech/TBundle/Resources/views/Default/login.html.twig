@@ -6,7 +6,7 @@
     <div class="error">{{ error.message | replace({
         "Bad credentials": "Error:  Inválido Usuario o Contraseña."})}}</div>
 {% endif %}
-<br>
+
     <p>
         Introduzca su cédula y contraseña para acceder.  <strong><em>(Ejemplo: 18915768/kLoMuW)</em></strong> 
     </p>
@@ -25,7 +25,7 @@
         </table>
         <table>
         <br>
-        <br>
+        
         <li><a href="{{ path('forgotpass') }}">¿Olvidó su Contraseña?</a></li>  
         </table>
         <div align="right">

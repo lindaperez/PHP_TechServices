@@ -1,9 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-
 <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<h1>Solicitud de Servicio</h1>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
@@ -34,9 +32,10 @@
 <div class="isa_success">
         {{ flashMessage }}
     </div>
+
 {% endfor %}
  
-
+<h1>Solicitud de Servicio</h1>
 
 <div class="container" >
 
@@ -58,27 +57,21 @@
                 {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
                     
-                 <td width="20"></td>
+                 <td width="5"></td>
                 <div class="error" >
                 {{ form_errors(form.fkIidEspSol) }}</div>       
                  <td><h2>2. </h2></td><td width="100">
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
                  
-                 <td width="20"></td>
+                 <td width="5"></td>
                 <div class="error" >
                 {{ form_errors(form.vdetalles) }}</div>       
                       <td><h2>3. </h2></td><td width="80">
                 {{ form_label(form.vdetalles, 'Detalles:') }}</td>
                     <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
-                    <td width="20"></td>
-                  <div class="error">
-                {{ form_errors(form.contratos) }}</div>       
-                    <table>  <td><h2>4. </h2></td><td width="80">
-                {{ form_label(form.contratos, 'Contratos:') }}</td>
-                        <td>{{ form_widget(form.contratos,{'required': true}) }}</td>
                     </table>
-                    
+                 
                  </td>
              </tr>
              <tr>
@@ -94,29 +87,27 @@
                     
                     </table>
              </td>
-             
-             
-              <br>
+              
                 <table id="campos3">
-                    <tr><br><br>
-                        <td align="left" width="90">
-                         <label align="left"><h1><strong> Datos Persona Contacto: </strong></h1></label> </td>
+                    <tr>
+                        <td width="115"><h2>4.</h2>
+                         <label> Datos Persona Contacto: </label> </td>
                         </tr>
                     <tr>
                         <td width="300">
                            
                     <table> 
-                       <td width="90">
+                       <td width="115">
                 {{ form_label(form.vpersona, 'Nombre:') }}</td>
                     <td>{{ form_widget(form.vpersona,{'required': false}) }}</td>
                     </table>
                             <div class="error" id="det">
                 {{ form_errors(form.vpersona) }}</div>
                             </td>
-                            <td width="10   "></td>
+                            <td width="10"></td>
                     <td>
                        
-                    <table>  <td width="90">
+                    <table>  <td width="80">
                 {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
                     <td>{{ form_widget(form.vtelefono,{'required': false}) }}</td>
                     </table>
@@ -156,18 +147,18 @@
                 {{ form_row(form.iid, {'required' : false})}}                      
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
                 </div>  
-                  <td>
-                    <p class="submit">   
-                        <input type="submit" name="commit" value="Guardar">
-                    </p>
-                    </td>
+                
                     </tr>
                    
                 {{ form_end(form) }} 
                 
-            </table>       
+            </table>
+            
         </form>  
-                   
+                
+                <a href="{{ path('SolicitudServicio_new') }}">
+               << Volver
+            </a>   
     </section>
 </div>
 {% block javascripts %}

@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Techtrol</title>
+        <link href="/bundles/framework/css/structure.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/bundles/framework/css/body.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/bundles/techt/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+     
+            <link rel="stylesheet" href="/bundles/acmedemo/css/demo.css" />
+    
+    </head>
+    <body>
+
+        <div id="content">
+            <div class="header clear-fix">
+                           <div class="sf-reset">
+                    <br><br>
+         
+        <div style="clear: both"></div>
+    
+    <div class="block">
+            <h1 class="title">Solicitud de Servicio Techtrol.</h1>
+ 
+       <p> Hola, <strong>{{ vnombre }}</strong>, esperamos que tengas un buen dia.
+           <br><br>Le informamos que su caso fue  <strong>{{entity.fkIidEstatus.vdescripcion}}.</strong> <em></em> <br>
+           <br><br>Sus datos registrados fueron los siguientes:  <em></em> <br>
+      
+    <table class="record_properties">
+        <br><br>
+             <tr>
+                <td width="210" height="20">Número de Caso: </td>
+                <td><em>{{ entity.id }}</em></td>
+            </tr>
+            <tr>
+                <td width="210" height="20">Usuario </td>
+                <td><em>{{ entity.fkIidUsuaDatos.vnombre }} {{ entity.fkIidUsuaDatos.vapellido }}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Tipo Solicitud: </td>
+                 <td><em>{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol }}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Especificación: </td>
+                <td><em>{{ entity.fkIidEspSol.vnombreEspSol }}</em></td>
+            </tr>
+            {%if ((entity.fkIidEspSol.id==7) or 
+                    (entity.fkIidEspSol.id==8) or
+                     (   entity.fkIidEspSol.id==9))  %}
+            <tr>
+                 <td width="210" height="20">Descripción: </td>
+                <td><em>{{ entity.vdescripcion }}</em></td>
+            </tr>
+            
+
+            {% elseif((entity.fkIidEspSol.id==2) or (entity.fkIidEspSol.id==5))%}
+            <tr>
+                 <td width="210" height="20">Detalle: </td>
+                <td><em>{{ entity.vdetalles }}</em></td>
+            </tr>
+            
+                    {% elseif(entity.fkIidEspSol.id==1 )%}
+            <tr>
+                 <td width="210" height="20">Persona: </td>
+                 <td><em>{{ entity.vpersona}}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Correo: </td>
+                <td><em>{{ entity.vcorreo}}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Telefono:  </td>
+                <td><em>{{ entity.vtelefono }}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Direccion: </td>
+                <td><em>{{ entity.vdireccion}}</em></td>
+                    
+                {%endif %}
+            <tr>
+                 <td width="210" height="20">Fecha Creación: </td>
+                <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
+            </tr>
+            <!-- -->
+            
+            
+            <!-- -->
+            
+        </tbody>
+    </table>
+   
+        </div>
+
+            </div>
+        </div>
+            </div>
+    
+
+</body>
+</html>

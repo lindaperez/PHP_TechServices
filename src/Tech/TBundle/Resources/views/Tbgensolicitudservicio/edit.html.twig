@@ -1,35 +1,34 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-
+<h1>Edición de Solicitud de Servicio</h1>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('flash_warning') %}
 <div class="isa_warning">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('flash_error') %}
 <div class="isa_error">
         {{ flashMessage }}
 </div>
-<br><br>
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('flash_success') %}
 <div class="isa_success">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 
-<h1>Edición de Solicitud de Servicio</h1>
+
 
 <div class="container" >
 
@@ -115,7 +114,7 @@
                 {{ form_errors(edit_form.fkIidEstatus) }}</div>       
                     <table>  <td width="210">
                 {{ form_label(edit_form.fkIidEstatus, 'Estado:') }}</td>
-                    <td>{{ form_widget(edit_form.fkIidEstatus,{'required': false}) }}</td>
+                    <td>{{ form_widget(edit_form.fkIidEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
                     </table>
                 <tr>
                     <td width="95"></td>
@@ -140,7 +139,7 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('SolicitudServicio') }}">
-            Listado de Solicitudes de Servicios
+          Volver  Listado de Solicitudes de Servicios
         </a>
     </li>
 

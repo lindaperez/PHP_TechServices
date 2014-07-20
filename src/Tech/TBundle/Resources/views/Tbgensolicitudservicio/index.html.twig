@@ -21,25 +21,25 @@
         {{ form_errors(search_form) }}  
         
 
-            <table border="1" cellpadding="1" cellspacing="1">
+            <table border="0" cellpadding="1" cellspacing="1">
              
                    <tr>
                  <div class="error">
                 {{ form_errors(search_form.tbgentiposolicitud) }}</div>       
-                    <td width="100"><h2>1.</h2>
+                   <td><h2>1.</h2></td><td width="115">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
                     
                  <td width="5"></td>
                 <div class="error" >
                 {{ form_errors(search_form.fkIidEspSol) }}</div>       
-                      <td width="100"><h2>2.</h2>
+                 <td><h2>2.</h2></td><td width="100">
                 {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
                  <td width="5"></td>
                         <div class="error" >
                 {{ form_errors(search_form.vdetalles) }}</div>       
-                      <td width="95"><h2>3.</h2>
+                   <td>   <h2>3.</h2></td><td width="95">
                 {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
                         <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
              
@@ -49,21 +49,21 @@
                         <tr>
                  <div class="error">
                 {{ form_errors(search_form.iid) }}</div>       
-                    <td width="145">
+                        <td></td><td width="115">
                 {{ form_label(search_form.iid, 'Código Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.iid,{'required': false}) }}</td>
                         <td></td>
                      <div class="error">
                 {{ form_errors(search_form.dfechaCreacion) }}</div>       
-                    <td width="130">
+                    <td></td><td width="130">
                 {{ form_label(search_form.dfechaCreacion, 'Fecha Creación:') }}</td>
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
                         <td width="5"></td>
                         <div class="error">
                 {{ form_errors(search_form.fkIidEstatus) }}</div>       
-                    <td width="130">
+                    <td></td><td width="90">
                 {{ form_label(search_form.fkIidEstatus, 'Estado:') }}</td>
-                    <td>{{ form_widget(search_form.fkIidEstatus,{'required': false })}}</td>
+                    <td>{{ form_widget(search_form.fkIidEstatus,{'required': false,'empty_value':'Seleccionar' })}}</td>
                         
                    </tr>
                    
@@ -75,13 +75,13 @@
                 {{ form_row(search_form.vtelefono, {'required' : false})}}                      
                 {{ form_row(search_form.vdireccion, {'required' : false})}}                      
                 {{ form_row(search_form.vdescripcion, {'required' : false})}}                      
+                
                 {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}        
                 {{ form_row(search_form.reset, { 'label': 'Limpiar' }) }}  
                 </div> 
                    <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td></td><td></td>
+                            <td></td><td></td><td></td><td></td>
                             <td></td><td></td><td></td><td></td>
                   <td><br>
                     <p class="submit">   
@@ -113,7 +113,7 @@
             {% if (pagination.getTotalItemCount!=0) %}
             <thead> 
                 <tr>
-                <td width="80"><h1 ><strong>Nro Solicitud</strong></h1></td>
+                <td width="80"><h1 ><strong>Nro Caso</strong></h1></td>
                 <td width="40"></td>
                 <td width="80"><h1><strong>Usuario</strong></h1></td>
                 <td width="40"></td>
@@ -155,7 +155,7 @@
                 <td width="100">
                     <br>
                     <div id="extern{{entity.id}}">
-                    <div id="dialog{{entity.id}}"  align="center"  onclick="javascript:popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'});"  />                      
+                    <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'});"  />                      
                     <img type=image src="/bundles/techt/images/star1.gif" />
                     </div>  
                     </div>    
@@ -180,7 +180,7 @@
            </tbody>
         </table>
     </section>
-    
+    <br>
     <ul>
         <li>
             <a href="{{ path('SolicitudServicio_new') }}">
@@ -256,9 +256,6 @@ popup= function(options) {
     //$(".ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").remove();
     
     };
-   
-   
-   
    
 </script>
 

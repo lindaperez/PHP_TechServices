@@ -30,7 +30,6 @@
 {% endfor %}
 
 <h1>Edición de Solicitud de Registro</h1>
-
 <div class="container" >
 
     <section class="register">
@@ -140,7 +139,7 @@
          
             
     <li>            
-        <table>  <tr>
+        <table >  <tr>
             <td>
                 {% if k==1 %}
                 <h1>Contrato: </h1>                 
@@ -219,10 +218,10 @@
 
             // setup an "add a tag" link
 
-            var $addTbdetcontratorifLink = $('<a href="#" class="add_tbdetcontratorif_link">Agregar</a><');
-
-            var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
-
+            //var $addTbdetcontratorifLink = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
+            var $newLinkLi = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
+            //var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
+            
 
             jQuery(document).ready(function() {
                 // Get the ul that holds the collection of tags
@@ -253,7 +252,7 @@
 
             });
             function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
-                var $removeFormA = $('<table align="right"><td><a href="#">Quitar</a></td></table>');
+                var $removeFormA = $('<table width="380" align="right"><td><a href="#">Quitar</a></td></table>');
                 $contratoFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function(e) {
@@ -285,18 +284,24 @@
                 var newForm = prototype.replace(/__name__/g, index);
 
                 //var newFormD = "<label for=tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif>Empresa: </label><select id='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
-                var newFormD = "<select id='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select>";
+                //var tdForm= "<td width='20'></td>";
+                var newFormD = "<div><select id= 'tech_tbundle_tbdetusuariodatos_contratos_" + 
+                        index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + 
+                        index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select></div>";
                 // increase the index with one for the next item
                 $collectionHolder.data('index', index + 1);
 
                 // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm).append(newFormD);
-                alert("Type: "+ $newFormLi);
+                
+                var $newFormLi = $('<li><table id="tabla"><td>'+newForm+
+                        '</td><td width="20"></td><td>'+newFormD+'</td></table></li>');
+                
                 $newFormLi.each(function() {
                 var text = $(this).html();
-                text = text.replace('<div', '<td');
+                //text = text.replace('<div', '<td ');
                 $(this).html(text);
                 });
+                
                 
                 $newLinkLi.before($newFormLi);
                 
@@ -312,6 +317,7 @@
                 var $cucu5 = $('#tech_tbundle_tbdetusuariodatos_contratos_' + index).find(':first');
                 var $cucu6 = $cucu5.css('display', 'none');
                 var $cucu8 = $("label[for='tech_tbundle_tbdetusuariodatos_contratos_" + index + "_fkInroContrato']").text(" ");
+                $("#tech_tbundle_tbdetusuariodatos_contratos_" + index + "_tbdetcontratorif").prop('disabled','disabled');
             }
 
         </script>

@@ -151,6 +151,6 @@ class Tbdetempresa
     public function __toString()
     {
         
-    return strval($this->getVnombre());
+    return strval($this->pkIrif);
     }
 }

@@ -65,8 +65,19 @@ class Tbgensolicitudservicio
      * })
      */
     private $fkIidEstatus;
+    private $contratos;
 
+    public function setContratos($contratos)
+    {
+        $this->contratos= $contratos;
 
+        return $this;
+    }
+
+    public function getContratos()
+    {
+        return $this->contratos;
+    }
       public function setIid($iid)
     {
         $this->iid= $iid;
