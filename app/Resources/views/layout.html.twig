@@ -9,21 +9,40 @@
 
 {% block body %}
 
-<br><br>
     {% block content_header %}
-        <ul id="menu">
+
+        
             
             {% block content_header_more %}
             
             
     {{ parent() }}
     {% if app.user!=null %}
-    <li>Bienvenido, <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> ::{{app.session.get('usuario_rol')}}
- ::{{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} <a href="{{ path('logout') }}">Salir</a></ul>
-    
+            <table>
+                <tr><td width="780" align="left">
+ (  {{app.session.get('usuario_rol')}}
+ {{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} )
+ Bienvenido, <h4><strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> </h4>
+ 
+</td>
+<td><a href="{{ path('logout') }}"><h4>Salir</h4></a></td>
+</tr>
+
+
+</table>
+<br>
     {% else %}
-    <a href="{{ path('Registro_new') }}">Registrarse</a>
-    <a href="{{ path('login') }}">Ingresar</a>
+<table>
+    <tr>
+        <td width="780" align="right">
+            <ul>
+    <li><strong><a href="{{ path('Registro_new') }}"><h4>Registrarse/ </h4></a></strong></li></ul>
+   </td>
+   <td width="0" align="right">
+       <ul><li><strong><a href="{{ path('login') }}"><h4>Ingresar</h4></a></strong></li></ul>
+    </td>
+    </tr>
+    </table>
     {% endif%}
             {% endblock %}
                 
@@ -36,6 +55,7 @@
         {% block content %}
         
 {% endblock %}
+        <br><br>
 </div>
 
 {% endblock %}

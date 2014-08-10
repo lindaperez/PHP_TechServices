@@ -136,7 +136,7 @@ class DefaultController extends Controller
         if ($form->isValid()) {
         //Buscar usuario con ese correo especifico
             
-            $usuario= new \Tech\TBundle\Entity\Tbdetusuariodatos();
+            //$usuario= new \Tech\TBundle\Entity\Tbdetusuariodatos();
             $em = $this->getDoctrine()->getManager();
             $usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
         ->findOneBy(array('vcorreoEmail' => $form['vcorreoEmail']->getData(),
@@ -157,6 +157,7 @@ class DefaultController extends Controller
                 //Si se envio entonces guardar sino reportar error
                 $result=$this->mailerPass($usuario->getVnombre(),
                         $g_userName, $g_password,$usuario->getVcorreoEmail());
+                
                 if($result==1){
                     $em->flush();
                 
@@ -164,7 +165,10 @@ class DefaultController extends Controller
                 $message_info = "Recuerde revisar su correo electrónico para poder ingresar al sistema.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
                 $this->get('session')->getFlashBag()->add('flash_info', $message_info);
-                return $this->render('TechTBundle:Default:successOlvidoContrasena.html.twig');
+                
+                return $this->render('TechTBundle:Default:successOlvidoContrasena.html.twig',array(
+                             'entity' => $usuario,
+                ));
                 }
                 
             }

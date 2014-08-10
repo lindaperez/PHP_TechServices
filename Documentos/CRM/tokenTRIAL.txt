@@ -1,7 +1,12 @@
+
+https://crm.zoho.com/crm/private/xml/Cases/getMyRecords?authtoken=e5ad26c35e964eb149030ae6cfe00363&scope=crmapi
+
 1. Registro 
 
 https://accounts.zoho.com/apiauthtoken/nb/create?SCOPE=ZohoCRM/crmapi&EMAIL_ID=alberto.jose.perez.lobo@gmail.com&PASSWORD=2535linda
 
+
+s
 #
 #Wed Jun 18 13:11:54 PDT 2014
 AUTHTOKEN=3a0bbe151b5ae35cbf3161aceb283386

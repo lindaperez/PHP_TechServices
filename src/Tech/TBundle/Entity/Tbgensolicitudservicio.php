@@ -65,18 +65,47 @@ class Tbgensolicitudservicio
      * })
      */
     private $fkIidEstatus;
-    private $contratos;
-
-    public function setContratos($contratos)
+        
+    
+    private $contrato;
+        
+  
+    public function serialize()
     {
-        $this->contratos= $contratos;
-
-        return $this;
+        return serialize(array(
+            $this->id,
+       
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
-    public function getContratos()
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
     {
-        return $this->contratos;
+        list (
+            $this->id,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }    
+    
+
+    
+
+    public function setContrato($contrato)
+    {
+          
+        $this->contrato= $contrato;
+
+    }
+
+    
+    public function getContrato()
+    {
+        return $this->contrato;
     }
       public function setIid($iid)
     {

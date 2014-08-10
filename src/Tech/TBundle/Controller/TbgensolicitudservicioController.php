@@ -19,6 +19,138 @@ use DateTime;
  */
 class TbgensolicitudservicioController extends Controller
 {
+    public function searchuserAction() {
+        //Verificacion del empleado
+        
+        $request = $this->getRequest();
+        $verif = new TbdetusuariodatosController();
+        $verif1 = $verif->verifaccesouserAction($request);
+        if ($verif1 == false) {
+            return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        $searchForm->handleRequest($request);
+        //Valores introducidos
+        $fecha=$searchForm['dfechaCreacion']->getData();
+        $especificacion=$searchForm['fkIidEspSol']->getData();
+        $codigo=$searchForm['iid']->getData();
+        $estatus=$searchForm['fkIidEstatus']->getData();
+        $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
+        //print_r($tipo_solicitud);
+        $detalles=$searchForm['vdetalles']->getData();
+        
+        $tipo=null;
+        if ($especificacion!=null){
+            $tipo=$especificacion->getFkIidEspSol();
+        }
+        
+        //Buscar usuario logueado
+        $ci=$request->getSession()->get('usuario_ci');
+        $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                ->findOneBy(array('pkIci'=>$ci));
+        //
+        $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
+        //usuario
+            $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
+    if ($tipo_solicitud!=null || $especificacion!=null ||
+            $fecha != null ||  $codigo != null || $estatus!=null) {
+        
+            
+            if ($tipo_solicitud!= null || $detalles!= null) {
+                     $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
+                     ->leftjoin('ss.fkIidEspSol','fkIidEspSol');
+                if($tipo_solicitud!= null) {
+            //        print($tipo_solicitud);
+                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);
+                   
+                }
+            }
+            if ($codigo != null) {
+                $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
+            }
+            if ( $fecha!= null) {
+                $qb->andwhere('ss.dfechaCreacion=?2')->setParameter(2, $fecha);
+            }
+            if ($especificacion!= null) {
+                $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
+            }
+            if ($estatus!= null) {
+                $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
+            }
+            
+                //if ($detalles!= null) {
+                //$qb->andwhere('esp.fkIidEstatus=?4')->setParameter(6, $detalles);
+                //}
+            
+        }
+         $query_pages=$qb->getQuery();
+             $entities =$query_pages->execute();
+             
+        //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+            
+        return $this->render('TechTBundle:Tbgensolicitudservicio:indexuser.html.twig', array(
+                    'entities' => $entities,
+                    'entity' => $entity_search,
+                    'search_form' => $searchForm->createView(),
+                    'pagination' => $pagination,
+        ));
+    }
+
+   
+    /**
+     * Lists all Tbgensolicitudservicio entities.
+     *
+     */
+    public function indexuserAction()
+    {
+        //Verificacion del empleado
+        
+        $request = $this->getRequest();
+        $verif = new TbdetusuariodatosController();
+        $verif1 = $verif->verifaccesouserAction($request);
+        if ($verif1 == false) {
+            return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+
+        //$entities = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->findAll();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        //Buscar usuario logueado
+        $ci=$request->getSession()->get('usuario_ci');
+        $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                ->findOneBy(array('pkIci'=>$ci));
+        //
+        $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
+        $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
+        $query_pages=$qb->getQuery();
+        $entities =$query_pages->execute();
+            //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+        //print_r("End");
+        
+        return $this->render('TechTBundle:Tbgensolicitudservicio:indexuser.html.twig', array(
+              'entities' => $entities,
+                'entity' => $entity_search,
+                'search_form' => $searchForm->createView(),
+                'pagination' => $pagination,
+        ));
+    }
     public function searchAction() {
         //Verificacion del empleado
         
@@ -38,13 +170,25 @@ class TbgensolicitudservicioController extends Controller
         $especificacion=$searchForm['fkIidEspSol']->getData();
         $codigo=$searchForm['iid']->getData();
         $estatus=$searchForm['fkIidEstatus']->getData();
+        $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
+        //print_r($tipo_solicitud);
+        $detalles=$searchForm['vdetalles']->getData();
+        
         $tipo=null;
         if ($especificacion!=null){
             $tipo=$especificacion->getFkIidEspSol();
         }
         $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
-    if ($especificacion!=null || $fecha != null ||  $codigo != null || $estatus!=null) {
-
+    if ($tipo_solicitud!=null || $especificacion!=null ||
+            $fecha != null ||  $codigo != null || $estatus!=null) {
+            if ($tipo_solicitud!= null || $detalles!= null) {
+                     $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
+                     ->leftjoin('ss.fkIidEspSol','fkIidEspSol');
+                if($tipo_solicitud!= null) {
+            //        print($tipo_solicitud);
+                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);
+                   
+                }
             if ($codigo != null) {
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
             }
@@ -57,10 +201,15 @@ class TbgensolicitudservicioController extends Controller
             if ($estatus!= null) {
                 $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
             }
-        
+            
+                //if ($detalles!= null) {
+                //$qb->andwhere('esp.fkIidEstatus=?4')->setParameter(6, $detalles);
+                //}
+            }
         }
          $query_pages=$qb->getQuery();
              $entities =$query_pages->execute();
+             
         //Se Crea la Paginacion
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
@@ -108,6 +257,7 @@ class TbgensolicitudservicioController extends Controller
         $entity_search = new Tbgensolicitudservicio();
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
+        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
             //Se Crea la Paginacion
@@ -139,11 +289,23 @@ class TbgensolicitudservicioController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         if ($form->isValid()) {    
-            //El usuario existe o no 
-            
+            //El contrato existe o no      
             $ci=$request->getSession()->get('usuario_ci');
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
+            $contrato= $em->getRepository('TechTBundle:Tbdetcontratorif')
+                    ->findOneBy(array('pkInroContrato'=>$entity->getContrato()));
+            
+            $contratousu= $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                    ->findOneBy(array('fkIci'=>$usu,'fkInroContrato'=>$contrato));
+            if ($contratousu==null){
+                //print_r("HOLA");
+                 $message_error= "Introdujo un contrato inexistente.";
+                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+                return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
+                'form'   => $form->createView(),
+                ));
+            }
             //print_r($usu);
             $entity->setFkIidUsuaDatos($usu);
             
@@ -161,18 +323,18 @@ class TbgensolicitudservicioController extends Controller
                     //CAMPOS DE USUARIO
                     $det2= new Tbdetdetalleusuario();
                     $det3= new Tbdetdetalleusuario();
-                    $det4= new Tbdetdetalleusuario();
+                    //$det4= new Tbdetdetalleusuario();
                     $det->setVdetalle($entity->getVpersona());    
                     $det->setFkIidSolUsu($entity);
                     $det2->setVdetalle($entity->getVtelefono());    
                     $det2->setFkIidSolUsu($entity);
                     $det3->setVdetalle($entity->getVcorreo());    
                     $det3->setFkIidSolUsu($entity);
-                    $det4->setVdetalle($entity->getVdireccion());    
-                    $det4->setFkIidSolUsu($entity);
+                    //$det4->setVdetalle($entity->getVdireccion());    
+                    //$det4->setFkIidSolUsu($entity);
                     $em->persist($det2);
                     $em->persist($det3);
-                    $em->persist($det4);
+                    //$em->persist($det4);
                     $em->persist($det);
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
@@ -211,18 +373,22 @@ class TbgensolicitudservicioController extends Controller
             $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
             $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
             $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
-            $records = array(
-            'Case Number' => $entity->getId()+2000,
+            $records = array(            
             'Case Owner' => 'SAC', 'Status' => 'Abierto',
-            'Priority' => 'RnX', 'Case Reason' => '---------------',
+            'Priority' => 'RnX', 
+            'Case Reason' => $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol(),
             'Case Origin' => 'Web',
-            'Subject' => "Solicitud de: ".$entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol().
-                ". Especificación: ".$entity->getFkIidEspSol()->getVnombreEspSol(),
-            'Reported By' => 'Web', 
+            'Subject' => $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol(),
+            'Reported By' => $usu->getVnombre()."  ".$usu->getVapellido(), 
             'Email' => $usu->getVcorreoEmail(),
             'Phone' => $usu->getVtelfLocal(),
-            'Account Name' => $usu->getVnombre().$usu->getVapellido());
-            
+            'Account Name' => "Prueba Nombre Cuenta",
+            'Número de Contrato'=>1030,
+            'Tipo de Contrato'=>'ejemplo',
+            'Dpto. Encargado' => 1,
+            'Nombre de contacto'=> $usu->getVnombre()."  ".$usu->getVapellido(),
+            'Tipo De Solicitud'=> $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol()
+                );
             $dataXml=$utilObj->parseXMLandInsertInBd($records);
             if ($dataXml!=null){
         //       print $dataXml;
@@ -278,7 +444,7 @@ class TbgensolicitudservicioController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $method= new TbdetusuariodatosController();
-        $verif = $method->verifaccesoemplAction($request);
+        $verif = $method->verifaccesouserAction($request);
         if ($verif == false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
@@ -289,12 +455,7 @@ class TbgensolicitudservicioController extends Controller
         date_default_timezone_set('America/Caracas');
         $date_changes = new DateTime('NOW');
         $entity->setDfechaCreacion($date_changes);
-        
-        $contratos= $em->getRepository('TechTBundle:Tbdetusuariocontrato')->
-                findBy(array('fkIci'=>$entity->getFkIidUsuaDatos()));
-        
-        $entity->setContratos($contratos);
-        
+      
         $fkIidEstatus= $em->getRepository('TechTBundle:Tbgenestatussolicitud')->find(3);
         $entity->setFkIidEstatus($fkIidEstatus);
         $form   = $this->createCreateForm($entity);

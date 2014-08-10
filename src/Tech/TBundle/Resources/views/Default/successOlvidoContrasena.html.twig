@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+</div>
+
+{% endfor %}
+
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+</div>
+
+{% endfor %}
+
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+</div>
+
+{% endfor %}
+
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+</div>
+
+{% endfor %}
+
+
+
+<h1 class="title">Restablecimiento de Contraseña</h1>
+
+       
+<div class="container" >
+    <section class="register">
+<p>Hola, <strong>{{ entity.vnombre }}</strong>, esperamos que tengas un buen dia.
+           <br>
+
+           <br><strong>Para acceder a tu cuenta </strong><br><br>
+      Debes ingresar con tu usuario y nueva contraseña que se encuentran en tu correo electrónico. <br><br>   
+  </p>    
+    </section>
+      </div>
+ 
+{% endblock %}

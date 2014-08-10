@@ -43,7 +43,7 @@
         <br>
         <h1>Ingrese los siguientes datos:</h1>
         <br>
-        <form action="{{ path('SolicitudServicio_create') }}" method="post" class="login">
+        <form action="#" method="post" class="login">
               {{ form_start(form) }}
         {{ form_errors(form) }}  
             <table width="800">
@@ -57,21 +57,27 @@
                 {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
                     
-                 <td width="5"></td>
+                 <td width="20"></td>
                 <div class="error" >
                 {{ form_errors(form.fkIidEspSol) }}</div>       
                  <td><h2>2. </h2></td><td width="100">
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
                  
-                 <td width="5"></td>
+                 <td width="20"></td>
                 <div class="error" >
                 {{ form_errors(form.vdetalles) }}</div>       
                       <td><h2>3. </h2></td><td width="80">
                 {{ form_label(form.vdetalles, 'Detalles:') }}</td>
                     <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
+                    <td width="20"></td>
+                  <div class="error">
+                {{ form_errors(form.contrato) }}</div>       
+                    <table>  <td><h2>4. </h2></td><td width="80">
+                {{ form_label(form.contrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
                     </table>
-                 
+                    
                  </td>
              </tr>
              <tr>
@@ -87,27 +93,34 @@
                     
                     </table>
              </td>
+              <br>
               
                 <table id="campos3">
-                    <tr>
-                        <td width="115"><h2>4.</h2>
-                         <label> Datos Persona Contacto: </label> </td>
+                  
+                    
+                    <tr><br><br>
+                        <td align="left" width="90">
+                         <label align="left"><h1><strong> Datos Persona Contacto: </strong></h1></label> </td>
                         </tr>
                     <tr>
                         <td width="300">
                            
                     <table> 
-                       <td width="115">
+                       <td width="90">
                 {{ form_label(form.vpersona, 'Nombre:') }}</td>
                     <td>{{ form_widget(form.vpersona,{'required': false}) }}</td>
                     </table>
                             <div class="error" id="det">
                 {{ form_errors(form.vpersona) }}</div>
                             </td>
-                            <td width="10"></td>
+                            <td width="10   "></td>
                     <td>
-                       
-                    <table>  <td width="80">
+                        
+                  </table>
+              <table id="campos6" > 
+                  
+                  <td>
+                    <table>  <td width="90">
                 {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
                     <td>{{ form_widget(form.vtelefono,{'required': false}) }}</td>
                     </table>
@@ -123,22 +136,12 @@
                     </table>
                        <div class="error" id="det">
                 {{ form_errors(form.vcorreo) }}</div>  
-                    </td>
-                    </tr>                      
-                    </table>
-                    <table id="campos2">
-                    <tr>
+                   </td>
+                   </table>
+                 
+               
+                 
                     
-                    <td width="10">
-                    {{ form_label(form.vdireccion, 'Dirección:') }}
-                    {{ form_widget(form.vdireccion,{'required': false}) }}
-                    <div class="error" id="det">
-                    {{ form_errors(form.vdireccion) }}</div>       
-                    </td>
-                    
-                    </tr>
-                    
-                    </table>
                      <h1><br></h1><br>
                      <div style="display: none;">     
                 {{ form_row(form.fkIidEstatus, {'required' : false})}}
@@ -147,18 +150,16 @@
                 {{ form_row(form.iid, {'required' : false})}}                      
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
                 </div>  
-                
+                  <td>
+                    
+                    </td>
                     </tr>
                    
                 {{ form_end(form) }} 
                 
-            </table>
-            
+            </table>       
         </form>  
-                
-                <a href="{{ path('SolicitudServicio_new') }}">
-               << Volver
-            </a>   
+                   
     </section>
 </div>
 {% block javascripts %}
@@ -166,40 +167,39 @@
 
  <script>
      $('#campos1').hide();
-     $('#campos2').hide();
      $('#campos3').hide();
      $('#campos4').hide();  
+     $('#campos6').hide();  
       
      var $name = $('#tech_tbundle_tbgensolicitudservicio_fkIidEspSol').find(":selected").text();
      if ($name!=='Seleccionar'){
                         $('#campos1').hide();     
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
                         $('#campos4').hide(); 
-      if(($name==='Cambio de modelo de camaras' || $name==='Camaras adicionales')){
+                        $('#campos6').hide();  
+      if($name==='Camaras adicionales'){
                         $('#campos1').hide();     
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
-                        $('#campos4').show();     
+                        $('#campos4').show();  
+                        $('#campos6').hide();  
                         
                   }else{
                       if (($name==='Notas de Credito' || $name==='Motivo A' || $name==='Motivo B')){
-                        $('#campos1').show();     
-                        $('#campos2').hide();     
+                        $('#campos1').hide();     
                         $('#campos3').hide();     
-                        $('#campos4').hide();     
+                        $('#campos4').hide();  
+                        $('#campos6').hide();  
                         
                   }else{
                         if ($name==='Nueva Localidad'){
                         $('#campos1').hide();
                         $('#campos3').show();
-                        $('#campos2').show();     
-                        $('#campos4').hide();    
+                        $('#campos4').hide();  
+                        $('#campos6').show;  
                       
                           //  alert('noes');
                         }else{
                         $('#campos1').hide();
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
                         $('#campos4').hide();         
                         }
@@ -211,7 +211,6 @@
                 $(document).on('change', '.tbgentiposolicitud_selector', function() {
 //                    alert("Han cambiado mi valor");
                         $('#campos1').hide();     
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
                         $('#campos4').hide();     
                         
@@ -260,49 +259,45 @@
 //                    alert("Han cambiado mi valor");
                   var $name = $(this).find(":selected").text();
                   //alert($name);
-                  if(($name==='Cambio de modelo de camaras' || $name==='Camaras adicionales')){
+                  if( $name==='Camaras adicionales'){
                         $('#campos1').hide();     
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
-                        $('#campos4').show();     
+                        $('#campos4').show();
+                        $('#campos6').hide();  
                         $('#tech_tbundle_tbgensolicitudservicio_vpersona').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vtelefono').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vcorreo').prop('required',false);  
-                        $('#tech_tbundle_tbgensolicitudservicio_vdireccion').prop('required',false);
                         $('#tech_tbundle_tbgensolicitudservicio_vdescripcion').prop('required',false);
                   }else{
                       if (($name==='Notas de Credito' || $name==='Motivo A' || $name==='Motivo B')){
                         $('#campos1').show();     
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
-                        $('#campos4').hide();     
+                        $('#campos4').hide();  
+                        $('#campos6').hide();  
                         $('#tech_tbundle_tbgensolicitudservicio_vdescripcion').prop('required',true);
                         $('#tech_tbundle_tbgensolicitudservicio_vpersona').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vtelefono').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vcorreo').prop('required',false);  
-                        $('#tech_tbundle_tbgensolicitudservicio_vdireccion').prop('required',false);
-                        
                   }else{
                         if ($name==='Nueva Localidad'){
                         $('#campos1').hide();
                         $('#campos3').show();
-                        $('#campos2').show();     
                         $('#campos4').hide();
+                        $('#campos6').show();  
                         $('#tech_tbundle_tbgensolicitudservicio_vpersona').prop('required',true);  
                         $('#tech_tbundle_tbgensolicitudservicio_vtelefono').prop('required',true);  
                         $('#tech_tbundle_tbgensolicitudservicio_vcorreo').prop('required',true);  
-                        $('#tech_tbundle_tbgensolicitudservicio_vdireccion').prop('required',true);
+                        
                         $('#tech_tbundle_tbgensolicitudservicio_vdescripcion').prop('required',false);    
                     //  alert('noes');
                         }else{
                         $('#campos1').hide();
-                        $('#campos2').hide();     
                         $('#campos3').hide();     
                         $('#campos4').hide(); 
+                        $('#campos6').hide();  
                         $('#tech_tbundle_tbgensolicitudservicio_vpersona').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vtelefono').prop('required',false);  
                         $('#tech_tbundle_tbgensolicitudservicio_vcorreo').prop('required',false);  
-                        $('#tech_tbundle_tbgensolicitudservicio_vdireccion').prop('required',false);
                         $('#tech_tbundle_tbgensolicitudservicio_vdescripcion').prop('required',false);
                         }
                     }
@@ -368,3 +363,4 @@
 
 
 
+        

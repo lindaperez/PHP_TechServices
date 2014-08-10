@@ -1,0 +1,378 @@
+{% extends '::layout.html.twig' %}
+
+
+{% block content %}
+ <h1>Listado Solicitud de Servicios de Clientes</h1>
+ 
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    
+
+
+<div class="container" >
+
+    <section class="register">
+        <a href="#" name="consulta_link"><h1>Consulta de Solicitudes de Servicios</h1></a>
+        <br>
+        <form action="{{ path('SolicitudServicio_searchuser') }}" method="post" class="login">
+         {{ form_start(search_form) }}
+        {{ form_errors(search_form) }}  
+        
+
+            <table border="0" cellpadding="1" cellspacing="1">
+             
+                   <tr>
+                 <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
+                   <td><h2>1.</h2></td><td width="115">
+                {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
+                        <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
+                    
+                 <td width="5"></td>
+                <div class="error" >
+                {{ form_errors(search_form.fkIidEspSol) }}</div>       
+                 <td><h2>2.</h2></td><td width="100">
+                {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
+                        <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
+                 <td width="5"></td>
+                        <div class="error" >
+                {{ form_errors(search_form.vdetalles) }}</div>       
+                   <td>   <h2>3.</h2></td><td width="95">
+                {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
+                        <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
+             
+                        
+                     </tr>
+                     
+                        <tr>
+                 <div class="error">
+                {{ form_errors(search_form.iid) }}</div>       
+                        <td></td><td width="115">
+                {{ form_label(search_form.iid, 'Nro Caso:') }}</td>
+                        <td>{{ form_widget(search_form.iid,{'required': false}) }}</td>
+                        <td></td>
+                     <div class="error">
+                {{ form_errors(search_form.dfechaCreacion) }}</div>       
+                    <td></td><td width="130">
+                {{ form_label(search_form.dfechaCreacion, 'Fecha Creación:') }}</td>
+                        <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
+                        <td width="5"></td>
+                        <div class="error">
+                {{ form_errors(search_form.fkIidEstatus) }}</div>       
+                    
+                <div class="error">
+                {{ form_errors(search_form.fkIidEstatus) }}</div>       
+                    <td></td><td width="130">
+                {{ form_label(search_form.fkIidEstatus, 'Estatus:') }}</td>
+                        <td>{{ form_widget(search_form.fkIidEstatus,{
+                    'empty_value':'Seleccionar','required': false})}}</td>
+                        <td width="5"></td>
+                        
+                    <td></td><td width="90">
+                    
+                        
+                   </tr>
+                   
+                     <div style="display: none;">     
+                
+                {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
+                {{ form_row(search_form.vpersona, {'required' : false})}}                      
+                {{ form_row(search_form.vcorreo, {'required' : false})}}                      
+                {{ form_row(search_form.vtelefono, {'required' : false})}}                      
+                {{ form_row(search_form.contrato, {'required' : false})}}  
+                {{ form_row(search_form.vdescripcion, {'required' : false})}}                      
+                 
+                {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}        
+                {{ form_row(search_form.reset, { 'label': 'Limpiar' }) }}  
+                </div> 
+                   <table>
+                   <tr>
+                       
+                  <td  width="650" align="right">
+                        <input type="reset" name="clear" value="Limpiar"> </td>
+                        <td><input type="submit" name="commit" value="Buscar">
+                    
+                    
+                   </td>
+                   </tr>
+                   </table>
+                   
+                {{ form_end(search_form) }} 
+                
+            </table>       
+        </form>  
+                   
+    </section>
+</div>
+<div class="container" >
+
+    <section class="register">
+        <h1>Listado de Solicitudes de Servicio. ({{ pagination.getTotalItemCount }})</h1>
+        <br>
+       
+ <div class="navigation" align="right">
+    {{ knp_pagination_render(pagination) }} 
+        </div>
+        <br>
+        <br> 
+        <table class="records_list">
+            {% if (pagination.getTotalItemCount!=0) %}
+            <thead> 
+                <tr>
+                <td width="80"><h1 ><strong>Nro Caso</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Tipo Solicitud</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Especificación</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Fecha Creación</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Estado</strong></h1></td>
+                <td width="40"></td>
+                <td width="80"><h1><strong>Acciones</strong></h1></td>
+            </tr>
+        </thead>
+        {% else %}
+         <thead><div align="left"> 
+                <h1><strong>No se encontraron coincidencias. </strong></h1></div>
+                </thead> 
+                
+         {% endif %}       
+        <tbody>
+                {% for entity in pagination %}
+                <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
+
+                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td width="40"></td>
+                <td align="center" width="80">{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol}} </td>
+                <td width="40"></td>                    
+                <td align="center" width="80">{{ entity.fkIidEspSol.vnombreEspSol}} </td>
+                <td width="40"></td>
+                <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
+                <td width="40"></td>
+                <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
+                <td width="40"></td>
+                    
+                <td align="center">
+                    
+                <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
+                <ul align="center">
+                    
+                    <li>
+                        <br>
+                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
+                        <br>
+                    </li>
+                    <li>
+                    <div id="extern{{entity.id}}">
+                    <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
+                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />    
+                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />
+                    </div>  
+                    </div>
+                        </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}            
+           </tbody>
+        </table>
+    </section>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('SolicitudServicio_new') }}">
+                Realizar Solicitud de Servicio
+            </a>
+        </li>
+    </ul>
+
+</div>
+   <script type="text/javascript">
+       
+       $(document).ready(function() {
+           
+});        
+
+popup= function(options) {
+    var url="<?echo 'votaste <b>'?>";
+        if(url === null) return;
+            var settings = {
+            url       : url, // post changes to 
+            maxvalue  : 5,   // max number of stars
+            curvalue  : 0   // number of selected stars	
+
+        };
+
+        if(options) {
+           jQuery.extend(settings, options);
+        };
+           jQuery.extend(settings, {cancel: (settings.maxvalue > 1) ? true : false});	
+        //Buscar Curvalue
+
+        var url2 = '/CalidadServicio/popupcalif';
+        
+   // mostrar un imágenes de cargando a través de CSS
+   //alert(settings.iid);
+   var onclick;
+   var dialog = $('#dialog'+settings.iid);
+   
+   var dialog2= dialog.clone();
+       dialog.dialog({
+       
+       show: {
+           effect: "blind",
+           duration: 1000
+           
+       },
+       hide: {
+           effect: "explode",
+           duration: 1000
+       },
+      close: function(event, ui) {
+          
+          dialog.remove();
+          dialog2.appendTo('#extern'+settings.iid);
+          dialog.attr('onclick',onclick);
+          
+      },
+      
+      modal: true,
+      tittle: "Calificacion del Servicio",
+      width:500,
+      height:300
+   });
+   
+   dialog.load(
+      url2,
+      {
+         iid_solicitud: settings.iid, 
+         iid: settings.id, 
+         maxvalue: settings.maxvalue,
+         curvalue: settings.curvalue
+      }, // Datos para enviar (es este caso, ninguno)
+      function (responseText, textStatus, XMLHttpRequest) {
+         // Quitar el class de “cargando”
+         dialog.removeClass('loading');
+         onclick=dialog.attr('onclick');
+         dialog.attr('onclick','event.cancelBubble = true;');
+        
+      }
+   );
+    //$(".ui-button-text").remove();
+    //$(".ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").remove();
+    
+    };
+   
+</script>
+
+ <script>
+
+     
+     //$('#campos4').hide();
+            $(function() {
+                $(document).on('change', '.tbgentiposolicitud_selector', function() {
+//                    alert("Han cambiado mi valor");
+                        $('#campos1').hide();     
+                        $('#campos2').hide();     
+                        $('#campos3').hide();     
+                        $('#campos4').hide();     
+                        
+                    var data = {
+                        tbgentiposolicitud_id: $(this).val()
+                    };
+
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("especs") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.error !== undefined && data.error !== '') {
+                                alert(data.error);
+                            } else {
+                                var $tbgenespecsolicitud_selector = $('#tech_tbundle_tbgensolicitudservicio_fkIidEspSol');
+                                    $tbgenespecsolicitud_selector.html('<option>Seleccionar</option>');  
+                                if (data.length!== undefined ){
+                                    for (var i=0, total = data.length; i < total; i++) {
+                                        $tbgenespecsolicitud_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                                    }
+                                    $tbgenespecsolicitud_selector .prop('disabled',false);  
+                                    $tbgendetalle_selector.prop('required',false);  
+                                    
+                                }else{
+                                    $tbgenespecsolicitud_selector .html('<option> No Seleccionar</option>');
+                                    $tbgenespecsolicitud_selector .prop('disabled','disabled');  
+                                    var $tbgendetalle_selector = $('#tech_tbundle_tbgensolicitudservicio_vdetalles');
+                            $tbgendetalle_selector.html('<option> No Seleccionar</option>');
+                            $tbgendetalle_selector.prop('disabled','disabled');  
+                                }
+                            }
+                        },
+                        error: function(e, ts, et) {
+                            alert(ts);
+                            
+                        }
+                    });
+
+
+                });
+
+            });
+            $(function() {
+                $(document).on('change', '.tbgenespecsolicitud_selector', function() {
+//                    alert("Han cambiado mi valor");
+                  var $name = $(this).find(":selected").text();
+                  //alert($name);
+                    var data = {
+                        tbgenespecsolicitud_id: $(this).val()
+                        
+                    };
+                    //alert("Valor"+$(this).val());
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ path("detalls") }}',
+                        data: data,
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.error !== undefined && data.error !== '') {
+                                alert(data.error);
+                            } else {
+                            var $tbgendetalle_selector = $('#tech_tbundle_tbgensolicitudservicio_vdetalles');
+                            
+                            $tbgendetalle_selector.html('<option>Seleccionar</option>');
+                            
+                            if (data.length!== undefined ){
+                            for (var i=0, total = data.length; i < total; i++) {
+                       
+                                  $tbgendetalle_selector.append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+                       
+                                  }
+                                  $tbgendetalle_selector.prop('disabled',false);  
+                                
+                        }else{
+                            $tbgendetalle_selector.html('<option> No Seleccionar</option>');
+                            $tbgendetalle_selector.prop('disabled','disabled');  
+                            $tbgendetalle_selector.prop('required',false);  
+                            
+                        }
+                    }
+                        },
+                        error: function(e, ts, et) {
+                            alert(ts);
+                            
+                        }
+                    });
+
+
+                });
+
+            });
+  
+
+
+        </script>
+     
+    {% endblock %}

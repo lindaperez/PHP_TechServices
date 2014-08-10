@@ -1,32 +1,32 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 {% for flashMessage in app.session.flashbag.get('flash_warning') %}
 <div class="isa_warning">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('flash_error') %}
 <div class="isa_error">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('flash_success') %}
 <div class="isa_success">
         {{ flashMessage }}
 </div>
-<br><br>
+
 {% endfor %}
 
 <h1>Edición de Solicitud de Registro</h1>
@@ -36,6 +36,7 @@
         <form action="{{ path('Registro_update', { 'id': entity.id }) }}" method="post">
             <table>       
                 <tr>
+                    
                 <td >
                     <h1>Datos Personales</h1>
                     <br>
@@ -140,6 +141,7 @@
             
     <li>            
         <table >  <tr>
+                <td width="0"></td>
             <td>
                 {% if k==1 %}
                 <h1>Contrato: </h1>                 
@@ -202,13 +204,6 @@
 
         </form>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('Registro') }}">
-                    Volver Listado de Solicitudes de Registro
-                </a>
-            </li>
-        </ul>
 
 {% block javascripts %}
     {{ parent() }}
@@ -218,9 +213,10 @@
 
             // setup an "add a tag" link
 
-            //var $addTbdetcontratorifLink = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
-            var $newLinkLi = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
-            //var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
+            var $addTbdetcontratorifLink = $('<table width="320" align="right"><td><a href="#" class="add_tbdetcontratorif_link">\n\
+        <img  width="30"  height="28" title="Agregar" src="/bundles/techt/images/symbol_add.png"/>Agregar</a></td></table>');
+            //var $newLinkLi = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
+            var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
             
 
             jQuery(document).ready(function() {
@@ -252,7 +248,8 @@
 
             });
             function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
-                var $removeFormA = $('<table width="380" align="right"><td><a href="#">Quitar</a></td></table>');
+                var $removeFormA = $('<table width="290" align="right"><td><a href="#">\n\
+        <img  width="40"  height="38" title="Remover" src="/bundles/techt/images/symbol_add_c.png"/>Remover</a></td></table>');
                 $contratoFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function(e) {
@@ -366,6 +363,13 @@
     </section>
 </div>
 
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('Registro') }}">
+                 <h4>   Volver Listado de Solicitudes de Registro</h4>
+                </a>
+            </li>
+        </ul>
 {% endblock %} 
 
 {% endblock %} 

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>{% block title %}{% endblock %}</title>
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" 
+    content="">   
+        <title>{% block title %}Inicio | Techtrol Website{% endblock %}</title>
+     
         <link href="{{ asset('bundles/techt/css/structure.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ asset('bundles/techt/css/custom-style.css') }}" rel="stylesheet" type="text/css" media="screen" />
         <link href="{{ asset('bundles/techt/css/body.css') }}" rel="stylesheet" type="text/css" media="all" />
@@ -13,14 +15,82 @@
         <script src="{{ asset('bundles/techt/js/rate.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/techt/js/jquery-1.4.2.min.js') }}" type="text/javascript"></script>
 
+<link href="{{ asset('bundles/techt/css/565e2970627a.css') }}" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ asset('bundles/techt/css/css.css') }}" rel="stylesheet" type="text/css" media="screen" />
 
 
+<script src="{{ asset('bundles/techt/js/84a4ae93bd83.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/techt/js/-Vvtx4nI8SHe_WYPalc1ijR-UNJ9GZaWikvdqm7tI20.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/techt/js/html5player.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/techt/js/jquery.modal.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/techt/js/www-embed-player.js') }}" type="text/javascript"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
         {% block head %}
         {% endblock %}
     </head>
-    <body>
-        <br>
+    <!-- --> 
+   
+   <body>                  
+<div id="body">
+  <div class="wrapper">
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container header">
+          <div class="bg">
+            <div class="row">
+              <div class="span8 branding">
+                <a href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html" class="navbar-brand">
+                  <img src="/bundles/techt/images/new_logo.png" class="visible-desktop">
+                  <img src="/bundles/techt/images/logo_color.png" class="visible-mobile">
+                </a>
+                <div class="slogan">
+                  <div>
+                    <strong>SOMOS</strong> CONFIANZA Y COMPROMISO
+                  </div>
+                </div>
+              </div>
+              <div class="span4 social-media">
+                <a href="http://www.twitter.com/techtrolcctv" class="tw">
+                  <span class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+                <a href="http://www.facebook.com/Techtrol" class="fb">
+                  <span class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="container">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
+            
+              
+
+<ul id="primary-menu" class="nav"><li id="primary-menu--" class="active"><a href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html">Home</a></li><li id="primary-menu-about" class=""><a href="http://www.techtrol.com.ve/about/">Quiénes Somos</a></li><li id="primary-menu-clients" class=""><a href="http://www.techtrol.com.ve/clients/">Clientes</a></li><li id="primary-menu-faq" class=""><a href="http://www.techtrol.com.ve/faq/">Preguntas Frecuentes</a></li><li id="primary-menu-payment" class=""><a href="http://www.techtrol.com.ve/payment/">Mis cuentas</a></li><li id="primary-menu-contact" class=" last"><a href="http://www.techtrol.com.ve/contact/">Contacto</a></li></ul>
+
+          </div>
+    
+        
+        </div>
+ 
+      </div>
+ 
+
+
+    </div>
+
+             
 <div class="container">
 
     <!-- Push Wrapper -->
@@ -29,7 +99,7 @@
         <nav id="mp-menu" class="mp-menu mp-overlap">
 
             <div class="mp-level mp-level-open" data-level="1">
-                <h2 ><a href="{{path('index')}}">Inicio</a></h2>
+                <h3 ><a href="{{path('index')}}">Inicio</a></h3>
                 <ul>
 
                     {% if (app.session.get('usuario_rol')!="Empleado") and 
@@ -37,7 +107,7 @@
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-display" href="#">Clientes</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
-                            <h2 class="icon icon-display">Clentes</h2>
+                            <h2 class="icon icon-display">Clientes</h2>
                             <a class="mp-back" href="#">Atrás</a>
                             <ul>
                                 <li class="icon icon-arrow-left">
@@ -58,7 +128,7 @@
                     <li class="icon icon-arrow-left"> 
                         <a class="icon icon-display" href="#">Clientes</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
-                            <h2 class="icon icon-display">Clentes</h2>
+                            <h2 class="icon icon-display">Clientes</h2>
                             <a class="mp-back" href="#">Atrás</a>
                             <ul>
                                 {% if app.session.get('usuario_rol')=="Cliente" %}
@@ -91,8 +161,13 @@
                             <h2 class="icon icon-news">Servicios</h2>
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
+                                
+                                 {%if (app.session.get('usuario_rol')=="Cliente") %}
                                 <li><a href="{{ path('SolicitudServicio_new') }}">Solicitud de Servicio</a></li>
+                                <li><a href="{{ path('SolicitudServicio_indexuser') }}">Consulta de Solicitud de Servicios</a></li> 
+                                {%else%}
                                 <li><a href="{{ path('SolicitudServicio') }}">Consulta de Solicitud de Servicios</a></li> </ul>
+                            {%endif%}
                         </div>
                     </li>
                     {% endif %}
@@ -113,10 +188,29 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="icon icon-arrow-left">
+                        <a class="icon icon-shop" href="#">Empresas</a>
+                        <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
+                            <h2 class="icon icon-shop">Empresas</h2>
+                            <a class="mp-back" href="#">Atras</a>
+                            <ul>
+                                <li class="icon icon-arrow-left">
+                                    
+                                    <a class="icon icon-t-shirt" href="{{ path('Empresa') }}">Listado</a>
+
+                                </li>
+
+
+
+                            </ul>
+                        </div>
+                    </li>
                     
-                    <li><a href="{{ path('Empresa') }}">Empresas</a></li>
                     {% endif %}
+
+
                 </ul>
+                <br>                
 
             </div>
         </nav>
@@ -139,6 +233,45 @@
 
     </div><!-- /pusher -->
 </div><!-- /container -->
+   
+  </div>
+
+
+</div>
+                  <!-- --> 
+
+<!--FOOTTER-->
+  <footer class="site-footer">
+    <div class="row">
+      <div id="footer-content" class="span12">
+        <div class="row">
+          <div class="span8">
+            
+
+<ul class="footer-menu clearfix"><li><ul><li class="active " id="footer-menu--"><a href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html">Home</a></li></ul></li><li><ul><li class="" id="footer-menu-about"><a href="http://www.techtrol.com.ve/about/">Quiénes Somos</a></li></ul></li><li><ul><li class="" id="footer-menu-clients"><a href="http://www.techtrol.com.ve/clients/">Clientes</a></li></ul></li><li><ul><li class="" id="footer-menu-faq"><a href="http://www.techtrol.com.ve/faq/">Preguntas Frecuentes</a></li></ul></li><li><ul><li class="" id="footer-menu-payment"><a href="http://www.techtrol.com.ve/payment/">Mis cuentas</a></li></ul></li><li><ul><li class="" id="footer-menu-contact"><a href="http://www.techtrol.com.ve/contact/">Contacto</a></li></ul></li></ul>
+
+          </div>
+          <div class="span4">
+            <address>
+              <strong><a href="">Contáctenos</a></strong><br>
+              Oficina Principal<br>
+              Calle 6 con calle 8, Edificio ZYS.<br>
+               La Urbina, Caracas, Venezuela.<br>
+              <i class="fa fa-phone fa-inverse"></i> <a href="tel:0212 242 3062">0212 242 3062</a><br>
+              
+              <i class="fa fa-phone fa-inverse"></i> <a href="tel:0212 242 6060">0212 242 6060</a><br>
+              
+              Fax: 0212 242 1119<br>
+              <i class="fa fa-envelope fa-inverse"></i> <a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a><br>
+              RIF: J-30358361-0
+            </address>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </footer>
+<!--FOOTTER-->
         <script src="{{ asset('bundles/techt/js/classie.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/techt/js/mlpushmenu.js') }}" type="text/javascript"></script>
 

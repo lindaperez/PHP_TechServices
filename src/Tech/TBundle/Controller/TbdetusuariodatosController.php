@@ -715,7 +715,7 @@ class TbdetusuariodatosController extends Controller {
         return false;
     }
 
-    private function verifaccesouserAction(Request $request) {
+    public function verifaccesouserAction(Request $request) {
         $session = $request->getSession();
         $tipo_usuario = $session->get('usuario_rol');
         if ($tipo_usuario == "Cliente") {

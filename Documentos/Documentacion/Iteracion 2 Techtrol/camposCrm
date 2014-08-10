@@ -1,19 +1,19 @@
 Campos CRM 
 
 Propietario de Caso      SIx
-Dto Encargado 			..	/
+Dto Encargado 			..	-
 Origen del Caso          SIx	..
 Asunto                   Six	..
 Nombre de cuenta         Six	..
-Nombre de contacto 		..
+Nombre de contacto 		..	-
 Telefono                 Six
 Correo Electronico       Six
-Numero de contrato 		..
-Tipo de Contrato
+Numero de contrato 		..	--	
+Tipo de Contrato			--
 Estado                   six	..
-Responsable
+Responsable				--
 Motivo                   si
 Prioridad                six
 Informado Por            Six
 
-   
+   https://crm.zoho.com/crm/private/xml/Cases/getMyRecords?authtoken=e5ad26c35e964eb149030ae6cfe00363&scope=crmapi

@@ -6,7 +6,7 @@
 <div class="isa_info">
         {{ flashMessage }}
 </div>
-<br>
+
 {% endfor %}
 
 
@@ -14,7 +14,7 @@
 <div class="isa_warning">
         {{ flashMessage }}
 </div>
-<br>
+
 {% endfor %}
 
 
@@ -23,7 +23,7 @@
 <div class="isa_error">
         {{ flashMessage }}
 </div>
-<br>
+
 {% endfor %}
 
 
@@ -32,10 +32,8 @@
 <div class="isa_success">
         {{ flashMessage }}
 </div>
-<br>
+
 {% endfor %}
-
-
 
 <h1 class="title">Restablecimiento de Contraseña</h1>
 
@@ -50,12 +48,16 @@
 
 
     <div class="error">{{ form_errors(form.pkIci) }}</div>
-    <table>  <td width="100">
+    <table>  
+        <td width='100'></td>
+        <td width="100">
         {{ form_label(form.pkIci, 'Usuario:') }}</td><td>
         {{ form_widget(form.pkIci) }}<br></td></table>
 
     <div class="error">{{ form_errors(form.vcorreoEmail) }}</div>
-    <table>  <td width="100">
+    <table>
+        <td width='100'></td>
+        <td width="100">
         {{ form_label(form.vcorreoEmail, 'Correo:') }}</td><td>
         {{ form_widget(form.vcorreoEmail) }}<br></td></table>
 

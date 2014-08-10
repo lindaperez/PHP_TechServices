@@ -220,6 +220,7 @@ class TbgensolservCalservController extends Controller {
     public function califAction(Request $request) {
         //id de la Solicitud
         $id = $request->request->get('iid_solicitud');
+        $iid_pregunta = $request->request->get('iid_pregunta');
         $valor = $request->request->get('valor');
 
         $em = $this->getDoctrine()->getManager();
@@ -227,12 +228,12 @@ class TbgensolservCalservController extends Controller {
         $solicitud = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->
                 find($id);
         $calsol = $em->getRepository('TechTBundle:TbgensolservCalserv')->
-                findOneBy(array('fkIidSol' => $solicitud, 'icalSolPreg' => 1));
+                findOneBy(array('fkIidSol' => $solicitud, 'icalSolPreg' => $iid_pregunta));
 
         if ($calsol == null) {
             $calif = new TbgensolservCalserv();
             $calif->setFkIidSol($solicitud);
-            $calif->setIcalSolPreg(1);
+            $calif->setIcalSolPreg($iid_pregunta);
             $calif->setIrespuesta($valor);
 
             $em->persist($calif);
@@ -252,6 +253,7 @@ class TbgensolservCalservController extends Controller {
     public function getcalifAction(Request $request) {
         //id de la Solicitud
         $iid_solicitud = $request->request->get('iid_solicitud');
+        $iid_pregunta = $request->request->get('iid_pregunta');
 
         if ($iid_solicitud != null) {
             $em = $this->getDoctrine()->getManager();
@@ -260,7 +262,7 @@ class TbgensolservCalservController extends Controller {
                     find($iid_solicitud);
             if ($solicitud != null) {
                 $calsol = $em->getRepository('TechTBundle:TbgensolservCalserv')->
-                        findOneBy(array('fkIidSol' => $solicitud, 'icalSolPreg' => 1));
+                        findOneBy(array('fkIidSol' => $solicitud, 'icalSolPreg' => $iid_pregunta ));
 
                 if ($calsol != null) {
                     //retorno vacio
@@ -277,6 +279,7 @@ class TbgensolservCalservController extends Controller {
     
      public function popupcalifAction(Request $request) {
          $iid_solicitud = $request->request->get('iid_solicitud');
+         $iid_pregunta = $request->request->get('iid_pregunta');
          $iid = $request->request->get('iid');
          $maxvalue = $request->request->get('maxvalue');
          $curvalue = $request->request->get('curvalue');
@@ -285,7 +288,8 @@ class TbgensolservCalservController extends Controller {
                             'iid_solicitud' => $iid_solicitud,
                             'iid' => $iid,
                             'maxvalue' => $maxvalue,
-                            'curvalue' => $curvalue
+                            'curvalue' => $curvalue,
+                            'idd_pregunta' => $iid_pregunta
                 ));
         
     }

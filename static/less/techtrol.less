@@ -1,0 +1,521 @@
+@import "techtrol-variables.less";
+@import "mixins.less";
+
+@bodyPaddingTop:    60px;
+@footerHeight:      220px;
+@brandsHeight:      200px;
+@brandMargin:       20px;
+@brandImgMargin:    10px;
+@navbarRadius:      0 0 5px 5px;
+@mapHeight:         250px;
+@contactGenericMargin: 25px;
+@pageMargin:        0.5em;
+@OpenSans:          'Open Sans Condensed', sans-serif; 
+
+// Colors
+@darkGray:          #333;
+@gray:              lighten(@darkGray, 20%);
+@midGray:           lighten(@darkGray, 30%);
+@lightGray:         lighten(@darkGray, 70%);
+@superLightGray:    lighten(@lightGray, 5%);
+@footerLink:        #FFF;
+@footerText:        #DDD;
+//@techtrolBlue:      #3a6f8f;
+
+
+body { 
+  padding: 0;
+}
+
+a {
+  font-weight: bold; 
+}
+
+
+h1, h2, h3 {
+  font-family: @OpenSans; 
+  font-weight: 300;
+}
+
+h1 { font-size: 2.2em;}
+h2 { font-size: 2em; }
+
+.highlighted {
+  color: @techtrolBlue;
+  font-weight: bold;
+}
+
+.main-container {
+  padding-top: @bodyPaddingTop;
+}
+
+html, body {
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  .navbar { margin: 0; }
+}
+@media (max-width: 979px) {
+  .header {
+    .slogan { color: @midGray; }
+    .visible-mobile { display: inline-block;}
+  }
+  .navbar-inner { 
+    .btn, .btn-navbar {
+      border-radius: 0;
+    }
+    .nav-collapse {
+      .nav {
+        margin-top: 10px;
+        li > a { color: @midGray; }
+        .active > a { 
+          box-shadow: none;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+        }
+        li a:hover, li a:active {
+          background: @lightGray;
+          box-shadow: none;
+        }
+        li { 
+          border-bottom: 1px solid lighten(@midGray, 15%);
+        }
+        li:last-child { border: none; }
+      }
+    }
+  }
+
+  #map { width: 80%; margin: auto;}
+
+  footer {
+    address { 
+      border-top: 1px solid @lightGray;
+      margin: 0 50px; 
+      padding: 20px 0;
+    }
+  }
+}
+
+@media (min-width: 980px) {
+  .header {
+    #gradient > .vertical(lighten(@techtrolBlue, 10%), @techtrolBlue);
+    .bg {
+      height: 90px;
+      background: url(../img/curves.png) center right no-repeat;
+    }
+    .social-media .fb { padding-right: 15px; }
+    .slogan { color: #fff;}
+    .visible-mobile { display: none; }
+  }
+  .navbar { 
+    margin-bottom: 5px;
+   }
+  .navbar-inner {
+    .nav { 
+      a:hover {
+        background: @lightGray;
+        box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+        -moz-box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+        -webkit-box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+        color: rgb(35,80,110);
+        text-shadow: none;
+      }
+     .active > a {
+        box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+        -moz-box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+        -webkit-box-shadow: inset 0 10px 8px rgba(0,0,0,.125);
+
+      }
+    }
+  }
+  .carousel {
+    .item {
+      height: 250px;
+    }
+    h1 {
+      margin: 1em 0 1em 2em;
+    }
+  }
+  .title-divider {
+    background: #FFF url(../img/blueline.png) repeat-x left center;
+  }
+
+  .site-footer, .wrapper:after {
+    height: @footerHeight;
+  }
+  footer {
+    address { float: right;}
+  }
+}
+
+@media (min-width: 468px) {
+  .header {
+    .row { padding: 15px 0; }
+    .navbar-brand { padding-left: 15px; }
+    
+//    padding-top: 20px;
+//    padding-bottom: 20px;  
+    .social-media { 
+      text-align: right;
+      .fa-stack { font-size: 1.2em;}
+     }
+    .slogan, .navbar-brand { float: left; }
+    .slogan {
+      font-size: 1.4em;
+      height: 40px;
+      width: 300px;
+      position: relative;
+      margin-top: 10px;
+      > div { 
+        bottom: 0;
+        position:absolute;
+      }
+    }
+  }
+  footer {
+    li { float: left;}
+  }
+  .contact {
+    .principal { height: @mapHeight; } 
+    #map { 
+      width: 100%;
+    }
+    .text { 
+      h1 { padding-left: 1em; }
+    }
+  }
+  .richtextpage {
+    ul, ol { margin-left: 4em;}
+  }
+
+}
+
+@media (max-width: 467px) {
+  .header {
+    margin-top: 5px;
+    .branding { text-align: center;}
+  }
+
+  .social-media { 
+    text-align: center;
+   }
+
+  .contact .text { 
+    h1, ul { margin-left: @contactGenericMargin; }
+    h1 { padding: 0;}
+  }
+
+  footer li {
+    margin: 8px 0;
+  }
+
+}
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -@footerHeight;  
+  position: relative;
+
+  .navbar-inverse .nav .active > a {
+    text-shadow: none;
+  }
+
+  .header {
+      
+    .slogan { 
+      font-family: @OpenSans;
+      padding-left: 5px;
+    }
+  }
+
+  .navbar-inner {
+    border-bottom: solid 3px @midGray;
+    border-top: solid 2px #fff;
+    border-radius: @navbarRadius;
+    -webkit-border-radius: @navbarRadius;
+    -moz-border-radius: @navbarRadius;
+    font-family: @OpenSans;
+    font-size: 1.2em;
+    font-weight: bold;
+    
+    .nav a:hover {
+      background: @lightGray;
+      color: @techtrolBlue;
+      text-shadow: none;
+    }
+    .nav .active { 
+      background: none; 
+      > a { 
+        background: none; 
+        color: #FFF;
+      }
+    }
+  }
+
+  .social-media { 
+    .fa-stack-2x { color: @lightGray;}
+    .fa-twitter, .fa-facebook { color: @techtrolBlue; }
+
+    font-size: 1.5em;
+    line-height: 60px;
+
+    a:hover { text-decoration: none }
+    .fa-stack:hover { 
+      .fa-circle {color: @techtrolBlue; }
+      .fa-twitter, .fa-facebook {
+        color: #fff;
+      }
+    }
+
+  }
+
+  .carousel {
+    margin-bottom: 0;
+    text-align: center;
+    .carousel-inner {
+      box-shadow: 0 2px 1px rgba(0,0,0,.2);
+      -moz-box-shadow: 0 2px 1px rgba(0,0,0,.2);
+      -webkit-box-shadow: 0 2px 1px rgba(0,0,0,.2);
+    }
+
+    /*img { 
+      text-align: center;
+      padding: 1em 0;
+      max-height: 220px;
+    }*/ 
+    h1 {
+      background: rgba(255,255,255, 0.85);
+      color: @techtrolBlue;
+      font-size: 2.5em;
+      padding: 0.5em 0;
+      text-align: center;
+    }
+
+    .carousel-indicators { 
+      cursor: pointer; 
+      display: inline-block;
+      margin-top: 10px;
+      position: static;
+      li { background: @lightGray; }
+      li.active { background: @techtrolBlue; }
+    }
+  }
+
+}
+
+// Internal pages
+.richtextpage {
+  h1 { 
+    margin-top: @pageMargin;
+    font-weight: bold;
+  }
+  h1, h2, h3 { 
+    color: @techtrolBlue;
+    margin-right: 1em;
+    margin-left: 1em;
+  }
+  p, iframe { margin: 0 2em;}
+
+}
+.pages { 
+  padding-bottom: 20px;
+}
+
+// Contact page
+.contact {
+  ul { list-style: none; }
+  h1, h2, h3 { color: @techtrolBlue; }
+  div.principal {
+    border: @lightGray 1px solid;
+    font-size: 1.1em;
+    h1 { display: inline;}
+    margin-bottom: 1em;
+  }
+  
+  div.address { margin: auto; display:inline-block; }
+  h1 { margin-left: 5px; }
+  h2, h3 { margin-left: 0;}
+
+
+  #map {
+    border: @lightGray 1px solid;
+    .boxsizing;
+    background: @lightGray;
+    height: @mapHeight;
+  }
+}
+
+// FAQ page
+.question {
+  h2 { cursor: pointer; }
+  p, ul {
+    padding: 1em 0;
+    font-size: 1.2em;
+  }
+}
+
+// About Us Page
+.video-column {
+    .boxsizing;
+    background: @superLightGray;
+    border: @lightGray 1px solid;
+    padding-bottom: @pageMargin;
+}
+
+// Clients page
+.thumbnails {
+  margin-top: 2*@pageMargin;
+  .thumbnail {
+    border: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+}
+
+// Report payment
+.form-wrapper {
+    .boxsizing;
+    background: @superLightGray;
+    border: @lightGray 1px solid;
+    h2 { margin: @pageMargin 0 @pageMargin 10%; }
+    form { 
+      margin-left: 10%; 
+      input, select, textarea { 
+        width: 80%; 
+      }
+      input[type="text"] { height: 25px; }
+    }
+    span { padding: 1em; }
+    .form-actions { background: none; }
+}
+
+// Home page title divider
+.title-divider {
+  color: @gray;
+  margin: 30px 15px 30px 0;
+  
+  > span { 
+    background: #FFF;
+    padding: 0 5px 0 15px;
+  }
+  small { 
+    color: @techtrolBlue;
+    display: block;
+    margin-left: 15px;
+  }
+  width: 100%;
+}
+
+// Home page featured boxes
+.feature {
+  header { padding: 0 20px; }
+  h1, h2, h3 { 
+    color: @techtrolBlue;
+    font-weight: bold;
+  }
+  img { 
+    border: 2px solid @lightGray;
+    display: block;
+    margin: 0 auto; 
+    padding: 5% 0;
+    width: 90%;
+  }
+  i { font-size: 0.9em; }
+  p { padding: 0 20px;}
+}
+
+#modal-video {
+  padding: 1em;
+  width: 420px;
+  a.close-modal {
+    background: url(/static/img/close.png);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: -12.5px;
+    text-indent: -9999px; // so ugly
+    top: -12.5px;
+    width: 30px;
+  }
+}
+
+
+// Sticky footer
+.wrapper:after {
+  content: "";
+  display: block;
+}
+.site-footer {
+  background: @darkGray url(../img/crossed_stripes.png) repeat left bottom;
+}
+.site-footer, .wrapper:after {
+  min-height: @footerHeight;
+}
+// Main container
+.center { 
+  float: none;
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+// Customers brands
+div.customers { 
+  border-bottom: 1px solid #FFF;
+  //background: @lightGray;
+  article { 
+    text-align: center;
+    img { width: 100px; }
+    margin: @brandMargin 0;
+    .brand {
+      clear: both;
+      display: inline-block;
+      margin: @brandImgMargin; 
+    }
+    p {
+      padding: 0 5px;
+    }
+  }
+}
+#brands {
+  .center;
+}
+
+// Footer links
+footer {
+  color: @footerText;
+  a { 
+    color: @footerLink; 
+  }
+  a:hover { color: @techtrolBlue; }
+  ul a { font-weight: normal; }
+  box-sizing: border-box;
+  .powered { 
+    bottom: 10px;
+    position: absolute;
+    right: 0;
+   }
+  li {
+//    float:left; 
+    list-style-type:none;
+  }
+  li.child {
+    float: none;
+    font-size: 0.9em;
+    margin-left: 10px; 
+  }
+}
+#footer-content { 
+  .center; 
+  position: relative;
+  padding-top: 20px; 
+}
+
+
+.boxsizing {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+

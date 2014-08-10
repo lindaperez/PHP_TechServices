@@ -10,11 +10,14 @@ use Tech\TBundle\Form\EventListener\AddTbgenespecsolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgentiposolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgendetalleFieldSubscriber;
 use Tech\TBundle\Entity\Tbgenestatussolicitud;
+use Tech\TBundle\Entity\Tbdetusuariocontrato;
 use Doctrine\ORM\EntityRepository;
-
+use Symfony\Component\HttpFoundation\Request;
+use Tech\TBundle\Form\EventListener\AddTbdetcontratosFieldSubscriber;
 
 class TbgensolicitudservicioType extends AbstractType
 {
+    
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -24,7 +27,7 @@ class TbgensolicitudservicioType extends AbstractType
         
         $propertyPathToTbgenespecsolicitud = 'fkIidEspSol';
         $propertyPathToTbgendetalle = 'vdetalles';
-        
+        $propertyPathToTbdetcontratos = 'fkIidUsuaDatos';
 
         $builder
              ->add('dfechaCreacion','date', array('required' => false,'label'=> 'Fecha Creación:',
@@ -45,16 +48,13 @@ class TbgensolicitudservicioType extends AbstractType
                 ->add('vdescripcion','textarea',array( 'required' => false,
                 'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
             ->add('vtelefono','text',array( 'required' => false))
-            ->add('vdireccion','textarea',array( 'required' => false,
-                    'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px'),
-                ))
+            //->add('vdireccion','textarea',array( 'required' => false,
+             //       'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px'),
+               // ))
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
-            ->add('contratos','entity', array('empty_value'=>'Seleccionar',
-                'class' => 'Tech\TBundle\Entity\Tbdetusuariocontrato',
-             ))
-        ;
+            ->add('contrato','integer',array( 'required' => false));
     }
     
     /**
@@ -74,4 +74,6 @@ class TbgensolicitudservicioType extends AbstractType
     {
         return 'tech_tbundle_tbgensolicitudservicio';
     }
+    
+ 
 }

@@ -18,7 +18,7 @@
         <div>
         <table>
         <tr><td>Pregunta N.1 : </td><td><div id="star1" class="rating" >&nbsp;</div></td>            </tr>
-        
+        <tr><td>Pregunta N.2 : </td><td><div id="star2" class="rating" >&nbsp;</div></td>            </tr>
                 
         <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
         </table>
@@ -29,9 +29,10 @@
        <script type="text/javascript">
        $(document).ready(function() {
 
-$('#star1').rate({maxvalue: '{{maxvalue}}', curvalue:'{{curvalue}}', id:'{{iid}}',iid: '{{iid_solicitud}}', path:'/CalidadServicio/getcalif', path2: '/CalidadServicio/calif'});
-
+$('#star1').rate({maxvalue: '{{maxvalue}}', curvalue:'{{curvalue}}', id:'{{iid}}',iid: '{{iid_solicitud}}',id_preg: 1, path:'/CalidadServicio/getcalif', path2: '/CalidadServicio/calif'});
+$('#star2').rate({maxvalue: '{{maxvalue}}', curvalue:'{{curvalue}}', id:'{{iid}}',iid: '{{iid_solicitud}}',id_preg: 2, path:'/CalidadServicio/getcalif', path2: '/CalidadServicio/calif'});
 });
+
 
 </script>
     {% endblock %}
