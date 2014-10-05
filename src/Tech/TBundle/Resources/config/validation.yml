@@ -129,9 +129,9 @@ Tech\TBundle\Entity\Tbdetempresa:
                 type: string
                 message: La dirección fiscal {{ value }} no es válida {{ type }}.
             - Regex:
-                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                pattern:  "/[\$\(\)\*\+\?\[\\\^\{\|!@%&_:;'`<>~#=\"\\/]/"
                 match: false
-                message: La dirección fiscal no debe contener números o caracteres especiales.
+                message: La dirección fiscal no debe caracteres especiales.
 Tech\TBundle\Form\ForgotpassType:
     properties:
         pkIci:

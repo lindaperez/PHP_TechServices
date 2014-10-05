@@ -1,3 +1,8 @@
+ZOHO
+
+Directiva@techtrol.com.ve
+techtrol2014
+
  /*
            $qb=$em->createQuery(
                     'SELECT ud FROM TechTBundle:Tbdetusuariodatos ud ');

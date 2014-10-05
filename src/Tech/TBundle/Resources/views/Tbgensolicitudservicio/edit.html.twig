@@ -1,7 +1,16 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    
+{% if(app.session.get('usuario_rol')=="Empleado" or app.session.get('usuario_rol')=="Administrador") %}
 <h1>Edición de Solicitud de Servicio</h1>
+
+{% endif %}
+{% if(app.session.get('usuario_rol')=="Cliente") %}
+<h1>Solicitud de Servicio</h1>
+{%endif %}
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
@@ -58,7 +67,7 @@
                 </div>  
       
              <tr>
-                <td width="210" height="20">Número de Solicitud: </td>
+                <td width="210" height="20">Número de Caso: </td>
                 <td><em>{{ entity.id }}</em></td>
             </tr>
             <tr>
@@ -101,21 +110,46 @@
                  <td width="210" height="20">Telefono:  </td>
                 <td><em>{{ entity.vtelefono }}</em></td>
             </tr>
-            <tr>
-                 <td width="210" height="20">Direccion: </td>
-                <td><em>{{ entity.vdireccion}}</em></td>
-                    
+    
                 {%endif %}
             <tr>
                  <td width="210" height="20">Fecha Creación: </td>
-                <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
+                <td><em>{{ entity.dfechaCreacion|date('d-m-Y') }}</em></td>
             </tr>
+            {% if ((app.session.get('usuario_rol')=="Cliente") )%}
+            <tr>
+                 <td width="210" height="20">Estatus: </td>
+                <td><em>{{ entity.fkIidEstatus}}</em></td>
+            </tr>
+            {%endif%}
+            <tr>
+                <td width="20" height="20">Calificar Servicio: </td>
+            <td width="80">
+                <ul>
+                    <li>
+                    <div id="extern{{entity.id}}">
+                    <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
+                    <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
+                    </div>  
+                    </div>
+                        </li>
+                        </ul>
+                        </td>
+            <tr>
+            {% if ((app.session.get('usuario_rol')=="Empleado") or 
+                 (app.session.get('usuario_rol')=="Administrador") )%}
             <div class="error" id="det">
                 {{ form_errors(edit_form.fkIidEstatus) }}</div>       
                     <table>  <td width="210">
                 {{ form_label(edit_form.fkIidEstatus, 'Estado:') }}</td>
                     <td>{{ form_widget(edit_form.fkIidEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
                     </table>
+            
+          
                 <tr>
                     <td width="95"></td>
                     <td width="95"></td>
@@ -134,17 +168,110 @@
                 
 
                 {{ form_end(edit_form) }} 
+                {%endif%}
             </table>       
-        </form>  <br>
-        <ul class="record_actions">
+        </form>  
+        
+        </section>
+    
+        </div>
+<ul class="record_actions">
+            {% if ((app.session.get('usuario_rol')=="Empleado") or 
+                 (app.session.get('usuario_rol')=="Administrador") )%}
     <li>
         <a href="{{ path('SolicitudServicio') }}">
-          Volver  Listado de Solicitudes de Servicios
+          <h4>  Volver  Listado de Solicitudes de Servicios</h4>
         </a>
     </li>
-
+            {%endif%}
+    
 </ul>
-        </section>
-        </div>
+{% if ((app.session.get('usuario_rol')=="Cliente") )%}
+    <ul class="record_actions">
+    <li>
+        <a href="{{ path('SolicitudServicio_indexuser') }}">
+              <h4>  Volver  Listado de Solicitudes de Servicios</h4>
+            
+        </a>
+    </li>
+    </ul>
+    {%endif%}
+<script type="text/javascript">
+       
+       $(document).ready(function() {
+           
+});        
+
+popup= function(options) {
+    var url="<?echo 'votaste <b>'?>";
+        if(url === null) return;
+            var settings = {
+            url       : url, // post changes to 
+            maxvalue  : 5,   // max number of stars
+            curvalue  : 0   // number of selected stars	
+
+        };
+
+        if(options) {
+           jQuery.extend(settings, options);
+        };
+           jQuery.extend(settings, {cancel: (settings.maxvalue > 1) ? true : false});	
+        //Buscar Curvalue
+
+        var url2 = '/CalidadServicio/popupcalif';
+        
+   // mostrar un imágenes de cargando a través de CSS
+   //alert(settings.iid);
+   var onclick;
+   var dialog = $('#dialog'+settings.iid);
+   
+   var dialog2= dialog.clone();
+       dialog.dialog({
+       
+       show: {
+           effect: "blind",
+           duration: 1000
+           
+       },
+       hide: {
+           effect: "explode",
+           duration: 1000
+       },
+      close: function(event, ui) {
+          
+          dialog.remove();
+          dialog2.appendTo('#extern'+settings.iid);
+          dialog.attr('onclick',onclick);
+          
+      },
+      
+      modal: true,
+      tittle: "Calificacion del Servicio",
+      width:500,
+      height:300
+   });
+   
+   dialog.load(
+      url2,
+      {
+         iid_solicitud: settings.iid, 
+         iid: settings.id, 
+         maxvalue: settings.maxvalue,
+         curvalue: settings.curvalue
+      }, // Datos para enviar (es este caso, ninguno)
+      function (responseText, textStatus, XMLHttpRequest) {
+         // Quitar el class de “cargando”
+         dialog.removeClass('loading');
+         onclick=dialog.attr('onclick');
+         dialog.attr('onclick','event.cancelBubble = true;');
+        
+      }
+   );
+    //$(".ui-button-text").remove();
+    //$(".ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").remove();
+    
+    };
+   
+</script>
 
 {% endblock %}

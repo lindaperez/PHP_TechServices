@@ -102,59 +102,46 @@
                 <h3 ><a href="{{path('index')}}">Inicio</a></h3>
                 <ul>
 
-                    {% if (app.session.get('usuario_rol')!="Empleado") and 
-                        (app.session.get('usuario_rol')!="Cliente") %}
+                {% if(app.session.get('usuario_rol')=="Administrador") %}
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-display" href="#">Clientes</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
                             <h2 class="icon icon-display">Clientes</h2>
                             <a class="mp-back" href="#">Atrás</a>
-                            <ul>
+                            <ul>    
                                 <li class="icon icon-arrow-left">
-                                    <a class="icon icon-phone" href="{{ path('Registro_new') }}">Solicitud de Registro</a>
-
+                                <a class="icon icon-phone" href="{{ path('Registro_new') }}">Solicitud de Registro</a>
                                 </li>
-
+                                <li class="icon icon-arrow-left">
+                                    <a class="icon icon-tv" href="{{ path('Registro') }}">Listado de Solicitudes de Registro</a>
+                                
+                                </li>
                             </ul>
                         </div>
                     </li>
                 {% endif %}
-
-                {% if (app.session.get('usuario_rol')=="Empleado") or 
-                      (app.session.get('usuario_rol')=="Cliente") %}
-
-
-
-                    <li class="icon icon-arrow-left"> 
+                {% if(app.session.get('usuario_rol')=="Empleado") %}
+                    <li class="icon icon-arrow-left">
                         <a class="icon icon-display" href="#">Clientes</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
                             <h2 class="icon icon-display">Clientes</h2>
                             <a class="mp-back" href="#">Atrás</a>
-                            <ul>
-                                {% if app.session.get('usuario_rol')=="Cliente" %}
-
+                            <ul>    
                                 <li class="icon icon-arrow-left">
-                                    <a class="icon icon-phone" href="{{ path('Registro_new') }}">Solicitud de Registro</a>
-
-                                </li>
-                                {% endif %}
-                                {% if app.session.get('usuario_rol')=="Empleado" %}
-                                <li class="icon icon-arrow-left">
-                                    <a class="icon icon-phone" href="{{ path('Registro_new') }}">Solicitud de Registro</a>
-
+                                <a class="icon icon-phone" href="{{ path('Registro_new') }}">Registrar Cliente</a>
                                 </li>
                                 <li class="icon icon-arrow-left">
-                                    <a class="icon icon-tv" href="{{ path('Registro') }}">Listado de Solicitudes de Registro</a>
-
+                                    <a class="icon icon-tv" href="{{ path('Registro') }}">Listado de Registros de clientes</a>
+                                
                                 </li>
-
-                                {% endif %}
-
                             </ul>
                         </div>
                     </li>
-                    {% endif %}
-                    {% if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Empleado") %}
+                {% endif %}
+                    
+                
+                    {% if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Empleado") or 
+                        (app.session.get('usuario_rol')=="Administrador")%}
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-news" href="#">Servicios</a>
                         <div class="mp-level" data-level="2">
@@ -162,32 +149,39 @@
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
                                 
-                                 {%if (app.session.get('usuario_rol')=="Cliente") %}
+                                 {%if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
                                 <li><a href="{{ path('SolicitudServicio_new') }}">Solicitud de Servicio</a></li>
-                                <li><a href="{{ path('SolicitudServicio_indexuser') }}">Consulta de Solicitud de Servicios</a></li> 
+                                <li><a href="{{ path('SolicitudServicio_indexuser') }}">Listado Solicitudes de Servicio</a></li> 
                                 {%else%}
-                                <li><a href="{{ path('SolicitudServicio') }}">Consulta de Solicitud de Servicios</a></li> </ul>
+                                <li><a href="{{ path('SolicitudServicio') }}">Listado Solicitudes de Servicio</a></li> </ul>
                             {%endif%}
                         </div>
                     </li>
                     {% endif %}
-                    {% if (app.session.get('usuario_rol')=="Empleado") %}
+                    {% if (app.session.get('usuario_rol')=="Empleado") or (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-shop" href="#">Contratos</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
                             <h2 class="icon icon-shop">Contratos</h2>
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
+                                
+                                {%  if(app.session.get('usuario_rol')=="Cliente") %}
+                                <li class="icon icon-arrow-left">
+                                    <a class="icon icon-t-shirt" href="{{ path('UsuariosContratos') }}">Listado</a>
+
+                                </li>
+                                {%else %}
                                 <li class="icon icon-arrow-left">
                                     <a class="icon icon-t-shirt" href="{{ path('Contratos') }}">Listado</a>
 
                                 </li>
-
-
+                                {%endif %}
 
                             </ul>
                         </div>
                     </li>
+                    {%  if(app.session.get('usuario_rol')!="Cliente") %}
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-shop" href="#">Empresas</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
@@ -205,6 +199,7 @@
                             </ul>
                         </div>
                     </li>
+                    {%endif%}
                     
                     {% endif %}
 

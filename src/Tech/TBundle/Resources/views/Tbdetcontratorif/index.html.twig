@@ -6,18 +6,17 @@
     <div class="container" >
 
     <section class="register">
-<br><br>
+
     <table class="records_list">
         <thead>
             <tr>
-                
-            <td height="40"><strong>Nro-Contrato</strong></td>
+                <td align="center"  width="80"><h4 ><strong>Nro-Contrato</strong></h4></td>
                 <td width="60"><td>
-                <td><strong>Nro-Rif</strong></td>
+                <td align="center"  width="80"><h4 ><strong>Nro-Rif</strong></h4></td>
                 <td width="60"><td>
-                <td><strong>Dirección Fiscal</strong></td>
+                <td align="center"  width="300"><h4 ><strong>Dirección Fiscal</strong></h4></td>                
                 <td width="60"><td>
-                <td><strong>Acciones</strong></td>
+                <td align="center"  width="120"><h4 ><strong>Acciones</strong></h4></td>                
             </tr>
             
         </thead>
@@ -28,17 +27,17 @@
             
             <tr>
                
-                <td>{{ entity.pkInroContrato }}</td>
+                <td align="center"  width="120">{{ entity.pkInroContrato }}</td>
                 <td width="60"><td>
                 <td>{{ entity.fkIrif }}</td>
+                <td  width="60"><td></td>
+                <td align="center"  width="120">{{ entity.fkIrif.vdireccionFiscal }}</td>
                 <td width="60"><td></td>
-                <td>{{ entity.fkIrif.vdireccionFiscal }}</td>
-                <td width="60"><td></td>
-                <td>
+                <td  align="center"  width="120">
                 <ul>
                     
                     <li>
-                        <a href="{{ path('Contratos_edit', { 'id': entity.id }) }}">Ver/Editar</a>
+                        <a href="{{ path('Contratos_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver/Editar" src="/bundles/techt/images/Draft.png"></a>
                     </li>
                 </ul>
                 </td>
@@ -53,7 +52,8 @@
         <ul>
         <li>
             <a href="{{ path('Contratos_new') }}">
-                Crear Nuevo Contrato
+                <h4>  Crear Nuevo Contrato</h4>
+                
             </a>
         </li>
     </ul>

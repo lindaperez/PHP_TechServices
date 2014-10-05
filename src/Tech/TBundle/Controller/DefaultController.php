@@ -26,6 +26,7 @@ class DefaultController extends Controller
                ->findOneBy(array('fkIci'=> $user));   
             //print_r($usuario_acceso->getFkIidRol()->getVdescripcion());
             $rol=$usuario_acceso->getFkIidRol()->getVdescripcion();
+            //$rolId=$usuario_acceso->getFkIidRol()->getId();
             $session->set('usuario_rol',$rol);   
             $tipo_rol= $usuario_acceso->getFkIidRol()->getFkItipoRol()->getVdescripcion();
             $estatus= $usuario_acceso->getFkIidEstatus()->getVdescripcion();
@@ -84,10 +85,15 @@ class DefaultController extends Controller
        $contrato = $em->getRepository('TechTBundle:Tbdetcontratorif')
                 ->find($tbdetcontrato_id);        
        if ($contrato==null){
-       return new JsonResponse(array('id' => "", 'name' => "Rif" ));    
+           $name= array('name'=> "Rif",'razon'=>"Razón",'nombreFiscal'=>'Nombre Fiscal');
+       return new JsonResponse(array('id' => "", 'name' => $name));    
+       
        }
+       $name= array('name'=> $contrato->getFkIrif()->getPkIrif(),
+                    'razon'=>$contrato->getFkIrif()->getVrazonSocial(),
+                    'nombreFiscal'=>$contrato->getFkIrif()->getVnombre());
        return new JsonResponse(array('id' => $contrato->getFkIrif()->getId(),
-           'name' => $contrato->getFkIrif()->getPkIrif() ));
+           'name' => $name));
 }
     
      public function erroraccesoAction()

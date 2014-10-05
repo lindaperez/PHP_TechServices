@@ -28,7 +28,10 @@ XML;
         $xml = simplexml_load_string($xmlString);
         if (isset($xml->result)) {
             $modeuleDependantObj = new moduleDependant();
+            
             $output = $modeuleDependantObj->printObj($xml);
+            return $output;
+            
             
         } else if (isset($xml->error)) {
             echo "Error code: " . $xml->error->code . "<br/>";

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<!--script src="http://code.jquery.com/jquery-2.1.0.min.js"></script-->
 <h1>Solicitud de Servicio</h1>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
@@ -54,27 +54,27 @@
                  
                  <div class="error">
                 {{ form_errors(form.tbgentiposolicitud) }}</div>       
-                    <table>  <td><h2>1. </h2></td><td width="115">
+                    <table>  <td><h2>1. </h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
                     
-                 <td width="15"></td>
+                 <td width="10"></td>
                 <div class="error" >
                 {{ form_errors(form.fkIidEspSol) }}</div>       
-                 <td><h2>2. </h2></td><td width="100">
+                 <td><h2>2.</h2></td><td width="5"></td><td width="100">
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
                  
-                 <td width="15"></td>
+                 <td width="10"></td>
                 <div class="error" >
                 {{ form_errors(form.vdetalles) }}</div>       
-                      <td><h2>3. </h2></td><td width="60">
+                      <td><h2>3. </h2></td><td width="5"></td><td width="60">
                 {{ form_label(form.vdetalles, 'Detalles:') }}</td>
                     <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
-                    <td width="15"></td>
+                    <td width="10"></td>
                   <div class="error">
                 {{ form_errors(form.contrato) }}</div>       
-                    <table>  <td><h2 width="15">4. </h2></td><td width="115">
+                    <table>  <td><h2 width="5">4. </h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.contrato, 'Contrato:') }}</td>
                         <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
                     </table>
@@ -137,15 +137,19 @@
                        <div class="error" id="det">
                 {{ form_errors(form.vcorreo) }}</div>  
                    </td>
+                    
                    </table>
               </div>
-                    
-                        
-                    
-                
-                 
-                    
+                 <br>
+                 <table>     
                      
+                <td width="730">
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Registrar">
+                </td>
+                
+                     </table>
+                       
                      <div style="display: none;">     
                 {{ form_row(form.fkIidEstatus, {'required' : false})}}
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}

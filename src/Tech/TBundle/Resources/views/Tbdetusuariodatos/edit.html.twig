@@ -155,7 +155,27 @@
                 {% set k=2 %}
                 {%  endif %}
             {{ form_widget(usuariocontrato.tbdetcontratorif) }}
-</td></tr>
+                
+            </td>
+            <td width="20"></td>
+            <td>
+                
+                 {% if k==2 %}
+            <h1>Razon Social </h1> 
+                {% set k=3 %}
+                {%  endif %}
+                
+            {{ form_widget(usuariocontrato.tbdetcontratorif) }}
+            </td>
+            <td width="20"></td>
+            <td>
+                {% if k==3 %}
+            <h1>Nombre Comercial </h1> 
+                {% set k=4 %}
+                {%  endif %}
+                
+            </td>
+            </tr>
         </table>   
              
     </li>
@@ -192,11 +212,16 @@
                 <td></td>
                 <td></td>
 
+          
+                </tr>
+                <tr>
                 <td>
+                    <br><br>
                     <p class="submit">   
                         <input type="submit" name="commit" value="Editar">
+                        </p>
                 </td>
-                </tr>
+                    </tr>
 
     {{ form_end(edit_form) }}         
 
@@ -213,7 +238,7 @@
 
             // setup an "add a tag" link
 
-            var $addTbdetcontratorifLink = $('<table width="320" align="right"><td><a href="#" class="add_tbdetcontratorif_link">\n\
+            var $addTbdetcontratorifLink = $('<br><table width="90" align="right"><td><a href="#" class="add_tbdetcontratorif_link">\n\
         <img  width="30"  height="28" title="Agregar" src="/bundles/techt/images/symbol_add.png"/>Agregar</a></td></table>');
             //var $newLinkLi = $('<table width="380" align="right"><td><a href="#" class="add_tbdetcontratorif_link">Agregar</a></td></table>');
             var $newLinkLi = $('<div></div>').append($addTbdetcontratorifLink);
@@ -248,8 +273,8 @@
 
             });
             function addTbdetcontratorifFormDeleteLink($contratoFormLi) {
-                var $removeFormA = $('<table width="290" align="right"><td><a href="#">\n\
-        <img  width="40"  height="38" title="Remover" src="/bundles/techt/images/symbol_add_c.png"/>Remover</a></td></table>');
+                var $removeFormA = $('<table width="90" align="right"><td><a href="#">\n\
+        <img  width="30"  height="28" title="Remover" src="/bundles/techt/images/symbol_add_c.png"/>Remover</a></td></table>');
                 $contratoFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function(e) {
@@ -285,13 +310,20 @@
                 var newFormD = "<div><select id= 'tech_tbundle_tbdetusuariodatos_contratos_" + 
                         index + "_tbdetcontratorif' name='tech_tbundle_tbdetusuariodatos[contratos][" + 
                         index + "][tbdetcontratorif]'class='tbdetempresa_selector'><option value=>Rif</option></select></div>";
+                
+                var newFormE = "<div><input type='text' name='razon"+index+"'></div>";
+                var newFormF = "<div><input type='text' name='nombreFiscal"+index+"'></div>";
                 // increase the index with one for the next item
+                
                 $collectionHolder.data('index', index + 1);
 
                 // Display the form in the page in an li, before the "Add a tag" link li
                 
                 var $newFormLi = $('<li><table id="tabla"><td>'+newForm+
-                        '</td><td width="20"></td><td>'+newFormD+'</td></table></li>');
+                        '</td><td width="20"></td><td>'+newFormD
+                        +'</td><td width="20"></td><td>'+newFormE
+                        +'</td><td width="20"></td><td>'+newFormF
+                        +'</td></table></li>');
                 
                 $newFormLi.each(function() {
                 var text = $(this).html();
@@ -318,48 +350,50 @@
             }
 
         </script>
-        <script>
-            $(function() {
-                $(document).on('change', '.tbdetcontratorif_selector', function() {
-                    //alert("Han cambiado mi valor");
-                    var $this = $(this);
-                    var $arreglo = $this.attr("id");
-                    var $val = $arreglo.split('_')[4];
+<script>
+    $(function() {
+        $(document).on('change', '.tbdetcontratorif_selector', function() {
+            //alert("Han cambiado mi valor");
+            var $this = $(this);
+            var $arreglo = $this.attr("id");
+            var $val = $arreglo.split('_')[4];
 
-                    var data = {
-                        tbdetcontratorif_id: $this.val()
-                    };
+            var data = {
+                tbdetcontratorif_id: $this.val()
+            };
 
-                    $.ajax({
-                        type: 'post',
-                        url: '{{ path("rifs") }}',
-                        data: data,
-                        dataType: 'json',
-                        success: function(data, val) {
-                            if (data.error !== undefined && data.error != '') {
-                                alert(data.error);
-                            } else {
-                                var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
+            $.ajax({
+                type: 'post',
+                url: '{{ path("rifs") }}',
+                data: data,
+                dataType: 'json',
+                success: function(data, val) {
+                if (data.error !== undefined && data.error != '') {
+                    alert(data.error);
+                } else {
+                    var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
 
-                                // alert("Han cambiado mi valor"+ $val);
-                                $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").html('<option>Rif</option>');
-                                $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").
-                                        append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>').prop('disabled','disabled');
+                    // alert("Han cambiado mi valor"+ $val);
+                    $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").html('<option>Rif</option>');
+                    $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").
+                            append('<option value="' + data.id + '" selected="selected">' + data.name['name'] + '</option>').prop('disabled','disabled');
 
-                            }
-                        },
-                        error: function(e, ts, et) {
-                            alert(ts)
-                        }
-                    });
-
-
-                });
-
+                    $("input[name=razon" + $val + "]").val(data.name['razon']);
+                    $("input[name=nombreFiscal" + $val + "]").val(data.name['nombreFiscal']);
+                }
+            },
+            error: function(e, ts, et) {
+                alert(ts)
+            }
             });
 
 
-        </script>
+        });
+
+    });
+
+
+</script>
     </section>
 </div>
 

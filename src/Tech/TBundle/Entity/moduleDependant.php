@@ -123,10 +123,11 @@ class moduleDependant {
          
         $numberOfRecords = count($xml->result->Cases->row);
         //print_r($numberOfRecords);
-        // $records[row value][field value] 
+        //$records[row value][field value] 
         $records[][] = array();
         for ($i = 0; $i < $numberOfRecords; $i++) {
             $numberOfValues = count($xml->result->Cases->row[$i]->FL);
+            //print_r($xml->result->Cases->row[$i]);
             for ($j = 0; $j < $numberOfValues; $j++) {
                 switch ((string) $xml->result->Cases->row[$i]->FL[$j]['val']) {
                     case 'CASEID':
@@ -138,33 +139,55 @@ class moduleDependant {
                     case 'Case Owner':
                         $records[$i]['Case Owner'] = (string) $xml->result->Cases->row[$i]->FL[$j];
                         break;
-                    case 'Case Origin':
-                        $records[$i]['Case Origin'] = (string) $xml->result->Cases->row[$i]->FL[$j];
-                        break;
-                    case 'Subject':
-                        $records[$i]['Subject'] = (string) $xml->result->Cases->row[$i]->FL[$j];
-                        break;
-                    case 'Account Name':
-                        $records[$i]['Account Name'] = (string) $xml->result->Cases->row[$i]->FL[$j];
-                        break;
-                    case 'Phone':
-                        $records[$i]['Phone'] = (string) $xml->result->Cases->row[$i]->FL[$j];
-                        break;
-                    case 'Email':
-                        $records[$i]['Email'] = (string) $xml->result->Cases->row[$i]->FL[$j];
-                        break;
-                    case 'Status':
-                        $records[$i]['Status'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                    case 'Priority':
+                        $records[$i]['Priority'] = (string) $xml->result->Cases->row[$i]->FL[$j];
                         break;
                     case 'Case Reason':
                         $records[$i]['Case Reason'] = (string) $xml->result->Cases->row[$i]->FL[$j];
                         break;
-                     case 'Priority':
-                        $records[$i]['Priority'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                     
+                    case 'Case Origin':
+                        $records[$i]['Case Origin'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        break;       
+                    case 'Subject':
+                        $records[$i]['Subject'] = (string) $xml->result->Cases->row[$i]->FL[$j];
                         break;
                     case 'Reported By':
                         $records[$i]['Reported By'] = (string) $xml->result->Cases->row[$i]->FL[$j];
                         break;
+                    case 'Email':
+                        $records[$i]['Email'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        break;
+                    
+                    case 'Phone':
+                        $records[$i]['Phone'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        break;
+                    
+                    case 'Account Name':
+                        $records[$i]['Account Name'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        break;
+                    case 'Status':
+                        $records[$i]['Status'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        //print_r($records[$i]['Status']);
+                        break;
+                    case 'Número de Contrato':
+                        $records[$i]['Número de Contrato'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        break;
+                    //print_r($records[$i]['Número de Contrato']);
+                    case 'Tipo de Contrato':
+                        $records[$i]['Tipo de Contrato'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        //print_r($records[$i]['Tipo de Contrato']);
+                        break;
+                    case 'Dpto. Encargado':
+                        $records[$i]['Dpto. Encargado'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        //print_r($records[$i]['Dpto. Encargado']);
+                        break;
+                    case 'Nombre de contacto':
+                        $records[$i]['Nombre de contacto'] = (string) $xml->result->Cases->row[$i]->FL[$j];
+                        //print_r($records[$i]['Nombre de contacto']);
+                        break;
+                    
+                    
                     
                 }
             }
@@ -172,8 +195,8 @@ class moduleDependant {
         
         
        //Descomentar esto 
-       print_r($records);
-       
+       //print_r($records);
+       return $records;
      }
 /*
   public function printCObj($xml) {

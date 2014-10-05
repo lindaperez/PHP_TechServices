@@ -13,6 +13,13 @@ use Tech\TBundle\Entity\Utilities;
 
 
 use DateTime;
+define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
+define("TARGETURSLGETALL", "https://crm.zoho.com/crm/private/xml/Cases/getRecords");
+
+/* user related parameter */
+define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
+
+define("SCOPE", "crmapi");
 /**
  * Tbgensolicitudservicio controller.
  *
@@ -359,16 +366,11 @@ class TbgensolicitudservicioController extends Controller
             
             $em->persist($entity);
             $em->flush();
-    
-            
-            define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
-            /* user related parameter */
-            define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
-            
-            define("SCOPE", "crmapi");
+            //Creacion de Campos en CRM
             /* create a object */
             $utilObj = new Utilities();
             /* set parameters */
+            
             $parameter = "";
             $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
             $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
@@ -378,16 +380,16 @@ class TbgensolicitudservicioController extends Controller
             'Priority' => 'RnX', 
             'Case Reason' => $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol(),
             'Case Origin' => 'Web',
-            'Subject' => $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol(),
+            'Subject' => '*',
             'Reported By' => $usu->getVnombre()."  ".$usu->getVapellido(), 
             'Email' => $usu->getVcorreoEmail(),
             'Phone' => $usu->getVtelfLocal(),
             'Account Name' => "Prueba Nombre Cuenta",
-            'Número de Contrato'=>1030,
-            'Tipo de Contrato'=>'ejemplo',
-            'Dpto. Encargado' => 1,
-            'Nombre de contacto'=> $usu->getVnombre()."  ".$usu->getVapellido(),
-            'Tipo De Solicitud'=> $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol()
+            'Numero de Contrato'=>(string)587,
+            'Tipo de Contrato'=>'Alquiler CCTV',
+            'Dpto. Encargado' => 'Servicios y Atención al Cliente',
+            'Nombre de contacto'=> 'CRISBET',
+            'Status'=> 'Abierto'
                 );
             $dataXml=$utilObj->parseXMLandInsertInBd($records);
             if ($dataXml!=null){
@@ -397,7 +399,7 @@ class TbgensolicitudservicioController extends Controller
             /* Call API */
             $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
             
-            /*CRM        * */
+            /*FIN CRM        * */
             $message_info = "Recuerde revisar su correo electrónico.";
             $message_success= "Su solicitud ha sido registrada correctamente.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
@@ -525,6 +527,33 @@ class TbgensolicitudservicioController extends Controller
      */
     public function editAction($id)
     {
+        //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            $parameter='';
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("fromIndex",1,$parameter);
+            $parameter = $utilObj->setParameter("toIndex",50,$parameter);
+            $parameter = $utilObj->setParameter("version",2,$parameter);
+            //$parameter = $utilObj->setParameter("selectColumns","cases",$parameter);
+            //print_r($parameter);
+            //$parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            
+            $response = $utilObj->sendCurlRequest(TARGETURSLGETALL, $parameter);
+            
+            $dataXml=$utilObj->parseXMLandPrintfields($response);
+            
+            if ($dataXml!=null){
+               //print_r($dataXml[0]);
+             }
+            
+            
+            
+            /*FIN CRM        * */
+        //-.-
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
@@ -545,9 +574,9 @@ class TbgensolicitudservicioController extends Controller
               }elseif($idEsp==1 ){
                   $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
                           findBy(array('fkIidSolUsu'=>$entity));
-                  $entity->setVpersona($detalles[3]->getVdetalle());
+                //$entity->setVpersona($detalles[3]->getVdetalle());
                   $entity->setVcorreo($detalles[1]->getVdetalle());
-                  $entity->setVdireccion($detalles[2]->getVdetalle());
+                  $entity->setVpersona($detalles[2]->getVdetalle());
                   $entity->setVtelefono($detalles[0]->getVdetalle());
                   
                //   print $entity->getVdescripcion();
@@ -561,7 +590,25 @@ class TbgensolicitudservicioController extends Controller
                   //print $entity->getVdescripcion();
                     }
               }  
-        
+              
+              //
+              ////Buscar el numero de contrato
+              //$statusCRM='Abierto';
+              
+              if ($entity->getId()==124){
+             for ($i = 0; $i < 50; $i++) {
+              if ($dataXml[$i]['Número de Contrato']=='124')
+              {
+                   $statusCRM=$dataXml[$i]['Status'];
+               //    print $statusCRM;
+              }
+             }
+              
+        //Buscar el # de estatus que corresponde al del CRM
+        $status=$em->getRepository('TechTBundle:TbgenEstatusSolicitud')->
+                findOneBy(array('vdescripcion'=>$statusCRM));
+        $entity->setfkIidEstatus($status);
+              }
         //**
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);

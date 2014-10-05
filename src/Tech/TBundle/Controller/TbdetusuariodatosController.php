@@ -104,7 +104,7 @@ class TbdetusuariodatosController extends Controller {
                 $qb->andwhere('ud.vsucursal=?5')->setParameter(5, $vsucursal);
             }
             if ($dfechaRegistro != null) {
-                $qb->andwhere('ud.dfechaRegistro=?10')->setParameter(10, $dfechaRegistro);
+                $qb->andwhere('ud.dfechaRegistro LIKE ?10')->setParameter(10, $dfechaRegistro->format('Y-m-d').'%');
             }
             
         }
@@ -161,7 +161,7 @@ class TbdetusuariodatosController extends Controller {
      */
     public function indexAction() {
         $request = $this->getRequest();
-        $verif = $this->verifaccesoemplAction($request);
+        $verif = $this->verifaccesoAdminEmplAction($request);
         if ($verif == false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
@@ -440,7 +440,7 @@ class TbdetusuariodatosController extends Controller {
 
         //autorizacion de usuarios
         $request = $this->getRequest();
-        $verif = $this->verifaccesoemplAction($request);
+        $verif = $this->verifaccesoAdminEmplAction($request);
         if ($verif == false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
@@ -464,6 +464,7 @@ class TbdetusuariodatosController extends Controller {
         foreach ($usuario_contratos as &$contrato) {
             $entity->addContrato($contrato);
         }
+        
         $estatus_registro = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                 ->findOneBy(array('fkIci' => $entity));
 
@@ -513,7 +514,7 @@ class TbdetusuariodatosController extends Controller {
     public function updateAction(Request $request, $id) {
         //Verificacion de Acceso de Usuarios Empleados.
         $request = $this->getRequest();
-        $verif = $this->verifaccesoemplAction($request);
+        $verif = $this->verifaccesoAdminEmplAction($request);
         if ($verif == false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
@@ -527,21 +528,25 @@ class TbdetusuariodatosController extends Controller {
         $editForm->handleRequest($request);
         //Verificar que el arreglo de contratos no este vacio.       
         $usuario_contratos = $entity->getContratos();
+        
         $i = 0;
+        $j = 0;
+        $contratsP=array();
         foreach ($usuario_contratos as &$contrato) {
             //print "1";
             $i = $i + 1;
+            
             if ($contrato == null) {
                   //print "3";
-                $message_error = "No debe agregar contratos vacios. Elija los cotratos que requiere."
-                        . "y quite los que no va a asociar al cliente.";
-                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
-
-                return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
-                            'entity' => $entity,
-                            'edit_form' => $editForm->createView(),
-                            'delete_form' => $deleteForm->createView(),
-                ));
+//                $message_error = "No debe agregar contratos vacios. Elija los cotratos que requiere."
+//                        . "y quite los que no va a asociar al cliente.";
+//                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+//
+//                return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
+//                            'entity' => $entity,
+//                            'edit_form' => $editForm->createView(),
+//                            'delete_form' => $deleteForm->createView(),
+//                ));
             } else {
                 if ($contrato->getFkInroContrato() == null && $i == 1) {
 
@@ -555,9 +560,30 @@ class TbdetusuariodatosController extends Controller {
                     ));
                 }
                 //  print "2";
+                if ($contrato->getFkInroContrato() != null){
+                    $contratsP[$j]=$contrato->getFkInroContrato()->getId();
+                    $j = $j + 1;
+                }
+            
             }
         }
+        
+        $usuario_contrat =array_unique($contratsP);
+        
+        if (count($contratsP)!=count($usuario_contrat)){
+            //print_r($contratsP);
+            $message_error = "No Puede agregar Contratos repetidos.";
+                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+
+                return $this->render('TechTBundle:Tbdetusuariodatos:edit.html.twig', array(
+                            'entity' => $entity,
+                            'edit_form' => $editForm->createView(),
+                            'delete_form' => $deleteForm->createView(),
+                ));
+        }
+            
         if ($editForm->isValid()) {
+            
             //1. Eliminar todas las relaciones de CI con Contrato
             $usuario_contratosR = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
                     ->findBy(array('fkIci' => $entity));
@@ -566,7 +592,7 @@ class TbdetusuariodatosController extends Controller {
                 $em->remove($contratoR);
             }
             //2. Actualizar Contratos Existentes. Se establecen las relaciones.
-
+            
             foreach ($usuario_contratos as &$contrato) {
                 if ($contrato != null && $contrato->getFkInroContrato() != null) {
                     $nuevo_contrato = new Tbdetusuariocontrato();
@@ -719,6 +745,23 @@ class TbdetusuariodatosController extends Controller {
         $session = $request->getSession();
         $tipo_usuario = $session->get('usuario_rol');
         if ($tipo_usuario == "Cliente") {
+            return true;
+        }
+        return false;
+    }
+    public function verifaccesoAdminAction(Request $request) {
+        $session = $request->getSession();
+        $tipo_usuario = $session->get('usuario_rol');
+        if ($tipo_usuario == "Administrador") {
+            return true;
+        }
+        return false;
+    }
+    public function verifaccesoAdminEmplAction(Request $request) {
+        $session = $request->getSession();
+        $tipo_usuario = $session->get('usuario_rol');
+        if ($tipo_usuario == "Administrador" ||
+                $tipo_usuario == "Empleado") {
             return true;
         }
         return false;

@@ -2,9 +2,9 @@
 
 
 {% block content %}
- <h1>Listado Solicitud de Servicios de Clientes</h1>
+ <h1>Consulta Solicitud de Servicios de Clientes</h1>
  
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<!--script src="http://code.jquery.com/jquery-2.1.0.min.js"></script-->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -25,20 +25,20 @@
              
                    <tr>
                  <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
-                   <td><h2>1.</h2></td><td width="115">
+                   <td width='50'><h2>1.</h2></td><td width="115">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
                     
-                 <td width="5"></td>
+                 <td width="55"></td>
                 <div class="error" >
                 {{ form_errors(search_form.fkIidEspSol) }}</div>       
-                 <td><h2>2.</h2></td><td width="100">
+                 <td width='50'><h2>2.</h2></td><td width="100">
                 {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
-                 <td width="5"></td>
+                 <td width="55"></td>
                         <div class="error" >
                 {{ form_errors(search_form.vdetalles) }}</div>       
-                   <td>   <h2>3.</h2></td><td width="95">
+                   <td width='50'>   <h2>3.</h2></td><td width="95">
                 {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
                         <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
              
@@ -88,7 +88,7 @@
                 </div> 
                    <table>
                    <tr>
-                       
+                       <br>
                   <td  width="650" align="right">
                         <input type="reset" name="clear" value="Limpiar"> </td>
                         <td><input type="submit" name="commit" value="Buscar">
@@ -109,33 +109,28 @@
 
     <section class="register">
         <h1>Listado de Solicitudes de Servicio. ({{ pagination.getTotalItemCount }})</h1>
-        <br>
-       
  <div class="navigation" align="right">
     {{ knp_pagination_render(pagination) }} 
         </div>
-        <br>
-        <br> 
         <table class="records_list">
             {% if (pagination.getTotalItemCount!=0) %}
             <thead> 
-                <tr>
-                <td width="80"><h1 ><strong>Nro Caso</strong></h1></td>
+            <td align="center"  width="80"><h4 ><strong>Nro Caso</strong></h4></td>
                 <td width="40"></td>
-                <td width="80"><h1><strong>Tipo Solicitud</strong></h1></td>
+                <td align="center"  width="160"><h4><strong>Tipo Solicitud</strong></h4></td>
                 <td width="40"></td>
-                <td width="80"><h1><strong>Especificación</strong></h1></td>
+                <td align="center" width="160"><h4><strong>Especificación</strong></h4></td>
                 <td width="40"></td>
-                <td width="80"><h1><strong>Fecha Creación</strong></h1></td>
+                <td align="center" width="80"><h4><strong>Fecha</strong></h4></td>
                 <td width="40"></td>
-                <td width="80"><h1><strong>Estado</strong></h1></td>
-                <td width="40"></td>
-                <td width="80"><h1><strong>Acciones</strong></h1></td>
-            </tr>
-        </thead>
+                <!--td align="center" width="80"><h4><strong>Estatus</strong></h4></td-->
+                <!--td width="40"></td-->
+                <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
+              </thead>
         {% else %}
          <thead><div align="left"> 
-                <h1><strong>No se encontraron coincidencias. </strong></h1></div>
+             <br>
+                <h1>No se encontraron coincidencias. </h1></div>
                 </thead> 
                 
          {% endif %}       
@@ -151,30 +146,44 @@
                 <td width="40"></td>
                 <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
                 <td width="40"></td>
-                <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
-                <td width="40"></td>
-                    
-                <td align="center">
+                <!--td align="center" width="80">{{ entity.fkIidEstatus}} </td-->
+                <!--td width="40"></td-->
+                  
+                <td align="center" width="120">
                     
                 <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
                 <ul align="center">
-                    
+                 
+                    {% if ((app.session.get('usuario_rol')=="Cliente") )%}
                     <li>
-                        <br>
-                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
-                        <br>
+                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver" src="/bundles/techt/images/Draft.png"></a>
+                        
                     </li>
+                    {%endif%}
+                    
+                    {% if ((app.session.get('usuario_rol')=="Empleado") or
+                        (app.session.get('usuario_rol')=="Administrador")  )%}
+                    <li>
+                        <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
+                        
+                    </li>
+                    {%endif%}
+                    {%if (entity.fkIidEstatus=="Culminado")%}  
                     <li>
                     <div id="extern{{entity.id}}">
                     <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
-                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />
-                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />    
-                    <img title="Calificar" type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
                     </div>  
                     </div>
                         </li>
+                        {%endif%}
                 </ul>
                 </td>
+                
             </tr>
         {% endfor %}            
            </tbody>
@@ -184,7 +193,7 @@
     <ul>
         <li>
             <a href="{{ path('SolicitudServicio_new') }}">
-                Realizar Solicitud de Servicio
+                 <h4>  Realizar Solicitud de Servicio</h4>
             </a>
         </li>
     </ul>

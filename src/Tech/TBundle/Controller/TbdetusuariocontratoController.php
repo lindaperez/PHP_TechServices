@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Tech\TBundle\Entity\Tbdetusuariocontrato;
 use Tech\TBundle\Form\TbdetusuariocontratoType;
-
+use Tech\TBundle\Controller\TbdetusuariodatosController;
 /**
  * Tbdetusuariocontrato controller.
  *
@@ -21,10 +21,27 @@ class TbdetusuariocontratoController extends Controller
      */
     public function indexAction()
     {
+        
         $em = $this->getDoctrine()->getManager();
 
+        $request = $this->getRequest();
+        $verif = new TbdetusuariodatosController();
+        $verif1 = $verif->verifaccesouserAction($request);
+        if ($verif==false ) {
+            
         $entities = $em->getRepository('TechTBundle:Tbdetusuariocontrato')->findAll();
 
+        }else{
+            
+            $session = $request->getSession();
+            $usuario_ci = $session->get('usuario_ci');
+            $user= $em->getRepository('TechTBundle:Tbdetusuariodatos')->
+                    findBy(array('pkIci'=>$usuario_ci));
+            $entities= $em->getRepository('TechTBundle:Tbdetusuariocontrato')->
+               findBy(array('fkIci'=>$user)); 
+       
+       }
+        
         return $this->render('TechTBundle:Tbdetusuariocontrato:index.html.twig', array(
             'entities' => $entities,
         ));

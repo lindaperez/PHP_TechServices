@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1 class="title">Bienvenido a la Página de Inicio.</h1>
+    <h1 class="title">Bienvenido al Sistema TechtrolService.</h1>
     {% if app.session.get('tipo_rol')==null %}
     <p>
-       -- <em>--</em> 
+       Autogestión de Requerimientos, Solicitudes, Control de Pagos y otros.<em></em> 
     </p>
     {% else %}
     <p>
@@ -16,10 +16,11 @@
        
     {% if app.session.get('usuario_estatus_registro')=="Solicitud de Registro" %}
     <h2 class="title">Acceso Restringido Temporal.</h2> 
-    <h3 class="title">Por ahora no podrá realizar algunas funciones 
+    
+    <p>Por ahora no podrá realizar algunas funciones 
         en el sistema, debe esperar el correo de confirmacion de Registro para 
-       que se muestren las opciones que puede usar como cliente de techtrol, muchas gracias.</h3>
+       que se muestren las opciones que puede usar como cliente de techtrol, muchas gracias.</p>
     {% endif %}
-    <br><br><br><br><br><br><br>
+    <br><br><br><br><br><br>
 {% endblock %}
 

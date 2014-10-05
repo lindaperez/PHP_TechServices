@@ -1,7 +1,8 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<!--script src="http://code.jquery.com/jquery-2.1.0.min.js"></script-->
+<h1>Solicitud de Servicio Enviada</h1>
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
@@ -35,14 +36,14 @@
 
 {% endfor %}
  
-<h1>Solicitud de Servicio</h1>
+
+
 
 <div class="container" >
 
     <section class="register">
-        <br>
-        <h1>Ingrese los siguientes datos:</h1>
-        <br>
+<h1>Datos de Solicitud de Servicio Enviada:</h1>        
+        
         <form action="#" method="post" class="login">
               {{ form_start(form) }}
         {{ form_errors(form) }}  
@@ -53,33 +54,35 @@
                  
                  <div class="error">
                 {{ form_errors(form.tbgentiposolicitud) }}</div>       
-                    <table>  <td><h2>1. </h2></td><td width="115">
+                    <table>  <td><h2>1. </h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
                     
-                 <td width="20"></td>
+                 <td width="10"></td>
                 <div class="error" >
                 {{ form_errors(form.fkIidEspSol) }}</div>       
-                 <td><h2>2. </h2></td><td width="100">
+                 <td><h2>2.</h2></td><td width="5"></td><td width="100">
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
                  
-                 <td width="20"></td>
+                 <td width="10"></td>
                 <div class="error" >
                 {{ form_errors(form.vdetalles) }}</div>       
-                      <td><h2>3. </h2></td><td width="80">
+                      <td><h2>3. </h2></td><td width="5"></td><td width="60">
                 {{ form_label(form.vdetalles, 'Detalles:') }}</td>
                     <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
-                    <td width="20"></td>
+                    <td width="10"></td>
                   <div class="error">
                 {{ form_errors(form.contrato) }}</div>       
-                    <table>  <td><h2>4. </h2></td><td width="80">
+                    <table>  <td><h2 width="5">4. </h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.contrato, 'Contrato:') }}</td>
                         <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
                     </table>
                     
                  </td>
              </tr>
+             </table>
+                 <table>
              <tr>
                          
              <td id="campos1">
@@ -93,16 +96,18 @@
                     
                     </table>
              </td>
-              <br>
               
-                <table id="campos3">
-                  
-                    
+              </table>
+                 <div id="campos3">
+                 <table>
+                
                     <tr><br><br>
-                        <td align="left" width="90">
-                         <label align="left"><h1><strong> Datos Persona Contacto: </strong></h1></label> </td>
-                        </tr>
-                    <tr>
+                    
+                    <td align="left" width="90">
+                            
+                            <label align="left"><h1> Datos Persona Contacto: </h1></label> </td>
+                        
+                    </tr>
                         <td width="300">
                            
                     <table> 
@@ -113,12 +118,6 @@
                             <div class="error" id="det">
                 {{ form_errors(form.vpersona) }}</div>
                             </td>
-                            <td width="10   "></td>
-                    <td>
-                        
-                  </table>
-              <table id="campos6" > 
-                  
                   <td>
                     <table>  <td width="90">
                 {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
@@ -137,35 +136,62 @@
                        <div class="error" id="det">
                 {{ form_errors(form.vcorreo) }}</div>  
                    </td>
-                   </table>
-                 
-               
-                 
                     
-                     <h1><br></h1><br>
+                   </table>
+              </div>
+                 
+                 
+                 <br>
+                 <table>     
+                     
+                
+                
+                     </table>
+                       
                      <div style="display: none;">     
                 {{ form_row(form.fkIidEstatus, {'required' : false})}}
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
                 {{ form_row(form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(form.iid, {'required' : false})}}                      
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
-                </div>  
-                  <td>
-                    
-                    </td>
-                    </tr>
-                   
+                </div>
+                  
                 {{ form_end(form) }} 
                 
-            </table>       
-        </form>  
                    
+        </form>  
+         
     </section>
+    <ul>
+        <li>
+            <a href="{{ path('SolicitudServicio_new') }}">
+                <h4>Crear Nueva Solicitud</h4>
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('SolicitudServicio') }}">
+                <h4>Lista de Solicitudes</h4>
+            </a>
+        </li>
+    </ul>             
 </div>
 {% block javascripts %}
     {{ parent() }}
 
  <script>
+     //ocultar campos
+     $("#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_fkIidEspSol").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_vdetalles").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_contrato").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_vpersona").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_vtelefono").prop('disabled','disabled');  
+     $("#tech_tbundle_tbgensolicitudservicio_vcorreo").prop('disabled','disabled');  
+     
+     
+     //
+     
+     
      $('#campos1').hide();
      $('#campos3').hide();
      $('#campos4').hide();  

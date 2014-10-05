@@ -21,13 +21,16 @@ class TbdetcontratorifController extends Controller
      */
     public function indexAction()
     {
+        
         $em = $this->getDoctrine()->getManager();
-
+        
         $entities = $em->getRepository('TechTBundle:Tbdetcontratorif')->findAll();
 
         return $this->render('TechTBundle:Tbdetcontratorif:index.html.twig', array(
             'entities' => $entities,
         ));
+        
+        
     }
     /**
      * Creates a new Tbdetcontratorif entity.
