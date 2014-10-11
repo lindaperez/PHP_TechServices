@@ -7,11 +7,16 @@
     <table class="records_list">
         <thead>
                <tr>
-                <td align="center"  width="80"><h4 ><strong>Nro-Contrato</strong></h4></td>
-                <td width="60"><td>
-                <td align="center"  width="80"><h4 ><strong>Nro-Rif</strong></h4></td>
-                <td width="60"><td>
-                <td align="center"  width="80"><h4 ><strong>Dirección Fiscal</strong></h4></td>
+                <td align="center"  width="100"><h4 ><strong>Nro-Contrato</strong></h4></td>
+                
+                <td align="center"  width="150"><h4 ><strong>Nro-Rif</strong></h4></td>
+                
+                <td align="center"  width="100"><h4 ><strong>Nombre</strong></h4></td>
+                
+                <td align="center"  width="200"><h4 ><strong>Razón Social</strong></h4></td>
+                
+                <td align="center"  width="200"><h4 ><strong>Dirección Fiscal</strong></h4></td>
+                
                 
                 
             </tr>
@@ -20,15 +25,16 @@
         {% for entity in entities %}
               <tr>
                
-                <td align="center" >{{ entity.fkInroContrato.pkInroContrato }}</td>
-                <td width="60"><td>
-                <td align="center" >{{ entity.fkInroContrato.fkIrif }}</td>
-                <td width="60"><td></td>
-                <td align="center" >{{ entity.fkInroContrato.fkIrif.vdireccionFiscal }}</td>
-                <td width="60"><td></td>
-                <td>
+                <td align="center" width="100">{{ entity.fkInroContrato.pkInroContrato }}</td>
                 
-                </td>
+                <td align="center" width="150">{{ entity.fkInroContrato.fkIrif }}</td>
+                
+                <td align="center" width="100">{{ entity.fkInroContrato.fkIrif.vnombre }}</td>
+                
+                <td align="center" width="200">{{ entity.fkInroContrato.fkIrif.vrazonSocial }}</td>
+                
+                <td align="center" width="200">{{ entity.fkInroContrato.fkIrif.vdireccionFiscal }}</td>
+                
             </tr>
             
         {% endfor %}

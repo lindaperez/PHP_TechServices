@@ -11,19 +11,24 @@
         <link href="{{ asset('bundles/techt/css/styleform.css') }}" rel="stylesheet" type="text/css" media="screen" />
         <script src="{{ asset('bundles/techt/js/jquery-2.1.0.min.js') }}" type="text/javascript"></script>
         <link href="{{ asset('bundles/techt/css/rating.css') }}" rel="stylesheet" type="text/css" media="screen" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link href="{{ asset('bundles/techt/css/css2.css') }}" rel="stylesheet" type="text/css" media="screen" />
+        <!--link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'-->
+        
         <script src="{{ asset('bundles/techt/js/rate.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/techt/js/jquery-1.4.2.min.js') }}" type="text/javascript"></script>
 
 <link href="{{ asset('bundles/techt/css/565e2970627a.css') }}" rel="stylesheet" type="text/css" media="screen" />
 <link href="{{ asset('bundles/techt/css/css.css') }}" rel="stylesheet" type="text/css" media="screen" />
 
+<script src="{{ asset('bundles/techt/js/jquery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/techt/js/jquery-ui.min.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('bundles/techt/js/84a4ae93bd83.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/techt/js/-Vvtx4nI8SHe_WYPalc1ijR-UNJ9GZaWikvdqm7tI20.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/techt/js/html5player.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/techt/js/jquery.modal.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/techt/js/www-embed-player.js') }}" type="text/javascript"></script>
+
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
         {% block head %}
@@ -39,7 +44,7 @@
           <div class="bg">
             <div class="row">
               <div class="span8 branding">
-                <a href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html" class="navbar-brand">
+                <a  href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html" class="navbar-brand">
                   <img src="/bundles/techt/images/new_logo.png" class="visible-desktop">
                   <img src="/bundles/techt/images/logo_color.png" class="visible-mobile">
                 </a>
@@ -98,10 +103,30 @@
         <!-- mp-menu -->
         <nav id="mp-menu" class="mp-menu mp-overlap">
 
-            <div class="mp-level mp-level-open" data-level="1">
-                <h3 ><a href="{{path('index')}}">Inicio</a></h3>
+            <div  class="mp-level mp-level-open" data-level="1">
+                <h3><a title="Ir al Inicio"  href="{{path('index')}}">Inicio</a></h3>
                 <ul>
+                    {%  if(app.session.get('usuario_rol')=="Cliente") %}
+                    <li class="icon icon-arrow-left">
+                        <a title="Ver Perfil " class="icon icon-shop" href="#">Perfil</a>
+                        <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
+                            <h2 class="icon icon-shop">Perfil</h2>
+                            <a class="mp-back" href="#">Atras</a>
+                            <ul>
+                                <li class="icon icon-arrow-left">
+                                    
+                                    
+                                    <a href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">Mi Perfil</a>
+                                                            
+                                </li>
 
+
+
+                            </ul>
+                        </div>
+                    </li>
+                    {%endif%}
+                    
                 {% if(app.session.get('usuario_rol')=="Administrador") %}
                     <li class="icon icon-arrow-left">
                         <a class="icon icon-display" href="#">Clientes</a>
@@ -143,15 +168,15 @@
                     {% if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Empleado") or 
                         (app.session.get('usuario_rol')=="Administrador")%}
                     <li class="icon icon-arrow-left">
-                        <a class="icon icon-news" href="#">Servicios</a>
+                        <a title="Ver Servicios "class="icon icon-news" href="#">Servicios</a>
                         <div class="mp-level" data-level="2">
                             <h2 class="icon icon-news">Servicios</h2>
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
                                 
                                  {%if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
-                                <li><a href="{{ path('SolicitudServicio_new') }}">Solicitud de Servicio</a></li>
-                                <li><a href="{{ path('SolicitudServicio_indexuser') }}">Listado Solicitudes de Servicio</a></li> 
+                                <li><a href="{{ path('SolicitudServicio_new') }}">Solicitar Servicio</a></li>
+                                <li><a href="{{ path('SolicitudServicio_indexuser') }}"> Mis Servicios</a></li> 
                                 {%else%}
                                 <li><a href="{{ path('SolicitudServicio') }}">Listado Solicitudes de Servicio</a></li> </ul>
                             {%endif%}
@@ -160,7 +185,7 @@
                     {% endif %}
                     {% if (app.session.get('usuario_rol')=="Empleado") or (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
                     <li class="icon icon-arrow-left">
-                        <a class="icon icon-shop" href="#">Contratos</a>
+                        <a title="Ver Contratos" class="icon icon-shop" href="#">Contratos</a>
                         <div class="mp-level" data-level="2" style="-webkit-transform: translate3d(-100%, 0px, 0px) translate3d(-40px, 0px, 0px);">
                             <h2 class="icon icon-shop">Contratos</h2>
                             <a class="mp-back" href="#">Atras</a>
@@ -168,7 +193,7 @@
                                 
                                 {%  if(app.session.get('usuario_rol')=="Cliente") %}
                                 <li class="icon icon-arrow-left">
-                                    <a class="icon icon-t-shirt" href="{{ path('UsuariosContratos') }}">Listado</a>
+                                    <a class="icon icon-t-shirt" href="{{ path('UsuariosContratos') }}">Mis contratos</a>
 
                                 </li>
                                 {%else %}
@@ -200,6 +225,9 @@
                         </div>
                     </li>
                     {%endif%}
+                    
+                    
+                    
                     
                     {% endif %}
 

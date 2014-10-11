@@ -30,16 +30,11 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
- 
 
-  
-<br>
-<h1>Confirmación de Registro</h1>
-<br><br>
     <table class="record_properties">
     
       <tr><h1>Datos Registrados</h1>
-        <br><br>
+
             <tr>
             <td width="210" height="20">Cedula: </td>
                 <td>{{ entity.pkIci }}</td>
@@ -85,23 +80,23 @@
             </tr>
             
             <tr>
-                <td height="20">Rol en el Sistema: </td>
+                <td height="20">Tipo de Usuario </td>
                 <td><em>{{ entity.usuarioacceso.fkIidrol.vdescripcion }}</em></td>
             </tr>
             
-               <tr>
-                <td height="20">Estatus en Registro: </td>
-                <td><em>{{ entity.usuarioacceso.fkIidEstatus.vdescripcion }}</em></td>
-            </tr>
+              
               <tr>
-                <td height="20">Contrato: </td>
+                <td height="20">Contrato Asociado de Registro: </td>
                 <td><em>{{app.session.get('usuario_vcontrato')}}</em></td>
             </tr>
               <tr>
-                <td height="20">Rif: </td>
+                <td height="20">Rif Asociado de Registro: </td>
                 <td><em>{{app.session.get('usuario_vrif')}}</em></td>
             </tr>
-             
+              <tr>
+                <td height="20">Estatus Actual: </td>
+                <td><em>{{ entity.usuarioacceso.fkIidEstatus.vdescripcion }} de Registro</em></td>
+            </tr>
          </tr>
     
     </table>

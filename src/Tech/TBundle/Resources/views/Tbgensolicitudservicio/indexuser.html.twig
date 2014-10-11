@@ -5,17 +5,12 @@
  <h1>Consulta Solicitud de Servicios de Clientes</h1>
  
 <!--script src="http://code.jquery.com/jquery-2.1.0.min.js"></script-->
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    
-
-
+<script src="{{ asset('bundles/techt/js/jquery-ui.min.js') }}" type="text/javascript"></script>
 <div class="container" >
 
     <section class="register">
         <a href="#" name="consulta_link"><h1>Consulta de Solicitudes de Servicios</h1></a>
-        <br>
+        
         <form action="{{ path('SolicitudServicio_searchuser') }}" method="post" class="login">
          {{ form_start(search_form) }}
         {{ form_errors(search_form) }}  
@@ -123,8 +118,8 @@
                 <td width="40"></td>
                 <td align="center" width="80"><h4><strong>Fecha</strong></h4></td>
                 <td width="40"></td>
-                <!--td align="center" width="80"><h4><strong>Estatus</strong></h4></td-->
-                <!--td width="40"></td-->
+                <td align="center" width="80"><h4><strong>Estatus</strong></h4></td>
+                <td width="40"></td-->
                 <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
               </thead>
         {% else %}
@@ -146,8 +141,8 @@
                 <td width="40"></td>
                 <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
                 <td width="40"></td>
-                <!--td align="center" width="80">{{ entity.fkIidEstatus}} </td-->
-                <!--td width="40"></td-->
+                <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
+                <td width="40"></td>
                   
                 <td align="center" width="120">
                     
@@ -168,10 +163,11 @@
                         
                     </li>
                     {%endif%}
-                    {%if (entity.fkIidEstatus=="Culminado")%}  
+                    {%if (entity.fkIidEstatus.id==1)%}  
                     <li>
-                    <div id="extern{{entity.id}}">
-                    <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
+                        
+                    <div class="" id="extern{{entity.id}}">
+                        <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
                     <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
                    <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
                    <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
@@ -179,6 +175,7 @@
                    <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
                     </div>  
                     </div>
+                        
                         </li>
                         {%endif%}
                 </ul>

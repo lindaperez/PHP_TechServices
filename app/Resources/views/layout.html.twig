@@ -22,10 +22,12 @@
                 <tr><td width="780" align="left">
  (  {{app.session.get('usuario_rol')}}
  {{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} )
- Bienvenido, <h4><strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong> </h4>
+ Bienvenido, <h4> 
+     <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
+         <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a> </h4>
  
 </td>
-<td><a href="{{ path('logout') }}"><h4>Salir</h4></a></td>
+<td><a title="Cerrar Session" href="{{ path('logout') }}"><h4>Salir</h4></a></td>
 </tr>
 
 

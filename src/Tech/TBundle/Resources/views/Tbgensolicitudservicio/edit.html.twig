@@ -1,9 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    
+<script src="{{ asset('bundles/techt/js/jquery-ui.min.js') }}" type="text/javascript"></script>
 {% if(app.session.get('usuario_rol')=="Empleado" or app.session.get('usuario_rol')=="Administrador") %}
 <h1>Edición de Solicitud de Servicio</h1>
 
@@ -122,12 +120,15 @@
                 <td><em>{{ entity.fkIidEstatus}}</em></td>
             </tr>
             {%endif%}
+            
+            {% if(entity.fkIidEstatus.id==1)%}
+            
             <tr>
                 <td width="20" height="20">Calificar Servicio: </td>
             <td width="80">
                 <ul>
                     <li>
-                    <div id="extern{{entity.id}}">
+                        <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
                     <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
                     <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
                    <img title="Calificar" width='18' type=image src="/bundles/techt/images/star1_1.gif" />
@@ -140,13 +141,14 @@
                         </ul>
                         </td>
             <tr>
+            {%endif%}
             {% if ((app.session.get('usuario_rol')=="Empleado") or 
                  (app.session.get('usuario_rol')=="Administrador") )%}
             <div class="error" id="det">
                 {{ form_errors(edit_form.fkIidEstatus) }}</div>       
                     <table>  <td width="210">
                 {{ form_label(edit_form.fkIidEstatus, 'Estado:') }}</td>
-                    <td>{{ form_widget(edit_form.fkIidEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
+                    <td width="210">{{ form_widget(edit_form.fkIidEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
                     </table>
             
           

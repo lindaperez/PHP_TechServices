@@ -67,9 +67,10 @@ class TbdetusuariodatosController extends Controller {
         } else {
 
             $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
-
+            $qb->join('TechTBundle:Tbdetusuarioacceso', 'ua', 'WITH', 'ud.id=ua.fkIci');
+            
             if ($entidad_estatus != null || $entidad_rol != null) {
-                $qb->leftjoin('TechTBundle:Tbdetusuarioacceso', 'ua', 'WITH', 'ud.id=ua.fkIci');
+             
                 if ($entidad_estatus != null) {
                     $entidad_estatus_id = $searchForm['usuarioacceso']->getData()->getFkIidEstatus()->getId();
                     $qb->andwhere('ua.fkIidEstatus=?7')->setParameter(7, $entidad_estatus_id);
@@ -78,12 +79,13 @@ class TbdetusuariodatosController extends Controller {
                     $entidad_rol_id = $searchForm['usuarioacceso']->getData()->getFkIidRol()->getId();
                     $qb->andwhere('ua.fkIidRol=?8')->setParameter(8, $entidad_rol_id);
                 }
+                
             }
             if ($entidad_contrato != null) {
                 $entidad_contrato_idd=$entidad_contrato->getFkInroContrato();
                 if($entidad_contrato_idd){
                     
-                $qb->leftjoin('TechTBundle:Tbdetusuariocontrato', 'uc', 'WITH', 'ud.id=uc.fkIci');
+                $qb->join('TechTBundle:Tbdetusuariocontrato', 'uc', 'WITH', 'ud.id=uc.fkIci');
                 $entidad_contrato_id = $entidad_contrato_idd->getId();
                 $qb->andwhere('uc.fkInroContrato=?9')->setParameter(9, $entidad_contrato_id);
                 }
@@ -108,6 +110,10 @@ class TbdetusuariodatosController extends Controller {
             }
             
         }
+        
+        $qb->orderBy('ua.fkIidEstatus','ASC');
+        $qb->addorderBy('ud.dfechaRegistro','ASC');
+        
          $query_pages=$qb->getQuery();
              $entities =$query_pages->execute();
         foreach ($entities as &$entity) {
@@ -176,6 +182,11 @@ class TbdetusuariodatosController extends Controller {
         //Si todos los campos son vacios.
         //$entities = $em->getRepository('TechTBundle:Tbdetusuariodatos')->findAll();
         $qb = $em->getRepository('TechTBundle:Tbdetusuariodatos')->createQueryBuilder('ud');
+        $qb->join('TechTBundle:Tbdetusuarioacceso', 'ua', 'WITH', 'ud.id=ua.fkIci');
+        
+        $qb->orderBy('ua.fkIidEstatus','ASC');
+        $qb->addorderBy('ud.dfechaRegistro','ASC');
+        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
         
@@ -191,6 +202,7 @@ class TbdetusuariodatosController extends Controller {
             $entity->setContratos($contrato_collection);
         }
             //Se Crea la Paginacion
+        
             $paginator  = $this->get('knp_paginator');
             $pagination = $paginator->paginate(
                 $entities,
@@ -305,7 +317,7 @@ class TbdetusuariodatosController extends Controller {
                   Tbdetusuarioacceso */
                 //Se setea el Estado 1 (TIpo Interno sugiere)
                 $usuario_estatus_registro = $em->getRepository('TechTBundle:Tbgenestatusregistrousu')
-                        ->findOneBy(array('id' => '1'));
+                        ->findOneBy(array('id' => '2'));
                 if ($usuario_estatus_registro == null) {
                     $message_error = "Debe existir un Estado Incial para el Registro del usuario. LLenar catalogo de EstatusUsuarios";
                     $this->get('session')->getFlashBag()->add('flash_error', $message_error);
@@ -428,6 +440,34 @@ class TbdetusuariodatosController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
         //print_r($entity->getPassword());
         return $this->render('TechTBundle:Tbdetusuariodatos:show.html.twig', array(
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
+    }
+ /**
+     * Finds and displays a Tbdetusuariodatos entit y.
+     *
+     */
+    public function showperfilAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->
+                findOneBy(array('pkIci'=>$id));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetusuariodatos entity.');
+        }
+        //Se busca el ROl y Estatus
+        $usuario_accesso = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                ->findBy(array('fkIci' => $entity));
+        $entity->setUsuarioacceso($usuario_accesso[0]);
+        //Se buscan los contratos asociados
+        $usuario_contratos = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                ->findBy(array('fkIci' => $entity));
+        $entity->setContratos($usuario_contratos);
+
+        $deleteForm = $this->createDeleteForm($entity->getId());
+        //print_r($entity->getPassword());
+        return $this->render('TechTBundle:Tbdetusuariodatos:showperfil.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),));
     }

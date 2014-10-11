@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
@@ -136,6 +136,7 @@
 
 <ul class="contratos" data-prototype="{{ form_widget(edit_form.contratos.vars.prototype)|e }}">
         {% set k =1 %}
+        {% set i =0 %}
          {% for usuariocontrato in edit_form.contratos %}
          
             
@@ -164,8 +165,7 @@
             <h1>Razon Social </h1> 
                 {% set k=3 %}
                 {%  endif %}
-                
-            {{ form_widget(usuariocontrato.tbdetcontratorif) }}
+                <input type='text' name='razon{{i}}'>
             </td>
             <td width="20"></td>
             <td>
@@ -173,7 +173,8 @@
             <h1>Nombre Comercial </h1> 
                 {% set k=4 %}
                 {%  endif %}
-                
+            <input type='text' name='nombreFiscal{{i}}'>
+            {% set i=i+1 %}
             </td>
             </tr>
         </table>   
@@ -233,6 +234,53 @@
 {% block javascripts %}
     {{ parent() }}
         <script>
+
+function doc(i) {
+      
+        var $this = $('#tech_tbundle_tbdetusuariodatos_contratos_'+i
+                +'_fkInroContrato');
+        var $arreglo = $this.attr("id");
+        var $val = $arreglo.split('_')[4];
+        var data = {
+            tbdetcontratorif_id: $this.val()
+        };
+    $.ajax({
+        type: 'post',
+        url: '{{ path("rifs") }}',
+        data: data,
+        dataType: 'json',
+        success: function(data,val,$i) {
+        var $tbdetempresa_selector;
+        if (data.error !== undefined && data.error!=='') {
+            alert(data.error);
+        } else {
+       
+            $tbdetempresa_selector = $this.closest('.contratos').
+                    find('.tbdetempresa_selector');
+            $("#tech_tbundle_tbdetusuariodatos_contratos_" +i
+                    + "_tbdetcontratorif").html('<option>Rif</option>');
+            $("#tech_tbundle_tbdetusuariodatos_contratos_" +i
+                    + "_tbdetcontratorif").
+                    append('<option value="' + data.id 
+                    + '" selected="selected">' + data.name['name'] 
+                    + '</option>').prop('disabled','disabled');
+            $("input[name=razon"+i+"]").val(data.name['razon']);
+            $("input[name=nombreFiscal"+i+"]").val(data.name['nombreFiscal']);
+        }
+    },
+
+    error: function(e, ts, et) {
+        alert(ts)
+    }
+    });
+    
+};
+
+var $num = $('.tbdetcontratorif_selector').length;
+        for (var i = 0; i < $num; i++) {
+        doc(i);
+        }
+    
 
             var $collectionHolder;
 

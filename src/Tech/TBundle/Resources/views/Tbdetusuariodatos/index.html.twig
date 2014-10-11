@@ -3,14 +3,15 @@
 {% block content %}
  <h1  >Confirmación de Solicitud de Registro de Clientes</h1>
 
-<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
 
 
 <div class="container" >
 
     <section class="register">
         <a href="#" name="consulta_link"><h1>Consulta de Solicitudes de Registro</h1></a>
-        <div style="display: none;" align="center" class="form_search">
+        <!--div style="display: none;" align="center" class="form_search"-->
+        <div  align="center" class="form_search">
         <form action="{{ path('Registro_search') }}" method="post" id="login" novalidate>
 
     {{ form_start(search_form) }}
@@ -148,7 +149,7 @@
 
     <section class="register">
         <h1>Listado de Solicitudes de Registro. ({{ pagination.getTotalItemCount }})</h1>
-        <br>
+        
         <div class="navigation" align="right">
     {{ knp_pagination_render(pagination) }} 
         </div>
@@ -161,8 +162,6 @@
                 <td align="center" width="80"><h4><strong>Cédula</strong></h4></td>
                 <td width="40"></td>
                 <td align="center" width="80"><h4><strong>Nombre</strong></h4></td>
-                <td width="40"></td>
-                <td align="center" width="80"><h4><strong>Apellido</strong></h4></td>
                 <td width="40"></td>
                 <td align="center" width="80"><h4><strong>Cargo</strong></h4></td>
                 <td width="40"></td>
@@ -190,9 +189,7 @@
 
                 <td align="center">{{ entity.pkIci }}</td>
                 <td align="center" width="40"></td>
-                <td align="center">{{ entity.vnombre }}</td>
-                <td align="center" width="20"></td>
-                <td align="center">{{ entity.vapellido }}</td>
+                <td align="center">{{ entity.vnombre }} {{ entity.vapellido }}</td>
                 <td align="center" width="40"></td>
                 <td align="center">{{ entity.vcargo }}</td>
                 <td align="center" width="40"></td>
@@ -222,6 +219,9 @@
         {% endfor %}
             </tbody>
         </table>
+        <div class="navigation" align="right">
+    {{ knp_pagination_render(pagination) }} 
+        </div>
     </section>
     <br><br>
     <ul>
@@ -235,10 +235,10 @@
 </div>
 <script>
     
-    $(function() {
-        $(document).on('change', '.tbdetcontratorif_selector', function() {
+    function doc() {
+
             //alert("Han cambiado mi valor");
-            var $this = $(this);
+            var $this = $('#tech_tbundle_tbdetusuariodatos_contratos_0_fkInroContrato');
             var $arreglo = $this.attr("id");
             var $val = $arreglo.split('_')[4];
 
@@ -252,14 +252,14 @@
                 data: data,
                 dataType: 'json',
                 success: function(data, val) {
-                    if (data.error !== undefined && data.error != '') {
+                    if (data.error !== undefined && data.error !== '') {
                         alert(data.error);
                     } else {
                         var $tbdetempresa_selector = $this.closest('.contratos').find('.tbdetempresa_selector');
 
                         // alert("Han cambiado mi valor"+ $val);
                         $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").html('<option>Rif</option>');
-                        $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
+                        $("#tech_tbundle_tbdetusuariodatos_contratos_" + $val + "_tbdetcontratorif").append('<option value="' + data.id + '" selected="selected">' + data.name['name'] + '</option>');
 
                     }
                 },
@@ -269,10 +269,13 @@
             });
 
 
-        });
 
-    });
+    };
 
+        $(document).on('change', '.tbdetcontratorif_selector', function() {
+            doc();
+                });
+                doc();
 
 </script>
 <script>

@@ -14,6 +14,10 @@ Registro_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetusuariodatos:show" }
 
+Registro_showperfil:
+    pattern:  /{id}/showperfil
+    defaults: { _controller: "TechTBundle:Tbdetusuariodatos:showperfil" }
+
 Registro_new:
     pattern:  /new
     defaults: { _controller: "TechTBundle:Tbdetusuariodatos:new" }

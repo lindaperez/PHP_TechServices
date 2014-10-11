@@ -48,6 +48,7 @@ class TbgensolicitudservicioController extends Controller
         $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
         //print_r($tipo_solicitud);
         $detalles=$searchForm['vdetalles']->getData();
+        $contrato=$searchForm['contrato']->getData();
         
         $tipo=null;
         if ($especificacion!=null){
@@ -63,16 +64,15 @@ class TbgensolicitudservicioController extends Controller
         //usuario
             $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
     if ($tipo_solicitud!=null || $especificacion!=null ||
-            $fecha != null ||  $codigo != null || $estatus!=null) {
+            $fecha != null ||  $codigo != null || $estatus!=null || 
+            $contrato != null) {
         
             
             if ($tipo_solicitud!= null || $detalles!= null) {
                      $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
-                     ->leftjoin('ss.fkIidEspSol','fkIidEspSol');
+                     ->join('ss.fkIidEspSol','fkIidEspSol');
                 if($tipo_solicitud!= null) {
-            //        print($tipo_solicitud);
-                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);
-                   
+                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);       
                 }
             }
             if ($codigo != null) {
@@ -88,11 +88,24 @@ class TbgensolicitudservicioController extends Controller
                 $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
             }
             
+//            if ($contrato!= null ) {
+//                print_r($contrato);
+//                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'ucon')
+//                     ->join('ss.fkIidUsuaDatos','fkIci');
+//                     $qb->from('TechTBundle:Tbdetcontratorif', 'con')
+//                     ->join('con.fkInroContrato','pkInroContrato');
+//                     $qb->andwhere('con.pkInroContrato=?7')->setParameter(7, 1);
+//                        
+//            }
+            
+            
                 //if ($detalles!= null) {
                 //$qb->andwhere('esp.fkIidEstatus=?4')->setParameter(6, $detalles);
                 //}
             
         }
+        $qb->orderBy('ss.fkIidEstatus', 'ASC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
          $query_pages=$qb->getQuery();
              $entities =$query_pages->execute();
              
@@ -140,6 +153,8 @@ class TbgensolicitudservicioController extends Controller
         //
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
         $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
+        $qb->orderBy('ss.fkIidEstatus', 'ASC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
             //Se Crea la Paginacion
@@ -186,35 +201,44 @@ class TbgensolicitudservicioController extends Controller
             $tipo=$especificacion->getFkIidEspSol();
         }
         $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
+        
     if ($tipo_solicitud!=null || $especificacion!=null ||
             $fecha != null ||  $codigo != null || $estatus!=null) {
+        
             if ($tipo_solicitud!= null || $detalles!= null) {
-                     $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
-                     ->leftjoin('ss.fkIidEspSol','fkIidEspSol');
+                $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
+                     ->join('ss.fkIidEspSol','fkIidEspSol');
+        
                 if($tipo_solicitud!= null) {
-            //        print($tipo_solicitud);
                     $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);
                    
                 }
+            }
             if ($codigo != null) {
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
             }
             if ( $fecha!= null) {
                 $qb->andwhere('ss.dfechaCreacion=?2')->setParameter(2, $fecha);
+                
             }
             if ($especificacion!= null) {
                 $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
             }
             if ($estatus!= null) {
                 $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
+                
             }
             
+                
                 //if ($detalles!= null) {
                 //$qb->andwhere('esp.fkIidEstatus=?4')->setParameter(6, $detalles);
                 //}
-            }
         }
+        
+        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
          $query_pages=$qb->getQuery();
+         
              $entities =$query_pages->execute();
              
         //Se Crea la Paginacion
@@ -264,7 +288,8 @@ class TbgensolicitudservicioController extends Controller
         $entity_search = new Tbgensolicitudservicio();
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
-        
+        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
             //Se Crea la Paginacion
@@ -594,21 +619,21 @@ class TbgensolicitudservicioController extends Controller
               //
               ////Buscar el numero de contrato
               //$statusCRM='Abierto';
-              
-              if ($entity->getId()==124){
-             for ($i = 0; $i < 50; $i++) {
-              if ($dataXml[$i]['Número de Contrato']=='124')
-              {
-                   $statusCRM=$dataXml[$i]['Status'];
-               //    print $statusCRM;
-              }
-             }
-              
-        //Buscar el # de estatus que corresponde al del CRM
-        $status=$em->getRepository('TechTBundle:TbgenEstatusSolicitud')->
-                findOneBy(array('vdescripcion'=>$statusCRM));
-        $entity->setfkIidEstatus($status);
-              }
+//
+//                          if ($entity->getId()==124){
+//                         for ($i = 0; $i < 50; $i++) {
+//                          if ($dataXml[$i]['Número de Contrato']=='124')
+//                          {
+//                               //$statusCRM=$dataXml[$i]['Status'];
+//                           //    print $statusCRM;
+//                          }
+//                         }
+//
+//                    //Buscar el # de estatus que corresponde al del CRM
+//                    $status=$em->getRepository('TechTBundle:TbgenEstatusSolicitud')->
+//                            findOneBy(array('vdescripcion'=>$statusCRM));
+//                    $entity->setfkIidEstatus($status);
+//                          }
         //**
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
