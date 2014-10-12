@@ -24,7 +24,8 @@ class TbdetusuariodatosController extends Controller {
         //Verificacion del empleado
         $request = $this->getRequest();
         $verif = $this->verifaccesoemplAction($request);
-        if ($verif == false) {
+        $verif2 =$this->verifaccesoAdminEmplAction($request);
+        if ($verif == false and $verif2==false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
@@ -112,7 +113,7 @@ class TbdetusuariodatosController extends Controller {
         }
         
         $qb->orderBy('ua.fkIidEstatus','ASC');
-        $qb->addorderBy('ud.dfechaRegistro','ASC');
+        $qb->addorderBy('ud.dfechaRegistro','DESC');
         
          $query_pages=$qb->getQuery();
              $entities =$query_pages->execute();
@@ -185,7 +186,7 @@ class TbdetusuariodatosController extends Controller {
         $qb->join('TechTBundle:Tbdetusuarioacceso', 'ua', 'WITH', 'ud.id=ua.fkIci');
         
         $qb->orderBy('ua.fkIidEstatus','ASC');
-        $qb->addorderBy('ud.dfechaRegistro','ASC');
+        $qb->addorderBy('ud.dfechaRegistro','DESC');
         
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
@@ -241,138 +242,154 @@ class TbdetusuariodatosController extends Controller {
 
     
 
-    /**
-     * Creates a new Tbdetusuariodatos entity.
-     *
-     */
-    public function createAction(Request $request) {
-        $request = $this->getRequest();
-        $entity = new Tbdetusuariodatos();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-        
-        //Verificacion de campos vacios 
-        if ($form["vrif"]->getData() == null ||
-                $form["usuarioacceso"]["fkIidRol"]->getData() == null ||
-                $form["vcontrato"]->getData() == null) {
-            $message_error = "Recuerde que ningun campo debe estar vacio "
-                    . "y no debe haber ningun error para cargar el registro";
+/**
+ * Creates a new Tbdetusuariodatos entity.
+ *
+ */
+public function createAction(Request $request) {
+    $request = $this->getRequest();
+    $entity = new Tbdetusuariodatos();
+    $form = $this->createCreateForm($entity);
+    $form->handleRequest($request);
+
+    //Verificacion de campos vacios 
+    if ($form["vrif"]->getData() == null ||
+            $form["usuarioacceso"]["fkIidRol"]->getData() == null ||
+            $form["vcontrato"]->getData() == null) {
+        $message_error = "Recuerde que ningun campo debe estar vacio "
+                . "y no debe haber ningun error para cargar el registro";
+        $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+        return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+        ));
+    }
+
+    if ($form->isValid()) {
+        /* Verificar si existe el usuario en Tbdetusuariodatos */
+        $em = $this->getDoctrine()->getManager();
+        $estatus = $em->getRepository('TechTBundle:Tbgenestatusregistrousu')
+                ->find(2);
+        $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                ->findOneBy(array('pkIci' => $form["pkIci"]->getData()));
+        $usuarios = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                ->findBy(array('pkIci' => $form["pkIci"]->getData()));
+        /* Verificar si existe el contrato en Tbdetusuariocontrato */
+        $existe_usuacontrif = $em->getRepository('TechTBundle:Tbdetcontratorif')
+                ->findOneBy(array("pkInroContrato" => $form["vcontrato"]->getData()));
+        //Verificar si Coincide con cedula
+        $existe_usuacont = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
+                ->findBy(array('fkIci'
+                        => $existe_usuario, 'fkInroContrato' => $existe_usuacontrif));
+        if ($usuarios!=null) {
+
+            //Verificar que los estatus sean anulados
+            $k=0;
+            foreach ($usuarios as $usu) {
+            $existe_usuaest = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
+                    ->findBy(array('fkIci'=>$usu,'fkIidEstatus'=>$estatus));
+            $k++;
+            if (count($existe_usuaest)>0){
+                
+            $message_error = "No puede registrar por segunda vez, existe "
+                    . "registro con estatus activo. ";
             $this->get('session')->getFlashBag()->add('flash_error', $message_error);
             return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
                         'entity' => $entity,
                         'form' => $form->createView(),
-            ));
+            ));    
+            }
+            
         }
-        
-        if ($form->isValid()) {
-        
-            /* Verificar que no exista el usuario en Tbdetusuariodatos */
-            $em = $this->getDoctrine()->getManager();
-            $existe_usuario = $em->getRepository('TechTBundle:Tbdetusuariodatos')
-                    ->findOneBy(array('pkIci' => $form["pkIci"]->getData()));
-            /* Verificar si existe el contrato
-             * en Tbdetusuariocontrato */
-            $existe_usuacontrif = $em->getRepository('TechTBundle:Tbdetcontratorif')
-                    ->findOneBy(array("pkInroContrato" => $form["vcontrato"]->getData()));
-            //Verificar si Coincide con cedula
-            $existe_usuacont = $em->getRepository('TechTBundle:Tbdetusuariocontrato')
-                    ->findOneBy(array('fkIci'
-                => $existe_usuario, 'fkInroContrato' => $existe_usuacontrif));
-            if ($existe_usuacont != null) {
-                $message_error = "No puede registrarse por segunda vez. ";
+
+        }
+
+        /* Los campos rif y contrato no puedes ser null al introducirlo. */
+        if ($existe_usuacontrif != null) {
+            //Almacenar Fecha de Registro
+            date_default_timezone_set('America/Caracas');
+            $date = new DateTime('NOW');
+            $entity->setDfechaRegistro($date);
+
+            /* Verificar si el rif del cotnrato existente coincide con el 
+             * introducido por el usuario */
+
+            if (($existe_usuacontrif->getFkIrif()->getPkIrif()) != ($form["vrif"]->getData())) {
+                $message_error = "El rif que introdujo no coincide con el que posee su contrato."
+                        . " Debe introducir un Rif correcto.";
+                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+
+                return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
+                            'entity' => $entity,
+                            'form' => $form->createView(),
+                ));
+            }
+            /* Guardar en la BD el Nro de contrato en la Tabla
+              Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
+            $usuario_contrato = new Tbdetusuariocontrato();
+            $usuario_contrato->setFkIci($entity);
+            $usuario_contrato->setFkInroContrato($existe_usuacontrif);
+
+            /* Guardar en la BD el rol seteado por el usuario
+              Tbdetusuarioacceso */
+            //Se setea el Estado 1 (TIpo Interno sugiere)
+            $usuario_estatus_registro = $em->getRepository('TechTBundle:Tbgenestatusregistrousu')
+                    ->findOneBy(array('id' => '2'));
+            if ($usuario_estatus_registro == null) {
+                $message_error = "Debe existir un Estado Incial para el Registro del usuario. LLenar catalogo de EstatusUsuarios";
                 $this->get('session')->getFlashBag()->add('flash_error', $message_error);
                 return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
                             'entity' => $entity,
                             'form' => $form->createView(),
                 ));
             }
+            /* Generacion de clave */
+            $g_userName = $entity->getPkIci();
+            $g_password = $this->makekey();
+            $g_userInter = $this->makepassword($g_userName, $g_password);
 
-            /* Los campos rif y contrato no puedes ser null al introducirlo. */
-            if ($existe_usuario == null && $existe_usuacontrif != null) {
-                //Almacenar Fecha de Registro
-                date_default_timezone_set('America/Caracas');
-                $date = new DateTime('NOW');
-                $entity->setDfechaRegistro($date);
+            $entity->setVclave($g_userInter->getVclave());
+            /*Fin Clave*/
 
-                /* Verificar si el rif del cotnrato existente coincide con el 
-                 * introducido por el usuario */
+            $usuario_acceso = new Tbdetusuarioacceso();
+            $usuario_acceso->setFkIci($entity);
+            $usuario_acceso->setFkIidRol($form["usuarioacceso"]["fkIidRol"]->getData());
+            $usuario_acceso->setFkIidEstatus($usuario_estatus_registro);
 
-                if (($existe_usuacontrif->getFkIrif()->getPkIrif()) != ($form["vrif"]->getData())) {
-                    $message_error = "El rif que introdujo no coincide con el que posee su contrato."
-                            . " Debe introducir un Rif correcto.";
-                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+            $em->persist($entity);
+            $em->persist($usuario_contrato);
+            $em->persist($usuario_acceso);
+            $em->flush();
+            //Envio de correo de confirmacion
+            $session = $request->getSession();
+            $session->set('usuario_vcontrato', $form["vcontrato"]->getData());
+            $session->set('usuario_vrif', $form["vrif"]->getData());
+            $this->mailer($entity, $g_password, $entity->getVcorreoEmail());
 
-                    return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
-                                'entity' => $entity,
-                                'form' => $form->createView(),
-                    ));
-                }
-                /* Guardar en la BD el Nro de contrato en la Tabla
-                  Tbdetusuariocontrato id,fk_iCI, fkiNRO_CONTRATO */
-                $usuario_contrato = new Tbdetusuariocontrato();
-                $usuario_contrato->setFkIci($entity);
-                $usuario_contrato->setFkInroContrato($existe_usuacontrif);
-
-                /* Guardar en la BD el rol seteado por el usuario
-                  Tbdetusuarioacceso */
-                //Se setea el Estado 1 (TIpo Interno sugiere)
-                $usuario_estatus_registro = $em->getRepository('TechTBundle:Tbgenestatusregistrousu')
-                        ->findOneBy(array('id' => '2'));
-                if ($usuario_estatus_registro == null) {
-                    $message_error = "Debe existir un Estado Incial para el Registro del usuario. LLenar catalogo de EstatusUsuarios";
-                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
-                    return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
-                                'entity' => $entity,
-                                'form' => $form->createView(),
-                    ));
-                }
-                /* Generacion de clave */
-                $g_userName = $entity->getPkIci();
-                $g_password = $this->makekey();
-                $g_userInter = $this->makepassword($g_userName, $g_password);
-                
-                $entity->setVclave($g_userInter->getVclave());
-                /*Fin Clave*/
-                
-                $usuario_acceso = new Tbdetusuarioacceso();
-                $usuario_acceso->setFkIci($entity);
-                $usuario_acceso->setFkIidRol($form["usuarioacceso"]["fkIidRol"]->getData());
-                $usuario_acceso->setFkIidEstatus($usuario_estatus_registro);
-        
-                $em->persist($entity);
-                $em->persist($usuario_contrato);
-                $em->persist($usuario_acceso);
-                $em->flush();
-                //Envio de correo de confirmacion
-                $session = $request->getSession();
-                $session->set('usuario_vcontrato', $form["vcontrato"]->getData());
-                $session->set('usuario_vrif', $form["vrif"]->getData());
-                $this->mailer($entity, $g_password, $entity->getVcorreoEmail());
-
-                $message_success = "Su registro ha sido Completado Exitosamente";
-                $message_info = "Recurde revisar su correo electrónico.";
-                $this->get('session')->getFlashBag()->add('flash_success', $message_success);
-                $this->get('session')->getFlashBag()->add('flash_info', $message_info);
-                //return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
-                return $this->render('TechTBundle:Tbdetusuariodatos:confirm.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
-            } else {
-                if ($existe_usuario != null) {
-                    $message_error = "El usuario ya existe. No debe registrarse otra vez.";
-                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
-                } else {
-                    $message_error = "El contrato que introdujo no existe.";
-                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
-                }
-            }
+            $message_success = "Su registro ha sido Completado Exitosamente";
+            $message_info = "Recurde revisar su correo electrónico.";
+            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+            $this->get('session')->getFlashBag()->add('flash_info', $message_info);
+            //return $this->redirect($this->generateUrl('Registro_show', array('id' => $entity->getId())));
+            return $this->render('TechTBundle:Tbdetusuariodatos:confirm.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+        } else {
+            
+//                    $message_error = "El usuario ya existe. No debe registrarse otra vez.";
+//                    $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+            //} else {
+                $message_error = "El contrato que introdujo no existe.";
+                $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+            
         }
-        return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
     }
+    return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+    ));
+}
 
     /**
      * Creates a form to create a Tbdetusuariodatos entity.

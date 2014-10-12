@@ -178,9 +178,9 @@
                 <td width="40"></td>                    
                 <td align="center" width="80">{{ entity.fkIidEspSol.vnombreEspSol}} </td>
                 <td width="40"></td>
-                <td align="center" width="120">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
+                <td align="center" width="120">{{ entity.dfechaCreacion|date('d-m-Y') }}</td>
                 <td width="40"></td>
-                <td align="center" width="120">{% if entity.dfechaCierre %}{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'): '' }}{% endif %}</td>
+                <td align="center" width="120">{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'): 'No posee' }}</td>
                 <td width="40"></td>
                 <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
                 <td width="40"></td>
@@ -195,7 +195,8 @@
                         <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
                         
                     </li>
-                    {%if(entity.fkIidEstatus.id==1)%}      
+                    {% if ((app.session.get('usuario_rol')!="Empleado")) %}
+                    {%if(entity.fkIidEstatus.id==3)%}      
                     <li>
                     <div id="extern{{entity.id}}">
                     <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
@@ -207,6 +208,7 @@
                        </div>  
                     </div>
                         </li>
+                        {%endif%}  
                         {%endif%}  
                 </ul>
                 </td>

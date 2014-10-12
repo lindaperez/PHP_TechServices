@@ -135,10 +135,10 @@
                             <a class="mp-back" href="#">Atrás</a>
                             <ul>    
                                 <li class="icon icon-arrow-left">
-                                <a class="icon icon-phone" href="{{ path('Registro_new') }}">Solicitud de Registro</a>
+                                <a class="icon icon-phone" href="{{ path('Registro_new') }}">Registrar Usuario</a>
                                 </li>
                                 <li class="icon icon-arrow-left">
-                                    <a class="icon icon-tv" href="{{ path('Registro') }}">Listado de Solicitudes de Registro</a>
+                                    <a class="icon icon-tv" href="{{ path('Registro') }}">Listado de Registros</a>
                                 
                                 </li>
                             </ul>
@@ -174,7 +174,7 @@
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
                                 
-                                 {%if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
+                                 {%if (app.session.get('usuario_rol')=="Cliente") %}
                                 <li><a href="{{ path('SolicitudServicio_new') }}">Solicitar Servicio</a></li>
                                 <li><a href="{{ path('SolicitudServicio_indexuser') }}"> Mis Servicios</a></li> 
                                 {%else%}

@@ -248,7 +248,7 @@ class TbgensolicitudservicioController extends Controller
                 //}
         }
         
-        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->orderBy('ss.fkIidEstatus', 'ASC');        
         $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
          $query_pages=$qb->getQuery();
          
@@ -394,7 +394,7 @@ class TbgensolicitudservicioController extends Controller
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
         
-        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->orderBy('ss.fkIidEstatus', 'ASC');       
         $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
@@ -848,7 +848,8 @@ class TbgensolicitudservicioController extends Controller
                             'TechTBundle:Tbgensolicitudservicio:mailCamEstado.html.twig');
                 }
                 //si estatus cerrado setear fecha fin
-                if ($editForm['fkIidEstatus']->getData()->getId()==1){
+                if ($editForm['fkIidEstatus']->getData()->getId()==3  ||
+                        $editForm['fkIidEstatus']->getData()->getId()==4){
             
                 date_default_timezone_set('America/Caracas');
                 $date_changes = new DateTime('NOW');

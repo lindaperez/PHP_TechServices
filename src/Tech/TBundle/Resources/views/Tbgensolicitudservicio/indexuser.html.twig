@@ -179,7 +179,9 @@
                         
                     </li>
                     {%endif%}
-                    {%if (entity.fkIidEstatus.id==1)%}  
+                     {% if ((app.session.get('usuario_rol')!="Empleado") 
+                                and entity.fkIidEstatus.id==3) %}
+                    
                     <li>
                         
                     <div class="" id="extern{{entity.id}}">
@@ -194,6 +196,7 @@
                         
                         </li>
                         {%endif%}
+                        
                 </ul>
                 </td>
                 

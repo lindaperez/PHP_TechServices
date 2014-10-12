@@ -134,8 +134,8 @@
                 <td><em>{{ entity.fkIidEstatus}}</em></td>
             </tr>
             {%endif%}
-            
-            {% if(entity.fkIidEstatus.id==1)%}
+            {% if ((app.session.get('usuario_rol')!="Empleado")) %}
+            {% if(entity.fkIidEstatus.id==3)%}
             
             <tr>
                 <td width="20" height="20">Calificar Servicio: </td>
@@ -156,6 +156,7 @@
                         </td>
             <tr>
             {%endif%}
+                {%endif%}
             {% if ((app.session.get('usuario_rol')=="Empleado") or 
                  (app.session.get('usuario_rol')=="Administrador") )%}
             <div class="error" id="det">
