@@ -20,8 +20,9 @@
     {% if app.user!=null %}
             <table>
                 <tr><td width="780" align="left">
- (  {{app.session.get('usuario_rol')}}
- {{app.session.get('usuario_tipo_rol')}} ::{{app.session.get('usuario_estatus_registro')}} )
+     (  {{app.session.get('usuario_rol')}}
+<!--//{{app.session.get('usuario_tipo_rol')}} -->
+::{{app.session.get('usuario_estatus_registro')}} )
  Bienvenido, <h4> 
      <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
          <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a> </h4>

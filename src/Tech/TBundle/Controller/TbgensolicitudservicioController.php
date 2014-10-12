@@ -629,7 +629,7 @@ class TbgensolicitudservicioController extends Controller
         $date_changes = new DateTime('NOW');
         $entity->setDfechaCreacion($date_changes);
       
-        $fkIidEstatus= $em->getRepository('TechTBundle:Tbgenestatussolicitud')->find(3);
+        $fkIidEstatus= $em->getRepository('TechTBundle:Tbgenestatussolicitud')->find(1);
         $entity->setFkIidEstatus($fkIidEstatus);
         $form   = $this->createCreateForm($entity);
         
