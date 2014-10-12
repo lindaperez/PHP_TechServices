@@ -52,6 +52,7 @@
                 {{ form_row(edit_form.fkIidEspSol, {'required' : false})}}
                 {{ form_row(edit_form.vdetalles, {'required' : false})}}
                 {{ form_row(edit_form.dfechaCreacion, {'required' : false})}}
+                {{ form_row(edit_form.dfechaCierre, {'required' : false})}}
                 {{ form_row(edit_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(edit_form.iid, {'required' : false})}}                      
                 {{ form_row(edit_form.submit, { 'label': 'Registrar' }) }}  
@@ -112,8 +113,21 @@
                 {%endif %}
             <tr>
                  <td width="210" height="20">Fecha Creación: </td>
-                <td><em>{{ entity.dfechaCreacion|date('d-m-Y') }}</em></td>
+                <td><em>{{ entity.dfechaCreacion? entity.dfechaCreacion|date('d-m-Y'):'' }}</em></td>
             </tr>
+            {%if (entity.dfechaCierre!=NULL)%}
+            <tr>
+                 <td width="210" height="20">Fecha Cierre: </td>
+                <td><em>{{ entity.dfechaCierre? entity.dfechaCierre|date('d-m-Y'):'' }}</em></td>
+            </tr>
+            <tr>
+                 <td width="210" height="20">Tiempo de Servicio(dias): </td>
+                <td><em> {{app.session.get("tiempo_servicio_dias")}}. </em></td>
+                
+            
+            </tr>
+            {%endif %}
+            
             {% if ((app.session.get('usuario_rol')=="Cliente") )%}
             <tr>
                  <td width="210" height="20">Estatus: </td>
@@ -177,27 +191,8 @@
         </section>
     
         </div>
-<ul class="record_actions">
-            {% if ((app.session.get('usuario_rol')=="Empleado") or 
-                 (app.session.get('usuario_rol')=="Administrador") )%}
-    <li>
-        <a href="{{ path('SolicitudServicio') }}">
-          <h4>  Volver  Listado de Solicitudes de Servicios</h4>
-        </a>
-    </li>
-            {%endif%}
-    
-</ul>
-{% if ((app.session.get('usuario_rol')=="Cliente") )%}
-    <ul class="record_actions">
-    <li>
-        <a href="{{ path('SolicitudServicio_indexuser') }}">
-              <h4>  Volver  Listado de Solicitudes de Servicios</h4>
-            
-        </a>
-    </li>
-    </ul>
-    {%endif%}
+
+
 <script type="text/javascript">
        
        $(document).ready(function() {
@@ -229,7 +224,7 @@ popup= function(options) {
    
    var dialog2= dialog.clone();
        dialog.dialog({
-       
+       closeText: 'Guardar y Cerrar',
        show: {
            effect: "blind",
            duration: 1000

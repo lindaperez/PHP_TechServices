@@ -29,6 +29,13 @@ class Tbgensolicitudservicio
     private $dfechaCreacion;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dFECHA_CIERRE", type="datetime", nullable=true)
+     */
+    private $dfechaCierre;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetusuariodatos
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
@@ -46,7 +53,7 @@ class Tbgensolicitudservicio
      *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
      * })
      */
-    private $fkIidEspSol;
+    
 
     private $vdetalles;
     private $vdescripcion;
@@ -65,7 +72,7 @@ class Tbgensolicitudservicio
      * })
      */
     private $fkIidEstatus;
-        
+
     
     private $contrato;
         
@@ -81,6 +88,16 @@ class Tbgensolicitudservicio
     }
 
     /**
+     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
+     * })
+     */
+    private $fkIidEspSol;
+
+ /**
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
@@ -90,10 +107,8 @@ class Tbgensolicitudservicio
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
-    }    
-    
+    } 
 
-    
 
     public function setContrato($contrato)
     {
@@ -233,6 +248,29 @@ class Tbgensolicitudservicio
     }
 
     /**
+     * Set dfechaCierre
+     *
+     * @param \DateTime $dfechaCierre
+     * @return Tbgensolicitudservicio
+     */
+    public function setDfechaCierre($dfechaCierre)
+    {
+        $this->dfechaCierre = $dfechaCierre;
+
+        return $this;
+    }
+
+    /**
+     * Get dfechaCierre
+     *
+     * @return \DateTime 
+     */
+    public function getDfechaCierre()
+    {
+        return $this->dfechaCierre;
+    }
+
+    /**
      * Set fkIidUsuaDatos
      *
      * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIidUsuaDatos
@@ -253,6 +291,29 @@ class Tbgensolicitudservicio
     public function getFkIidUsuaDatos()
     {
         return $this->fkIidUsuaDatos;
+    }
+
+    /**
+     * Set fkIidEstatus
+     *
+     * @param \Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus
+     * @return Tbgensolicitudservicio
+     */
+    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus = null)
+    {
+        $this->fkIidEstatus = $fkIidEstatus;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidEstatus
+     *
+     * @return \Tech\TBundle\Entity\Tbgenestatussolicitud 
+     */
+    public function getFkIidEstatus()
+    {
+        return $this->fkIidEstatus;
     }
 
     /**
@@ -277,36 +338,10 @@ class Tbgensolicitudservicio
     {
         return $this->fkIidEspSol;
     }
-
-    /**
-     * Set fkIidEstatus
-     *
-     * @param \Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus
-     * @return Tbgensolicitudservicio
-     */
-    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus = null)
-    {
-        $this->fkIidEstatus = $fkIidEstatus;
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatus
-     *
-     * @return \Tech\TBundle\Entity\Tbgenestatussolicitud 
-     */
-    public function getFkIidEstatus()
-    {
-        return $this->fkIidEstatus;
-    }
-    
-    
-        //to string method   
+           //to string method   
     public function __toString()
     {
         
     return strval($this->getId());
     }
-    
 }
-

@@ -34,6 +34,10 @@ class TbgensolicitudservicioType extends AbstractType
              'widget' => 'single_text'
              // this is actually the default format for single_text
              ))
+             ->add('dfechaCierre','date', array('required' => false,'label'=> 'Fecha Cierre:',
+             'widget' => 'single_text'
+             // this is actually the default format for single_text
+             ))
             ->add('fkIidUsuaDatos')
             ->add('fkIidEspSol','choice',array( 'required' => false))
             ->add('vdetalles','choice', array ('invalid_message' => 'Not an integer'))

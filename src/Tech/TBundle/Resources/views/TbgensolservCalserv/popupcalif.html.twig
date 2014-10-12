@@ -18,7 +18,7 @@
         <table>
         <tr><td>Trato del Técnico: </td><td><div id="star1" class="rating" >&nbsp;</div></td>            </tr>
         <tr><td>Nivel de Satisfacción: </td><td><div id="star2" class="rating" >&nbsp;</div></td>            </tr>
-                
+           
         <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
         </table>
             </div>
@@ -26,6 +26,7 @@
         
 </div>
        <script type="text/javascript">
+           
        $(document).ready(function() {
 
 $('#star1').rate({maxvalue: '{{maxvalue}}', curvalue:'{{curvalue}}', id:'{{iid}}',iid: '{{iid_solicitud}}',id_preg: 1, path:'/CalidadServicio/getcalif', path2: '/CalidadServicio/calif'});

@@ -10,6 +10,13 @@ SolicitudServicio_searchuser:
     pattern:  /searchuser
     defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:searchuser" }
 
+SolicitudServicio_indexday:
+    pattern:  /indexday
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:indexday" }
+
+SolicitudServicio_searchday:
+    pattern:  /searchday
+    defaults: { _controller: "TechTBundle:Tbgensolicitudservicio:searchday" }
 
 SolicitudServicio_index:
     pattern:  /

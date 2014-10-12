@@ -18,15 +18,6 @@ Tech\TBundle\Entity\Tbdetrolfuncion:
             generator:
                 strategy: IDENTITY
     manyToOne:
-        fkIidRol:
-            targetEntity: Tbgenrol
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_ROL:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidFuncion:
             targetEntity: Tbgenfuncion
             cascade: {  }
@@ -34,6 +25,15 @@ Tech\TBundle\Entity\Tbdetrolfuncion:
             inversedBy: null
             joinColumns:
                 fk_iID_FUNCION:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidRol:
+            targetEntity: Tbgenrol
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ROL:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

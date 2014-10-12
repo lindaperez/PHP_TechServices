@@ -42,6 +42,7 @@ class TbgensolicitudservicioController extends Controller
         $searchForm->handleRequest($request);
         //Valores introducidos
         $fecha=$searchForm['dfechaCreacion']->getData();
+        $fecha_cierre=$searchForm['dfechaCierre']->getData();
         $especificacion=$searchForm['fkIidEspSol']->getData();
         $codigo=$searchForm['iid']->getData();
         $estatus=$searchForm['fkIidEstatus']->getData();
@@ -65,7 +66,7 @@ class TbgensolicitudservicioController extends Controller
             $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
     if ($tipo_solicitud!=null || $especificacion!=null ||
             $fecha != null ||  $codigo != null || $estatus!=null || 
-            $contrato != null) {
+            $contrato != null || $fecha_cierre!=null) {
         
             
             if ($tipo_solicitud!= null || $detalles!= null) {
@@ -79,7 +80,11 @@ class TbgensolicitudservicioController extends Controller
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
             }
             if ( $fecha!= null) {
-                $qb->andwhere('ss.dfechaCreacion=?2')->setParameter(2, $fecha);
+                $qb->andwhere('ss.dfechaCreacion LIKE ?2')->setParameter(2, $fecha->format('Y-m-d').'%');
+            }
+            if ( $fecha_cierre!= null) {
+                $qb->andwhere('ss.dfechaCierre LIKE ?7')->setParameter(7, $fecha_cierre->format('Y-m-d').'%');
+                
             }
             if ($especificacion!= null) {
                 $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
@@ -189,6 +194,7 @@ class TbgensolicitudservicioController extends Controller
         $searchForm->handleRequest($request);
         //Valores introducidos
         $fecha=$searchForm['dfechaCreacion']->getData();
+        $fecha_cierre=$searchForm['dfechaCierre']->getData();
         $especificacion=$searchForm['fkIidEspSol']->getData();
         $codigo=$searchForm['iid']->getData();
         $estatus=$searchForm['fkIidEstatus']->getData();
@@ -203,7 +209,8 @@ class TbgensolicitudservicioController extends Controller
         $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
         
     if ($tipo_solicitud!=null || $especificacion!=null ||
-            $fecha != null ||  $codigo != null || $estatus!=null) {
+            $fecha != null ||  $codigo != null || $estatus!=null ||
+            $fecha_cierre!=null) {
         
             if ($tipo_solicitud!= null || $detalles!= null) {
                 $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
@@ -218,9 +225,15 @@ class TbgensolicitudservicioController extends Controller
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
             }
             if ( $fecha!= null) {
-                $qb->andwhere('ss.dfechaCreacion=?2')->setParameter(2, $fecha);
+                
+                $qb->andwhere('ss.dfechaCreacion LIKE ?2')->setParameter(2, $fecha->format('Y-m-d').'%');
                 
             }
+                if ( $fecha_cierre!= null) {
+                $qb->andwhere('ss.dfechaCierre LIKE ?6')->setParameter(6, $fecha_cierre->format('Y-m-d').'%');
+                
+            }
+    
             if ($especificacion!= null) {
                 $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
             }
@@ -275,6 +288,98 @@ class TbgensolicitudservicioController extends Controller
         return $form;
     }
 
+ public function searchdayAction() {
+        //Verificacion del empleado
+        
+        $request = $this->getRequest();
+        $verif = new TbdetusuariodatosController();
+        $verif1 = $verif->verifaccesoemplAction($request);
+        if ($verif1 == false) {
+            return $this->render('TechTBundle:Default:erroracceso.html.twig');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        $searchForm->handleRequest($request);
+        //Valores introducidos
+        date_default_timezone_set('America/Caracas');
+        $fecha= new DateTime('NOW');
+        $fecha_cierre=$searchForm['dfechaCierre']->getData();
+        $especificacion=$searchForm['fkIidEspSol']->getData();
+        $codigo=$searchForm['iid']->getData();
+        $estatus=$searchForm['fkIidEstatus']->getData();
+        $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
+        //print_r($tipo_solicitud);
+        $detalles=$searchForm['vdetalles']->getData();
+        
+        $tipo=null;
+        if ($especificacion!=null){
+            $tipo=$especificacion->getFkIidEspSol();
+        }
+        $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
+        
+    if ($tipo_solicitud!=null || $especificacion!=null ||
+            $fecha != null ||  $codigo != null || $estatus!=null ||
+            $fecha_cierre!=null) {
+        
+            if ($tipo_solicitud!= null || $detalles!= null) {
+                $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
+                     ->join('ss.fkIidEspSol','fkIidEspSol');
+        
+                if($tipo_solicitud!= null) {
+                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);
+                   
+                }
+            }
+            if ($codigo != null) {
+                $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
+            }
+            if ( $fecha!= null) {
+                
+                $qb->andwhere('ss.dfechaCreacion LIKE ?2')->setParameter(2, $fecha->format('Y-m-d').'%');
+                
+            }
+                if ( $fecha_cierre!= null) {
+                $qb->andwhere('ss.dfechaCierre LIKE ?6')->setParameter(6, $fecha_cierre->format('Y-m-d').'%');
+                
+            }
+    
+            if ($especificacion!= null) {
+                $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
+            }
+            if ($estatus!= null) {
+                $qb->andwhere('ss.fkIidEstatus=?4')->setParameter(4, $estatus);
+                
+            }
+            
+                
+                //if ($detalles!= null) {
+                //$qb->andwhere('esp.fkIidEstatus=?4')->setParameter(6, $detalles);
+                //}
+        }
+        
+        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
+         $query_pages=$qb->getQuery();
+         
+             $entities =$query_pages->execute();
+             
+        //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+            
+        return $this->render('TechTBundle:Tbgensolicitudservicio:indexday.html.twig', array(
+                    'entities' => $entities,
+                    'entity' => $entity_search,
+                    'search_form' => $searchForm->createView(),
+                    'pagination' => $pagination,
+        ));
+    }
 
     /**
      * Lists all Tbgensolicitudservicio entities.
@@ -288,6 +393,7 @@ class TbgensolicitudservicioController extends Controller
         $entity_search = new Tbgensolicitudservicio();
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
+        
         $qb->orderBy('ss.fkIidEstatus', 'DESC');        
         $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
         $query_pages=$qb->getQuery();
@@ -302,6 +408,44 @@ class TbgensolicitudservicioController extends Controller
         //print_r("End");
         
         return $this->render('TechTBundle:Tbgensolicitudservicio:index.html.twig', array(
+              'entities' => $entities,
+                'entity' => $entity_search,
+                'search_form' => $searchForm->createView(),
+                'pagination' => $pagination,
+        ));
+    }
+        /**
+     * Lists all Tbgensolicitudservicio entities.
+     *
+     */
+    public function indexdayAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        //$entities = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->findAll();
+        $entity_search = new Tbgensolicitudservicio();
+        $searchForm = $this->createSearchForm($entity_search);
+        date_default_timezone_set('America/Caracas');
+        $date_changes = new DateTime('NOW');
+        $entity_search->setDfechaCreacion($date_changes);
+        
+      
+        $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
+        $qb->andwhere('ss.dfechaCreacion LIKE ?1')->setParameter(1, $date_changes->format('Y-m-d').'%');
+        $qb->orderBy('ss.fkIidEstatus', 'DESC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
+        $query_pages=$qb->getQuery();
+        $entities =$query_pages->execute();
+            //Se Crea la Paginacion
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $entities,
+                $this->get('request')->query->get('page', 1)/*page number*/,
+                7/*limit per page*/
+            );
+        //print_r("End");
+        
+        return $this->render('TechTBundle:Tbgensolicitudservicio:indexday.html.twig', array(
               'entities' => $entities,
                 'entity' => $entity_search,
                 'search_form' => $searchForm->createView(),
@@ -550,7 +694,7 @@ class TbgensolicitudservicioController extends Controller
      * Displays a form to edit an existing Tbgensolicitudservicio entity.
      *
      */
-    public function editAction($id)
+    public function editAction(Request $request,$id)
     {
         //Creacion de Campos en CRM
             /* create a object */
@@ -587,6 +731,14 @@ class TbgensolicitudservicioController extends Controller
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
         //**
+        
+        if ($entity->getDfechaCierre()!=null){
+            $dias=(strtotime($entity->getDfechaCierre()->format('d-m-Y'))
+                -strtotime($entity->getDfechaCreacion()->format('d-m-Y')))/3600/24;
+        
+        $request->getSession()->set('tiempo_servicio_dias',$dias);
+        //$request->getSession()->set('tiempo_servicio_horas',$horas);
+        }           
         $idEsp=$entity->getFkIidEspSol()->getId();
               if ($idEsp==7 || $idEsp==8 || $idEsp==9){
                   
@@ -684,6 +836,8 @@ class TbgensolicitudservicioController extends Controller
         $estatus=$editForm['fkIidEstatus']->getData()->getVdescripcion();
         $editForm->handleRequest($request);
         
+        
+        
         if ($editForm->isValid()) {
             if ($estatus!=$entity_old->getFkIidEstatus()->getVdescripcion()){
                 //print "true";
@@ -692,6 +846,18 @@ class TbgensolicitudservicioController extends Controller
                 $this->mailer($entity_old,$usu->getVcorreoEmail(),
                             $usu->getVnombre(),
                             'TechTBundle:Tbgensolicitudservicio:mailCamEstado.html.twig');
+                }
+                //si estatus cerrado setear fecha fin
+                if ($editForm['fkIidEstatus']->getData()->getId()==1){
+            
+                date_default_timezone_set('America/Caracas');
+                $date_changes = new DateTime('NOW');
+                $entity->setDfechaCierre($date_changes);
+                
+                }else{
+                    
+                $entity->setDfechaCierre(null);
+                    
                 }
             $em->flush();
         $message_info = "Recuerde revisar su correo electrónico.";

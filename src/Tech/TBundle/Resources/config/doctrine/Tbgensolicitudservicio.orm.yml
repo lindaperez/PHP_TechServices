@@ -26,6 +26,11 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             nullable: false
             comment: ''
             column: dFECHA_CREACION
+        dfechaCierre:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: dFECHA_CIERRE
     manyToOne:
         fkIidUsuaDatos:
             targetEntity: Tbdetusuariodatos
@@ -36,15 +41,6 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 fk_iID_USUA_DATOS:
                     referencedColumnName: id
             orphanRemoval: false
-        fkIidEspSol:
-            targetEntity: Tbgenespecsolicitud
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_ESP_SOL:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidEstatus:
             targetEntity: Tbgenestatussolicitud
             cascade: {  }
@@ -52,6 +48,15 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             inversedBy: null
             joinColumns:
                 fk_iID_ESTATUS:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEspSol:
+            targetEntity: Tbgenespecsolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESP_SOL:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

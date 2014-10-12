@@ -82,8 +82,9 @@ PReferible es crearla en
 y asociar el usuario en privilegios
 
 
-11. El schema debe generarse a partir de la base de datos dado que Symfony posee ORM
-Cada vez que se actualice la BD
+11. (Cada vez que se actualice la BD)
+El schema debe generarse a partir de la base de datos dado que Symfony posee ORM
+
 
 	php5 app/console doctrine:mapping:import --force TechTBundle yml
 
