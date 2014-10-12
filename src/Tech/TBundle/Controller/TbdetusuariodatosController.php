@@ -284,11 +284,11 @@ public function createAction(Request $request) {
         if ($usuarios!=null) {
 
             //Verificar que los estatus sean anulados
-            $k=0;
+            
             foreach ($usuarios as $usu) {
             $existe_usuaest = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                     ->findBy(array('fkIci'=>$usu,'fkIidEstatus'=>$estatus));
-            $k++;
+            
             if (count($existe_usuaest)>0){
                 
             $message_error = "No puede registrar por segunda vez, existe "
