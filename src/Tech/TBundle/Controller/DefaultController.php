@@ -9,6 +9,7 @@ use Tech\TBundle\Entity\Utilities;
 use Tech\TBundle\Entity\Tbdetusuariodatos;
 use Tech\TBundle\Form\ForgotpassType;
 
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -211,6 +212,10 @@ class DefaultController extends Controller
         return $user;
     }
     public function mailerPass($vnombre, $pkici, $pass,$to) {
+//        $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 25)
+//          ->setUsername('techtroll.ve@gmail.com')
+//          ->setPassword('admintech')
+//          ;
 
         $message = \Swift_Message::newInstance()
                 ->setSubject('Techtrol Restablecimiento contraseña')
