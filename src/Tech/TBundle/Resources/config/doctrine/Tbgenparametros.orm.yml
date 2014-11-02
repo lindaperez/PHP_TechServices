@@ -1,0 +1,27 @@
+Tech\TBundle\Entity\Tbgenparametros:
+    type: entity
+    table: tbgenParametros
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vdescripcion:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: vDESCRIPCION
+        imaxAcceso:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: iMAX_ACCESO
+    lifecycleCallbacks: {  }
