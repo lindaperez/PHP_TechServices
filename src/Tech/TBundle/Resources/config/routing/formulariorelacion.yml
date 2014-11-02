@@ -1,0 +1,30 @@
+FormRel:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Formulariorelacion:index" }
+
+FormRel_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Formulariorelacion:show" }
+
+FormRel_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Formulariorelacion:new" }
+
+FormRel_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Formulariorelacion:create" }
+    requirements: { _method: post }
+
+FormRel_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Formulariorelacion:edit" }
+
+FormRel_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Formulariorelacion:update" }
+    requirements: { _method: post|put }
+
+FormRel_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Formulariorelacion:delete" }
+    requirements: { _method: post|delete }

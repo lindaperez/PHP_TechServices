@@ -1,0 +1,20 @@
+Tech\TBundle\Entity\Preguntaform:
+    type: entity
+    table: PreguntaForm
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        vdescripcion:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

@@ -1,0 +1,30 @@
+PregResRel:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Pregresprel:index" }
+
+PregResRel_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Pregresprel:show" }
+
+PregResRel_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Pregresprel:new" }
+
+PregResRel_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Pregresprel:create" }
+    requirements: { _method: post }
+
+PregResRel_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Pregresprel:edit" }
+
+PregResRel_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Pregresprel:update" }
+    requirements: { _method: post|put }
+
+PregResRel_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Pregresprel:delete" }
+    requirements: { _method: post|delete }

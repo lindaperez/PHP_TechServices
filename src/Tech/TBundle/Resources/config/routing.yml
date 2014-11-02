@@ -103,8 +103,6 @@ TechTBundle_Servicios:
     resource: "@TechTBundle/Resources/config/routing/tbgentiposolicitud.yml"
     prefix:   /Servicios
 
-
-
 TechTBundle_Especificaciones:
     resource: "@TechTBundle/Resources/config/routing/tbgenespecsolicitud.yml"
     prefix:   /Especificaciones
@@ -114,11 +112,9 @@ TechTBundle_Detalles:
     resource: "@TechTBundle/Resources/config/routing/tbgendetalle.yml"
     prefix:   /Detalles
 
-
 TechTBundle_CalidadPreguntas:
     resource: "@TechTBundle/Resources/config/routing/tbgencalidadservpreg.yml"
     prefix:   /CalidadPreguntas
-
 
 TechTBundle_CalidadRespuestas:
     resource: "@TechTBundle/Resources/config/routing/tbgencalidadservresp.yml"
@@ -132,7 +128,6 @@ TechTBundle_PregResp:
     resource: "@TechTBundle/Resources/config/routing/tbgencalserpregcalserresp.yml"
     prefix:   /PregResp
 
-
 TechTBundle_DetalleUsuario:
     resource: "@TechTBundle/Resources/config/routing/tbdetdetalleusuario.yml"
     prefix:   /DetalleUsuario
@@ -141,10 +136,43 @@ TechTBundle_CalidadServicio:
     resource: "@TechTBundle/Resources/config/routing/tbgensolservcalserv.yml"
     prefix:   /CalidadServicio
 
-
-
 TechTBundle_EstadosSolicitud:
     resource: "@TechTBundle/Resources/config/routing/tbgenestatussolicitud.yml"
     prefix:   /EstadosSolicitud
+
+
+
+
+
+
+
+
+TechTBundle_Formulario:
+    resource: "@TechTBundle/Resources/config/routing/formulario.yml"
+    prefix:   /Formulario
+
+TechTBundle_PersonaPotencial:
+    resource: "@TechTBundle/Resources/config/routing/personapotencial.yml"
+    prefix:   /PersonaPotencial
+
+TechTBundle_PersonaForm:
+    resource: "@TechTBundle/Resources/config/routing/personarelform.yml"
+    prefix:   /PersonaForm
+
+TechTBundle_FormRel:
+    resource: "@TechTBundle/Resources/config/routing/formulariorelacion.yml"
+    prefix:   /FormRel
+
+TechTBundle_Pregunta:
+    resource: "@TechTBundle/Resources/config/routing/preguntaform.yml"
+    prefix:   /Pregunta
+
+TechTBundle_Respuesta:
+    resource: "@TechTBundle/Resources/config/routing/respuestaform.yml"
+    prefix:   /Respuesta
+
+TechTBundle_PregResRel:
+    resource: "@TechTBundle/Resources/config/routing/pregresprel.yml"
+    prefix:   /PregResRel
 
 

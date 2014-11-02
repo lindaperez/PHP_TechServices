@@ -1,0 +1,40 @@
+PersonaPotencial:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Personapotencial:index" }
+
+PersonaPotencial_index:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Personapotencial:index" }
+
+PersonaPotencial_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Personapotencial:show" }
+
+PersonaPotencial_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Personapotencial:new" }
+PersonaPotencial_send:
+    pattern:  /send
+    defaults: { _controller: "TechTBundle:Personapotencial:send" }
+PersonaPotencial_sendcreate:
+    pattern:  /sendcreate
+    defaults: { _controller: "TechTBundle:Personapotencial:sendcreate" }
+    requirements: { _method: post }
+PersonaPotencial_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Personapotencial:create" }
+    requirements: { _method: post }
+
+PersonaPotencial_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Personapotencial:edit" }
+
+PersonaPotencial_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Personapotencial:update" }
+    requirements: { _method: post|put }
+
+PersonaPotencial_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Personapotencial:delete" }
+    requirements: { _method: post|delete }

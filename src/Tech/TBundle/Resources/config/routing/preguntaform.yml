@@ -1,0 +1,30 @@
+Pregunta:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Preguntaform:index" }
+
+Pregunta_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Preguntaform:show" }
+
+Pregunta_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Preguntaform:new" }
+
+Pregunta_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Preguntaform:create" }
+    requirements: { _method: post }
+
+Pregunta_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Preguntaform:edit" }
+
+Pregunta_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Preguntaform:update" }
+    requirements: { _method: post|put }
+
+Pregunta_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Preguntaform:delete" }
+    requirements: { _method: post|delete }

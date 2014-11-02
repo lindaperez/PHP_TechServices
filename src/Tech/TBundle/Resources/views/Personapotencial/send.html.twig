@@ -1,0 +1,75 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+  
+<h1 class="title">Cliente Potencial</h1>
+
+<div class="container" >
+
+    <section class="register">
+        <br>
+        <h1>Ingrese los siguientes datos:</h1>
+   <br>
+   
+    <form action="{{ path('PersonaPotencial_sendcreate') }}" method="post" >
+        {% set k =1%}
+           {% for pregunta in Preguntas %}
+           
+                <table>
+            <td width='100'>
+           <label for='preg'{{k}}>{{ pregunta.FkIidpreg.vdescripcion }}</label></td>
+          
+              <td>  
+            <input type="radio" name="group1" value="Milk">   a. Cámaras de video vigilancia<br>
+            <input type="radio" name="group1" value="Milk">   b. Cerco eléctrico<br>
+            <input type="radio" name="group1" value="Milk"> d. Incendio<br>
+            
+              </td>
+        </table>
+            {% set k=k+1 %}
+            {% endfor %}
+        
+        <div align="right">
+             
+                <p class="submit">   
+                <input type="submit" name="commit" value="Aceptar">
+        </div>
+    </form>
+    </section>
+</div>
+{% endblock %}

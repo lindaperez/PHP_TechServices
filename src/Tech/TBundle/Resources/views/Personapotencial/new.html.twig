@@ -1,0 +1,107 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+
+{% endfor %}
+ 
+
+  
+<h1 class="title">Cliente Potencial</h1>
+
+<div class="container" >
+
+    <section class="register">
+        <br>
+        <h1>Ingrese los siguientes datos:</h1>
+        <br>
+        <form action="{{ path('PersonaPotencial_create') }}" method="post" >
+            {{ form_start(form) }}
+        {{ form_errors(form) }}  
+            <table>
+
+                <td>                      
+                    
+                    <div class="error">
+                        {{ form_errors(form.vnombreCompleto) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(form.vnombreCompleto, 'Nombre Completo:') }}</td>
+                        <td>{{ form_widget(form.vnombreCompleto) }}</td>
+                    </table>
+                     <div class="error">
+                        {{ form_errors(form.vtelefono) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(form.vtelefono, 'Teléfono:') }}</td>
+                        <td>{{ form_widget(form.vtelefono) }}</td>
+                    </table>
+
+                     <div class="error">
+                        {{ form_errors(form.vcorreoEmail) }}</div>       
+                    <table>  <td width="100">
+                    {{ form_label(form.vcorreoEmail, 'Correo:') }}</td>
+                        <td>{{ form_widget(form.vcorreoEmail) }}</td>
+                    </table>
+                    <div style="display: none;">
+                    
+
+                    {{ form_row(form.dfechaRegistro) }}
+
+                {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
+
+    </div>
+
+                </td>
+                </table>   
+                <div align="right">
+                    <p class="submit">   
+                        <input type="submit" name="commit" value="Siguiente">
+                        </p>
+                </div>           
+                {{ form_end(form) }} 
+                  
+        </form>  
+    </section>
+</div>
+
+
+
+            
+        <ul class="record_actions">
+    <li>
+        <br>
+        <a href="{{ path('PersonaPotencial') }}">
+            Lista de Clientes Potenciales
+        </a>
+    </li>
+</ul>
+{% endblock %}

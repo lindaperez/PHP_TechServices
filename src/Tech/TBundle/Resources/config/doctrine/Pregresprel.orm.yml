@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\Pregresprel:
+    type: entity
+    table: PregRespRel
+    indexes:
+        FK_PregRespRel_1:
+            columns:
+                - id_preg
+        FK_PregRespRel_2:
+            columns:
+                - id_resp
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idPreg:
+            targetEntity: Preguntaform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_preg:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idResp:
+            targetEntity: Respuestaform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_resp:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

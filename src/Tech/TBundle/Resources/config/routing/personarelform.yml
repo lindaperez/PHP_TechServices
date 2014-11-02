@@ -1,0 +1,30 @@
+PersonaForm:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Personarelform:index" }
+
+PersonaForm_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Personarelform:show" }
+
+PersonaForm_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Personarelform:new" }
+
+PersonaForm_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Personarelform:create" }
+    requirements: { _method: post }
+
+PersonaForm_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Personarelform:edit" }
+
+PersonaForm_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Personarelform:update" }
+    requirements: { _method: post|put }
+
+PersonaForm_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Personarelform:delete" }
+    requirements: { _method: post|delete }

@@ -1,6 +1,6 @@
-Tech\TBundle\Entity\Tbgenparametros:
+Tech\TBundle\Entity\Formulario:
     type: entity
-    table: tbgenParametros
+    table: formulario
     id:
         id:
             type: integer
@@ -11,17 +11,16 @@ Tech\TBundle\Entity\Tbgenparametros:
             generator:
                 strategy: IDENTITY
     fields:
-        vdescripcion:
+        titulo:
             type: string
-            nullable: true
+            nullable: false
             length: 45
             fixed: false
             comment: ''
-            column: vDESCRIPCION
-        imaxAcceso:
-            type: integer
-            nullable: true
-            unsigned: false
+        descripcion:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
             comment: ''
-            column: iMAX_ACCESO
     lifecycleCallbacks: {  }

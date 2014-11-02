@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\Formulariorelacion:
+    type: entity
+    table: formularioRelacion
+    indexes:
+        FK_formularioRelacion:
+            columns:
+                - fk_iID_idForm
+        FK_formularioRelacion_1:
+            columns:
+                - fk_iID_idPreg
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        fkIidform:
+            targetEntity: Formulario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_idForm:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidpreg:
+            targetEntity: Preguntaform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_idPreg:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

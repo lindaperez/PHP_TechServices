@@ -1,0 +1,30 @@
+Respuesta:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Respuestaform:index" }
+
+Respuesta_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Respuestaform:show" }
+
+Respuesta_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Respuestaform:new" }
+
+Respuesta_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Respuestaform:create" }
+    requirements: { _method: post }
+
+Respuesta_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Respuestaform:edit" }
+
+Respuesta_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Respuestaform:update" }
+    requirements: { _method: post|put }
+
+Respuesta_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Respuestaform:delete" }
+    requirements: { _method: post|delete }

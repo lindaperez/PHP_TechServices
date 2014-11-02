@@ -1,10 +1,6 @@
 Tech\TBundle\Entity\Tbdetusuariodatos:
     type: entity
     table: tbdetUsuarioDatos
-    uniqueConstraints:
-        pk_iCI_UNIQUE:
-            columns:
-                - pk_iCI
     id:
         id:
             type: integer

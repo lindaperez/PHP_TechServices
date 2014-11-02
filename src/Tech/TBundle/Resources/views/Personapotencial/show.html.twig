@@ -1,0 +1,85 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+
+{% for flashMessage in app.session.flashbag.get('flash_info') %}
+<div class="isa_info">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+{% for flashMessage in app.session.flashbag.get('flash_warning') %}
+<div class="isa_warning">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_error') %}
+<div class="isa_error">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+ 
+
+
+{% for flashMessage in app.session.flashbag.get('flash_success') %}
+<div class="isa_success">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+     <tr><h1>Datos Registrados</h1>
+
+    <table class="record_properties">
+    
+ 
+        
+       
+            <tr>
+            <td width="70" height="20"><b>Nombre: </b></td>
+            <td> {{ entity.vnombreCompleto }}</td>
+                <td></td>
+            </tr>
+         <tr>
+            <td height="20"><b>Teléfono: </b></td>
+            <td> {{ entity.vtelefono }}</td>
+                <td></td>
+            </tr>
+            <tr>
+            <td height="20"><b>Correo: </b></td>
+            <td> {{ entity.vcorreoEmail}}</td>
+                <td></td>
+            </tr>
+         
+         </tr>
+    
+    </table>
+<br><br>
+{% if ((app.session.get('usuario_rol')=="Empleado") or (app.session.get('usuario_rol')=="Administrador") )  %}
+                        
+        <ul class="record_actions">
+            <li>
+        <a href="{{ path('PersonaPotencial_edit', { 'id': entity.id }) }}">
+            Editar
+        </a>
+    </li>
+    
+    <li>
+        <a href="{{ path('PersonaPotencial') }}">
+             Volver Listado de Clientes Potenciales
+        </a>
+    </li>
+    
+    
+    <li>   
+                <div style="display: none;">{{ form(delete_form) }}</div></li>
+</ul>
+{% endif %}
+{% endblock %}
+
+     
+
+

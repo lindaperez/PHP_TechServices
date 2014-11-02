@@ -59,7 +59,7 @@ Composer is the package manager used by modern PHP applications and the only rec
 
 7. Para crear un bundle php app/console generate:bundle --namespace=Ens/JobeetBundle --format=yml
 
-	php5 app/console generate:bundle --namespace=TechBundle --format=yml
+c	php5 app/console generate:bundle --namespace=TechBundle --format=yml
 
 
 8. Recordar Limpiar La CACHE 
@@ -292,6 +292,32 @@ mariana@mariana-Satellite-P755:~/Documents/Symfony/techproject$ rm -R src/Tech/T
 
 Ver que pasa si el usuario no existe pero el contrato si .
 
+    TechTBundle_Formulario:
+        resource: "@TechTBundle/Resources/config/routing/formulario.yml"
+        prefix:   /Formulario
+
+    TechTBundle_PersonaPotencial:
+        resource: "@TechTBundle/Resources/config/routing/personapotencial.yml"
+        prefix:   /PersonaPotencial
+  TechTBundle_PersonaForm:
+        resource: "@TechTBundle/Resources/config/routing/personarelform.yml"
+        prefix:   /PersonaForm
+    TechTBundle_FormRel:
+        resource: "@TechTBundle/Resources/config/routing/formulariorelacion.yml"
+        prefix:   /FormRel
+
+   TechTBundle_Pregunta:
+        resource: "@TechTBundle/Resources/config/routing/preguntaform.yml"
+        prefix:   /Pregunta
+
+    TechTBundle_Respuesta:
+        resource: "@TechTBundle/Resources/config/routing/respuestaform.yml"
+        prefix:   /Respuesta
+
+
+    TechTBundle_PregResRel:
+        resource: "@TechTBundle/Resources/config/routing/pregresprel.yml"
+        prefix:   /PregResRel
 
 
 

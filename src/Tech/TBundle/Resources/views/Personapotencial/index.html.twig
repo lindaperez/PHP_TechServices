@@ -1,0 +1,76 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+ <h1  >Listado de  Clientes Potenciales</h1>
+
+
+<div class="container" >
+
+    <section class="register">
+        <h1>Listado de Solicitudes de Registro. ({{ pagination.getTotalItemCount }})</h1>
+          <div class="navigation" align="right">
+    {{ knp_pagination_render(pagination) }} 
+        </div>
+   <table class="records_list">
+            {% if (pagination.getTotalItemCount!=0) %}
+            <thead> 
+                <tr>
+                <!--td width="80"><h4><strong>knp_pagination_sortable(pagination, 'Cédula', 'ud.pkIci') }}</strong></h4></td-->
+         
+                <td align="center" width="80"><h4><strong>Nombre</strong></h4></td>
+                <td width="40"></td>
+                <td align="center" width="80"><h4><strong>Teléfono</strong></h4></td>
+                <td width="40"></td>
+                <td align="center" width="80"><h4><strong>Correo Electrónico</strong></h4></td>
+                <td width="40"></td>
+                <td align="center" width="80"><h4><strong>Fecha Reg.</strong></h4></td>
+                <td width="40"></td>
+                <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
+                </tr>
+            </thead>
+            {% else %}
+            <thead><div align="left"> 
+                <h4><strong>No se encontraron coincidencias. </strong></h4></div>
+                </thead> 
+        {% endif %}
+            <tbody>
+        {% for entity in pagination %}
+                <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
+
+                <td align="center">{{ entity.vnombreCompleto}}</td>
+                <td align="center" width="40"></td>
+                <td align="center">{{ entity.vtelefono}}</td>
+                <td align="center" width="40"></td>
+                <td align="center">{{ entity.vcorreoEmail }}</td>
+                <td align="center" width="40"></td>
+                <td align="center">{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d\-m\-y') }}{% endif %}</td>
+                <td align="center" width="40"></td>
+                <td align="center" width="40">
+                    <ul>
+                    
+                        <li>
+                            <a href="{{ path('PersonaPotencial_edit', { 'id': entity.id }) }}"><img  width="40"  height="38" title="Editar" src="/bundles/techt/images/Draft.png"/></a>
+                        </li>
+                    </ul>
+                </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation" align="right">
+    {{ knp_pagination_render(pagination) }} 
+        </div>
+    </section>  
+        
+   <br><br>
+    <ul>
+        <li>
+            <a href="{{ path('PersonaPotencial_new') }}">
+                <h4><strong>   Realizar Solicitud de Registro de Cliente</strong></h4>
+            </a>
+        </li>
+    </ul>
+
+</div>     
+        
+    {% endblock %}

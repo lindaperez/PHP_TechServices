@@ -5,37 +5,37 @@ namespace Tech\TBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Tech\TBundle\Entity\Tbgenfuncion;
-use Tech\TBundle\Form\TbgenfuncionType;
+use Tech\TBundle\Entity\Formulario;
+use Tech\TBundle\Form\FormularioType;
 
 /**
- * Tbgenfuncion controller.
+ * Formulario controller.
  *
  */
-class TbgenfuncionController extends Controller
+class FormularioController extends Controller
 {
 
     /**
-     * Lists all Tbgenfuncion entities.
+     * Lists all Formulario entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TechTBundle:Tbgenfuncion')->findAll();
+        $entities = $em->getRepository('TechTBundle:Formulario')->findAll();
 
-        return $this->render('TechTBundle:Tbgenfuncion:index.html.twig', array(
+        return $this->render('TechTBundle:Formulario:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Tbgenfuncion entity.
+     * Creates a new Formulario entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Tbgenfuncion();
+        $entity = new Formulario();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class TbgenfuncionController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Funciones_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('Formulario_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TechTBundle:Tbgenfuncion:new.html.twig', array(
+        return $this->render('TechTBundle:Formulario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Tbgenfuncion entity.
+    * Creates a form to create a Formulario entity.
     *
-    * @param Tbgenfuncion $entity The entity
+    * @param Formulario $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Tbgenfuncion $entity)
+    private function createCreateForm(Formulario $entity)
     {
-        $form = $this->createForm(new TbgenfuncionType(), $entity, array(
-            'action' => $this->generateUrl('Funciones_create'),
+        $form = $this->createForm(new FormularioType(), $entity, array(
+            'action' => $this->generateUrl('Formulario_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class TbgenfuncionController extends Controller
     }
 
     /**
-     * Displays a form to create a new Tbgenfuncion entity.
+     * Displays a form to create a new Formulario entity.
      *
      */
     public function newAction()
     {
-        $entity = new Tbgenfuncion();
+        $entity = new Formulario();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TechTBundle:Tbgenfuncion:new.html.twig', array(
+        return $this->render('TechTBundle:Formulario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Tbgenfuncion entity.
+     * Finds and displays a Formulario entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenfuncion')->find($id);
+        $entity = $em->getRepository('TechTBundle:Formulario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenfuncion entity.');
+            throw $this->createNotFoundException('Unable to find Formulario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenfuncion:show.html.twig', array(
+        return $this->render('TechTBundle:Formulario:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Tbgenfuncion entity.
+     * Displays a form to edit an existing Formulario entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenfuncion')->find($id);
+        $entity = $em->getRepository('TechTBundle:Formulario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenfuncion entity.');
+            throw $this->createNotFoundException('Unable to find Formulario entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenfuncion:edit.html.twig', array(
+        return $this->render('TechTBundle:Formulario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class TbgenfuncionController extends Controller
     }
 
     /**
-    * Creates a form to edit a Tbgenfuncion entity.
+    * Creates a form to edit a Formulario entity.
     *
-    * @param Tbgenfuncion $entity The entity
+    * @param Formulario $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Tbgenfuncion $entity)
+    private function createEditForm(Formulario $entity)
     {
-        $form = $this->createForm(new TbgenfuncionType(), $entity, array(
-            'action' => $this->generateUrl('Funciones_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new FormularioType(), $entity, array(
+            'action' => $this->generateUrl('Formulario_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class TbgenfuncionController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Tbgenfuncion entity.
+     * Edits an existing Formulario entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenfuncion')->find($id);
+        $entity = $em->getRepository('TechTBundle:Formulario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenfuncion entity.');
+            throw $this->createNotFoundException('Unable to find Formulario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class TbgenfuncionController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Funciones_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('Formulario_edit', array('id' => $id)));
         }
 
-        return $this->render('TechTBundle:Tbgenfuncion:edit.html.twig', array(
+        return $this->render('TechTBundle:Formulario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Tbgenfuncion entity.
+     * Deletes a Formulario entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class TbgenfuncionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TechTBundle:Tbgenfuncion')->find($id);
+            $entity = $em->getRepository('TechTBundle:Formulario')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tbgenfuncion entity.');
+                throw $this->createNotFoundException('Unable to find Formulario entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('Funciones'));
+        return $this->redirect($this->generateUrl('Formulario'));
     }
 
     /**
-     * Creates a form to delete a Tbgenfuncion entity by id.
+     * Creates a form to delete a Formulario entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class TbgenfuncionController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Funciones_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('Formulario_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

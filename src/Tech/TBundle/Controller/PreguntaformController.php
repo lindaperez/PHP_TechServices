@@ -5,37 +5,37 @@ namespace Tech\TBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Tech\TBundle\Entity\Tbgenrol;
-use Tech\TBundle\Form\TbgenrolType;
+use Tech\TBundle\Entity\Preguntaform;
+use Tech\TBundle\Form\PreguntaformType;
 
 /**
- * Tbgenrol controller.
+ * Preguntaform controller.
  *
  */
-class TbgenrolController extends Controller
+class PreguntaformController extends Controller
 {
 
     /**
-     * Lists all Tbgenrol entities.
+     * Lists all Preguntaform entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TechTBundle:Tbgenrol')->findAll();
+        $entities = $em->getRepository('TechTBundle:Preguntaform')->findAll();
 
-        return $this->render('TechTBundle:Tbgenrol:index.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Tbgenrol entity.
+     * Creates a new Preguntaform entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Tbgenrol();
+        $entity = new Preguntaform();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class TbgenrolController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Roles_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('Pregunta_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TechTBundle:Tbgenrol:new.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Tbgenrol entity.
+    * Creates a form to create a Preguntaform entity.
     *
-    * @param Tbgenrol $entity The entity
+    * @param Preguntaform $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Tbgenrol $entity)
+    private function createCreateForm(Preguntaform $entity)
     {
-        $form = $this->createForm(new TbgenrolType(), $entity, array(
-            'action' => $this->generateUrl('Roles_create'),
+        $form = $this->createForm(new PreguntaformType(), $entity, array(
+            'action' => $this->generateUrl('Pregunta_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class TbgenrolController extends Controller
     }
 
     /**
-     * Displays a form to create a new Tbgenrol entity.
+     * Displays a form to create a new Preguntaform entity.
      *
      */
     public function newAction()
     {
-        $entity = new Tbgenrol();
+        $entity = new Preguntaform();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TechTBundle:Tbgenrol:new.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Tbgenrol entity.
+     * Finds and displays a Preguntaform entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenrol')->find($id);
+        $entity = $em->getRepository('TechTBundle:Preguntaform')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenrol entity.');
+            throw $this->createNotFoundException('Unable to find Preguntaform entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenrol:show.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Tbgenrol entity.
+     * Displays a form to edit an existing Preguntaform entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenrol')->find($id);
+        $entity = $em->getRepository('TechTBundle:Preguntaform')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenrol entity.');
+            throw $this->createNotFoundException('Unable to find Preguntaform entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TechTBundle:Tbgenrol:edit.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class TbgenrolController extends Controller
     }
 
     /**
-    * Creates a form to edit a Tbgenrol entity.
+    * Creates a form to edit a Preguntaform entity.
     *
-    * @param Tbgenrol $entity The entity
+    * @param Preguntaform $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Tbgenrol $entity)
+    private function createEditForm(Preguntaform $entity)
     {
-        $form = $this->createForm(new TbgenrolType(), $entity, array(
-            'action' => $this->generateUrl('Roles_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new PreguntaformType(), $entity, array(
+            'action' => $this->generateUrl('Pregunta_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class TbgenrolController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Tbgenrol entity.
+     * Edits an existing Preguntaform entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TechTBundle:Tbgenrol')->find($id);
+        $entity = $em->getRepository('TechTBundle:Preguntaform')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tbgenrol entity.');
+            throw $this->createNotFoundException('Unable to find Preguntaform entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class TbgenrolController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('Roles_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('Pregunta_edit', array('id' => $id)));
         }
 
-        return $this->render('TechTBundle:Tbgenrol:edit.html.twig', array(
+        return $this->render('TechTBundle:Preguntaform:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Tbgenrol entity.
+     * Deletes a Preguntaform entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class TbgenrolController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TechTBundle:Tbgenrol')->find($id);
+            $entity = $em->getRepository('TechTBundle:Preguntaform')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tbgenrol entity.');
+                throw $this->createNotFoundException('Unable to find Preguntaform entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('Roles'));
+        return $this->redirect($this->generateUrl('Pregunta'));
     }
 
     /**
-     * Creates a form to delete a Tbgenrol entity by id.
+     * Creates a form to delete a Preguntaform entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class TbgenrolController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Roles_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('Pregunta_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

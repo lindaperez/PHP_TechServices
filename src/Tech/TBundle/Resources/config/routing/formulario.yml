@@ -1,0 +1,30 @@
+Formulario:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Formulario:index" }
+
+Formulario_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Formulario:show" }
+
+Formulario_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Formulario:new" }
+
+Formulario_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Formulario:create" }
+    requirements: { _method: post }
+
+Formulario_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Formulario:edit" }
+
+Formulario_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Formulario:update" }
+    requirements: { _method: post|put }
+
+Formulario_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Formulario:delete" }
+    requirements: { _method: post|delete }

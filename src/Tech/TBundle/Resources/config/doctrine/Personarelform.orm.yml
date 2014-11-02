@@ -1,0 +1,39 @@
+Tech\TBundle\Entity\Personarelform:
+    type: entity
+    table: PersonaRelForm
+    indexes:
+        FK_PersonaRelForm_1:
+            columns:
+                - id_persona
+        fk_PersonaRelForm_2:
+            columns:
+                - id_formul
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idPersona:
+            targetEntity: Personapotencial
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_persona:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idFormul:
+            targetEntity: Formulario
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_formul:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
