@@ -175,4 +175,7 @@ TechTBundle_PregResRel:
     resource: "@TechTBundle/Resources/config/routing/pregresprel.yml"
     prefix:   /PregResRel
 
+TechTBundle_PersonaRespuestas:
+    resource: "@TechTBundle/Resources/config/routing/personarespuesta.yml"
+    prefix:   /PersonaRespuestas
 

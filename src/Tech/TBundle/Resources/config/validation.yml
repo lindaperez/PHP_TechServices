@@ -205,3 +205,28 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 message: Debe completar el campo de Detalle
             - Blank: 
                 message: Debe completar el campo de Detalle 
+Tech\TBundle\Entity\Personapotencial:
+    properties:
+        vcorreoEmail:
+            - Email:
+                message: El corrreo "{{ value }}" no es un correo válido.
+            - Length:
+                max: 40
+                maxMessage: El correo {{ value }} debe tener máximo 40 números.
+        vtelefono:
+            - Regex:
+               pattern: "/([0-9]{3})([0-9]{7})/"
+               match:   true
+               message: El teléfono debe contener 10 dígitos.
+        vnombreCompleto:
+            - Type:
+                type: string
+                message: El valor {{ value }} no es válido, debe ser una cadena de letras.
+            - Regex:
+                pattern:  "/[\$\(\)\*\+\.\?\[\\\^\d\-\{\|!@%&_:;'`<>,~#=\"\\/]/"
+                match: false
+                message: Su Nombre no debe contener números o caracteres especiales.
+            - Length:
+                max: 25
+                maxMessage: Su nombre {{ value }} debe tener máximo 25 caracteres.
+

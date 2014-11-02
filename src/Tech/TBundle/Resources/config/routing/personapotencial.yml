@@ -13,13 +13,16 @@ PersonaPotencial_show:
 PersonaPotencial_new:
     pattern:  /new
     defaults: { _controller: "TechTBundle:Personapotencial:new" }
+
 PersonaPotencial_send:
     pattern:  /send
     defaults: { _controller: "TechTBundle:Personapotencial:send" }
+
 PersonaPotencial_sendcreate:
-    pattern:  /sendcreate
+    pattern:  /{id}/sendcreate
     defaults: { _controller: "TechTBundle:Personapotencial:sendcreate" }
     requirements: { _method: post }
+
 PersonaPotencial_create:
     pattern:  /create
     defaults: { _controller: "TechTBundle:Personapotencial:create" }

@@ -39,12 +39,20 @@ XML;
         }
     }
     
+    public function parseXMLandInsertInBdLeads($records) {
+        
+            $modeuleDependantObj = new moduleDependant();
+            $outputDb = $modeuleDependantObj->loadLeadsXml($records);
+            return $outputDb;
+    }
     public function parseXMLandInsertInBd($records) {
         
             $modeuleDependantObj = new moduleDependant();
             $outputDb = $modeuleDependantObj->loadXml($records);
             return $outputDb;
     }
+    
+    
     public function sendCurlRequest($url, $parameter) {
         try {
             /* initialize curl handle */

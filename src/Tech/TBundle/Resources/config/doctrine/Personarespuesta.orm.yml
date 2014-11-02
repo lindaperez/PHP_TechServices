@@ -1,0 +1,51 @@
+Tech\TBundle\Entity\Personarespuesta:
+    type: entity
+    table: PersonaRespuesta
+    indexes:
+        Fk_PersonaRespuesta_1:
+            columns:
+                - id_RelForm
+        Fk_PersonaRespuesta_2:
+            columns:
+                - id_Preg
+        Fk_PersonaRespuesta_3:
+            columns:
+                - id_Resp
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idRelform:
+            targetEntity: Personarelform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_RelForm:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idPreg:
+            targetEntity: Preguntaform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_Preg:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idResp:
+            targetEntity: Respuestaform
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_Resp:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

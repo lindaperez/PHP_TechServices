@@ -10,6 +10,18 @@ use Tech\TBundle\Form\PersonapotencialType;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Tech\TBundle\Entity\Personarelform;
 use Tech\TBundle\Entity\Formulariorelacion;
+use Tech\TBundle\Entity\Personarespuesta;
+use DateTime;
+
+//CONSTANTES FOR CONEXION TO CRM
+use Tech\TBundle\Entity\Utilities;
+define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Leads/insertRecords");
+
+
+/* user related parameter */
+define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
+
+define("SCOPE", "crmapi");
 
 /**
  * Personapotencial controller.
@@ -102,11 +114,152 @@ class PersonapotencialController extends Controller
         ));
     }
   
-      public function sendcreateAction(Request $request)
+public function before ($thiso, $inthato)
     {
+        return substr($inthato, 0, strpos($inthato, $thiso));
+    }
+
+    public function after ($thiso, $inthato)
+    {
+            if (!is_bool(strpos($inthato, $thiso)))
+        return substr($inthato, strpos($inthato,$thiso)+strlen($thiso));
+    }
+            public function between ($thiso, $thato, $inthato)
+        {
+            return $this->before($thato, $this->after($thiso, $inthato));
+        }
+    public function sendcreateAction(Request $request, $id)
+    {
+        ///Almacenar Respuesta
+        //Persona is a PersonaRelForm
+        $em = $this->getDoctrine()->getManager();
+        $PersonaRelForm= $em->getRepository('TechTBundle:Personarelform')->
+                    find($id); 
+        //Por cada pregunta almacenar respuesta 
+        //Validacion
+        //print_r($_POST);
+        if (in_array(1,$_POST)==false ||
+                    in_array(2,$_POST)==false || 
+                    in_array(3,$_POST)==false){
+            //No debe dejar Preguntas Vacias
+              $message_error = "No Debe dejar ninguna Pregunta Vacia";
+        $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+        //
+        $Formulario= $em->getRepository('TechTBundle:Formulario')->
+                 find(1); 
+        $PreguntasE= $em->getRepository('TechTBundle:Formulariorelacion')->
+                 findBy(array('fkIidform'=> $Formulario));
+         $RespuestasE= array();
+         
+         foreach ($PreguntasE as $PreguntaE) {
+
+         $RespuestaE= $em->getRepository('TechTBundle:Pregresprel')->
+                 findBy(array('idPreg'=> $PreguntaE));
+         
+         $RespuestasE[$PreguntaE->getId()]=$RespuestaE;        
+            }      
+        //
+        return $this->render('TechTBundle:Personapotencial:send.html.twig', array(
+            'Preguntas'   => $PreguntasE,
+            'Respuestas'  => $RespuestasE,
+            'Persona'     => $PersonaRelForm->getId(),
+        ));
+        }
+        $primera=false;
+        $segunda=false;
+        $tercera=false;
+
+            foreach ($_POST as $key => $Objeto) {
+                     $idRespuesta=$key;
+                     
+                if (is_numeric($idRespuesta)){
+                     $idPregunta=&$Objeto;
+                     
+                     $PersonaRespuesta=new Personarespuesta();
+                    $Pregunta= $em->getRepository('TechTBundle:Preguntaform')->
+                    find($idPregunta); 
+                    $Respuesta= $em->getRepository('TechTBundle:Respuestaform')->
+                    find($idRespuesta); 
+                    $PersonaRespuesta->setIdPreg($Pregunta);
+                    $PersonaRespuesta->setIdResp($Respuesta);
+                    $PersonaRespuesta->setIdRelform($PersonaRelForm);
+                    $em->persist($PersonaRespuesta);
+                    $em->flush();
+                if (($idRespuesta==1 && $idPregunta==1 )){
+                    $primera=true;
+                    //print "--1--";
+//                    print_r('--'.$idPregunta.'--');
+//                      print_r('-(-'.$idRespuesta.'-)-');
+                    
+                }    
+                if (($idRespuesta==7 || $idRespuesta==8 || $idRespuesta==9 || 
+                        $idRespuesta==10) && $idPregunta==2 ){
+                    $segunda=true;
+                    //print "--2--";
+                    
+                }
+                
+                if ($idRespuesta==13  && $idPregunta==3 ){
+                    $tercera=true;
+                    //print "--3--";
+                    
+                }
+                }
+            }
+                
+            if($primera && $segunda && $tercera){
+                     //Agregar al CRM
+                //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            
+            $parameter = "";
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            
+            $records = array(            
+            'Last Name' => $PersonaRelForm->getIdPersona()->getVnombreCompleto(),
+            'Email' => $PersonaRelForm->getIdPersona()->getVcorreoEmail(), 
+            'Phone' => $PersonaRelForm->getIdPersona()->getVtelefono(),
+            'Estatus'=> 'Por Contactar',
+            'Lead Source'=> 'Investigación de la Web',
+            'Referido por'=> 'Web',
+            'Fecha de Creación'=> $PersonaRelForm->getIdPersona()->getdfechaRegistro()->format('d/m/Y H:i:s'),
+                );
+            $dataXml=$utilObj->parseXMLandInsertInBdLeads($records);
+            if ($dataXml!=null){
+        //       print $dataXml;
+             }
+            $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
+            /* Call API */
+            $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
+            
+            /*FIN CRM        * */
+            
+            $message_success = "Su Petición ha sido Completada Exitosamente";
+            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+            
+                $entity = new Personapotencial();
+        $form   = $this->createCreateForm($entity);
+        return $this->render('TechTBundle:Personapotencial:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+                
+            }
+                
+            $message_success = "Su Petición ha sido Completada Exitosamente";
+            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+            
+       $entity = new Personapotencial();
+        $form   = $this->createCreateForm($entity);
+        return $this->render('TechTBundle:Personapotencial:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
         
-        
-       return $this->render('TechTBundle:Default:index.html.twig');
     }
 
     
@@ -117,38 +270,43 @@ class PersonapotencialController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Personapotencial();
+        date_default_timezone_set('America/Caracas');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
-         
-            
-         
         
-         
          $Formulario= $em->getRepository('TechTBundle:Formulario')->
-                 find(1);
-         
+                 find(1); 
             $PersonaRelForm=new PersonaRelForm();
             $PersonaRelForm->setIdPersona($entity);
             $PersonaRelForm->setIdFormul($Formulario);
+            $date = new DateTime('NOW');
+            $entity->setDfechaRegistro($date);
+            //print_r($entity->getDfechaRegistro());
             $em->persist($entity);
             $em->persist($PersonaRelForm);
             $em->flush();
-        
+            
          $Preguntas= $em->getRepository('TechTBundle:Formulariorelacion')->
                  findBy(array('fkIidform'=> $Formulario));
-       
+         $Respuestas= array();
+         
+         foreach ($Preguntas as $Pregunta) {
+
+         $Respuesta= $em->getRepository('TechTBundle:Pregresprel')->
+                 findBy(array('idPreg'=> $Pregunta));
+         
+         $Respuestas[$Pregunta->getId()]=$Respuesta;        
+            }      
         return $this->render('TechTBundle:Personapotencial:send.html.twig', array(
             'Preguntas'   => $Preguntas,
+            'Respuestas'  => $Respuestas,
+            'Persona'     => $PersonaRelForm->getId(),
         ));
             
             
         }
-            
-        
-        
-        
         return $this->render('TechTBundle:PersonaPotencial:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -194,7 +352,8 @@ class PersonapotencialController extends Controller
     {
         $entity = new Personapotencial();
         $form   = $this->createCreateForm($entity);
-
+        //set fecha actual
+        
         return $this->render('TechTBundle:Personapotencial:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),

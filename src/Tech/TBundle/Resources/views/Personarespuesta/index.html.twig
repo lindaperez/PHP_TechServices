@@ -1,0 +1,68 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+ <h1  >Listado de  Clientes Potenciales</h1>
+
+
+<div class="container" >
+
+    <section class="register">
+    <h1>Respuestas de Clientes Potenciales</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <td></td>
+                <th>Persona</th>
+                <td></td>
+                <th>Formulario</th>
+                <td></td>
+                <th>Pregunta</th>
+                <td></td>
+                <th>Respuesta</th>
+                <td></td>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('PersonaRespuestas_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td></td>
+                <td><a href="{{ path('PersonaPotencial_show', { 'id': entity.IdRelform.IdPersona.Id  }) }}">{{ entity.IdRelform.IdPersona.vnombreCompleto }}</a></td>
+                <td></td>
+                <td><a href="{{ path('Formulario_show', { 'id': entity.IdRelform.IdFormul.Id  }) }}">{{ entity.IdRelform.IdFormul }}</a></td>
+                <td></td>
+                <td><a href="{{ path('Pregunta_show', { 'id': entity.IdPreg.Id  }) }}">{{ entity.IdPreg.vdescripcion }}</a></td>
+                <td></td>
+                <td><a href="{{ path('Respuesta_show', { 'id': entity.IdResp.Id }) }}">{{ entity.IdResp.vdescripcion  }}</a></td>
+                <td></td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('PersonaRespuestas_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('PersonaRespuestas_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </section>  
+        
+   <br><br>
+    <ul>
+        <li>
+            <a href="{{ path('PersonaRespuestas_new') }}">
+                <h4><strong>   Realizar Solicitud de Registro de Cliente</strong></h4>
+            </a>
+        </li>
+    </ul>
+
+</div> 
+    
+    {% endblock %}

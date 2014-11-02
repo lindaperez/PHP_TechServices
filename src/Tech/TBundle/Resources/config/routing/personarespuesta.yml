@@ -1,0 +1,30 @@
+PersonaRespuestas:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Personarespuesta:index" }
+
+PersonaRespuestas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Personarespuesta:show" }
+
+PersonaRespuestas_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Personarespuesta:new" }
+
+PersonaRespuestas_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Personarespuesta:create" }
+    requirements: { _method: post }
+
+PersonaRespuestas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Personarespuesta:edit" }
+
+PersonaRespuestas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Personarespuesta:update" }
+    requirements: { _method: post|put }
+
+PersonaRespuestas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Personarespuesta:delete" }
+    requirements: { _method: post|delete }

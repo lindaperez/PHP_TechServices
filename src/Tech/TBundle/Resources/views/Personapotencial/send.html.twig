@@ -1,75 +1,96 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
+<div class="isa_info">
+        Puede Realizar Selección Multiple
+       
+</div>
 
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
 <div class="isa_info">
         {{ flashMessage }}
-    </div>
+</div>
 
 {% endfor %}
- 
 
 {% for flashMessage in app.session.flashbag.get('flash_warning') %}
 <div class="isa_warning">
         {{ flashMessage }}
-    </div>
+</div>
 
 {% endfor %}
- 
+
 
 
 {% for flashMessage in app.session.flashbag.get('flash_error') %}
 <div class="isa_error">
         {{ flashMessage }}
-    </div>
+</div>
 
 {% endfor %}
- 
+
 
 
 {% for flashMessage in app.session.flashbag.get('flash_success') %}
 <div class="isa_success">
         {{ flashMessage }}
-    </div>
+</div>
 
 {% endfor %}
- 
 
-  
+
+
 <h1 class="title">Cliente Potencial</h1>
 
 <div class="container" >
 
     <section class="register">
+        {%if (Preguntas!=null  and Respuestas!=null) %}
+        
+        
         <br>
         <h1>Ingrese los siguientes datos:</h1>
-   <br>
-   
-    <form action="{{ path('PersonaPotencial_sendcreate') }}" method="post" >
+        <br>
+
+        <form action="{{ path('PersonaPotencial_sendcreate', { 'id':  Persona }) }}" method="post" >
         {% set k =1%}
+            {% set m=1%}
            {% for pregunta in Preguntas %}
-           
-                <table>
-            <td width='100'>
-           <label for='preg'{{k}}>{{ pregunta.FkIidpreg.vdescripcion }}</label></td>
-          
-              <td>  
-            <input type="radio" name="group1" value="Milk">   a. Cámaras de video vigilancia<br>
-            <input type="radio" name="group1" value="Milk">   b. Cerco eléctrico<br>
-            <input type="radio" name="group1" value="Milk"> d. Incendio<br>
+
+            <table>
+                <tr >
+                    <td width="250"></td>
+                    <td align="left" width="200">
+                        <br><br>
+                        <h1 align="left" ><label align="left" for='preg'{{k}}>{{k}}.  {{ pregunta.FkIidpreg.vdescripcion }}</label>
+                        </h1><br>
+                    </td>
+                </tr>
+                </table>
+            <table>
+                <tr>  
+                    <td width="250"></td>
+                    <td width="200">  
+                  {% for respuesta in Respuestas[pregunta.id] %}
+                        <input  type="checkbox" name="{{respuesta.IdResp.id}}"  value="{{ respuesta.IdPreg.id}}" /> {{ respuesta.IdResp.vdescripcion}}<br>
+                      {% set m=m+1 %}
+                  {% endfor %}  
+                    </td>
+                </tr>
+            </table>
             
-              </td>
-        </table>
-            {% set k=k+1 %}
+            {% set k=k+1 %}        
             {% endfor %}
-        
-        <div align="right">
-             
+
+            <div align="right">
+
                 <p class="submit">   
-                <input type="submit" name="commit" value="Aceptar">
-        </div>
-    </form>
+                    <input type="submit" name="commit" value="Enviar">
+            </div>
+        </form>
+        {%endif%}
     </section>
 </div>
+
+
 {% endblock %}

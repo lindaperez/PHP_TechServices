@@ -67,6 +67,49 @@ class moduleDependant {
         }
     }
   */
+    
+    
+     public function loadLeadsXml($records) {
+
+        $xmls = '<Leads> <row no="1">';
+        //$numberOfRecords = count($xml->result->Cases->row);        
+        $keys=array_keys($records);
+        //for ($i = 0; $i < $numberOfRecords; $i++) {
+            $numberOfValues = count($records);
+            for ($j = 0; $j < $numberOfValues; $j++) {
+                switch ((string)$keys[$j]) {
+                    case 'Last Name':
+                        $xmls .='<FL val="Last Name">'.$records['Last Name'].'</FL>';
+                        break;
+                    case 'Phone':
+                        $xmls .='<FL val="Phone">'.$records['Phone'].'</FL>';
+                        break;
+                    case 'Email':
+                        $xmls .='<FL val="Email">'.$records['Email'].'</FL>';                        
+                        break;
+                    case 'Estatus':
+                        $xmls .='<FL val="Estatus">'.$records['Estatus'].'</FL>';
+                        break;
+                    case 'Lead Source':
+                        $xmls .='<FL val="Lead Source">'.$records['Lead Source'].'</FL>';
+                        break;
+                    case 'Referido por':
+                        $xmls .='<FL val="Referido por">'.$records['Referido por'].'</FL>';
+                        break;
+                    case 'Fecha de Creación':
+                        $xmls .='<FL val="Fecha de Creación">'.$records['Fecha de Creación'].'</FL>';
+                        break;
+                    
+                    default :
+                        break;
+                }
+        }
+        
+        $xmls .= '</row> </Leads>';
+      return $xmls;
+     }
+
+    ///fin leads
      public function loadXml($records) {
 
         $xmls = '<Cases> <row no="1">';
