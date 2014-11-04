@@ -214,10 +214,13 @@ Tech\TBundle\Entity\Personapotencial:
                 max: 40
                 maxMessage: El correo {{ value }} debe tener máximo 40 números.
         vtelefono:
+            - Type:
+                type: integer
+                message: El valor {{ value }} no es valido, debe ser de tipo numerico.
             - Regex:
-               pattern: "/([0-9]{3})([0-9]{7})/"
-               match:   true
-               message: El teléfono debe contener 10 dígitos.
+                pattern: "/([0-9]{3})([0-9]{7})/"
+                match:   true
+                message: El teléfono debe contener 10 dígitos.
         vnombreCompleto:
             - Type:
                 type: string

@@ -15,13 +15,13 @@ use DateTime;
 
 //CONSTANTES FOR CONEXION TO CRM
 use Tech\TBundle\Entity\Utilities;
-define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Leads/insertRecords");
+define("TARGETURLINSL", "https://crm.zoho.com/crm/private/xml/Leads/insertRecords");
 
 
 /* user related parameter */
-define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
+define("AUTHTOKENL", "e5ad26c35e964eb149030ae6cfe00363");
 
-define("SCOPE", "crmapi");
+define("SCOPEL", "crmapi");
 
 /**
  * Personapotencial controller.
@@ -215,8 +215,8 @@ public function before ($thiso, $inthato)
             /* set parameters */
             
             $parameter = "";
-            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
-            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("scope", SCOPEL, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKENL, $parameter);
             $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
             
             $records = array(            
@@ -234,7 +234,7 @@ public function before ($thiso, $inthato)
              }
             $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
             /* Call API */
-            $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
+            $responseINS = $utilObj->sendCurlRequest(TARGETURLINSL, $parameter);
             
             /*FIN CRM        * */
             
@@ -306,8 +306,14 @@ public function before ($thiso, $inthato)
         ));
             
             
+        }else{
+              $message_error =  "Errores en el Formulario";
+        $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+        
         }
-        return $this->render('TechTBundle:PersonaPotencial:new.html.twig', array(
+        
+        
+        return $this->render('TechTBundle:Personapotencial:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
