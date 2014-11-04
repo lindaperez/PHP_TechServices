@@ -96,12 +96,16 @@
 
 
             
-        <ul class="record_actions">
-    <li>
-        <br>
-        <a href="{{ path('PersonaPotencial') }}">
-            Lista de Clientes Potenciales
-        </a>
-    </li>
-</ul>
+        
+    {%  if(app.session.get('usuario_rol')!="Cliente" and  app.session.get('usuario_rol')!=null) %}
+<br><br>
+    <ul>
+        <li>
+            <a href="{{ path('PersonaPotencial_index') }}">
+                <h4><strong>   Listado de Personas Potenciales</strong></h4>
+            </a>
+        </li>
+    </ul>
+    {%endif%}
+
 {% endblock %}
