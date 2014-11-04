@@ -19,6 +19,7 @@ class Formulario
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    //Hola Realice un cambio
     private $id;
 
     /**
