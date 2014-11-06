@@ -71,10 +71,25 @@
                     {{ form_label(form.vcorreoEmail, 'Correo:') }}</td>
                         <td>{{ form_widget(form.vcorreoEmail) }}</td>
                     </table>
+                    <div class="error">
+                        {{ form_errors(form.vdepartamento) }}</div>       
+                    <table>  <td width="200"></td><td width="150">
+                    {{ form_label(form.vdepartamento, 'Departamento:') }}</td>
+                        <td>{{ form_widget(form.vdepartamento) }}</td>
+                    </table>
+                        
+                        
+                    <div class="error">
+                        {{ form_errors(form.vmensaje) }}</div>       
+                    <table>  <td width="200"></td><td width="150">
+                    {{ form_label(form.vmensaje, 'Mensaje:') }}</td>
+                        <td>{{ form_widget(form.vmensaje) }}</td>
+                    </table>
+
                     <div style="display: none;">
                     
-
-                    {{ form_row(form.dfechaRegistro) }}
+                    
+                {{ form_row(form.dfechaRegistro) }}
 
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
 

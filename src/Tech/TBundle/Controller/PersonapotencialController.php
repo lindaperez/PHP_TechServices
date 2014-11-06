@@ -132,12 +132,17 @@ public function before ($thiso, $inthato)
     {
         ///Almacenar Respuesta
         //Persona is a PersonaRelForm
+        
         $em = $this->getDoctrine()->getManager();
+        $entity= $em->getRepository('TechTBundle:Personapotencial')->
+                    find($id); 
         $PersonaRelForm= $em->getRepository('TechTBundle:Personarelform')->
                     find($id); 
+        
         //Por cada pregunta almacenar respuesta 
         //Validacion
         //print_r($_POST);
+        
         if (in_array(1,$_POST)==false ||
                     in_array(2,$_POST)==false || 
                     in_array(3,$_POST)==false){
@@ -238,18 +243,40 @@ public function before ($thiso, $inthato)
             
             /*FIN CRM        * */
             
+            //Envio de correo electronico
+            //Ventas: ventas@techtrol.com.ve
+            //Soporte: atencionalcliente@techtrol.com.ve
+            //Administración administracion@techtrol.com.ve
+            
+            
+            $session=$request->getSession();
+            $depart=$session->get('vdepartamento');
+            
+            $mensj=$session->get('vmensaje');
+            $entity->setVmensaje($mensj);
+            
+            if ($depart==1){
+                    $entity->setVdepartamento('Soporte');
+                 $this->mailer($entity,'atencionalcliente@techtrol.com.ve');}
+                 elseif($depart==2){
+                     $entity->setVdepartamento('Ventas');
+                $this->mailer($entity,'ventas@techtrol.com.ve');
+            }elseif($depart==3){
+                     $entity->setVdepartamento('Administración');
+                $this->mailer($entity,'administracion@techtrol.com.ve');
+            }
+            
             $message_success = "Su Petición ha sido Completada Exitosamente";
             $this->get('session')->getFlashBag()->add('flash_success', $message_success);
             
-                $entity = new Personapotencial();
-        $form   = $this->createCreateForm($entity);
+                $entity2 = new Personapotencial();
+        $form   = $this->createCreateForm($entity2);
         return $this->render('TechTBundle:Personapotencial:new.html.twig', array(
-            'entity' => $entity,
+            'entity' => $entity2,
             'form'   => $form->createView(),
         ));
                 
             }
-                
             $message_success = "Su Petición ha sido Completada Exitosamente";
             $this->get('session')->getFlashBag()->add('flash_success', $message_success);
             
@@ -260,9 +287,25 @@ public function before ($thiso, $inthato)
             'form'   => $form->createView(),
         ));
         
+        
     }
 
-    
+  
+    public function mailer($entity, $to) {
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Techtrol Cliente Potencial')
+                ->setFrom('techtroll.ve@gmail.com')
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                        'TechTBundle:Personapotencial:clientePotencial.html.twig', array('entity' => $entity)
+                )
+                , 'text/html')
+        ;
+        $this->get('mailer')->send($message);
+    }
+  
     /**
      * Creates a new Personapotencial entity.
      *
@@ -275,6 +318,10 @@ public function before ($thiso, $inthato)
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
+        $session=$request->getSession();
+        
+        $session->set('vdepartamento',$entity->getVdepartamento());  
+        $session->set('vmensaje',$entity->getVmensaje());
         
          $Formulario= $em->getRepository('TechTBundle:Formulario')->
                  find(1); 

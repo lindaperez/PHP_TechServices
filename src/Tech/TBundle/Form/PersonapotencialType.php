@@ -15,11 +15,21 @@ class PersonapotencialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vnombreCompleto')
-            ->add('vtelefono')
-            ->add('vcorreoEmail')
-            ->add('dfechaRegistro')
-        ;
+            ->add('vnombreCompleto','text',array('attr' => array('style'=>'width:220px;height:30px')))
+            ->add('vtelefono','integer',array ('invalid_message' => 'El valor Telef que introdujo no es correcto.'
+                . '. Ej. 4129511668','attr' => array('style'=>'width:220px;height:30px')))
+            ->add('vcorreoEmail','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
+                . '. Ej. micorreo@gmail.com','attr' => array('style'=>'width:220px;height:30px')))
+            
+            ->add('dfechaRegistro','date', array('required' => false,'label'=> 'Fecha Registro:',
+                    'widget' => 'single_text','attr' => array('style'=>'width:220px;height:30px')
+                    // this is actually the default format for single_text
+                    ))
+            ->add('vdepartamento', 'choice', array(
+                'choices' => array('1' => 'Soporte', '2' => 'Ventas', '3' => 'Administración'), 
+                'attr' => array('style'=>'width:220px;height:30px')))
+            ->add('vmensaje','textarea',array( 'required' => false,
+                'attr' => array('cols' => '5', 'rows' => '20','style'=>'width:220px;height:120px')));
     }
     
     /**

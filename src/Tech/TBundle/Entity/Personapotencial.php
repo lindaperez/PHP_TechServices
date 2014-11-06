@@ -48,6 +48,10 @@ class Personapotencial
      * @ORM\Column(name="dFECHA_REGISTRO", type="datetime", nullable=false)
      */
     private $dfechaRegistro;
+    
+    private $vdepartamento;
+    
+    private $vmensaje;
 
 
 
@@ -156,4 +160,28 @@ class Personapotencial
     {
         return strval($this->id+' -'+$this->vnombreCompleto);
 }
+    public function setVdepartamento($vdepartamento)
+    {
+        $this->vdepartamento = $vdepartamento;
+
+        return $this->vdepartamento;
+    }
+
+    public function getVdepartamento()
+    {
+        return $this->vdepartamento;
+    }
+
+
+    public function setVmensaje($vmensaje)
+    {
+        $this->vmensaje = $vmensaje;
+
+        
+    }
+
+    public function getVmensaje()
+    {
+        return $this->vmensaje;
+    }
 }
