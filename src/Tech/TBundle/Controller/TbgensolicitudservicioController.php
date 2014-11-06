@@ -618,7 +618,8 @@ class TbgensolicitudservicioController extends Controller
         $em = $this->getDoctrine()->getManager();
         $method= new TbdetusuariodatosController();
         $verif = $method->verifaccesouserAction($request);
-        if ($verif == false) {
+        $verif2 = $method->verifaccesoAdminEmplAction($request);
+        if ($verif == false && $verif2==false) {
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         

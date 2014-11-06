@@ -180,6 +180,10 @@ source bd.sql
 
 show tables;
 
+Clave de Mysql t3chtr0l2014
+
+create user admin_techtrol identified by 	'admin'
+
 complete parameters.yml
 
 http://suggest.name

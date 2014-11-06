@@ -40,7 +40,7 @@
 
 
 
-<h1 class="title">Cliente Potencial</h1>
+<h1 class="title"></h1>
 
 <div class="container" >
 
@@ -55,22 +55,23 @@
         <form action="{{ path('PersonaPotencial_sendcreate', { 'id':  Persona }) }}" method="post" >
         {% set k =1%}
             {% set m=1%}
+            <table>
            {% for pregunta in Preguntas %}
-
+        <td>
             <table>
                 <tr >
-                    <td width="250"></td>
-                    <td align="left" width="200">
+                    <td width="200"></td>
+                    <td align="left" width="500">
                         <br><br>
-                        <h1 align="left" ><label align="left" for='preg'{{k}}>{{k}}.  {{ pregunta.FkIidpreg.vdescripcion }}</label>
+                        <h1 align="left" ><label align="left" for='preg'{{k}}>{{k}}.    {{ pregunta.FkIidpreg.vdescripcion }}</label>
                         </h1><br>
                     </td>
                 </tr>
                 </table>
             <table>
                 <tr>  
-                    <td width="250"></td>
-                    <td width="200">  
+                    <td width="150"></td>
+                    <td width="400">  
                   {% for respuesta in Respuestas[pregunta.id] %}
                         <input  type="checkbox" name="{{respuesta.IdResp.id}}"  value="{{ respuesta.IdPreg.id}}" /> {{ respuesta.IdResp.vdescripcion}}<br>
                       {% set m=m+1 %}
@@ -78,10 +79,11 @@
                     </td>
                 </tr>
             </table>
-            
+            </td>
             {% set k=k+1 %}        
             {% endfor %}
-
+            </table>
+<br>
             <div align="right">
 
                 <p class="submit">   

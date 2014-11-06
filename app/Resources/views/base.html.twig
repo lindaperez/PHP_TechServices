@@ -174,7 +174,7 @@
                             <a class="mp-back" href="#">Atras</a>
                             <ul>
                                 
-                                 {%if (app.session.get('usuario_rol')=="Cliente") %}
+                                 {%if (app.session.get('usuario_rol')=="Cliente") or (app.session.get('usuario_rol')=="Administrador")%}
                                 <li><a href="{{ path('SolicitudServicio_new') }}">Solicitar Servicio</a></li>
                                 <li><a href="{{ path('SolicitudServicio_indexuser') }}"> Mis Servicios</a></li> 
                                 {%else%}
