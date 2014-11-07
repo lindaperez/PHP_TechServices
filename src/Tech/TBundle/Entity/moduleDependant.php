@@ -152,6 +152,18 @@ class moduleDependant {
                     case 'Reported By':
                         $xmls .='<FL val="Reported By">'.$records['Reported By'].'</FL>';
                         break;
+                    case 'Número de Contrato':
+                        $xmls .='<FL val="Número de Contrato">'.$records['Número de Contrato'].'</FL>';
+                        break;
+                    case 'Tipo de Contrato':
+                        $xmls .='<FL val="Tipo de Contrato">'.$records['Tipo de Contrato'].'</FL>';
+                        break;
+                    case 'Dpto. Encargado':
+                        $xmls .='<FL val="Dpto. Encargado">'.$records['Dpto. Encargado'].'</FL>';
+                        break;
+                    case 'Nombre de contacto':
+                        $xmls .='<FL val="Nombre de contacto">'.$records['Nombre de contacto'].'</FL>';
+                        break;
                     default :
                         break;
                 }
