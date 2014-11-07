@@ -319,9 +319,6 @@ Ver que pasa si el usuario no existe pero el contrato si .
         resource: "@TechTBundle/Resources/config/routing/pregresprel.yml"
         prefix:   /PregResRel
 
-
-
-
     TechTBundle_PersonaRespuestas:
         resource: "@TechTBundle/Resources/config/routing/personarespuesta.yml"
         prefix:   /PersonaRespuestas
