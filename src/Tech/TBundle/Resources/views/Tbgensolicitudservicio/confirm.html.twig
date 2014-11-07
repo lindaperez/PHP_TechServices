@@ -164,15 +164,17 @@
          
     </section>
     <ul>
+        
         <li>
-            <a href="{{ path('SolicitudServicio_new') }}">
-                <h4>Crear Nueva Solicitud</h4>
-            </a>
-        </li>
-        <li>
+            {%  if(app.session.get('usuario_rol')=="Cliente") %}
             <a href="{{ path('SolicitudServicio_indexuser') }}">
                 <h4>Lista de Solicitudes</h4>
             </a>
+            {% else%}
+            <a href="{{ path('SolicitudServicio_index') }}">
+                <h4>Lista de Solicitudes</h4>
+            </a>
+            {%endif%}
         </li>
     </ul>             
 </div>
