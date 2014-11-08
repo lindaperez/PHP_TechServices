@@ -10,6 +10,7 @@ use Tech\TBundle\Form\TbgensolicitudservicioType;
 use Tech\TBundle\Entity\Tbdetdetalleusuario;
 use Tech\TBundle\Controller\TbdetusuariodatosController;
 use Tech\TBundle\Entity\Utilities;
+use SimpleXMLElement;
 
 
 use DateTime;
@@ -570,6 +571,19 @@ class TbgensolicitudservicioController extends Controller
             /* Call API */
             $responseINS = $utilObj->sendCurlRequest(TARGETURLINS, $parameter);
             
+            $stringResp = <<<XML
+$responseINS
+XML;
+            
+            $resp = simplexml_load_string($stringResp);
+            
+            $Idresp=$resp->result->recorddetail->FL;
+            
+            //Actualizar Nro Solicitud
+            
+            //print($resp->attributes());
+            //print('\n');        
+            //print($resp->children());
             /*FIN CRM        * */
             $message_info = "Recuerde revisar su correo electrónico.";
             $message_success= "Su solicitud ha sido registrada correctamente.";
