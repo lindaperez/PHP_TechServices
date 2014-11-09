@@ -172,15 +172,15 @@ Agregar en httpd.conf o apache2.conf
 En mysql cargar la BD
 
 mysql -h localhost -u root -p
-"root"
+Clave de Mysql t3chtr0l2014
 
 create database mydb;
-use mydb;
+use mydb; 
 source bd.sql
 
 show tables;
 
-Clave de Mysql t3chtr0l2014
+
 
 create user admin_techtrol identified by 	'admin'
 
