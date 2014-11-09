@@ -19,25 +19,27 @@
             <table border="0" cellpadding="1" cellspacing="1">
              
                    <tr>
-                 <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
+                       
+                          <div class="error">{{ form_errors(search_form.contrato) }}</div>       
                    <td width='50'><h2>1.</h2></td><td width="115">
+                {{ form_label(search_form.contrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(search_form.contrato,{'required': false}) }}</td>
+                 
+                        <td width="55"></td>
+                   
+                 <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
+                   <td width='50'><h2>2.</h2></td><td width="115">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
                     
                  <td width="55"></td>
                 <div class="error" >
                 {{ form_errors(search_form.fkIidEspSol) }}</div>       
-                 <td width='50'><h2>2.</h2></td><td width="100">
+                 <td width='50'><h2>3.</h2></td><td width="100">
                 {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
-                 <td width="55"></td>
-                        <div class="error" >
-                {{ form_errors(search_form.vdetalles) }}</div>       
-                   <td width='50'>   <h2>3.</h2></td><td width="95">
-                {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
-                        <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
-             
-                        
+           
+           
                      </tr>
                      
                         <tr>
@@ -45,48 +47,25 @@
                 {{ form_errors(search_form.iid) }}</div>       
                         <td></td><td width="115">
                 {{ form_label(search_form.iid, 'Nro Caso:') }}</td>
-                        <td>{{ form_widget(search_form.iid,{'required': false}) }}</td>
-                        <td></td>
+                        <td>{{ form_widget(search_form.iIdCaso,{'required': false}) }}</td>
+                        
                      <td width="15"></td>
-                   <td width="130">
-                {{ form_label(search_form.contrato, 'Contrato:') }}</td>
-                        <td>{{ form_widget(search_form.contrato,{'required': false}) }}</td>
-                       <td width="15"></td>
-                   
-                    
-                        <div class="error">
-                {{ form_errors(search_form.fkIidEstatus) }}</div>       
-                    
-                <div class="error">
-                {{ form_errors(search_form.fkIidEstatus) }}</div>       
-                    <td></td><td width="130">
-                {{ form_label(search_form.fkIidEstatus, 'Estatus:') }}</td>
-                        <td>{{ form_widget(search_form.fkIidEstatus,{
-                    'empty_value':'Seleccionar','required': false})}}</td>
-                        <td width="5"></td>
-                        
-                    <td></td><td width="90">
-                    
-                        
-                   </tr>
-                   <tr>
                        <div class="error">
                 {{ form_errors(search_form.dfechaCreacion) }}</div>       
                     <td></td><td width="130">
                 {{ form_label(search_form.dfechaCreacion, 'Fecha Creación:') }}</td>
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
-                        <td width="5"></td>
                         
-                        <div class="error">
-                {{ form_errors(search_form.dfechaCierre) }}</div>       
-                    <td></td><td width="130">
-                {{ form_label(search_form.dfechaCierre, 'Fecha Cierre:') }}</td>
-                        <td>{{ form_widget(search_form.dfechaCierre,{'required': false,'type': 'date'})}}</td>
-                            
+                
+                
                        </tr>
                    
                      <div style="display: none;">     
-                
+                {{ form_row(search_form.iid, {'required' : false})}}
+                {{ form_row(search_form.vdescEstatus, {'required' : false})}}
+                {{ form_row(search_form.dfechaCierre, {'required' : false})}}
+                {{ form_row(search_form.iIdCaso, {'required' : false})}}
+                {{ form_row(search_form.vdetalles, {'required' : false})}}
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
@@ -126,7 +105,7 @@
         <table class="records_list">
             {% if (pagination.getTotalItemCount!=0) %}
             <thead> 
-            <td align="center"  width="80"><h4 ><strong>Nro Caso</strong></h4></td>
+            <td align="center"  width="160"><h4 ><strong>Nro Caso</strong></h4></td>
                 <td width="40"></td>
                 <td align="center"  width="160"><h4><strong>Tipo Solicitud</strong></h4></td>
                 <td width="40"></td>
@@ -134,8 +113,6 @@
                 <td width="40"></td>
                 <td align="center" width="80"><h4><strong>Fecha</strong></h4></td>
                 <td width="40"></td>
-                <td align="center" width="80"><h4><strong>Estatus</strong></h4></td>
-                <td width="40"></td-->
                 <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
               </thead>
         {% else %}
@@ -149,7 +126,7 @@
                 {% for entity in pagination %}
                 <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
 
-                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso }}</a></td>
                 <td width="40"></td>
                 <td align="center" width="80">{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol}} </td>
                 <td width="40"></td>                    
@@ -157,8 +134,8 @@
                 <td width="40"></td>
                 <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
                 <td width="40"></td>
-                <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
-                <td width="40"></td>
+                
+                
                   
                 <td align="center" width="120">
                     
@@ -179,23 +156,7 @@
                         
                     </li>
                     {%endif%}
-                     {% if ((app.session.get('usuario_rol')!="Empleado") 
-                                and entity.fkIidEstatus.id==3) %}
                     
-                    <li>
-                        
-                    <div class="" id="extern{{entity.id}}">
-                        <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
-                    <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                    </div>  
-                    </div>
-                        
-                        </li>
-                        {%endif%}
                         
                 </ul>
                 </td>

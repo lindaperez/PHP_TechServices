@@ -481,6 +481,7 @@ class TbgensolicitudservicioController extends Controller
                 if ($idEsp==1){
                  //   print "1";
                     //CAMPOS DE USUARIO
+                    if ($form['vdetalles']->getData()!=null){
                     $det2= new Tbdetdetalleusuario();
                     $det3= new Tbdetdetalleusuario();
                     //$det4= new Tbdetdetalleusuario();
@@ -496,6 +497,7 @@ class TbgensolicitudservicioController extends Controller
                     $em->persist($det3);
                     //$em->persist($det4);
                     $em->persist($det);
+                    }
                 }
                 elseif(($idEsp==2) || ($idEsp==5)){
                     //DESPLIEGUE DE DETALLE
@@ -509,10 +511,12 @@ class TbgensolicitudservicioController extends Controller
                 }elseif ($idEsp==7 || $idEsp==8 || $idEsp==9) {
                   //  print "8,9";
                     //DESCRIPCION
+                    if ($form['vdetalles']->getData()!=null){
                     $det->setVdetalle($entity->getVdescripcion());
                     $det->setFkIidSolUsu($entity);
                     
                      $em->persist($det);
+                    }
                 }
                 
             }
@@ -528,7 +532,7 @@ class TbgensolicitudservicioController extends Controller
             $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
             $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
             $records = array(            
-            'Case Owner' => 'SAC', 'Status' => 'Abierto',
+            'Case Owner' => 'SAC', 
             'Priority' => 'RnX', 
             'Case Reason' => $entity->getFkIidEspSol()->getFkIidEspSol()->getVnombreTipoSol(),
             'Case Origin' => 'Web',
@@ -556,13 +560,9 @@ $responseINS
 XML;
             
             $resp = simplexml_load_string($stringResp);
-            
             $Idresp=$resp->result->recorddetail->FL;
             $entity->setIidCaso($Idresp+1);
             
-            //print($resp->attributes());
-            //print('\n');        
-            //print($resp->children());
             /*FIN CRM        * */
             //Actualizar Nro Solicitud
             $em->persist($entity);
@@ -651,33 +651,8 @@ XML;
         }
         
         $idEsp=$entity->getFkIidEspSol()->getId();
-              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
-                  
-                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                          findOneBy(array('fkIidSolUsu'=>$entity));
-                  //print $detalle->getVdetalle();
-                  $entity->setVdescripcion($detalle->getVdetalle());
-                  //print $entity->getVdescripcion();
-                  
-              }elseif($idEsp==1 ){
-                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                          findBy(array('fkIidSolUsu'=>$entity));
-                  $entity->setVpersona($detalles[3]->getVdetalle());
-                  $entity->setVcorreo($detalles[1]->getVdetalle());
-                  $entity->setVdireccion($detalles[2]->getVdetalle());
-                  $entity->setVtelefono($detalles[0]->getVdetalle());
-                  
-                //  print $entity->getVdescripcion();
-                  
-              }elseif ($idEsp==2 || $idEsp==5) {
-                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                   findOneBy(array('fkIidSolUsu'=>$entity));
-                  //print $detalle->getVdetalle();
-                    if ($detalle!=null){
-                  $entity->setVdetalles($detalle->getVdetalle());
-                  //print $entity->getVdescripcion();
-                    }
-              }  
+            
+                
         
         $deleteForm = $this->createDeleteForm($id);
         //Creacion de Campos en CRM
@@ -753,33 +728,34 @@ XML;
         //$request->getSession()->set('tiempo_servicio_horas',$horas);
         }           
         $idEsp=$entity->getFkIidEspSol()->getId();
-              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
-                  
-                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                          findOneBy(array('fkIidSolUsu'=>$entity));
-                  //print $detalle->getVdetalle();
-                  $entity->setVdescripcion($detalle->getVdetalle());
-                  //print $entity->getVdescripcion();
-                  
-              }elseif($idEsp==1 ){
-                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                          findBy(array('fkIidSolUsu'=>$entity));
-                //$entity->setVpersona($detalles[3]->getVdetalle());
-                  $entity->setVcorreo($detalles[1]->getVdetalle());
-                  $entity->setVpersona($detalles[2]->getVdetalle());
-                  $entity->setVtelefono($detalles[0]->getVdetalle());
-                  
-               //   print $entity->getVdescripcion();
-                  
-              }elseif ($idEsp==2 || $idEsp==5) {
-                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-                   findOneBy(array('fkIidSolUsu'=>$entity));
-                  //print $detalle->getVdetalle();
-                    if ($detalle!=null){
-                  $entity->setVdetalles($detalle->getVdetalle());
-                  //print $entity->getVdescripcion();
-                    }
-              }  
+    
+//              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
+//                  
+//                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+//                          findOneBy(array('fkIidSolUsu'=>$entity));
+//                  
+//                  $entity->setVdescripcion($detalle->getVdetalle());
+//                  
+//                  
+//              }elseif($idEsp==1 ){
+//                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+//                          findBy(array('fkIidSolUsu'=>$entity));
+//                //$entity->setVpersona($detalles[3]->getVdetalle());
+//                  $entity->setVcorreo($detalles[1]->getVdetalle());
+//                  $entity->setVpersona($detalles[2]->getVdetalle());
+//                  $entity->setVtelefono($detalles[0]->getVdetalle());
+//                  
+//               //   print $entity->getVdescripcion();
+//                  
+//              }elseif ($idEsp==2 || $idEsp==5) {
+//                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
+//                   findOneBy(array('fkIidSolUsu'=>$entity));
+//                  //print $detalle->getVdetalle();
+//                    if ($detalle!=null){
+//                  $entity->setVdetalles($detalle->getVdetalle());
+//                  //print $entity->getVdescripcion();
+//                    }
+//              }  
               
     
         $editForm = $this->createEditForm($entity);
