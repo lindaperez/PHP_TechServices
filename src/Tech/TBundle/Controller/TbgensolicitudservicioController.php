@@ -15,6 +15,7 @@ use SimpleXMLElement;
 
 use DateTime;
 define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
+define("TARGETURLUPD", "https://crm.zoho.com/crm/private/xml/Cases/updateRecords");
 define("TARGETURSLGETALL", "https://crm.zoho.com/crm/private/xml/Cases/getRecords");
 define("TARGETURSLGETBYID", "https://crm.zoho.com/crm/private/xml/Cases/getRecordById");
 
@@ -899,7 +900,30 @@ XML;
                 $entity->setDfechaCierre(null);
                     
                 }
+                
             $em->flush();
+                   //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            
+            $parameter = "";
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("id",($entity->getIidCaso()-1),$parameter);
+            
+            $records = array(            
+            'Status'=> $entity->getVdescEstatus()
+                );
+            $dataXml=$utilObj->parseXMLandInsertInBd($records);
+            if ($dataXml!=null){
+        //       print $dataXml;
+             }
+            $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
+            /* Call API */
+            $responseINS = $utilObj->sendCurlRequest(TARGETURLUPD, $parameter);
+            /*FIN CRM        * */
+     
         $message_info = "Recuerde revisar su correo electrónico.";
             $message_success= "Su solicitud ha sido editada correctamente.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);

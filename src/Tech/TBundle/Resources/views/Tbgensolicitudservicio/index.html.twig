@@ -40,23 +40,7 @@
                  
                         <td width="55"></td>
                         
-                        <div class="error" >
-                {{ form_errors(search_form.vdetalles) }}</div>       
-                   <td width='50'>   <h2 width="15">3.</h2></td><td width="95">
-                {{ form_label(search_form.vdetalles, 'Detalles:') }}</td>
-                        <td>{{ form_widget(search_form.vdetalles,{'required': false}) }}</td>
-             
                         
-                     </tr>
-                     
-                        <tr>
-                 <div class="error">
-                {{ form_errors(search_form.iid) }}</div>       
-                        <td></td><td width="115">
-                {{ form_label(search_form.iid, 'Nro Caso:') }}</td>
-                        <td>{{ form_widget(search_form.iid,{'required': false}) }}</td>
-                        <td width="15"></td>
-                     
                           <div class="error">{{ form_errors(search_form.contrato) }}</div>       
                    <td></td><td width="130">
                 {{ form_label(search_form.contrato, 'Contrato:') }}</td>
@@ -64,14 +48,25 @@
                    
                         <td width="15"></td>
                         
+                     </tr>
+                     
+                        <tr>
+                 <div class="error">
+                {{ form_errors(search_form.iid) }}</div>       
+                        <td></td><td width="115">
+                {{ form_label(search_form.iIdCaso, 'Nro Caso:') }}</td>
+                        <td>{{ form_widget(search_form.iIdCaso,{'required': false}) }}</td>
+                        <td width="15"></td>
+                     
+                        
                         <div class="error">
-                {{ form_errors(search_form.fkIidEstatus) }}</div>       
+                {{ form_errors(search_form.vdescEstatus) }}</div>       
                     
                 <div class="error">
-                {{ form_errors(search_form.fkIidEstatus) }}</div>       
+                {{ form_errors(search_form.vdescEstatus) }}</div>       
                     <td></td><td width="115">
-                {{ form_label(search_form.fkIidEstatus, 'Estatus:') }}</td>
-                        <td>{{ form_widget(search_form.fkIidEstatus,{
+                {{ form_label(search_form.vdescEstatus, 'Estatus:') }}</td>
+                        <td>{{ form_widget(search_form.vdescEstatus,{
                     'empty_value':'Seleccionar','required': false})}}</td>
                         <td width="5"></td>
                         
@@ -96,7 +91,10 @@
                         </tr>
             </table>              
                      <div style="display: none;">     
-                
+                {{ form_row(search_form.iid)}}
+                {{ form_row(search_form.vdetalles, {'required' : false})}}
+                {{ form_row(search_form.iIdCaso, {'required' : false})}}
+                {{ form_row(search_form.fkIidEstatus, {'required' : false})}}
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
@@ -170,7 +168,7 @@
                 {% for entity in pagination %}
                 <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
 
-                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso }}</a></td>
                 <td width="40"></td>
                 <td align="center" width="80">{{ entity.fkIidUsuaDatos.vnombre}} {{ entity.fkIidUsuaDatos.vapellido}} </td>
                 <td width="40"></td>
