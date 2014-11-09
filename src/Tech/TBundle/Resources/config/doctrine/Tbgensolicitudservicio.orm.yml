@@ -35,7 +35,7 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             comment: ''
             column: dFECHA_CIERRE
         iidCaso:
-            type: integer
+            type: bigint
             nullable: false
             unsigned: false
             comment: ''

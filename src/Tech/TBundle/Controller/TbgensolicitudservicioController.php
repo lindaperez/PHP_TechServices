@@ -230,9 +230,6 @@ class TbgensolicitudservicioController extends Controller
                    
                 }
             }
-            if ($nroCaso != null) {
-                $qb->andwhere('ss.iIdCaso=?7')->setParameter(7, $nroCaso);
-            }
             
             if ( $fecha!= null) {
                 
@@ -243,12 +240,15 @@ class TbgensolicitudservicioController extends Controller
                 $qb->andwhere('ss.dfechaCierre LIKE ?6')->setParameter(6, $fecha_cierre->format('Y-m-d').'%');
                 
             }
-    
+            if ($nroCaso != null) {
+                    $qb->andwhere('ss.iidCaso=?7')->setParameter(7, $nroCaso);
+                }
+
             if ($especificacion!= null) {
                 $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
             }
         }
-        $qb->orderBy('ss.iIdCaso', 'ASC');        
+        $qb->orderBy('ss.iidCaso', 'ASC');        
         $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
          $query_pages=$qb->getQuery();
          
@@ -393,9 +393,7 @@ class TbgensolicitudservicioController extends Controller
         $entity_search = new Tbgensolicitudservicio();
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
-        
-            
-        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
+        $qb->orderBy('ss.dfechaCreacion', 'ASC');        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
             //Se Crea la Paginacion

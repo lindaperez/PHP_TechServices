@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbgensolicitudservicio
  *
- * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="fk_iID_ESTATUS", columns={"fk_iID_ESTATUS"})})
+ * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="fk_iID_ESTATUS", columns={"fk_iID_ESTATUS"}),@ORM\Index(name="iID_CASO", columns={"iID_CASO"})})
  * @ORM\Entity
  */
 class Tbgensolicitudservicio
@@ -38,7 +38,7 @@ class Tbgensolicitudservicio
     /**
      * @var integer
      *
-     * @ORM\Column(name="iID_CASO", type="integer", nullable=false)
+     * @ORM\Column(name="iID_CASO", type="bigint", nullable=false)
      */
     private $iidCaso;
 
@@ -51,7 +51,7 @@ class Tbgensolicitudservicio
      * })
      */
     private $fkIidUsuaDatos;
-    
+
     private $vdescEstatus;
     private $vdetalles;
     private $vdescripcion;
