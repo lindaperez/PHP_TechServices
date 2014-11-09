@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbgensolicitudservicio
  *
- * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="fk_iID_ESTATUS", columns={"fk_iID_ESTATUS"}),@ORM\Index(name="iID_CASO", columns={"iID_CASO"})})
+ * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="iID_CASO", columns={"iID_CASO"})})
  * @ORM\Entity
  */
 class Tbgensolicitudservicio
@@ -27,6 +27,13 @@ class Tbgensolicitudservicio
      * @ORM\Column(name="dFECHA_CREACION", type="datetime", nullable=false)
      */
     private $dfechaCreacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vdescEstatus", type="string", length=200, nullable=false)
+     */
+    private $vdescestatus;
 
     /**
      * @var \DateTime
@@ -52,7 +59,7 @@ class Tbgensolicitudservicio
      */
     private $fkIidUsuaDatos;
 
-    private $vdescEstatus;
+    
     private $vdetalles;
     private $vdescripcion;
     private $vpersona;
@@ -61,21 +68,7 @@ class Tbgensolicitudservicio
     private $vcorreo;
     private $iid;
     
-    /**
-     * @var \Tech\TBundle\Entity\Tbgenestatussolicitud
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenestatussolicitud")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESTATUS", referencedColumnName="id")
-     * })
-     */
-    private $fkIidEstatus;
-
-    
-    private $contrato;
-        
-  
-    public function serialize()
+        public function serialize()
     {
         return serialize(array(
             $this->id,
@@ -84,7 +77,6 @@ class Tbgensolicitudservicio
             // $this->salt,
         ));
     }
-
     /**
      * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
      *
@@ -246,6 +238,29 @@ class Tbgensolicitudservicio
     }
 
     /**
+     * Set vdescestatus
+     *
+     * @param string $vdescestatus
+     * @return Tbgensolicitudservicio
+     */
+    public function setVdescestatus($vdescestatus)
+    {
+        $this->vdescestatus = $vdescestatus;
+
+        return $this;
+    }
+
+    /**
+     * Get vdescestatus
+     *
+     * @return string 
+     */
+    public function getVdescestatus()
+    {
+        return $this->vdescestatus;
+    }
+
+    /**
      * Set dfechaCierre
      *
      * @param \DateTime $dfechaCierre
@@ -315,29 +330,6 @@ class Tbgensolicitudservicio
     }
 
     /**
-     * Set fkIidEstatus
-     *
-     * @param \Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus
-     * @return Tbgensolicitudservicio
-     */
-    public function setFkIidEstatus(\Tech\TBundle\Entity\Tbgenestatussolicitud $fkIidEstatus = null)
-    {
-        $this->fkIidEstatus = $fkIidEstatus;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatus
-     *
-     * @return \Tech\TBundle\Entity\Tbgenestatussolicitud 
-     */
-    public function getFkIidEstatus()
-    {
-        return $this->fkIidEstatus;
-    }
-
-    /**
      * Set fkIidEspSol
      *
      * @param \Tech\TBundle\Entity\Tbgenespecsolicitud $fkIidEspSol
@@ -364,28 +356,5 @@ class Tbgensolicitudservicio
     {
         
     return strval($this->getId());
-}
-    /**
-     * Get vdescEstatus
-     *
-     * @return \Tech\TBundle\Entity\Tbgenespecsolicitud 
-     */
-
-    public function getVdescEstatus()
-    {
-        return $this->vdescEstatus;
-    }
-    
-    /**
-     * Set vdescEstatus
-     *
-     * @param \Tech\TBundle\Entity\Tbgenespecsolicitud $vdescEstatus
-     * @return Tbgensolicitudservicio
-     */  
-    public function setVdescEstatus($vdescEstatus)
-    {
-        $this->vdescEstatus = $vdescEstatus;
-
-        return $this;
     }
 }

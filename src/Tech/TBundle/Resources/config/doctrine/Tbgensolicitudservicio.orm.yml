@@ -8,9 +8,6 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
         fk_iID_TIPO_SOL:
             columns:
                 - fk_iID_ESP_SOL
-        fk_iID_ESTATUS:
-            columns:
-                - fk_iID_ESTATUS
         iID_CASO:
             columns:
                 - iID_CASO
@@ -29,6 +26,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             nullable: false
             comment: ''
             column: dFECHA_CREACION
+        vdescestatus:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+            comment: ''
+            column: vdescEstatus
         dfechaCierre:
             type: datetime
             nullable: true
@@ -48,15 +52,6 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             inversedBy: null
             joinColumns:
                 fk_iID_USUA_DATOS:
-                    referencedColumnName: id
-            orphanRemoval: false
-        fkIidEstatus:
-            targetEntity: Tbgenestatussolicitud
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_ESTATUS:
                     referencedColumnName: id
             orphanRemoval: false
         fkIidEspSol:
