@@ -60,7 +60,7 @@ class Tbgensolicitudservicio
      *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
      * })
      */
-    
+    private $vdescEstatus;
 
     private $vdetalles;
     private $vdescripcion;
@@ -374,4 +374,17 @@ class Tbgensolicitudservicio
         
     return strval($this->getId());
 }
+
+    public function getVdescEstatus()
+    {
+        return $this->vdescEstatus;
+    }
+    
+      
+    public function setVdescEstatus($vdescEstatus)
+    {
+        $this->vdescEstatus = $vdescEstatus;
+
+        return $this;
+    }
 }

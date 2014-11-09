@@ -48,6 +48,16 @@ class TbgensolicitudservicioType extends AbstractType
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
             ->add('fkIidEstatus')
+            ->add('vdescEstatus', 'choice', array(
+            'choices' => array('Abierto' => 'Abierto', 'Asignado' => 'Asignado',
+                'Por Levantamiento' => 'Por Levantamiento'
+                , 'En Cotización' => 'En Cotización',
+                'Por Aprobación' => 'Por Aprobación',
+                'Detenido' => 'Detenido',
+                'Cotización vencida' => 'Cotización vencida',
+                'No aprobado' => 'No aprobado',
+                'Culminado' => 'Culminado'), 
+            'attr' => array('style'=>'width:220px;height:30px')))
             ->add('vpersona','text',array( 'required' => false))
                 ->add('vdescripcion','textarea',array( 'required' => false,
                 'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))

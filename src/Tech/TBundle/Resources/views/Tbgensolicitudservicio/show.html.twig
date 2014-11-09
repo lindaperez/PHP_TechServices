@@ -74,15 +74,16 @@
             </tr>
                 
                 {%endif %}
-                
+            <tr>
+                 <td width="210" height="20">Estatus de Solicitud</td>
+                <td><em>{{ entity.vdescEstatus }}</em></td>
+            </tr>    
             <tr>
                  <td width="210" height="20">Fecha Creación: </td>
-                <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
+                <td><em>{{ entity.dfechaCreacion|date('d-m-Y') }}</em></td>
             </tr>
-                <tr>
-                 <td width="210" height="20">Fecha Cierre: </td>
-                <td><em>{{ entity.dfechaCreacion|date('d-m-Y H:i:s') }}</em></td>
-            </tr>
+                
+            
             <!-- -->
             
             

@@ -16,6 +16,12 @@ use SimpleXMLElement;
 use DateTime;
 define("TARGETURLINS", "https://crm.zoho.com/crm/private/xml/Cases/insertRecords");
 define("TARGETURSLGETALL", "https://crm.zoho.com/crm/private/xml/Cases/getRecords");
+define("TARGETURSLGETBYID", "https://crm.zoho.com/crm/private/xml/Cases/getRecordById");
+
+//https://crm.zoho.com/crm/private/xml/Cases/
+//getRecordById?authtoken=e5ad26c35e964eb149030ae6cfe00363
+//&scope=crmapi&id=783489000002678039
+
 
 /* user related parameter */
 define("AUTHTOKEN", "e5ad26c35e964eb149030ae6cfe00363");
@@ -536,8 +542,7 @@ class TbgensolicitudservicioController extends Controller
                 
             }
             
-            $em->persist($entity);
-            $em->flush();
+            
             //Creacion de Campos en CRM
             /* create a object */
             $utilObj = new Utilities();
@@ -578,13 +583,15 @@ XML;
             $resp = simplexml_load_string($stringResp);
             
             $Idresp=$resp->result->recorddetail->FL;
-            $entity->setIidCaso($Idresp);
-            //Actualizar Nro Solicitud
+            $entity->setIidCaso($Idresp+1);
             
             //print($resp->attributes());
             //print('\n');        
             //print($resp->children());
             /*FIN CRM        * */
+            //Actualizar Nro Solicitud
+            $em->persist($entity);
+            $em->flush();
             $message_info = "Recuerde revisar su correo electrónico.";
             $message_success= "Su solicitud ha sido registrada correctamente.";
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
@@ -668,7 +675,6 @@ XML;
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
-        //$entity= new Tbgensolicitudservicio();
         
         $idEsp=$entity->getFkIidEspSol()->getId();
               if ($idEsp==7 || $idEsp==8 || $idEsp==9){
@@ -700,7 +706,33 @@ XML;
               }  
         
         $deleteForm = $this->createDeleteForm($id);
-        
+        //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            
+            $parameter = "";
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            $parameter = $utilObj->setParameter("id",($entity->getIidCaso()-1),$parameter);
+            /* Call API */
+            $responseINS = $utilObj->sendCurlRequest(TARGETURSLGETBYID, $parameter);
+            $stringResp = <<<XML
+$responseINS
+XML;
+            $resp = simplexml_load_string($stringResp);
+            //print_r((string)$resp->result->Cases->row[0]->FL[4]);
+            
+            $entity->setVdescEstatus((string)$resp->result->Cases->row[0]->FL[4]);
+
+            
+            
+            
+            //print($resp->attributes());
+            //print('\n');        
+            //print($resp->children());
+            /*FIN CRM        * */
            
         return $this->render('TechTBundle:Tbgensolicitudservicio:show.html.twig', array(
             'entity'      => $entity,
@@ -713,42 +745,32 @@ XML;
      */
     public function editAction(Request $request,$id)
     {
-        //Creacion de Campos en CRM
-            /* create a object */
-            $utilObj = new Utilities();
-            /* set parameters */
-            $parameter='';
-            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
-            
-            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
-            $parameter = $utilObj->setParameter("fromIndex",1,$parameter);
-            $parameter = $utilObj->setParameter("toIndex",50,$parameter);
-            $parameter = $utilObj->setParameter("version",2,$parameter);
-            //$parameter = $utilObj->setParameter("selectColumns","cases",$parameter);
-            //print_r($parameter);
-            //$parameter = $utilObj->setParameter("newFormat",'1',$parameter);
-            
-            $response = $utilObj->sendCurlRequest(TARGETURSLGETALL, $parameter);
-            
-            $dataXml=$utilObj->parseXMLandPrintfields($response);
-            
-            if ($dataXml!=null){
-               //print_r($dataXml[0]);
-             }
-            
-            
-            
-            /*FIN CRM        * */
-        //-.-
         $em = $this->getDoctrine()->getManager();
         
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
-        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
         //**
-        
+        //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            
+            $parameter = "";
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            $parameter = $utilObj->setParameter("id",($entity->getIidCaso()-1),$parameter);
+            /* Call API */
+            $responseINS = $utilObj->sendCurlRequest(TARGETURSLGETBYID, $parameter);
+            $stringResp = <<<XML
+$responseINS
+XML;
+            $resp = simplexml_load_string($stringResp);
+            //print_r((string)$resp->result->Cases->row[0]->FL[4]);
+              /*FIN CRM        * */
+        $entity->setVdescEstatus((string)$resp->result->Cases->row[0]->FL[4]);
         if ($entity->getDfechaCierre()!=null){
             $dias=(strtotime($entity->getDfechaCierre()->format('d-m-Y'))
                 -strtotime($entity->getDfechaCreacion()->format('d-m-Y')))/3600/24;

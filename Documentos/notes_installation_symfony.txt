@@ -254,6 +254,9 @@ $kernel = new AppKernel('prod', true);
 
 6. agregar en routing.yml
 
+
+
+
 TechTBundle_homepage:
    pattern:  /
     defaults: { _controller: TechTBundle:Default:index}

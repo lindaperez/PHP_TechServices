@@ -48,6 +48,8 @@
                 <tr>
                     
                          <div style="display: none;">     
+                {{ form_row(edit_form.fkIidEstatus, {'required' : false})}}
+                {{ form_row(edit_form.iIdCaso, {'required' : false})}}
                 {{ form_row(edit_form.tbgentiposolicitud, {'required' : false})}}
                 {{ form_row(edit_form.fkIidEspSol, {'required' : false})}}
                 {{ form_row(edit_form.vdetalles, {'required' : false})}}
@@ -131,11 +133,11 @@
             {% if ((app.session.get('usuario_rol')=="Cliente") )%}
             <tr>
                  <td width="210" height="20">Estatus: </td>
-                <td><em>{{ entity.fkIidEstatus}}</em></td>
+                <td><em>{{ entity.vdescEstatus}}</em></td>
             </tr>
             {%endif%}
             {% if ((app.session.get('usuario_rol')!="Empleado")) %}
-            {% if(entity.fkIidEstatus.id==3)%}
+            {% if(entity.vdescEstatus=='Culminado')%}
             
             <tr>
                 <td width="20" height="20">Calificar Servicio: </td>
@@ -160,10 +162,10 @@
             {% if ((app.session.get('usuario_rol')=="Empleado") or 
                  (app.session.get('usuario_rol')=="Administrador") )%}
             <div class="error" id="det">
-                {{ form_errors(edit_form.fkIidEstatus) }}</div>       
+                {{ form_errors(edit_form.vdescEstatus) }}</div>       
                     <table>  <td width="210">
-                {{ form_label(edit_form.fkIidEstatus, 'Estado:') }}</td>
-                    <td width="210">{{ form_widget(edit_form.fkIidEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
+                {{ form_label(edit_form.vdescEstatus, 'Estado:') }}</td>
+                        <td width="210">{{ form_widget(edit_form.vdescEstatus,{'required': false, 'empty_value':'Seleccionar'}) }}</td>
                     </table>
             
           
