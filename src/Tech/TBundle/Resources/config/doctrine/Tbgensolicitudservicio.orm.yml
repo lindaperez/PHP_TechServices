@@ -26,13 +26,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             nullable: false
             comment: ''
             column: dFECHA_CREACION
-        vdescestatus:
+        vdescEstatus:
             type: string
             nullable: false
             length: 200
             fixed: false
             comment: ''
-            column: vdescEstatus
+            column: vdesc_Estatus
         dfechaCierre:
             type: datetime
             nullable: true

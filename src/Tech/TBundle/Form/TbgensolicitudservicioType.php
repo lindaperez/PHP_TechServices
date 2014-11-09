@@ -9,7 +9,7 @@ use Tech\TBundle\Form\TbgenestatusregistrousuType;
 use Tech\TBundle\Form\EventListener\AddTbgenespecsolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgentiposolicitudFieldSubscriber;
 use Tech\TBundle\Form\EventListener\AddTbgendetalleFieldSubscriber;
-use Tech\TBundle\Entity\Tbgenestatussolicitud;
+
 use Tech\TBundle\Entity\Tbdetusuariocontrato;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +47,6 @@ class TbgensolicitudservicioType extends AbstractType
               $propertyPathToTbgenespecsolicitud))
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
-            ->add('fkIidEstatus')
             ->add('vdescEstatus', 'choice', array(
             'choices' => array('Abierto' => 'Abierto', 'Asignado' => 'Asignado',
                 'Por Levantamiento' => 'Por Levantamiento'

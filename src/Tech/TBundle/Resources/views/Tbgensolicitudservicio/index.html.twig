@@ -59,23 +59,8 @@
                         <td width="15"></td>
                      
                         
-                        <div class="error">
-                {{ form_errors(search_form.vdescEstatus) }}</div>       
-                    
-                <div class="error">
-                {{ form_errors(search_form.vdescEstatus) }}</div>       
-                    <td></td><td width="115">
-                {{ form_label(search_form.vdescEstatus, 'Estatus:') }}</td>
-                        <td>{{ form_widget(search_form.vdescEstatus,{
-                    'empty_value':'Seleccionar','required': false})}}</td>
-                        <td width="5"></td>
                         
-                    <td></td><td width="90">
-                    
-                        
-                   </tr>
                    
-                   <tr>
                    <div class="error">
                 {{ form_errors(search_form.dfechaCreacion) }}</div>       
                     <td></td><td width="130">
@@ -92,8 +77,9 @@
             </table>              
                      <div style="display: none;">     
                 {{ form_row(search_form.iid)}}
+                {{ form_row(search_form.vdescEstatus)}}
                 {{ form_row(search_form.vdetalles, {'required' : false})}}
-                {{ form_row(search_form.fkIidEstatus, {'required' : false})}}
+                
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
@@ -149,10 +135,8 @@
                 <td width="40"></td>
                 <td align="center" width="120"><h4><strong>Fecha Creación</strong></h4></td>
                 <td width="40"></td>
-                <td align="center" width="120"><h4><strong>Fecha Cierre</strong></h4></td>
-                <td width="40"></td>
-                <td align="center" width="80"><h4><strong>Estatus</strong></h4></td>
-                <td width="40"></td>
+                
+                
                 <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
             </tr>
         </thead>
@@ -177,10 +161,8 @@
                 <td width="40"></td>
                 <td align="center" width="120">{{ entity.dfechaCreacion|date('d-m-Y') }}</td>
                 <td width="40"></td>
-                <td align="center" width="120">{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'): 'No posee' }}</td>
-                <td width="40"></td>
-                <td align="center" width="80">{{ entity.fkIidEstatus}} </td>
-                <td width="40"></td>
+                
+                
                  
                 <td align="center">
                     
@@ -192,22 +174,7 @@
                         <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
                         
                     </li>
-                    {% if ((app.session.get('usuario_rol')!="Empleado")) %}
-                    {%if(entity.fkIidEstatus.id==3)%}      
-                    <li>
-                    <div id="extern{{entity.id}}">
-                    <div id="dialog{{entity.id}}"  align="center"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
-                  <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='10' type=image src="/bundles/techt/images/star1_1.gif" />
-                       </div>  
-                    </div>
-                        </li>
-                        {%endif%}  
-                        {%endif%}  
-                </ul>
+                
                 </td>
                  
             </tr>

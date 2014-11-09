@@ -47,39 +47,33 @@
         <form action="#" method="post" class="login">
               {{ form_start(form) }}
         {{ form_errors(form) }}  
-            <table width="800">
+            <table width="770">
                 <tr>
-                        
+                   <td width="10"></td>
+              
+                  <div class="error">
+                {{ form_errors(form.contrato) }}</div>       
+                    <td><h2 width="5">1. </h2></td><td width="115">
+                {{ form_label(form.contrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
+                    
+                  <td width="20"></td>
              <td id="campos5">
                  
                  <div class="error">
                 {{ form_errors(form.tbgentiposolicitud) }}</div>       
-                    <table>  <td><h2>1. </h2></td><td width="5"></td><td width="115">
+                    <td><h2>2. </h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(form.tbgentiposolicitud,{'required': true}) }}</td>
                     
-                 <td width="10"></td>
+                 <td width="20"></td>
                 <div class="error" >
                 {{ form_errors(form.fkIidEspSol) }}</div>       
-                 <td><h2>2.</h2></td><td width="5"></td><td width="100">
+                 <td><h2>3.</h2></td><td width="5"></td><td width="115">
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
                         <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
                  
-                 <td width="10"></td>
-                <div class="error" >
-                {{ form_errors(form.vdetalles) }}</div>       
-                      <td><h2>3. </h2></td><td width="5"></td><td width="60">
-                {{ form_label(form.vdetalles, 'Detalles:') }}</td>
-                    <td>{{ form_widget(form.vdetalles,{'required': false}) }}</td>
-                    <td width="10"></td>
-                  <div class="error">
-                {{ form_errors(form.contrato) }}</div>       
-                    <table>  <td><h2 width="5">4. </h2></td><td width="5"></td><td width="115">
-                {{ form_label(form.contrato, 'Contrato:') }}</td>
-                        <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
-                    </table>
-                    
-                 </td>
+            </td>
              </tr>
              </table>
                  <table>
@@ -149,7 +143,9 @@
                      </table>
                        
                      <div style="display: none;">     
-                {{ form_row(form.fkIidEstatus, {'required' : false})}}
+                {{ form_row(form.iIdCaso, {'required' : false})}}
+                {{ form_row(form.vdetalles, {'required' : false})}}
+                {{ form_row(form.vdescEstatus, {'required' : false})}}
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
                 {{ form_row(form.dfechaCierre, {'required' : false})}}
                 {{ form_row(form.fkIidUsuaDatos, {'required' : false})}}

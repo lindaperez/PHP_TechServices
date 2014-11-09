@@ -31,9 +31,9 @@ class Tbgensolicitudservicio
     /**
      * @var string
      *
-     * @ORM\Column(name="vdescEstatus", type="string", length=200, nullable=false)
+     * @ORM\Column(name="vdesc_Estatus", type="string", length=200, nullable=false)
      */
-    private $vdescestatus;
+    private $vdescEstatus;
 
     /**
      * @var \DateTime
@@ -67,8 +67,10 @@ class Tbgensolicitudservicio
     private $vtelefono;
     private $vcorreo;
     private $iid;
-    
-        public function serialize()
+    private $contrato;
+
+
+    public function serialize()
     {
         return serialize(array(
             $this->id,
@@ -238,26 +240,26 @@ class Tbgensolicitudservicio
     }
 
     /**
-     * Set vdescestatus
+     * Set vdescEstatus
      *
-     * @param string $vdescestatus
+     * @param string $vdescEstatus
      * @return Tbgensolicitudservicio
      */
-    public function setVdescestatus($vdescestatus)
+    public function setVdescEstatus($vdescEstatus)
     {
-        $this->vdescestatus = $vdescestatus;
+        $this->vdescEstatus = $vdescEstatus;
 
         return $this;
     }
 
     /**
-     * Get vdescestatus
+     * Get vdescEstatus
      *
      * @return string 
      */
-    public function getVdescestatus()
+    public function getVdescEstatus()
     {
-        return $this->vdescestatus;
+        return $this->vdescEstatus;
     }
 
     /**
@@ -356,5 +358,5 @@ class Tbgensolicitudservicio
     {
         
     return strval($this->getId());
-    }
+}
 }
