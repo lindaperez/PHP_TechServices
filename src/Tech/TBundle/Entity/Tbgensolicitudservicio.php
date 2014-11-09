@@ -36,6 +36,13 @@ class Tbgensolicitudservicio
     private $dfechaCierre;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="iID_CASO", type="integer", nullable=false)
+     */
+    private $iidCaso;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetusuariodatos
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
@@ -271,6 +278,29 @@ class Tbgensolicitudservicio
     }
 
     /**
+     * Set iidCaso
+     *
+     * @param integer $iidCaso
+     * @return Tbgensolicitudservicio
+     */
+    public function setIidCaso($iidCaso)
+    {
+        $this->iidCaso = $iidCaso;
+
+        return $this;
+    }
+
+    /**
+     * Get iidCaso
+     *
+     * @return integer 
+     */
+    public function getIidCaso()
+    {
+        return $this->iidCaso;
+    }
+
+    /**
      * Set fkIidUsuaDatos
      *
      * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIidUsuaDatos
@@ -343,5 +373,5 @@ class Tbgensolicitudservicio
     {
         
     return strval($this->getId());
-    }
+}
 }

@@ -578,7 +578,7 @@ XML;
             $resp = simplexml_load_string($stringResp);
             
             $Idresp=$resp->result->recorddetail->FL;
-            
+            $entity->setIidCaso($Idresp);
             //Actualizar Nro Solicitud
             
             //print($resp->attributes());

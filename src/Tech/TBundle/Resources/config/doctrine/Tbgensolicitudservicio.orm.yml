@@ -11,6 +11,9 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
         fk_iID_ESTATUS:
             columns:
                 - fk_iID_ESTATUS
+        iID_CASO:
+            columns:
+                - iID_CASO
     id:
         id:
             type: integer
@@ -31,6 +34,12 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             nullable: true
             comment: ''
             column: dFECHA_CIERRE
+        iidCaso:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: iID_CASO
     manyToOne:
         fkIidUsuaDatos:
             targetEntity: Tbdetusuariodatos
