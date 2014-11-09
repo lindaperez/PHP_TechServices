@@ -51,17 +51,8 @@ class Tbgensolicitudservicio
      * })
      */
     private $fkIidUsuaDatos;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
-     * })
-     */
+    
     private $vdescEstatus;
-
     private $vdetalles;
     private $vdescripcion;
     private $vpersona;
@@ -374,13 +365,23 @@ class Tbgensolicitudservicio
         
     return strval($this->getId());
 }
+    /**
+     * Get vdescEstatus
+     *
+     * @return \Tech\TBundle\Entity\Tbgenespecsolicitud 
+     */
 
     public function getVdescEstatus()
     {
         return $this->vdescEstatus;
     }
     
-      
+    /**
+     * Set vdescEstatus
+     *
+     * @param \Tech\TBundle\Entity\Tbgenespecsolicitud $vdescEstatus
+     * @return Tbgensolicitudservicio
+     */  
     public function setVdescEstatus($vdescEstatus)
     {
         $this->vdescEstatus = $vdescEstatus;
