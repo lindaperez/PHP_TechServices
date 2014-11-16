@@ -416,6 +416,8 @@ public function createAction(Request $request) {
     public function newAction() {
         $request = $this->getRequest();
         $session = $request->getSession();
+        $routeName = $request->get('_route');
+        
         if ($session->get('usuario_estatus_registro') != null && ($session->get('usuario_estatus_registro') == "Solicitud Anulada" || $session->get('usuario_estatus_registro') == "Solicitud Registro" )) {
 
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
@@ -427,9 +429,11 @@ public function createAction(Request $request) {
         $entity->getContratos()->add($contrato_registro);
         $form = $this->createCreateForm($entity);
         //print_r($form['contratos']->getData());
+        $session->set('routeName', $routeName);
         return $this->render('TechTBundle:Tbdetusuariodatos:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+        
         ));
     }
 

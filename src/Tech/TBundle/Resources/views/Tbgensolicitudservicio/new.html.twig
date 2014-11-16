@@ -158,13 +158,22 @@
                 
                    
         </form>  
-                   
+        
     </section>
+    <br> <br> <br> 
 </div>
 {% block javascripts %}
     {{ parent() }}
 
  <script>
+     
+     $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').mouseover(function(){
+     $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').attr('size',6);
+    });
+    $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').mouseout(function(){
+     $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').attr('size',1);
+    });
+    
      $('#campos1').hide();
      $('#campos3').hide();
      $('#campos4').hide();  

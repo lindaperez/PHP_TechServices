@@ -20,11 +20,8 @@
     {% if app.user!=null %}
             <table>
                 <tr><td width="780" align="left">
-     (  {{app.session.get('usuario_rol')}}
-<!--//{{app.session.get('usuario_tipo_rol')}} -->
-::{{app.session.get('usuario_estatus_registro')}} )
- Bienvenido, <h4> 
-     <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
+                        
+Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
          <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a> </h4>
  
 </td>
@@ -35,8 +32,12 @@
 </table>
 <br>
     {% else %}
+    
+
 <table>
     <tr>
+        
+        {%if  (app.session.get('routeName')!='Registro_new' and app.session.get('routeName')!='login')%}
         <td width="780" align="right">
             <ul>
     <li><strong><a href="{{ path('Registro_new') }}"><h4>Registrarse/ </h4></a></strong></li></ul>
@@ -44,6 +45,17 @@
    <td width="0" align="right">
        <ul><li><strong><a href="{{ path('login') }}"><h4>Ingresar</h4></a></strong></li></ul>
     </td>
+   {%elseif app.session.get('routeName')=='login'%}
+    <td width="780" align="right">
+            <ul>
+    <li><strong><a href="{{ path('Registro_new') }}"><h4>Registrarse/ </h4></a></strong></li></ul>
+   </td>
+    {%elseif app.session.get('routeName')=='Registro_new' %}
+    <td width="780" align="right">
+       <ul><li><strong><a href="{{ path('login') }}"><h4>Ingresar/</h4></a></strong></li></ul>
+    </td>
+   {%endif%}
+    
     </tr>
     </table>
     {% endif%}

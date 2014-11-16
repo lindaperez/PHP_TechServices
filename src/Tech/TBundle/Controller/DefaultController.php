@@ -16,7 +16,8 @@ class DefaultController extends Controller
     {
         $request = $this->getRequest();
         $session = $request->getSession();
-        
+        $routeName = $request->get('_route');
+        $session->set('routeName', $routeName);
        // print_r("Begin");
         //Se busca y define el tipo de Rol del usuario
         $user = $this->getUser();
@@ -59,7 +60,8 @@ class DefaultController extends Controller
     {
         $request = $this->getRequest();
         $session = $request->getSession();
- 
+        $routeName = $request->get('_route');
+        $session->set('routeName', $routeName);
         // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
