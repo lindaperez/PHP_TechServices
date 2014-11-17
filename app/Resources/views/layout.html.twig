@@ -19,8 +19,9 @@
     {{ parent() }}
     {% if app.user!=null %}
             <table>
-                <tr><td width="780" align="left">
-                        
+                <tr>
+                    <td width="18"></td>                    
+<td width="780" align="left">    
 Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
          <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a> </h4>
  
@@ -46,10 +47,7 @@ Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'i
        <ul><li><strong><a href="{{ path('login') }}"><h4>Ingresar</h4></a></strong></li></ul>
     </td>
    {%elseif app.session.get('routeName')=='login'%}
-    <td width="780" align="right">
-            <ul>
-    <li><strong><a href="{{ path('Registro_new') }}"><h4>Registrarse/ </h4></a></strong></li></ul>
-   </td>
+    
     {%elseif app.session.get('routeName')=='Registro_new' %}
     <td width="780" align="right">
        <ul><li><strong><a href="{{ path('login') }}"><h4>Ingresar/</h4></a></strong></li></ul>
