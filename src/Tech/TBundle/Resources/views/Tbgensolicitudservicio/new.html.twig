@@ -66,10 +66,15 @@
                     
                  <td width="10"></td>
                 <div class="error" >
+                     
                 {{ form_errors(form.fkIidEspSol) }}</div>       
+                 
                  <td><h2>3.   </h2></td><td width="5"></td><td width="100">
+                     
                 {{ form_label(form.fkIidEspSol, 'Especificación:') }}</td>
-                        <td>{{ form_widget(form.fkIidEspSol,{'required': true}) }}</td>
+                        <td>
+            {{ form_widget(form.fkIidEspSol,{'required': true}) }}
+                        </td>
                  
                     
                  </td>
@@ -160,7 +165,7 @@
         </form>  
         
     </section>
-    <br> <br> <br> 
+    
 </div>
 {% block javascripts %}
     {{ parent() }}
@@ -173,7 +178,7 @@
     $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').mouseout(function(){
      $('#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud').attr('size',1);
     });
-    
+
      $('#campos1').hide();
      $('#campos3').hide();
      $('#campos4').hide();  
