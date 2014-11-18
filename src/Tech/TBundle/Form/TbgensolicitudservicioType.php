@@ -52,6 +52,7 @@ class TbgensolicitudservicioType extends AbstractType
                 'Por Levantamiento' => 'Por Levantamiento'
                 , 'En Cotización' => 'En Cotización',
                 'Por Aprobación' => 'Por Aprobación',
+                'Aprobado en Espera' => 'Aprobado en Espera',
                 'Detenido' => 'Detenido',
                 'Cotización vencida' => 'Cotización vencida',
                 'No aprobado' => 'No aprobado',
