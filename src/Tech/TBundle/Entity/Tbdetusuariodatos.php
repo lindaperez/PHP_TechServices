@@ -62,7 +62,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
   
     public function addContrato(Tbdetusuariocontrato $contrato=null)
     {
-        $contrato->addUsuarioDatos($this);
+        //$contrato->addUsuarioDatos($this);
         if ($this->contratos==null){
             
            $this->contratos=new ArrayCollection();
