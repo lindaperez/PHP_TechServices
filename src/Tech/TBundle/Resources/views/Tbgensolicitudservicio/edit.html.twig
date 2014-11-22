@@ -49,7 +49,7 @@
                     
                          <div style="display: none;">     
                 
-                {{ form_row(edit_form.iIdCaso, {'required' : false})}}
+                {{ form_row(edit_form.iidCaso, {'required' : false})}}
                 {{ form_row(edit_form.tbgentiposolicitud, {'required' : false})}}
                 {{ form_row(edit_form.fkIidEspSol, {'required' : false})}}
                 {{ form_row(edit_form.vdetalles, {'required' : false})}}
@@ -62,15 +62,15 @@
                 {{ form_row(edit_form.vpersona, {'required' : false})}}
                 {{ form_row(edit_form.vtelefono, {'required' : false})}}
                 {{ form_row(edit_form.vcorreo, {'required' : false})}}
-                {{ form_row(edit_form.contrato, {'required' : false})}}
+                {{ form_row(edit_form.fkIidContrato, {'required' : false})}}
                              
                              
                 </div>  
       
              <tr>
                 <td width="210" height="20">Número de Caso: </td>
-                {% set t= entity.iIdCaso|length %}
-                <td><em>{{ entity.iIdCaso[t-4:] }}</em></td>
+                {% set t= entity.iidCaso|length %}
+                <td><em>{{ entity.iidCaso[t-4:] }}</em></td>
             </tr>
             <tr>
                 <td width="210" height="20">Usuario </td>

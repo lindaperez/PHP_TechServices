@@ -1,4 +1,5 @@
 <?php
+
 namespace Tech\TBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -68,8 +69,8 @@ class TbgensolicitudservicioType extends AbstractType
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
-            ->add('fkIIDContrato','choice',array( 'required' => true))
-            ->add('iIdCaso');
+            ->add('iidCaso')
+            ->add('fkIidContrato');
     }
     
     /**
@@ -89,6 +90,4 @@ class TbgensolicitudservicioType extends AbstractType
     {
         return 'tech_tbundle_tbgensolicitudservicio';
     }
-    
- 
 }

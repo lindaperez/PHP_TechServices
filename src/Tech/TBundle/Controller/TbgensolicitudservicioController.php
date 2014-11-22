@@ -599,16 +599,19 @@ XML;
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
             
-        $form   = $this->createCreateForm($entity);
+     
         
         $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
-                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'esp')
-                     ->join('cr.fkInroContrato','fkInroContrato');
-        $qb->where('cr.fkIci=?1')->setParameter(1,$usu);       
+                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'uc')
+                     ->join('uc.fkInroContrato','fkIIDContrato');
+        $qb->where('uc.fkIci=?1')->setParameter(1,$usu);       
         
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
-        $entity->setFkIidContrato($entities);    
+        //print($entities[4]); 
+        //$entity->setFkIidContrato($entities[0]);    
+        
+           $form   = $this->createCreateForm($entity);
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),

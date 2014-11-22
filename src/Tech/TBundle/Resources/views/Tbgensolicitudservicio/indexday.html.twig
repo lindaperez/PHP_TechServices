@@ -37,20 +37,20 @@
                         <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
               <td width="55"></td>
                      
-                          <div class="error">{{ form_errors(search_form.contrato) }}</div>       
+                          <div class="error">{{ form_errors(search_form.fkIidContrato) }}</div>       
                    <td></td><td width="130">
-                {{ form_label(search_form.contrato, 'Contrato:') }}</td>
-                        <td>{{ form_widget(search_form.contrato,{'required': false}) }}</td>
+                {{ form_label(search_form.fkIidContrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(search_form.fkIidContrato,{'required': false}) }}</td>
                  
                         <td width="55"></td>
                      </tr>
                      
                         <tr>
                  <div class="error">
-                {{ form_errors(search_form.iIdCaso) }}</div>       
+                {{ form_errors(search_form.iidCaso) }}</div>       
                         <td></td><td width="115">
-                {{ form_label(search_form.iIdCaso, 'Nro Caso:') }}</td>
-                        <td>{{ form_widget(search_form.iIdCaso,{'required': false}) }}</td>
+                {{ form_label(search_form.iidCaso, 'Nro Caso:') }}</td>
+                        <td>{{ form_widget(search_form.iidCaso,{'required': false}) }}</td>
                              
                         <td width="15"></td>
                         
@@ -71,7 +71,7 @@
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
                 {{ form_row(search_form.vtelefono, {'required' : false})}}  
                 {{ form_row(search_form.dfechaCreacion, {'required' : false})}}  
-                {{ form_row(search_form.contrato, {'required' : false})}}  
+                {{ form_row(search_form.fkIidContrato, {'required' : false})}}  
                 {{ form_row(search_form.vdescripcion, {'required' : false})}}                      
                  
                 {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}        
@@ -133,8 +133,8 @@
         <tbody>
                 {% for entity in pagination %}
                 <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
-                    {% set t= entity.iIdCaso|length %}
-                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso[t-4:] }}</a></td>
+                    {% set t= entity.iidCaso|length %}
+                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iidCaso[t-4:] }}</a></td>
                 <td width="40"></td>
                 <td align="center" width="80">{{ entity.fkIidUsuaDatos.vnombre}} {{ entity.fkIidUsuaDatos.vapellido}} </td>
                 <td width="40"></td>

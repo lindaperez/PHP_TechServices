@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tbgensolicitudservicio
  *
- * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="iID_CASO", columns={"iID_CASO"})})
+ * @ORM\Table(name="tbgenSolicitudServicio", indexes={@ORM\Index(name="fk_iID_USUA_DATOS", columns={"fk_iID_USUA_DATOS"}), @ORM\Index(name="fk_iID_TIPO_SOL", columns={"fk_iID_ESP_SOL"}), @ORM\Index(name="iID_CASO", columns={"iID_CASO"}), @ORM\Index(name="fk_iID_Contrato", columns={"fk_iID_Contrato"})})
  * @ORM\Entity
  */
 class Tbgensolicitudservicio
@@ -77,7 +77,7 @@ class Tbgensolicitudservicio
     private $vtelefono;
     private $vcorreo;
     private $iid;
-    private $contrato;
+    
 
 
     public function serialize()
@@ -111,19 +111,6 @@ class Tbgensolicitudservicio
         ) = unserialize($serialized);
     } 
 
-
-    public function setContrato($contrato)
-    {
-          
-        $this->contrato= $contrato;
-
-    }
-
-    
-    public function getContrato()
-    {
-        return $this->contrato;
-    }
       public function setIid($iid)
     {
         $this->iid= $iid;
