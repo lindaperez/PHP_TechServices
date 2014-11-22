@@ -25,6 +25,27 @@ Tech\TBundle\Entity\Tbdetcontratorif:
             unsigned: false
             comment: ''
             column: pk_iNRO_CONTRATO
+        valias:
+            type: string
+            nullable: false
+            length: 60
+            fixed: false
+            comment: ''
+            column: vAlias
+        vdns:
+            type: string
+            nullable: false
+            length: 256
+            fixed: false
+            comment: ''
+            column: vDNS
+        vubicacionfisica:
+            type: string
+            nullable: false
+            length: 256
+            fixed: false
+            comment: ''
+            column: vUbicacionFisica
     manyToOne:
         fkIrif:
             targetEntity: Tbdetempresa

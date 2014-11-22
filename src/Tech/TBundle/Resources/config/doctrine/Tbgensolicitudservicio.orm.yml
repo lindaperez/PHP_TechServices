@@ -11,6 +11,9 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
         iID_CASO:
             columns:
                 - iID_CASO
+        fk_iID_Contrato:
+            columns:
+                - fk_iID_Contrato
     id:
         id:
             type: integer
@@ -45,6 +48,15 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             comment: ''
             column: iID_CASO
     manyToOne:
+        fkIidEspSol:
+            targetEntity: Tbgenespecsolicitud
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_ESP_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
         fkIidUsuaDatos:
             targetEntity: Tbdetusuariodatos
             cascade: {  }
@@ -54,13 +66,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 fk_iID_USUA_DATOS:
                     referencedColumnName: id
             orphanRemoval: false
-        fkIidEspSol:
-            targetEntity: Tbgenespecsolicitud
+        fkIidContrato:
+            targetEntity: Tbdetcontratorif
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                fk_iID_ESP_SOL:
+                fk_iID_Contrato:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

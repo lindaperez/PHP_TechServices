@@ -58,6 +58,7 @@ class TbgensolicitudservicioController extends Controller
         //print_r($tipo_solicitud);
         $detalles=$searchForm['vdetalles']->getData();
         $contrato=$searchForm['contrato']->getData();
+        $nroCaso=$searchForm['iIdCaso']->getData();
         
         $tipo=null;
         if ($especificacion!=null){
@@ -74,7 +75,7 @@ class TbgensolicitudservicioController extends Controller
             $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
     if ($tipo_solicitud!=null || $especificacion!=null ||
             $fecha != null ||  $codigo != null || $estatus!=null || 
-            $contrato != null || $fecha_cierre!=null) {
+            $contrato != null || $fecha_cierre!=null || $nroCaso!=null) {
         
             
             if ($tipo_solicitud!= null || $detalles!= null) {
@@ -83,6 +84,9 @@ class TbgensolicitudservicioController extends Controller
                 if($tipo_solicitud!= null) {
                     $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);       
                 }
+            }
+            if ( $nroCaso!= null) {
+                $qb->andwhere('ss.iidCaso LIKE ?8')->setParameter(8, '%'.$nroCaso);
             }
             if ($codigo != null) {
                 $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
@@ -100,6 +104,7 @@ class TbgensolicitudservicioController extends Controller
             if ($estatus!= null) {
                 $qb->andwhere('ss.vdescEstatus=?4')->setParameter(4, $estatus);
             }
+               
             
         }
         $qb->orderBy('ss.vdescEstatus', 'ASC');        
@@ -193,6 +198,8 @@ class TbgensolicitudservicioController extends Controller
         $especificacion=$searchForm['fkIidEspSol']->getData();
         
         $nroCaso=$searchForm['iIdCaso']->getData();
+        //toma ultimos 4 numeros del arreglo 
+       
         $estatus=$searchForm['vdescEstatus']->getData();
         $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
 
@@ -226,7 +233,7 @@ class TbgensolicitudservicioController extends Controller
                 
             }
             if ($nroCaso != null) {
-                    $qb->andwhere('ss.iidCaso=?7')->setParameter(7, $nroCaso);
+                    $qb->andwhere('ss.iidCaso LIKE ?7')->setParameter(7, '%'.$nroCaso);
                 }
 
             if ($especificacion!= null) {
@@ -321,7 +328,7 @@ class TbgensolicitudservicioController extends Controller
                 }
             }
             if ($nroCaso!= null) {
-                $qb->andwhere('ss.iidCaso=?1')->setParameter(1, $nroCaso);
+                $qb->andwhere('ss.iidCaso LIKE ?1')->setParameter(1, '%'.$nroCaso);
             }
             if ( $fecha!= null) {
                 
@@ -477,48 +484,6 @@ class TbgensolicitudservicioController extends Controller
                 $especif = $em->getRepository('TechTBundle:Tbgenespecsolicitud')
                     ->find($esp);
                 $entity->setFkIidEspSol($especif);
-                $det= new Tbdetdetalleusuario();
-                if ($idEsp==1){
-                 //   print "1";
-                    //CAMPOS DE USUARIO
-                    if ($form['vdetalles']->getData()!=null){
-                    $det2= new Tbdetdetalleusuario();
-                    $det3= new Tbdetdetalleusuario();
-                    //$det4= new Tbdetdetalleusuario();
-                    $det->setVdetalle($entity->getVpersona());    
-                    $det->setFkIidSolUsu($entity);
-                    $det2->setVdetalle($entity->getVtelefono());    
-                    $det2->setFkIidSolUsu($entity);
-                    $det3->setVdetalle($entity->getVcorreo());    
-                    $det3->setFkIidSolUsu($entity);
-                    //$det4->setVdetalle($entity->getVdireccion());    
-                    //$det4->setFkIidSolUsu($entity);
-                    $em->persist($det2);
-                    $em->persist($det3);
-                    //$em->persist($det4);
-                    $em->persist($det);
-                    }
-                }
-                elseif(($idEsp==2) || ($idEsp==5)){
-                    //DESPLIEGUE DE DETALLE
-                    if ($form['vdetalles']->getData()!=null){
-                     $entity->setVdetalles($form['vdetalles']->getData()->getVdescripcion());
-                     $det->setVdetalle($entity->getVdetalles());
-                     $det->setFkIidSolUsu($entity);
-                     $em->persist($det);
-                    }
-                
-                }elseif ($idEsp==7 || $idEsp==8 || $idEsp==9) {
-                  //  print "8,9";
-                    //DESCRIPCION
-                    if ($form['vdetalles']->getData()!=null){
-                    $det->setVdetalle($entity->getVdescripcion());
-                    $det->setFkIidSolUsu($entity);
-                    
-                     $em->persist($det);
-                    }
-                }
-                
             }
             
             
@@ -563,7 +528,6 @@ XML;
             $Idresp=$resp->result->recorddetail->FL;
             $entity->setIidCaso($Idresp+1);
             
-            /*FIN CRM        * */
             //Actualizar Nro Solicitud
             $em->persist($entity);
             $em->flush();
@@ -572,8 +536,11 @@ XML;
                 $this->get('session')->getFlashBag()->add('flash_success', $message_success);
                 $this->get('session')->getFlashBag()->add('flash_info', $message_info);
                 //Envio de correo de registro de caso 
-                $this->mailer($entity,$usu->getVcorreoEmail(),$usu->getVnombre(),'TechTBundle:Tbgensolicitudservicio:mail.html.twig');
-        return $this->render('TechTBundle:Tbgensolicitudservicio:confirm.html.twig', array('id' => $entity->getId(),
+                $this->mailer($entity,'atencionalcliente@techtrol.com.ve',
+                        $usu->getVnombre(),'TechTBundle:Tbgensolicitudservicio:mail.html.twig');
+                $this->mailer($entity,$usu->getVcorreoEmail(),
+                        $usu->getVnombre(),'TechTBundle:Tbgensolicitudservicio:mail.html.twig');
+            return $this->render('TechTBundle:Tbgensolicitudservicio:confirm.html.twig', array('id' => $entity->getId(),
 
             'form'   => $form->createView(),
         ));
