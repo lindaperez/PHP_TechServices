@@ -27,9 +27,7 @@
                  <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
                    <td width='50' ><h2>1.</h2></td><td width="115">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
-                        <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
-                    
-                 
+                        <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>                    
                         <td width="55"></td>
                 
                         <div class="error" >
@@ -135,8 +133,8 @@
         <tbody>
                 {% for entity in pagination %}
                 <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
-
-                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso }}</a></td>
+                    {% set t= entity.iIdCaso|length %}
+                <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso[t-4:] }}</a></td>
                 <td width="40"></td>
                 <td align="center" width="80">{{ entity.fkIidUsuaDatos.vnombre}} {{ entity.fkIidUsuaDatos.vapellido}} </td>
                 <td width="40"></td>

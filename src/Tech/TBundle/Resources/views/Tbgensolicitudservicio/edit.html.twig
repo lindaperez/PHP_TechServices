@@ -69,7 +69,8 @@
       
              <tr>
                 <td width="210" height="20">Número de Caso: </td>
-                <td><em>{{ entity.iIdCaso }}</em></td>
+                {% set t= entity.iIdCaso|length %}
+                <td><em>{{ entity.iIdCaso[t-4:] }}</em></td>
             </tr>
             <tr>
                 <td width="210" height="20">Usuario </td>
