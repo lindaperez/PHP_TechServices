@@ -68,7 +68,7 @@ class TbgensolicitudservicioType extends AbstractType
             ->add('vcorreo','text',array ('invalid_message' => 'El valor de Correo que introdujo no es correcto.'
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
-            ->add('contrato','integer',array( 'required' => false))
+            ->add('fkIIDContrato','choice',array( 'required' => true))
             ->add('iIdCaso');
     }
     

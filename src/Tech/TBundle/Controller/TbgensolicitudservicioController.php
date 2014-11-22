@@ -57,7 +57,7 @@ class TbgensolicitudservicioController extends Controller
         $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
         //print_r($tipo_solicitud);
         $detalles=$searchForm['vdetalles']->getData();
-        $contrato=$searchForm['contrato']->getData();
+        $contrato=$searchForm['fkIIDContrato']->getData();
         $nroCaso=$searchForm['iIdCaso']->getData();
         
         $tipo=null;
@@ -586,7 +586,6 @@ XML;
             return $this->render('TechTBundle:Default:erroracceso.html.twig');
         }
         
-        
         $entity = new Tbgensolicitudservicio();
         
         date_default_timezone_set('America/Caracas');
@@ -594,9 +593,22 @@ XML;
         $entity->setDfechaCreacion($date_changes);
       
         $entity->setVdescEstatus("Abierto");
+        
+        $ci=$request->getSession()->get('usuario_ci');
+        
+            $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
+                    ->findOneBy(array('pkIci'=>$ci));
+            
         $form   = $this->createCreateForm($entity);
         
-            
+        $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
+                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'esp')
+                     ->join('cr.fkInroContrato','fkInroContrato');
+        $qb->where('cr.fkIci=?1')->setParameter(1,$usu);       
+        
+        $query_pages=$qb->getQuery();
+        $entities =$query_pages->execute();
+        $entity->setFkIidContrato($entities);    
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
