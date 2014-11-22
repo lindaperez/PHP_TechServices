@@ -33,6 +33,27 @@ class Tbdetcontratorif
     private $pkInroContrato;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="vAlias", type="string", length=60, nullable=false)
+     */
+    private $valias;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vDNS", type="string", length=256, nullable=false)
+     */
+    private $vdns;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vUbicacionFisica", type="string", length=256, nullable=false)
+     */
+    private $vubicacionfisica;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetempresa
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetempresa")
@@ -75,6 +96,75 @@ class Tbdetcontratorif
     public function getPkInroContrato()
     {
         return $this->pkInroContrato;
+    }
+
+    /**
+     * Set valias
+     *
+     * @param string $valias
+     * @return Tbdetcontratorif
+     */
+    public function setValias($valias)
+    {
+        $this->valias = $valias;
+
+        return $this;
+    }
+
+    /**
+     * Get valias
+     *
+     * @return string 
+     */
+    public function getValias()
+    {
+        return $this->valias;
+    }
+
+    /**
+     * Set vdns
+     *
+     * @param string $vdns
+     * @return Tbdetcontratorif
+     */
+    public function setVdns($vdns)
+    {
+        $this->vdns = $vdns;
+
+        return $this;
+    }
+
+    /**
+     * Get vdns
+     *
+     * @return string 
+     */
+    public function getVdns()
+    {
+        return $this->vdns;
+    }
+
+    /**
+     * Set vubicacionfisica
+     *
+     * @param string $vubicacionfisica
+     * @return Tbdetcontratorif
+     */
+    public function setVubicacionfisica($vubicacionfisica)
+    {
+        $this->vubicacionfisica = $vubicacionfisica;
+
+        return $this;
+    }
+
+    /**
+     * Get vubicacionfisica
+     *
+     * @return string 
+     */
+    public function getVubicacionfisica()
+    {
+        return $this->vubicacionfisica;
     }
 
     /**
