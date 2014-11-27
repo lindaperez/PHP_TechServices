@@ -94,7 +94,7 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
         //$tbgenespecsolicitud_id =array_key_exists('fkIidUsuaDatos', $data) ? $data['fkIidUsuaDatos'] : null;
        
                   
-       print $tbgenespecsolicitud_id;
+       //print $tbgenespecsolicitud_id;
        
        
         $this->addTbdetcontratosForm($form,$tbgenespecsolicitud_id);
