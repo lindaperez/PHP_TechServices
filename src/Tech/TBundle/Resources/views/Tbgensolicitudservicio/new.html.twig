@@ -49,7 +49,12 @@
             <table width="780">
                 <tr>
                   
-                  
+                  <div class="error">
+                {{ form_errors(form.fkIidContrato) }}</div>       
+                     <td><h2>1. </h2></td><td width="5"></td><td width="60">
+                {{ form_label(form.fkIidContrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(form.fkIidContrato,{'required': true}) }}</td>
+                    
                        
              <td id="campos5">
                  
@@ -149,6 +154,7 @@
                 {{ form_row(form.vdescEstatus, {'required' : false})}}
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
                 {{ form_row(form.dfechaCierre, {'required' : false})}}
+                {{ form_row(form.fkIidContrato, {'required' : false})}}
                 {{ form_row(form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(form.iid, {'required' : false})}}                      
                 {{ form_row(form.submit, { 'label': 'Registrar' }) }}        

@@ -20,10 +20,10 @@
              
                    <tr>
                        
-                          <div class="error">{{ form_errors(search_form.contrato) }}</div>       
+                          <div class="error">{{ form_errors(search_form.fkIidContrato) }}</div>       
                    <td width='50'><h2>1.</h2></td><td width="115">
-                {{ form_label(search_form.contrato, 'Contrato:') }}</td>
-                        <td>{{ form_widget(search_form.contrato,{'required': false}) }}</td>
+                {{ form_label(search_form.fkIidContrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(search_form.fkIidContrato,{'required': false}) }}</td>
                  
                         <td width="55"></td>
                    
@@ -47,7 +47,7 @@
                 {{ form_errors(search_form.iid) }}</div>       
                         <td></td><td width="115">
                 {{ form_label(search_form.iid, 'Nro Caso:') }}</td>
-                        <td>{{ form_widget(search_form.iIdCaso,{'required': false}) }}</td>
+                        <td>{{ form_widget(search_form.iidCaso,{'required': false}) }}</td>
                         
                      <td width="15"></td>
                        <div class="error">
@@ -64,13 +64,13 @@
                 {{ form_row(search_form.iid, {'required' : false})}}
                 {{ form_row(search_form.vdescEstatus, {'required' : false})}}
                 {{ form_row(search_form.dfechaCierre, {'required' : false})}}
-                {{ form_row(search_form.iIdCaso, {'required' : false})}}
+                {{ form_row(search_form.iidCaso, {'required' : false})}}
                 {{ form_row(search_form.vdetalles, {'required' : false})}}
                 {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
                 {{ form_row(search_form.vtelefono, {'required' : false})}}                      
-                {{ form_row(search_form.contrato, {'required' : false})}}  
+                {{ form_row(search_form.fkIidContrato, {'required' : false})}}  
                 {{ form_row(search_form.vdescripcion, {'required' : false})}}                      
                  
                 {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}        

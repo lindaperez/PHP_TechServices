@@ -60,7 +60,7 @@ class TbgensolicitudservicioType extends AbstractType
                 'Culminado' => 'Culminado'), 
             'attr' => array('style'=>'width:140px;height:30px')))
             ->add('vpersona','text',array( 'required' => false))
-                ->add('vdescripcion','textarea',array( 'required' => false,
+            ->add('vdescripcion','textarea',array( 'required' => false,
                 'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:780px;height:30px')))
             ->add('vtelefono','text',array( 'required' => false))
             //->add('vdireccion','textarea',array( 'required' => false,
@@ -70,7 +70,9 @@ class TbgensolicitudservicioType extends AbstractType
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
             ->add('iidCaso')
-            ->add('fkIidContrato');
+                ->addEventSubscriber(new AddTbdetcontratosFieldSubscriber(
+              $propertyPathToTbdetcontratos))
+                ->add('fkIidContrato');
     }
     
     /**

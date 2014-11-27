@@ -5,7 +5,7 @@ namespace Tech\TBundle\Form\EventListener;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-//use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Doctrine\ORM\EntityRepository;
 
 
@@ -27,37 +27,54 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
         );
     }
  
-    private function addTbdetcontratosForm($form,$tbdetusuariodatos,$tbdetusuariodatos_id)
+    private function addTbdetcontratosForm($form,$tbdetusuariodatos_id)
     {
        
             
         $formOptions = array(
             'class'         => 'TechTBundle:Tbdetusuariocontrato',
             'mapped'         => false,
-            'label'         => 'Contratos: ',
+            'label'         => 'Contrato: ',
             'empty_value'   => 'Seleccionar',
             'invalid_message' => 'El valor de Contrato no puede ser vacio',
             'attr'          => array(
-            'class' => 'contratos2_class'),
+            'class' => 'contrato_class'),
                'query_builder' => function (EntityRepository $repository) use ($tbdetusuariodatos_id) {
-                $qb = $repository->createQueryBuilder('fkInroContrato')
-                        ->from('TechTBundle:Tbdetusuariodatos', 'usu')
-                        ->leftjoin('fkInroContrato.fkIci','fkIci')
-                        ->where('usu.pkIci= :id')
-                        ->setParameter('id', 18915768)
+            $qb = $repository->createQueryBuilder('uc')
+                       ->from('TechTBundle:Tbdetcontratorif', 'cr')
+                        ->join('uc.fkInroContrato','fk1')               
+                    ->where('uc.fkIci= :ci')
+                        ->setParameter('ci', $tbdetusuariodatos_id)
+  //                      ->setParameter('co', 12833727)
+
+
+
+//SELECT  *
+//FROM `tbdetContratoRif`             `cr`
+//JOIN  `tbdetUsuarioContrato`  `uc` ON (`cr`.`id`=`uc`.`fk_iNRO_CONTRATO`)
+//JOIN   `tbdetUsuarioDatos`  `u`  ON (  `u`.`id` =  `uc`.`fk_iCI` ) 
+//WHERE `u`.`pk_iCI`=12833727
+                        
+                        
+                        
                 ;
-                print($qb);
+                //print($qb);
+                        //$query_pages=$qb->getQuery();
+                //print_r($tbdetusuariodatos_id);
+                
+         // print_r($qb->getQuery()->execute());
                 return $qb;
                 
             }
         );
          
-        if ($tbdetusuariodatos_id) {
         
-            $formOptions['data'] = $tbdetusuariodatos;
+        //print $tbdetusuariodatos_id;
+        if($tbdetusuariodatos_id){
+            $formOptions['data'] = $tbdetusuariodatos_id;
         }
-        
-        $form->add('contratos2', 'entity', $formOptions);
+        //print_r($formOptions['data']);
+        $form->add('fkIidContrato', 'entity', $formOptions);
     }
  
     public function preSetData(FormEvent $event)
@@ -69,16 +86,18 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
             return;
         }
        
-       //$accessor = PropertyAccess::getPropertyAccessor();
+       $accessor = PropertyAccess::getPropertyAccessor();
  
-       ///$mtbgenespecsolicitud        = $accessor->getValue($data, $this->propertyPathToTbgenespecsolicitud);
+       $usua        = $accessor->getValue($data, $this->propertyPathToTbdetusuariodatos);
        
-       //$tbgenespecsolicitud_id = ($tbgenespecsolicitud) ? $tbgenespecsolicitud->getId() : null;
-        $tbgenespecsolicitud_id =array_key_exists('fkIci', $data) ? $data['fkIci'] : null;
-        $tbgenespecsolicitud = array_key_exists('contratos', $data) ? $data['contratos'] : null;
+       $tbgenespecsolicitud_id = ($usua) ? $usua: null;
+        //$tbgenespecsolicitud_id =array_key_exists('fkIidUsuaDatos', $data) ? $data['fkIidUsuaDatos'] : null;
+       
                   
+       print $tbgenespecsolicitud_id;
        
-        $this->addTbdetcontratosForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id);
+       
+        $this->addTbdetcontratosForm($form,$tbgenespecsolicitud_id);
   
     }
  
@@ -87,10 +106,13 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
  
-        $tbgenespecsolicitud = array_key_exists('contratos', $data) ? $data['contratos'] : null;
-        $tbgenespecsolicitud_id =array_key_exists('fkIci', $data) ? $data['fkIci'] : null;
         
-          $this->addTbdetcontratosForm($form,$tbgenespecsolicitud,$tbgenespecsolicitud_id);
+        //$tbgenespecsolicitud_id =array_key_exists('fkIidUsuaDatos', $data) ? $data['fkIidUsuaDatos'] : null;
+        $tbgenespecsolicitud_id =array_key_exists('fkIidContrato', $data) ? $data['fkIidContrato'] : null;
+       //print 'hi';
+       // print $tbgenespecsolicitud_id;
+       
+          $this->addTbdetcontratosForm($form,$tbgenespecsolicitud_id);
     
     }
 }

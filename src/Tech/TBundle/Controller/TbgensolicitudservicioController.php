@@ -460,11 +460,9 @@ class TbgensolicitudservicioController extends Controller
             $ci=$request->getSession()->get('usuario_ci');
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
-            $contrato= $em->getRepository('TechTBundle:Tbdetcontratorif')
-                    ->findOneBy(array('pkInroContrato'=>$entity->getContrato()));
             
             $contratousu= $em->getRepository('TechTBundle:Tbdetusuariocontrato')
-                    ->findOneBy(array('fkIci'=>$usu,'fkInroContrato'=>$contrato));
+                    ->findOneBy(array('fkIci'=>$usu,'fkInroContrato'=>$entity->getFkIidContrato()));
             if ($contratousu==null){
                 //print_r("HOLA");
                  $message_error= "Introdujo un contrato inexistente.";
@@ -599,7 +597,7 @@ XML;
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
             
-     
+            $entity->setFkIidUsuaDatos($usu);
         
         $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
                      $qb->from('TechTBundle:Tbdetusuariocontrato', 'uc')
@@ -609,7 +607,8 @@ XML;
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
         //print($entities[4]); 
-        //$entity->setFkIidContrato($entities[0]);    
+        //$entity->setFkIidContrato($entities[1]);    
+        
         
            $form   = $this->createCreateForm($entity);
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array(
