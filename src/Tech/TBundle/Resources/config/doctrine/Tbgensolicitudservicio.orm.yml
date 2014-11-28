@@ -48,13 +48,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             comment: ''
             column: iID_CASO
     manyToOne:
-        fkIidEspSol:
-            targetEntity: Tbgenespecsolicitud
+        fkIidContrato:
+            targetEntity: Tbdetusuariocontrato
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                fk_iID_ESP_SOL:
+                fk_iID_Contrato:
                     referencedColumnName: id
             orphanRemoval: false
         fkIidUsuaDatos:
@@ -66,13 +66,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
                 fk_iID_USUA_DATOS:
                     referencedColumnName: id
             orphanRemoval: false
-        fkIidContrato:
-            targetEntity: Tbdetcontratorif
+        fkIidEspSol:
+            targetEntity: Tbgenespecsolicitud
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                fk_iID_Contrato:
+                fk_iID_ESP_SOL:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -50,14 +50,14 @@ class Tbgensolicitudservicio
     private $iidCaso;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
+     * @var \Tech\TBundle\Entity\Tbdetusuariocontrato
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariocontrato")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iID_Contrato", referencedColumnName="id")
      * })
      */
-    private $fkIidEspSol;
+    private $fkIidContrato;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetusuariodatos
@@ -90,14 +90,14 @@ class Tbgensolicitudservicio
         ));
     }
     /**
-     * @var \Tech\TBundle\Entity\Tbdetcontratorif
+     * @var \Tech\TBundle\Entity\Tbgenespecsolicitud
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgenespecsolicitud")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_Contrato", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fk_iID_ESP_SOL", referencedColumnName="id")
      * })
      */
-    private $fkIidContrato;
+    private $fkIidEspSol;
 
  /**
      * @see \Serializable::unserialize()
@@ -306,26 +306,26 @@ class Tbgensolicitudservicio
     }
 
     /**
-     * Set fkIidEspSol
+     * Set fkIidContrato
      *
-     * @param \Tech\TBundle\Entity\Tbgenespecsolicitud $fkIidEspSol
+     * @param \Tech\TBundle\Entity\Tbdetusuariocontrato $fkIidContrato
      * @return Tbgensolicitudservicio
      */
-    public function setFkIidEspSol(\Tech\TBundle\Entity\Tbgenespecsolicitud $fkIidEspSol = null)
+    public function setFkIidContrato(\Tech\TBundle\Entity\Tbdetusuariocontrato $fkIidContrato = null)
     {
-        $this->fkIidEspSol = $fkIidEspSol;
+        $this->fkIidContrato = $fkIidContrato;
 
         return $this;
     }
 
     /**
-     * Get fkIidEspSol
+     * Get fkIidContrato
      *
-     * @return \Tech\TBundle\Entity\Tbgenespecsolicitud 
+     * @return \Tech\TBundle\Entity\Tbdetusuariocontrato 
      */
-    public function getFkIidEspSol()
+    public function getFkIidContrato()
     {
-        return $this->fkIidEspSol;
+        return $this->fkIidContrato;
     }
 
     /**
@@ -352,26 +352,26 @@ class Tbgensolicitudservicio
     }
 
     /**
-     * Set fkIidContrato
+     * Set fkIidEspSol
      *
-     * @param \Tech\TBundle\Entity\Tbdetcontratorif $fkIidContrato
+     * @param \Tech\TBundle\Entity\Tbgenespecsolicitud $fkIidEspSol
      * @return Tbgensolicitudservicio
      */
-    public function setFkIidContrato(\Tech\TBundle\Entity\Tbdetcontratorif $fkIidContrato = null)
+    public function setFkIidEspSol(\Tech\TBundle\Entity\Tbgenespecsolicitud $fkIidEspSol = null)
     {
-        $this->fkIidContrato = $fkIidContrato;
+        $this->fkIidEspSol = $fkIidEspSol;
 
         return $this;
     }
 
     /**
-     * Get fkIidContrato
+     * Get fkIidEspSol
      *
-     * @return \Tech\TBundle\Entity\Tbdetcontratorif 
+     * @return \Tech\TBundle\Entity\Tbgenespecsolicitud 
      */
-    public function getFkIidContrato()
+    public function getFkIidEspSol()
     {
-        return $this->fkIidContrato;
+        return $this->fkIidEspSol;
     }
            //to string method   
     public function __toString()

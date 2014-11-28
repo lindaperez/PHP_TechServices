@@ -39,16 +39,16 @@ CREATE TABLE IF NOT EXISTS `tbdetUsuarioContrato` (
 -- Volcado de datos para la tabla `tbdetUsuarioContrato`
 --
 
-INSERT INTO `tbdetUsuarioContrato` (`id`, `fk_iCI`, `fk_iNRO_CONTRATO`) VALUES
-(200, 3, 1),
-(203, 2, 1),
-(206, 9, 1),
-(207, 9, 2),
-(209, 10, 3),
-(210, 10, 2),
-(215, 11, 5),
-(216, 12, 1),
-(217, 13, 1);
+	INSERT INTO `tbdetUsuarioContrato` (`id`, `fk_iCI`, `fk_iNRO_CONTRATO`) VALUES
+	(200, 3, 1),
+	(203, 2, 1),
+	(206, 9, 1),
+	(207, 9, 2),
+	(209, 10, 3),
+	(210, 10, 2),
+	(215, 11, 5),
+	(216, 12, 1),
+	(217, 13, 1);
 
 --
 -- Restricciones para tablas volcadas

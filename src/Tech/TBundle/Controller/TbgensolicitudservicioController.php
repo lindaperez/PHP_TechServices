@@ -454,6 +454,7 @@ class TbgensolicitudservicioController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        print $form['fkIidContrato']->getData();
         
         if ($form->isValid()) {    
             //El contrato existe o no      
@@ -599,14 +600,14 @@ XML;
             
             $entity->setFkIidUsuaDatos($usu);
         
-        $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
-                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'uc')
-                     ->join('uc.fkInroContrato','fkIIDContrato');
-        $qb->where('uc.fkIci=?1')->setParameter(1,$usu);       
-        
-        $query_pages=$qb->getQuery();
-        $entities =$query_pages->execute();
-        //print($entities[4]); 
+//        $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
+//                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'uc')
+//                     ->join('uc.fkInroContrato','fkIIDContrato');
+//        $qb->where('uc.fkIci=?1')->setParameter(1,$usu);       
+//        
+//        $query_pages=$qb->getQuery();
+//        $entities =$query_pages->execute();
+//        //print($entities[4]); 
         //$entity->setFkIidContrato($entities[1]);    
         
         

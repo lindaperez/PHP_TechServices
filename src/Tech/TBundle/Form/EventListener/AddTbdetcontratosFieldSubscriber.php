@@ -72,6 +72,7 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
         //print $tbdetusuariodatos_id;
         if($tbdetusuariodatos_id){
             $formOptions['data'] = $tbdetusuariodatos_id;
+            
         }
         //print_r($formOptions['data']);
         $form->add('fkIidContrato', 'entity', $formOptions);
@@ -109,8 +110,8 @@ class AddTbdetcontratosFieldSubscriber implements EventSubscriberInterface
         
         //$tbgenespecsolicitud_id =array_key_exists('fkIidUsuaDatos', $data) ? $data['fkIidUsuaDatos'] : null;
         $tbgenespecsolicitud_id =array_key_exists('fkIidContrato', $data) ? $data['fkIidContrato'] : null;
-       //print 'hi';
-       // print $tbgenespecsolicitud_id;
+       
+        //print $tbgenespecsolicitud_id;
        
           $this->addTbdetcontratosForm($form,$tbgenespecsolicitud_id);
     
