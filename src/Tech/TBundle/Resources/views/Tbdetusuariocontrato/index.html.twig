@@ -6,35 +6,43 @@
 <section class="register">
     <table class="records_list">
         <thead>
-               <tr>
-                <td align="center"  width="100"><h4 ><strong>Nro-Contrato</strong></h4></td>
-                
-                <td align="center"  width="150"><h4 ><strong>Nro-Rif</strong></h4></td>
-                
-                <td align="center"  width="100"><h4 ><strong>Nombre</strong></h4></td>
-                
-                <td align="center"  width="200"><h4 ><strong>Razón Social</strong></h4></td>
-                
-                <td align="center"  width="200"><h4 ><strong>Dirección Fiscal</strong></h4></td>
-                
-                
-                
+            <tr>
+                <td align="center"  width="120"><h4 ><strong>Nro-Contrato</strong></h4></td>
+                <td width="60"></td>
+                <td align="center"  width="80"><h4 ><strong>Nro-Rif</strong></h4></td>
+                <td width="60"></td>
+                <td align="center"  width="100"><h4 ><strong>Alias</strong></h4></td>                
+                <td width="60"></td>
+                <td align="center"  width="300"><h4 ><strong>Ubicación Física</strong></h4></td>                
+                <td width="60"></td>
+                <td align="center"  width="120"><h4 ><strong>Acciones</strong></h4></td>                
+                <td width="60"></td>
             </tr>
+            
         </thead>
         <tbody>
         {% for entity in entities %}
               <tr>
                
-                <td align="center" width="100">{{ entity.fkInroContrato.pkInroContrato }}</td>
                 
-                <td align="center" width="150">{{ entity.fkInroContrato.fkIrif }}</td>
+                <td align="center"  width="120">{{ entity.fkInroContrato.pkInroContrato }}</td>
+                <td width="60"></td>
+                <td align="center" width="80">{{ entity.fkInroContrato.fkIrif }}</td>
+                <td width="60"></td>
+                <td align="center" width="100">{{ entity.fkInroContrato.valias }}</td>
+                <td width="60"></td>
                 
-                <td align="center" width="100">{{ entity.fkInroContrato.fkIrif.vnombre }}</td>
+                <td align="center" width="300">{{ entity.fkInroContrato.vubicacionfisica }}</td>
+                <td width="60"></td>
+                <td  align="center"  width="150">
+                <ul>
+                    
+                    <li>
+                        <a href="{{ entity.fkInroContrato.vdns }}"><img width="35" height="20"  title="Ver Cámaras" src="/bundles/techt/images/camera.png"></a>
+                    </li>
+                </ul>
                 
-                <td align="center" width="200">{{ entity.fkInroContrato.fkIrif.vrazonSocial }}</td>
-                
-                <td align="center" width="200">{{ entity.fkInroContrato.fkIrif.vdireccionFiscal }}</td>
-                
+                </td>
             </tr>
             
         {% endfor %}
