@@ -6,34 +6,75 @@
     <div class="container" >
 
     <section class="register">
+        
         <form action="{{ path('Contratos_create') }}" method="post" id="login">
-{{ form_start(form) }}
-            
+            <table>
+        {{ form_start(form) }}    
         {{ form_errors(form) }}
-            
+                <td>
+                    
                <div class="error">
                         {{ form_errors(form.pkInroContrato) }}</div>       
-                    <table>  <td width="100">
+                   <table>   <td width="100">
                     {{ form_label(form.pkInroContrato, 'Contrato:', {'required': 'true'}) }}</td>
-                        <td>{{ form_widget(form.pkInroContrato) }}</td>
-                    </table>
+                        <td>{{ form_widget(form.pkInroContrato) }}</td></table>
+            <div class="error">
+                        {{ form_errors(form.vdns) }}</div>       
+                    <table><td width="100">
+                    {{ form_label(form.vdns, 'Domain Name Server:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(form.vdns) }}</td></table>
+       
+                        
+            </td>
+            <td width="20"></td>
+            <td>
+                        
                 <div class="error">
                         {{ form_errors(form.fkIrif) }}</div>       
-                    <table>  <td width="100">
+                   <table> <td width="100">
                     {{ form_label(form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
-                        <td>{{ form_widget(form.fkIrif) }}</td>
-                    </table>
-        
-        <div style="display: none;">
+                        <td>{{ form_widget(form.fkIrif) }}</td></table>
+            <div class="error">
+                        {{ form_errors(form.vubicacionfisica) }}</div>       
+                 <table>   <td width="100">
+                    {{ form_label(form.vubicacionfisica, 'Ubicación Física:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(form.vubicacionfisica) }}</td></table>
+                    
+            </td>
+            <td width="20"></td>
+            <td>
+                    
+                
+                    <div class="error">
+                        {{ form_errors(form.valias) }}</div>       
+                   <table> <td width="100">
+                    {{ form_label(form.valias, 'Alias:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(form.valias) }}</td> </table>
+            
+                    
+              </td>
+              <td width="20"></td>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              <td>
+            <p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+      </p>
+      </td>
+      </tr>
+      <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
         
         </div>
       
-            <p class="submit">   
-                <input type="submit" name="commit" value="Crear">
-      </p>
+        
         {{ form_end(form) }}
+      </table>
     </form>
+        
 </section>
     </div>
     <br><br>

@@ -23,18 +23,20 @@ class TbdetcontratorifType extends AbstractType
             ->add('pkInroContrato','integer',array ('invalid_message' => 'El valor de Contrato que introdujo no es correcto.'
                 . 'Ej. 79189', 'required'=> 'true'))
             ->add('fkIrif')
+            ->add('valias')
+            ->add('vdns')
+            ->add('vubicacionfisica','textarea',array( 'required' => false,
+                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:170px;height:90px')));
         ;
     }
     
-    /** 
+    /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif',
-            'cascade_validation' => true,
-            
+            'data_class' => 'Tech\TBundle\Entity\Tbdetcontratorif'
         ));
     }
 

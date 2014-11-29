@@ -82,7 +82,7 @@ class AddTbgendetalleFieldSubscriber implements EventSubscriberInterface
          
         if ($tbgenespecsolicitud_id) {
         
-            $formOptions['data'] = $tbgenespecsolicitud_id;
+          //  $formOptions['data'] = $tbgenespecsolicitud_id;
         }
         
         $form->add('vdetalles', 'entity', $formOptions);

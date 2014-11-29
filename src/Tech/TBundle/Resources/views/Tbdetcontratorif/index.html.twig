@@ -10,13 +10,16 @@
     <table class="records_list">
         <thead>
             <tr>
-                <td align="center"  width="80"><h4 ><strong>Nro-Contrato</strong></h4></td>
-                <td width="60"><td>
+                <td align="center"  width="120"><h4 ><strong>Nro-Contrato</strong></h4></td>
+                <td width="60"></td>
                 <td align="center"  width="80"><h4 ><strong>Nro-Rif</strong></h4></td>
-                <td width="60"><td>
-                <td align="center"  width="300"><h4 ><strong>Dirección Fiscal</strong></h4></td>                
-                <td width="60"><td>
+                <td width="60"></td>
+                <td align="center"  width="100"><h4 ><strong>Alias</strong></h4></td>                
+                <td width="60"></td>
+                <td align="center"  width="300"><h4 ><strong>Ubicación Física</strong></h4></td>                
+                <td width="60"></td>
                 <td align="center"  width="120"><h4 ><strong>Acciones</strong></h4></td>                
+                <td width="60"></td>
             </tr>
             
         </thead>
@@ -28,18 +31,23 @@
             <tr>
                
                 <td align="center"  width="120">{{ entity.pkInroContrato }}</td>
-                <td width="60"><td>
-                <td>{{ entity.fkIrif }}</td>
-                <td  width="60"><td></td>
-                <td align="center"  width="120">{{ entity.fkIrif.vdireccionFiscal }}</td>
-                <td width="60"><td></td>
-                <td  align="center"  width="120">
+                <td width="60"></td>
+                <td align="center" width="80">{{ entity.fkIrif }}</td>
+                <td width="60"></td>
+                <td align="center" width="100">{{ entity.valias }}</td>
+                <td width="60"></td>
+                
+                <td align="center" width="300">{{ entity.vubicacionfisica }}</td>
+                <td width="60"></td>
+                <td  align="center"  width="150">
                 <ul>
                     
                     <li>
-                        <a href="{{ path('Contratos_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver/Editar" src="/bundles/techt/images/Draft.png"></a>
+                        <a href="{{ path('Contratos_edit', { 'id': entity.id }) }}"><img width="45" height="35"  title="Ver/Editar" src="/bundles/techt/images/Draft.png"></a>
+                        <a href="{{ entity.vdns }}"><img width="35" height="20"  title="Ver Cámaras" src="/bundles/techt/images/camera.png"></a>
                     </li>
                 </ul>
+                
                 </td>
             </tr>
         {% endfor %}
