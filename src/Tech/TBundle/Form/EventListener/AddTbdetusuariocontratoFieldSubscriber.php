@@ -41,14 +41,21 @@ class AddTbdetusuariocontratoFieldSubscriber implements EventSubscriberInterface
             'class' => 'tbdetusuariocontrato_class'),
                'query_builder' => function (EntityRepository $repository) use ($tbdetusuariodatos_id,$fkIidContrato) {
                     $qb = $repository->createQueryBuilder('uc')
-                            ->from('TechTBundle:Tbdetcontratorif', 'cr')
-                            ->innerjoin('uc.fkIci','fk1','WITH','fk1=:ci');               
+                            ->distinct(true)
+                            ->from('TechTBundle:Tbdetcontratorif', 'cr');
+                            
+                            if ($tbdetusuariodatos_id!=null){
+                                $qb->innerjoin('uc.fkIci','fk1','WITH','fk1=:ci')
+                                    ->setParameter('ci', $tbdetusuariodatos_id);
+                                
+                            }
+                            
                             //->innerjoin('uc.fkInroContrato','fk2','WITH','fk2=:nro')               
                             if ($fkIidContrato!=null){
                             $qb->where('uc.id=:nro')
                             ->setParameter('nro', $fkIidContrato);
                             }
-                            $qb->setParameter('ci', $tbdetusuariodatos_id);
+                            
                     return $qb;
                     
             }
