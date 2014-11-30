@@ -14,8 +14,7 @@ use Tech\TBundle\Form\EventListener\AddTbgendetalleFieldSubscriber;
 use Tech\TBundle\Entity\Tbdetusuariocontrato;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Tech\TBundle\Form\EventListener\AddTbdetcontratosFieldSubscriber;
-
+use Tech\TBundle\Form\EventListener\AddTbdetusuariocontratoFieldSubscriber;
 class TbgensolicitudservicioType extends AbstractType
 {
     
@@ -26,9 +25,9 @@ class TbgensolicitudservicioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         
-        $propertyPathToTbgenespecsolicitud = 'fkIidEspSol';
+         $propertyPathToTbgenespecsolicitud = 'fkIidEspSol';
         $propertyPathToTbgendetalle = 'vdetalles';
-        $propertyPathToTbdetcontratos = 'fkIidUsuaDatos';
+        $propertyPathToTbdetusuariocontrato = 'fkIidUsuaDatos';
 
         $builder
              ->add('dfechaCreacion','date', array('required' => false,'label'=> 'Fecha Creación:',
@@ -70,9 +69,11 @@ class TbgensolicitudservicioType extends AbstractType
                 . '. Ej. micorreo@gmail.com'))
             ->add('iid','integer',array( 'required' => false))    
             ->add('iidCaso')
-                ->addEventSubscriber(new AddTbdetcontratosFieldSubscriber(
-              $propertyPathToTbdetcontratos))
-                ->add('fkIidContrato');
+            ->add('fkIidContrato','choice',array( 'required' => true))
+           ->addEventSubscriber(new AddTbdetusuariocontratoFieldSubscriber(
+              $propertyPathToTbdetusuariocontrato))
+                
+                ;
     }
     
     /**

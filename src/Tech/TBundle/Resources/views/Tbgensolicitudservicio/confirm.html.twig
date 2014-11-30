@@ -52,10 +52,10 @@
                    <td width="10"></td>
               
                   <div class="error">
-                {{ form_errors(form.contrato) }}</div>       
+                {{ form_errors(form.fkIidContrato) }}</div>       
                     <td><h2 width="5">1. </h2></td><td width="115">
-                {{ form_label(form.contrato, 'Contrato:') }}</td>
-                        <td>{{ form_widget(form.contrato,{'required': true}) }}</td>
+                {{ form_label(form.fkIidContrato, 'Contrato:') }}</td>
+                        <td>{{ form_widget(form.fkIidContrato,{'required': true}) }}</td>
                     
                   <td width="20"></td>
              <td id="campos5">
@@ -143,7 +143,7 @@
                      </table>
                        
                      <div style="display: none;">     
-                {{ form_row(form.iIdCaso, {'required' : false})}}
+                {{ form_row(form.iidCaso, {'required' : false})}}
                 {{ form_row(form.vdetalles, {'required' : false})}}
                 {{ form_row(form.vdescEstatus, {'required' : false})}}
                 {{ form_row(form.dfechaCreacion, {'required' : false})}}
@@ -181,13 +181,7 @@
      //ocultar campos
      $("#tech_tbundle_tbgensolicitudservicio_tbgentiposolicitud").prop('disabled','disabled');  
      $("#tech_tbundle_tbgensolicitudservicio_fkIidEspSol").prop('disabled','disabled');  
-     $("#tech_tbundle_tbgensolicitudservicio_vdetalles").prop('disabled','disabled');  
-     $("#tech_tbundle_tbgensolicitudservicio_contrato").prop('disabled','disabled');  
-     $("#tech_tbundle_tbgensolicitudservicio_vpersona").prop('disabled','disabled');  
-     $("#tech_tbundle_tbgensolicitudservicio_vtelefono").prop('disabled','disabled');  
-     $("#tech_tbundle_tbgensolicitudservicio_vcorreo").prop('disabled','disabled');  
-     
-     
+     $("#tech_tbundle_tbgensolicitudservicio_fkIidContrato").prop('disabled','disabled');  
      //
      
      

@@ -454,7 +454,7 @@ class TbgensolicitudservicioController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        print $form['fkIidContrato']->getData();
+        
         
         if ($form->isValid()) {    
             //El contrato existe o no      
@@ -462,11 +462,12 @@ class TbgensolicitudservicioController extends Controller
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
             
-            $contratousu= $em->getRepository('TechTBundle:Tbdetusuariocontrato')
-                    ->findOneBy(array('fkIci'=>$usu,'fkInroContrato'=>$entity->getFkIidContrato()));
-            if ($contratousu==null){
-                //print_r("HOLA");
-                 $message_error= "Introdujo un contrato inexistente.";
+            $contrato= $em->getRepository('TechTBundle:Tbdetcontratorif')
+                    ->find($entity->getFkIidContrato()->getFkInroContrato());
+            //print_r($entity->getFkIidContrato());
+            if ($contrato==null){
+                
+                 $message_error= "Introdujo un contrato inexistente.".$contrato;
                 $this->get('session')->getFlashBag()->add('flash_error', $message_error);
                 return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
                 'form'   => $form->createView(),
@@ -505,7 +506,7 @@ class TbgensolicitudservicioController extends Controller
             'Email' => $usu->getVcorreoEmail(), 
             'Phone' => $usu->getVtelfLocal(),
             'Account Name' => "Prueba Nombre Cuenta",
-            'Número de Contrato'=>'Web-'.$entity->getContrato(),
+            'Número de Contrato'=>'Web-'.$entity->getFkIidContrato()->getFkInroContrato()->getPkInroContrato(),
             'Tipo de Contrato'=>'Alquiler CCTV',
             'Dpto. Encargado' => 'Servicios y Atención al Cliente',
             'Nombre de contacto'=> 'CRISBET',
@@ -544,7 +545,7 @@ XML;
             'form'   => $form->createView(),
         ));
         }
-
+        print $form->getErrorsAsString();
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
             
             'form'   => $form->createView(),
@@ -597,21 +598,11 @@ XML;
         
             $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                     ->findOneBy(array('pkIci'=>$ci));
-            
             $entity->setFkIidUsuaDatos($usu);
-        
-//        $qb= $em->getRepository('TechTBundle:Tbdetcontratorif')->createQueryBuilder('cr');
-//                     $qb->from('TechTBundle:Tbdetusuariocontrato', 'uc')
-//                     ->join('uc.fkInroContrato','fkIIDContrato');
-//        $qb->where('uc.fkIci=?1')->setParameter(1,$usu);       
-//        
-//        $query_pages=$qb->getQuery();
-//        $entities =$query_pages->execute();
-//        //print($entities[4]); 
-        //$entity->setFkIidContrato($entities[1]);    
-        
+
         
            $form   = $this->createCreateForm($entity);
+           
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),

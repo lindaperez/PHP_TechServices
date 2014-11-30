@@ -79,7 +79,32 @@ class Tbgensolicitudservicio
     private $iid;
     
 
+    public function __construct()
+    {
+        $this->fkIidContrato = new ArrayCollection();
+        
+    }
+    public function addContrato(Tbdetusuariocontrato $contrato=null)
+    {
+        //$contrato->addUsuarioDatos($this);
+        if ($this->fkIidContrato==null){
+            
+           $this->fkIidContrato=new ArrayCollection();
+        }
+        $this->fkIidContrato->add($contrato);
+    }
 
+    public function removeContrato(Tbdetusuariocontrato $contrato=null)
+    {
+        if ($this->fkIidContrato!=null){
+         $this->fkIidContrato->removeElement($contrato);
+    
+        }
+    }
+    
+   
+    
+    
     public function serialize()
     {
         return serialize(array(
