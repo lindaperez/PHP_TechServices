@@ -48,7 +48,7 @@ class TbgensolicitudservicioType extends AbstractType
             ->addEventSubscriber(new AddTbgendetalleFieldSubscriber(
               $propertyPathToTbgenespecsolicitud,$propertyPathToTbgendetalle))
             ->add('vdescEstatus', 'choice', array(
-            'choices' => array('Abierto' => 'Abierto', 'Asignado' => 'Asignado',
+            'choices' => array(null=>'Seleccionar','Abierto' => 'Abierto', 'Asignado' => 'Asignado',
                 'Por Levantamiento' => 'Por Levantamiento'
                 , 'En Cotización' => 'En Cotización',
                 'Por Aprobación' => 'Por Aprobación',

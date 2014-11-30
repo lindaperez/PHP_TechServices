@@ -46,51 +46,40 @@ class TbgensolicitudservicioController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $entity_search = new Tbgensolicitudservicio();
-        $searchForm = $this->createSearchForm($entity_search);
-        $searchForm->handleRequest($request);
-        //Valores introducidos
-        $fecha=$searchForm['dfechaCreacion']->getData();
-        $fecha_cierre=$searchForm['dfechaCierre']->getData();
-        $especificacion=$searchForm['fkIidEspSol']->getData();
-        $codigo=$searchForm['iid']->getData();
-        $estatus=$searchForm['vdescEstatus']->getData();
-        $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
-        //print_r($tipo_solicitud);
-        $detalles=$searchForm['vdetalles']->getData();
-        $contrato=$searchForm['fkIIDContrato']->getData();
-        $nroCaso=$searchForm['iIdCaso']->getData();
-        
-        $tipo=null;
-        if ($especificacion!=null){
-            $tipo=$especificacion->getFkIidEspSol();
-        }
         
         //Buscar usuario logueado
         $ci=$request->getSession()->get('usuario_ci');
         $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                 ->findOneBy(array('pkIci'=>$ci));
-        //
+        $entity_search->setFkIidUsuaDatos($usu);
+        $searchForm = $this->createSearchForm($entity_search);
+        $searchForm->handleRequest($request);
+        //Valores introducidos
+        $fecha=$searchForm['dfechaCreacion']->getData();
+        $fecha_cierre=$searchForm['dfechaCierre']->getData();
+        
+        $estatus=$searchForm['vdescEstatus']->getData();
+        $tipo_solicitud=$searchForm['tbgentiposolicitud']->getData();
+        
+        $contrato=$searchForm['fkIidContrato']->getData();
+        $nroCaso=$searchForm['iidCaso']->getData();
+        
+        
         $qb = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->createQueryBuilder('ss');
-        //usuario
-            $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
-    if ($tipo_solicitud!=null || $especificacion!=null ||
-            $fecha != null ||  $codigo != null || $estatus!=null || 
+        $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
+        
+    if ($tipo_solicitud!=null || $fecha != null || $estatus!=null || 
             $contrato != null || $fecha_cierre!=null || $nroCaso!=null) {
         
-            
-            if ($tipo_solicitud!= null || $detalles!= null) {
+            if ($tipo_solicitud!= null ) {
                      $qb->from('TechTBundle:Tbgenespecsolicitud', 'esp')
                      ->join('ss.fkIidEspSol','fkIidEspSol');
-                if($tipo_solicitud!= null) {
-                    $qb->andwhere('esp.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);       
-                }
+                    $qb->andwhere('fkIidEspSol.fkIidEspSol=?5')->setParameter(5, $tipo_solicitud);       
             }
             if ( $nroCaso!= null) {
                 $qb->andwhere('ss.iidCaso LIKE ?8')->setParameter(8, '%'.$nroCaso);
             }
-            if ($codigo != null) {
-                $qb->andwhere('ss.id=?1')->setParameter(1, $codigo);
-            }
+
             if ( $fecha!= null) {
                 $qb->andwhere('ss.dfechaCreacion LIKE ?2')->setParameter(2, $fecha->format('Y-m-d').'%');
             }
@@ -98,10 +87,18 @@ class TbgensolicitudservicioController extends Controller
                 $qb->andwhere('ss.dfechaCierre LIKE ?7')->setParameter(7, $fecha_cierre->format('Y-m-d').'%');
                 
             }
-            if ($especificacion!= null) {
-                $qb->andwhere('ss.fkIidEspSol=?3')->setParameter(3, $especificacion);
+            if ( $contrato!= null) {
+                $qb->from('TechTBundle:Tbdetcontratorif', 'cr')
+                    ->join('ss.fkIidContrato','fk1')
+                    ->innerjoin('fk1.fkIci','fk2','WITH','fk2=:per')
+                                ->setParameter('per', $usu)
+                    ->join('fk1.fkInroContrato','fk3')
+                        ->andwhere('fk3.pkInroContrato LIKE ?1')
+                                ->setParameter(1, '%'.$contrato);
+                    //$searchForm['fkIidContrato']=null;
             }
-            if ($estatus!= null) {
+            
+            if ($estatus!= null and $estatus!= 'Seleccionar') {
                 $qb->andwhere('ss.vdescEstatus=?4')->setParameter(4, $estatus);
             }
                
@@ -148,16 +145,19 @@ class TbgensolicitudservicioController extends Controller
 
         //$entities = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->findAll();
         $entity_search = new Tbgensolicitudservicio();
-        $searchForm = $this->createSearchForm($entity_search);
+        
         //Buscar usuario logueado
         $ci=$request->getSession()->get('usuario_ci');
         $usu = $em->getRepository('TechTBundle:Tbdetusuariodatos')
                 ->findOneBy(array('pkIci'=>$ci));
-        //
+        
+        $entity_search->setFkIidUsuaDatos($usu);
+        $searchForm = $this->createSearchForm($entity_search);
+        
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
         $qb->andwhere('ss.fkIidUsuaDatos=?6')->setParameter(6, $usu);
-        $qb->orderBy('ss.vdescEstatus', 'ASC');        
-        $qb->addorderBy('ss.dfechaCreacion', 'ASC');        
+       $qb->orderBy('ss.vdescEstatus', 'ASC');        
+        $qb->addorderBy('ss.dfechaCreacion', 'DESC');        
         $query_pages=$qb->getQuery();
         $entities =$query_pages->execute();
             //Se Crea la Paginacion
@@ -167,7 +167,38 @@ class TbgensolicitudservicioController extends Controller
                 $this->get('request')->query->get('page', 1)/*page number*/,
                 7/*limit per page*/
             );
-        //print_r("End");
+        //Actualizacion de los campos fecha cierre, estatus
+        //Creacion de Campos en CRM
+            /* create a object */
+            $utilObj = new Utilities();
+            /* set parameters */
+            
+            
+            
+     foreach ($entities as &$entity) {
+            $parameter='';
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat",'1',$parameter);
+            $parameter = $utilObj->setParameter("id",($entity->getIidCaso()-1),$parameter);
+            /* Call API */
+            //print $parameter;
+            //print '-----/n';
+            $responseINS = $utilObj->sendCurlRequest(TARGETURSLGETBYID, $parameter);
+            $stringResp = <<<XML
+$responseINS
+XML;
+            $resp = simplexml_load_string($stringResp);
+            //print_r((string)$resp->result->Cases->row[0]->FL[4]);
+              /*FIN CRM        * */
+            $estatus=(string)$resp->result->Cases->row[0]->FL[4];
+            $entity->setVdescEstatus($estatus);
+            $fecha = DateTime::createFromFormat('Y-m-d H:i:s', (string)$resp->result->Cases->row[0]->FL[17]);
+            $entity->setDfechaCierre($fecha);
+            $em->persist($entity);
+            $em->flush();
+            $parameter = "";
+     }
         
         return $this->render('TechTBundle:Tbgensolicitudservicio:indexuser.html.twig', array(
               'entities' => $entities,
@@ -175,6 +206,9 @@ class TbgensolicitudservicioController extends Controller
                 'search_form' => $searchForm->createView(),
                 'pagination' => $pagination,
         ));
+        
+        
+        
     }
     public function searchAction() {
         //Verificacion del empleado
@@ -464,7 +498,6 @@ class TbgensolicitudservicioController extends Controller
             
             $contrato= $em->getRepository('TechTBundle:Tbdetcontratorif')
                     ->find($entity->getFkIidContrato()->getFkInroContrato());
-            //print_r($entity->getFkIidContrato());
             if ($contrato==null){
                 
                  $message_error= "Introdujo un contrato inexistente.".$contrato;
@@ -506,7 +539,7 @@ class TbgensolicitudservicioController extends Controller
             'Email' => $usu->getVcorreoEmail(), 
             'Phone' => $usu->getVtelfLocal(),
             'Account Name' => "Prueba Nombre Cuenta",
-            'Número de Contrato'=>'Web-'.$entity->getFkIidContrato()->getFkInroContrato()->getPkInroContrato(),
+            'Número de Contrato'=>$entity->getFkIidContrato()->getFkInroContrato()->getPkInroContrato(),
             'Tipo de Contrato'=>'Alquiler CCTV',
             'Dpto. Encargado' => 'Servicios y Atención al Cliente',
             'Nombre de contacto'=> 'CRISBET',
@@ -692,8 +725,13 @@ XML;
             $resp = simplexml_load_string($stringResp);
             //print_r((string)$resp->result->Cases->row[0]->FL[4]);
               /*FIN CRM        * */
-        $entity->setVdescEstatus((string)$resp->result->Cases->row[0]->FL[4]);
-        if ($entity->getDfechaCierre()!=null){
+            $estatus=(string)$resp->result->Cases->row[0]->FL[4];
+        $entity->setVdescEstatus($estatus);
+        
+        $fecha = DateTime::createFromFormat('Y-m-d H:i:s', (string)$resp->result->Cases->row[0]->FL[17]);
+        $entity->setDfechaCierre($fecha);
+        
+        if ($entity->getDfechaCierre()!=null and $estatus=='Culminado'){
             $dias=(strtotime($entity->getDfechaCierre()->format('d-m-Y'))
                 -strtotime($entity->getDfechaCreacion()->format('d-m-Y')))/3600/24;
         
@@ -701,35 +739,7 @@ XML;
         //$request->getSession()->set('tiempo_servicio_horas',$horas);
         }           
         $idEsp=$entity->getFkIidEspSol()->getId();
-    
-//              if ($idEsp==7 || $idEsp==8 || $idEsp==9){
-//                  
-//                  $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-//                          findOneBy(array('fkIidSolUsu'=>$entity));
-//                  
-//                  $entity->setVdescripcion($detalle->getVdetalle());
-//                  
-//                  
-//              }elseif($idEsp==1 ){
-//                  $detalles=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-//                          findBy(array('fkIidSolUsu'=>$entity));
-//                //$entity->setVpersona($detalles[3]->getVdetalle());
-//                  $entity->setVcorreo($detalles[1]->getVdetalle());
-//                  $entity->setVpersona($detalles[2]->getVdetalle());
-//                  $entity->setVtelefono($detalles[0]->getVdetalle());
-//                  
-//               //   print $entity->getVdescripcion();
-//                  
-//              }elseif ($idEsp==2 || $idEsp==5) {
-//                    $detalle=$em->getRepository('TechTBundle:Tbdetdetalleusuario')->
-//                   findOneBy(array('fkIidSolUsu'=>$entity));
-//                  //print $detalle->getVdetalle();
-//                    if ($detalle!=null){
-//                  $entity->setVdetalles($detalle->getVdetalle());
-//                  //print $entity->getVdescripcion();
-//                    }
-//              }  
-              
+   
     
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);

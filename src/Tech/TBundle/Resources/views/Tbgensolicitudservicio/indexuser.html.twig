@@ -21,25 +21,25 @@
                    <tr>
                        
                           <div class="error">{{ form_errors(search_form.fkIidContrato) }}</div>       
-                   <td width='50'><h2>1.</h2></td><td width="115">
+                   <td width='20'><h2></h2></td><td width="115">
                 {{ form_label(search_form.fkIidContrato, 'Contrato:') }}</td>
                         <td>{{ form_widget(search_form.fkIidContrato,{'required': false}) }}</td>
                  
-                        <td width="55"></td>
+                        <td width="20"></td>
                    
                  <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
-                   <td width='50'><h2>2.</h2></td><td width="115">
+                   <td width='20'></td><td width="150">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
                     
-                 <td width="55"></td>
+                 <td width="20"></td>
                 <div class="error" >
-                {{ form_errors(search_form.fkIidEspSol) }}</div>       
-                 <td width='50'><h2>3.</h2></td><td width="100">
-                {{ form_label(search_form.fkIidEspSol, 'Especificación:') }}</td>
-                        <td>{{ form_widget(search_form.fkIidEspSol,{'required': false}) }}</td>
+                {{ form_errors(search_form.vdescEstatus) }}</div>       
+                 <td width='20'><h2></h2></td><td width="130">
+                {{ form_label(search_form.vdescEstatus, 'Estatus:') }}</td>
+                 <td>{{ form_widget(search_form.vdescEstatus,{'required': false}) }}</td>
            
-           
+
                      </tr>
                      
                         <tr>
@@ -49,7 +49,7 @@
                 {{ form_label(search_form.iid, 'Nro Caso:') }}</td>
                         <td>{{ form_widget(search_form.iidCaso,{'required': false}) }}</td>
                         
-                     <td width="15"></td>
+                     <td width="20"></td>
                        <div class="error">
                 {{ form_errors(search_form.dfechaCreacion) }}</div>       
                     <td></td><td width="130">
@@ -57,21 +57,26 @@
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
                         
                 
-                
+                   <td width="20"></td>
+                       <div class="error">
+                {{ form_errors(search_form.dfechaCierre) }}</div>       
+                    <td></td><td width="150">
+                {{ form_label(search_form.dfechaCierre, 'Fecha Cierre:') }}</td>
+                        <td>{{ form_widget(search_form.dfechaCierre,{'required': false,'type': 'date'})}}</td>
+                        
                        </tr>
                    
                      <div style="display: none;">     
+                {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
                 {{ form_row(search_form.iid, {'required' : false})}}
-                {{ form_row(search_form.vdescEstatus, {'required' : false})}}
-                {{ form_row(search_form.dfechaCierre, {'required' : false})}}
                 {{ form_row(search_form.iidCaso, {'required' : false})}}
                 {{ form_row(search_form.vdetalles, {'required' : false})}}
-                {{ form_row(search_form.fkIidUsuaDatos, {'required' : false})}}
+                
                 {{ form_row(search_form.vpersona, {'required' : false})}}                      
                 {{ form_row(search_form.vcorreo, {'required' : false})}}                      
-                {{ form_row(search_form.vtelefono, {'required' : false})}}                      
-                {{ form_row(search_form.fkIidContrato, {'required' : false})}}  
+                {{ form_row(search_form.vtelefono, {'required' : false})}}                       
                 {{ form_row(search_form.vdescripcion, {'required' : false})}}                      
+                {{ form_row(search_form.fkIidEspSol, {'required' : false})}}                      
                  
                 {{ form_row(search_form.submit, { 'label': 'Buscar' }) }}        
                 {{ form_row(search_form.reset, { 'label': 'Limpiar' }) }}  
@@ -105,15 +110,21 @@
         <table class="records_list">
             {% if (pagination.getTotalItemCount!=0) %}
             <thead> 
-            <td align="center"  width="160"><h4 ><strong>Nro Caso</strong></h4></td>
-                <td width="40"></td>
-                <td align="center"  width="160"><h4><strong>Tipo Solicitud</strong></h4></td>
-                <td width="40"></td>
-                <td align="center" width="160"><h4><strong>Especificación</strong></h4></td>
-                <td width="40"></td>
-                <td align="center" width="80"><h4><strong>Fecha</strong></h4></td>
-                <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Nro Caso</strong></h4></td>
+                <td width="20"></td>
+                <td align="center" width="90"><h4><strong>Estatus Caso</strong></h4></td>
+                <td width="20"></td>
+                <td align="center"  width="150"><h4><strong>Tipo Solicitud</strong></h4></td>
+                <td width="20"></td>
+                <td align="center" width="80"><h4><strong>Contrato</strong></h4></td>
+                <td width="20"></td>
+                
+                <td align="center" width="80"><h4><strong>Fecha Creacion</strong></h4></td>
+                <td width="20"></td>
+                <td align="center" width="80"><h4><strong>Fecha Cierre</strong></h4></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
+                
               </thead>
         {% else %}
          <thead><div align="left"> 
@@ -128,14 +139,18 @@
                     {% set t= entity.iIdCaso|length %}
                 
                 <td align="center"><a href="{{ path('SolicitudServicio_show', { 'id': entity.id }) }}">{{ entity.iIdCaso[t-4:] }}</a></td>
-                <td width="40"></td>
+                <td width="20"></td>
+                <td align="center" width="80">{{ entity.vdescEstatus}} </td>
+                <td width="20"></td>
                 <td align="center" width="80">{{ entity.fkIidEspSol.fkIidEspSol.vnombreTipoSol}} </td>
-                <td width="40"></td>                    
-                <td align="center" width="80">{{ entity.fkIidEspSol.vnombreEspSol}} </td>
-                <td width="40"></td>
-                <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
-                <td width="40"></td>
+                <td width="20"></td>                    
+                <td align="center" width="80">{{ entity.fkIidContrato.fkInroContrato.valias}} {{ entity.fkIidContrato}} </td>
+                <td width="20"></td>
                 
+                <td align="center" width="80">{% if entity.dfechaCreacion %}{{ entity.dfechaCreacion|date('d-m-Y') }}{% endif %}</td>
+                <td width="20"></td>
+                <td align="center" width="80">{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'):'No posee' }}</td>
+                <td width="20"></td>
                 
                   
                 <td align="center" width="120">
