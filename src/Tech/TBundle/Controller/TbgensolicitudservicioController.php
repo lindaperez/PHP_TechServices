@@ -395,8 +395,8 @@ XML;
         $searchForm = $this->createSearchForm($entity_search);
         $qb = $em->getRepository('TechTBundle:tbgensolicitudservicio')->createQueryBuilder('ss');
 
+        $qb->addorderBy('ss.dfechaCreacion', 'DESC');
         $qb->addorderBy('ss.vdescEstatus', 'ASC');
-        $qb->addorderBy('ss.dfechaCierre', 'DESC');
         $qb->addorderBy('ss.iidCaso', 'ASC');
 
         $query_pages = $qb->getQuery();
@@ -437,7 +437,6 @@ XML;
             $em->flush();
             $parameter = "";
         }
-
         return $this->render('TechTBundle:Tbgensolicitudservicio:index.html.twig', array(
                     'entities' => $entities,
                     'entity' => $entity_search,
@@ -606,7 +605,7 @@ XML;
                         'form' => $form->createView(),
             ));
         }
-        print $form->getErrorsAsString();
+        //print $form->getErrorsAsString();
         return $this->render('TechTBundle:Tbgensolicitudservicio:new.html.twig', array('id' => $entity->getId(),
                     'form' => $form->createView(),
         ));
@@ -726,43 +725,43 @@ XML;
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbgensolicitudservicio entity.');
         }
-        //**
+        //Actualizacion de los campos fecha cierre, estatus
         //Creacion de Campos en CRM
         /* create a object */
         $utilObj = new Utilities();
         /* set parameters */
-
-        $parameter = "";
-        $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
-        $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
-        $parameter = $utilObj->setParameter("newFormat", '1', $parameter);
-        $parameter = $utilObj->setParameter("id", ($entity->getIidCaso() - 1), $parameter);
-        /* Call API */
-        $responseINS = $utilObj->sendCurlRequest(TARGETURSLGETBYID, $parameter);
-        $stringResp = <<<XML
+            $parameter = '';
+            $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
+            $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
+            $parameter = $utilObj->setParameter("newFormat", '1', $parameter);
+            $parameter = $utilObj->setParameter("id", ($entity->getIidCaso() - 1), $parameter);
+            
+            /* Call API */
+            //print $parameter;
+            //print '-----/n';
+            $responseINS = $utilObj->sendCurlRequest(TARGETURSLGETBYID, $parameter);
+            $stringResp = <<<XML
 $responseINS
 XML;
-        $resp = simplexml_load_string($stringResp);
-        //print_r((string)$resp->result->Cases->row[0]->FL[4]);
-        /* FIN CRM        * */
-        $estatus = (string) $resp->result->Cases->row[0]->FL[4];
-        $entity->setVdescEstatus($estatus);
-
-        $fecha = DateTime::createFromFormat('Y-m-d H:i:s', (string) $resp->result->Cases->row[0]->FL[17]);
-        $entity->setDfechaCierre($fecha);
-
+            $resp = simplexml_load_string($stringResp);
+            //print_r((string)$resp->result->Cases->row[0]->FL[4]);
+            /* FIN CRM        * */
+            $estatus = (string) $resp->result->Cases->row[0]->FL[4];
+            $entity->setVdescEstatus($estatus);
+            $fecha = DateTime::createFromFormat('Y-m-d H:i:s', (string) $resp->result->Cases->row[0]->FL[17]);
+            $entity->setDfechaCierre($fecha);
+            
         if ($entity->getDfechaCierre() != null and $estatus == 'Culminado') {
             $dias = (strtotime($entity->getDfechaCierre()->format('d-m-Y')) - strtotime($entity->getDfechaCreacion()->format('d-m-Y'))) / 3600 / 24;
 
             $request->getSession()->set('tiempo_servicio_dias', $dias);
             //$request->getSession()->set('tiempo_servicio_horas',$horas);
         }
-        $idEsp = $entity->getFkIidEspSol()->getId();
-
-
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -795,7 +794,8 @@ XML;
      * Edits an existing Tbgensolicitudservicio entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+         public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbgensolicitudservicio')->find($id);
@@ -808,31 +808,35 @@ XML;
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
-        $estatus = $editForm['vdescEstatus']->getData();
+        $estatus=$editForm['vdescEstatus']->getData();
         $editForm->handleRequest($request);
 
 
 
         if ($editForm->isValid()) {
-            if ($estatus != $entity_old->getVdescEstatus()) {
+            if ($estatus!=$entity_old->getVdescEstatus()){
                 //print "true";
-                $usu = $entity_old->getFkIidUsuaDatos();
+                $usu=$entity_old->getFkIidUsuaDatos();
 
-                $this->mailer($entity_old, $usu->getVcorreoEmail(), $usu->getVnombre(), 'TechTBundle:Tbgensolicitudservicio:mailCamEstado.html.twig');
-            }
-            //si estatus cerrado setear fecha fin
-            if ($editForm['vdescEstatus']->getData() == 'Culminado') {
+         $this->mailer($entity_old,$usu->getVcorreoEmail(),
+                            $usu->getVnombre(),
+                            'TechTBundle:Tbgensolicitudservicio:mailCamEstado.html.twig');
+                }
+                //si estatus cerrado setear fecha fin
+                if ($editForm['vdescEstatus']->getData()=='Culminado'){
 
                 date_default_timezone_set('America/Caracas');
                 $date_changes = new DateTime('NOW');
                 $entity->setDfechaCierre($date_changes);
-            } else {
+
+                }else{
 
                 $entity->setDfechaCierre(null);
-            }
+
+                }
 
             $em->flush();
-            //Creacion de Campos en CRM
+                   //Creacion de Campos en CRM
             /* create a object */
             $utilObj = new Utilities();
             /* set parameters */
@@ -840,31 +844,30 @@ XML;
             $parameter = "";
             $parameter = $utilObj->setParameter("scope", SCOPE, $parameter);
             $parameter = $utilObj->setParameter("authtoken", AUTHTOKEN, $parameter);
-            $parameter = $utilObj->setParameter("id", ($entity->getIidCaso() - 1), $parameter);
-
-            $records = array(
-                'Status' => $entity->getVdescEstatus()
-            );
-            $dataXml = $utilObj->parseXMLandInsertInBd($records);
-            if ($dataXml != null) {
-                //       print $dataXml;
-            }
-            $parameter = $utilObj->setParameter("xmlData", $dataXml, $parameter);
+            $parameter = $utilObj->setParameter("id",($entity->getIidCaso()-1),$parameter);
+  $records = array(
+            'Status'=> $entity->getVdescEstatus()
+                );
+            $dataXml=$utilObj->parseXMLandInsertInBd($records);
+            if ($dataXml!=null){
+        //       print $dataXml;
+             }
+            $parameter = $utilObj->setParameter("xmlData",$dataXml, $parameter);
             /* Call API */
             $responseINS = $utilObj->sendCurlRequest(TARGETURLUPD, $parameter);
-            /* FIN CRM        * */
+            /*FIN CRM        * */
 
-            $message_info = "Recuerde revisar su correo electrónico.";
-            $message_success = "Su solicitud ha sido editada correctamente.";
-            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
-            $this->get('session')->getFlashBag()->add('flash_info', $message_info);
+        $message_info = "Recuerde revisar su correo electrónico.";
+            $message_success= "Su solicitud ha sido editada correctamente.";
+                $this->get('session')->getFlashBag()->add('flash_success', $message_success);
+                $this->get('session')->getFlashBag()->add('flash_info', $message_info);
             return $this->redirect($this->generateUrl('SolicitudServicio_edit', array('id' => $id)));
         }
 
         return $this->render('TechTBundle:Tbgensolicitudservicio:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
