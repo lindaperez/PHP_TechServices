@@ -29,14 +29,14 @@
                 {{ form_label(search_form.fkIidContrato, 'Contrato:') }}</td>
                         <td>{{ form_widget(search_form.fkIidContrato,{'required': false}) }}</td>
                    
-                        <td width="55"></td>
+                        <td width="20"></td>
                  <div class="error">{{ form_errors(search_form.tbgentiposolicitud) }}</div>       
                    <td width='50' ><h2></h2></td><td width="115">
                 {{ form_label(search_form.tbgentiposolicitud, 'Tipo Solicitud:') }}</td>
                         <td>{{ form_widget(search_form.tbgentiposolicitud,{'required': false}) }}</td>
                     
                  
-                        <td width="55"></td>
+                        <td width="20"></td>
                 
                         <div class="error" >
                 {{ form_errors(search_form.vdescEstatus) }}</div>       
@@ -44,7 +44,7 @@
                 {{ form_label(search_form.vdescEstatus, 'Estatus:') }}</td>
                         <td>{{ form_widget(search_form.vdescEstatus,{'required': false}) }}</td>
                  
-                        <td width="55"></td>
+                        <td width="20"></td>
                         
                         
                         
@@ -57,17 +57,17 @@
                         <td></td><td width="115">
                 {{ form_label(search_form.iidCaso, 'Nro Caso:') }}</td>
                         <td>{{ form_widget(search_form.iidCaso,{'required': false}) }}</td>
-                        <td width="15"></td>
+                        <td width="20"></td>
                      
                         
                         
                    
                    <div class="error">
                 {{ form_errors(search_form.dfechaCreacion) }}</div>       
-                    <td></td><td width="130">
+                    <td></td><td width="150">
                 {{ form_label(search_form.dfechaCreacion, 'Fecha Creación:') }}</td>
                         <td>{{ form_widget(search_form.dfechaCreacion,{'required': false,'type': 'date'})}}</td>
-                   <td></td>
+                   <td width="20"></td>
                         <div class="error">
                 {{ form_errors(search_form.dfechaCierre) }}</div>       
                     <td></td><td width="130">
@@ -167,7 +167,12 @@
                 <td width="20"></td>
                 <td align="center" width="80">{{ entity.dfechaCreacion|date('d-m-Y') }}</td>
                 <td width="20"></td>
+                {% if entity.vdescEstatus=='Culminado'%}
                 <td align="center" width="80">{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'):'No posee'}}</td>
+                {% else%}
+                <td align="center" width="80">No posee</td>
+                
+                {%endif%}
                 <td width="20"></td>
                 
                  

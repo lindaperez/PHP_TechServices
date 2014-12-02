@@ -42,21 +42,13 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             comment: ''
             column: dFECHA_CIERRE
         iidCaso:
-            type: bigint
-            nullable: false
-            unsigned: false
+            type: string
+            nullable: true
+            length: 254
+            fixed: false
             comment: ''
             column: iID_CASO
     manyToOne:
-        fkIidContrato:
-            targetEntity: Tbdetusuariocontrato
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_Contrato:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidUsuaDatos:
             targetEntity: Tbdetusuariodatos
             cascade: {  }
@@ -73,6 +65,15 @@ Tech\TBundle\Entity\Tbgensolicitudservicio:
             inversedBy: null
             joinColumns:
                 fk_iID_ESP_SOL:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidContrato:
+            targetEntity: Tbdetusuariocontrato
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_Contrato:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

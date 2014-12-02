@@ -150,9 +150,13 @@
                 <td align="center" width="60">{{ entity.fkIidContrato}} </td>
                 <td width="20"></td>
                 
+                {% if entity.vdescEstatus=='Culminado'%}
                 <td align="center" width="80">{{ entity.dfechaCierre?entity.dfechaCierre|date('d-m-Y'):'No posee'}}</td>
-                <td width="20"></td>
+                {% else%}
+                <td align="center" width="80">No posee</td>
                 
+                {%endif%}
+                <td width="20"></td>
                  
                 <td align="center">
                     

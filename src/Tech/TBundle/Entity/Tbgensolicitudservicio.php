@@ -43,9 +43,9 @@ class Tbgensolicitudservicio
     private $dfechaCierre;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="iID_CASO", type="bigint", nullable=false)
+     * @ORM\Column(name="iID_CASO", type="string", length=254, nullable=true)
      */
     private $iidCaso;
 
@@ -124,7 +124,7 @@ class Tbgensolicitudservicio
      */
     private $fkIidEspSol;
 
- /**
+    /**
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
@@ -143,7 +143,7 @@ class Tbgensolicitudservicio
         return $this;
     }
 
-    
+
     public function getIid()
     {
         return $this->id;
@@ -310,7 +310,7 @@ class Tbgensolicitudservicio
     /**
      * Set iidCaso
      *
-     * @param integer $iidCaso
+     * @param string $iidCaso
      * @return Tbgensolicitudservicio
      */
     public function setIidCaso($iidCaso)
@@ -323,7 +323,7 @@ class Tbgensolicitudservicio
     /**
      * Get iidCaso
      *
-     * @return integer 
+     * @return string 
      */
     public function getIidCaso()
     {
@@ -398,7 +398,7 @@ class Tbgensolicitudservicio
     {
         return $this->fkIidEspSol;
     }
-           //to string method   
+               //to string method   
     public function __toString()
     {
         
