@@ -141,7 +141,8 @@
                 <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Fecha Cierre</strong></h4></td>
                 <td width="20"></td>
-                <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
+                <td align="center" width="60"><h4><strong>Acciones</strong></h4></td>
+                
             </tr>
         </thead>
         {% else %}
@@ -186,19 +187,19 @@
                         <a href="{{ path('SolicitudServicio_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
                         
                     </li>
-                
+                </ul>
                 </td>
                  
             
                 
-            <td width="120">
+            <td width="100">
                 <ul>
                     <li>
                         <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
                     <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
-                    <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
-                   <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
                     </div>  
                     </div>
                         </li>
