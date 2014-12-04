@@ -22,6 +22,15 @@
                     </td>
                     <td width="20"></td>
                     <td>
+                        
+                <div class="error">
+                        {{ form_errors(form.fkIrif) }}</div>       
+                   <table> <td width="100">
+                    {{ form_label(form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(form.fkIrif) }}</td></table>
+                        </td>
+            <td width="20"></td>
+            <td>
             <div class="error">
                         {{ form_errors(form.vdns) }}</div>       
                     <table><td width="100">
@@ -30,15 +39,7 @@
                     </td>
                     
             
-            <td width="20"></td>
-            <td>
-                        
-                <div class="error">
-                        {{ form_errors(form.fkIrif) }}</div>       
-                   <table> <td width="100">
-                    {{ form_label(form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
-                        <td>{{ form_widget(form.fkIrif) }}</td></table>
-            </td>
+            
             </tr>
             <tr>
                     <td>    

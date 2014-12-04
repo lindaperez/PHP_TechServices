@@ -8,12 +8,12 @@
 
         <h1>Edición de Contrato</h1>
         
-        <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" >
+        <form action="{{ path('Contratos_update',{ 'id': entity.id }) }}" method="post" id="login">
             <table>
                 
 {{ form_start(edit_form) }}
         {{ form_errors(edit_form) }}
-                
+                <tr>
                 <td>
                <div class="error">
                         {{ form_errors(edit_form.pkInroContrato) }}</div>       
@@ -22,29 +22,38 @@
                         <td>{{ form_widget(edit_form.pkInroContrato) }}</td>
                     </table>
                     
-                    
-                         <div class="error">
-                        {{ form_errors(edit_form.vdns) }}</div>       
-                    <table><td width="100">
-                    {{ form_label(edit_form.vdns, 'DNS:', {'required': 'true'}) }}</td>
-                        <td>{{ form_widget(edit_form.vdns) }}</td></table>
-                    </td>
-                    <td width="20"></td>
-                    <td>
-                <div class="error">
+                 </td>
+                 
+                 <td width="20"></td>
+                     <td>
+                      <div class="error">
                         {{ form_errors(edit_form.fkIrif) }}</div>       
                     <table>  <td width="100">
                     {{ form_label(edit_form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(edit_form.fkIrif) }}</td>
                     </table>
+                        </td>  
+                    <td width="20"></td>
+                    <td>
+           
+                                     <div class="error">
+                        {{ form_errors(edit_form.vdns) }}</div>       
+                    <table><td width="100">
+                    {{ form_label(edit_form.vdns, 'DNS:', {'required': 'true'}) }}</td>
+                        <td>{{ form_widget(edit_form.vdns) }}</td></table>
+                    </td>      
+                </tr>
+                <tr>
+                                            <td>
                            <div class="error">
                         {{ form_errors(edit_form.vubicacionfisica) }}</div>       
                  <table>   <td width="100">
-                    {{ form_label(edit_form.vubicacionfisica, 'Ubicación Física:', {'required': 'true'}) }}</td>
+                    {{ form_label(edit_form.vubicacionfisica, 'Ubicación:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(edit_form.vubicacionfisica) }}</td></table>
                     
             </td>
             <td width="20"></td>
+
             <td>
                     <div class="error">
                         {{ form_errors(edit_form.valias) }}</div>       
@@ -53,7 +62,7 @@
                         <td>{{ form_widget(edit_form.valias) }}</td> </table>
             
                 </td>
-            
+            </tr>          
             <div style="display: none;">
 
                 {{ form_row(edit_form.submit, { 'label': 'Guardar' }) }}
