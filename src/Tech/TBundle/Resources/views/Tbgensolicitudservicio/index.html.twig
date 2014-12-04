@@ -177,7 +177,7 @@
                 <td width="20"></td>
                 
                  
-                <td align="center">
+                <td align="center" width="90">
                     
                 <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
                 <ul align="center">
@@ -188,22 +188,24 @@
                         
                     </li>
                 </ul>
-                </td>
+                
                  
             
-                
-            <td width="100">
-                <ul>
+                 {% if entity.vdescEstatus=='Culminado'%}    
+                <ul align="center">
                     <li>
                         <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
                     <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
-                    <img title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
-                    <img title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
-                    <img  title="Calificar Servicio" width='16' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
                     </div>  
                     </div>
                         </li>
                         </ul>
+                {%endif%}
                         </td>
             <tr>
         {% endfor %}            

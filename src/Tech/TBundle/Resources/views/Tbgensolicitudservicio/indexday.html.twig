@@ -115,17 +115,17 @@
                 <tr>
           <td align="center"  width="70"><h4 ><strong>Nro Caso</strong></h4></td>
                 <td width="20"></td>
-                    <td align="center" width="120"><h4><strong>Usuario</strong></h4></td>
+                    <td align="center" width="130"><h4><strong>Usuario</strong></h4></td>
                 <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Estatus Caso</strong></h4></td>
                 <td width="20"></td>
-                <td align="center"  width="140"><h4><strong>Tipo Solicitud</strong></h4></td>
+                <td align="center"  width="160"><h4><strong>Tipo Solicitud</strong></h4></td>
                 <td width="20"></td>
                 <td align="center" width="40"><h4><strong>Contrato</strong></h4></td>
                 <td width="20"></td>
-                <td align="center" width="80"><h4><strong>Fecha Cierre</strong></h4></td>
+                <td align="center" width="90"><h4><strong>Fecha Cierre</strong></h4></td>
                 <td width="20"></td>
-                <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
+                <td align="center" width="60"><h4><strong>Acciones</strong></h4></td>
             </tr>
         </thead>
         {% else %}
@@ -158,7 +158,7 @@
                 {%endif%}
                 <td width="20"></td>
                  
-                <td align="center">
+                <td align="center" width="80">
                     
                 <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
                 <ul align="center">
@@ -170,8 +170,24 @@
                     </li>
                     
                 </ul>
+
+            {% if entity.vdescEstatus=='Culminado'%}                   
+                <ul align="center">
+                    <li>
+                        <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
+                    <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
+                    <img title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
+                    </div>  
+                    </div>
+                        </li>
+                        </ul>
+            {% endif%}        
+                
                 </td>
-                 
             </tr>
         {% endfor %}            
            </tbody>
