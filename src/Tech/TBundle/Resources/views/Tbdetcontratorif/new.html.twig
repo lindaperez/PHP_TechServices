@@ -11,21 +11,25 @@
             <table>
         {{ form_start(form) }}    
         {{ form_errors(form) }}
+                <tr>
                 <td>
                     
                <div class="error">
                         {{ form_errors(form.pkInroContrato) }}</div>       
-                   <table>   <td width="100">
+                   <table>   <td width="200">
                     {{ form_label(form.pkInroContrato, 'Contrato:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(form.pkInroContrato) }}</td></table>
+                    </td>
+                    <td width="20"></td>
+                    <td>
             <div class="error">
                         {{ form_errors(form.vdns) }}</div>       
                     <table><td width="100">
-                    {{ form_label(form.vdns, 'Domain Name Server:', {'required': 'true'}) }}</td>
+                    {{ form_label(form.vdns, 'DNS:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(form.vdns) }}</td></table>
-       
-                        
-            </td>
+                    </td>
+                    
+            
             <td width="20"></td>
             <td>
                         
@@ -34,13 +38,18 @@
                    <table> <td width="100">
                     {{ form_label(form.fkIrif, 'Rif:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(form.fkIrif) }}</td></table>
-            <div class="error">
+            </td>
+            </tr>
+            <tr>
+                    <td>    
+                <div class="error">
                         {{ form_errors(form.vubicacionfisica) }}</div>       
                  <table>   <td width="100">
-                    {{ form_label(form.vubicacionfisica, 'Ubicación Física:', {'required': 'true'}) }}</td>
+                    {{ form_label(form.vubicacionfisica, 'Ubicación:', {'required': 'true'}) }}</td>
                         <td>{{ form_widget(form.vubicacionfisica) }}</td></table>
                     
             </td>
+            
             <td width="20"></td>
             <td>
                     
@@ -53,6 +62,7 @@
             
                     
               </td>
+              </tr>
               <td width="20"></td>
               <tr>
                   <td></td>

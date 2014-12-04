@@ -26,7 +26,7 @@ class TbdetcontratorifType extends AbstractType
             ->add('valias')
             ->add('vdns')
             ->add('vubicacionfisica','textarea',array( 'required' => false,
-                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:170px;height:90px')));
+                'attr' => array('cols' => '5', 'rows' => '5','style'=>'width:140px;height:90px')));
         ;
     }
     

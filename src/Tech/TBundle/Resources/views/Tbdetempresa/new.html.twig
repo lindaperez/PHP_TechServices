@@ -9,19 +9,47 @@
 <form action="{{ path('Empresa_create') }}" method="post" id="login">
  {{ form_start(form) }}
         {{ form_errors(form) }}
+    <table>
+    <td>
           <div class="error">
             {{ form_errors(form.pkIrif) }}</div>       
         <table>  <td width="100">
         {{ form_label(form.pkIrif, 'Rif:', {'required': 'true'}) }}</td>
             <td>{{ form_widget(form.pkIrif) }}</td>
         </table>
+        </td>
+        <td width="30"></td>
+        <td>
         <div class="error">
         {{ form_errors(form.vdireccionFiscal) }}</div>       
         <table>  <td width="100">
         {{ form_label(form.vdireccionFiscal, 'Dir-Fiscal:', {'required': 'true'}) }}</td>
         <td>{{ form_widget(form.vdireccionFiscal) }}</td>
         </table>
+            </td>
+            <td width="30"></td>
+        <td>
+        <div class="error">
+        {{ form_errors(form.vnombre) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.vnombre, 'Nombre:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.vnombre) }}</td>
+        </table>
+</td>
+
+<td width="30"></td>
+<tr>
+    <td>
+     <div class="error">
+        {{ form_errors(form.vrazonSocial) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.vrazonSocial, 'Razón Social:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.vrazonSocial) }}</td>
         
+        </table>
+    </td>
+    </tr>
+    </table>
         <div style="display: none;">
         {{ form_row(form.submit, { 'label': 'Crear' }) }}
     </div>

@@ -174,12 +174,15 @@ En mysql cargar la BD
 mysql -h localhost -u root -p
 Clave de Mysql t3chtr0l2014
 
+drop database mydb;
 create database mydb;
 use mydb; 
 source bd.sql
 
 show tables;
 
+
+Borrar bd
 
 
 create user admin_techtrol identified by 	'admin'

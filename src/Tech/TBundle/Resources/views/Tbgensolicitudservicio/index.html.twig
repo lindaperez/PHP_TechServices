@@ -189,7 +189,22 @@
                 
                 </td>
                  
-            </tr>
+            
+                
+            <td width="120">
+                <ul>
+                    <li>
+                        <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
+                    <div id="dialog{{entity.id}}"  align="left"  onclick="popup({maxvalue: '5', curvalue:'0', id:'20', iid:'{{entity.id}}'}); return false;"  />                      
+                    <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
+                   <img title="Calificar" width='14' type=image src="/bundles/techt/images/star1_1.gif" />
+                    </div>  
+                    </div>
+                        </li>
+                        </ul>
+                        </td>
+            <tr>
         {% endfor %}            
            </tbody>
         </table>

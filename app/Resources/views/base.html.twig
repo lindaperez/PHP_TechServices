@@ -161,7 +161,7 @@
 
                                 <li><a href="{{ path('UsuariosContratos') }}" title="Mis Contratos"><img src="" alt="">Mis Contratos</a></li>
                                 {%else %}
-
+                                  <li><a href="{{ path('Contratos_new') }}" title="Crear Contrato"><img src="" alt="">Crear Contrato</a></li>
                                 <li><a href="{{ path('Contratos') }}" title="Listado de Contratos"><img src="" alt="">Listado de Contratos</a></li>
 
 
@@ -171,6 +171,7 @@
                     {%  if(app.session.get('usuario_rol')!="Cliente") %}
                         <li class="topmenu"><a href="#" title="Empresas" style="width:180px;"><span><img src="" alt="">Empresas</span></a>
                             <ul>
+                                <li><a href="{{ path('Empresa_new') }}" title="Crear Empresa"><img src="" alt="">Crear Empresa</a></li>
                                 <li><a href="{{ path('Empresa') }}" title="Listado de Empresas"><img src="" alt="">Listado de Empresas</a></li>
                             </ul>
                         </li>
