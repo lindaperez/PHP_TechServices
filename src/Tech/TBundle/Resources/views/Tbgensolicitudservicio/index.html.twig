@@ -244,8 +244,8 @@ popup= function(options) {
            jQuery.extend(settings, {cancel: (settings.maxvalue > 1) ? true : false});	
         //Buscar Curvalue
 
+        //var url2 = '/app/CalidadServicio/popupcalif';
         var url2 = '/app/CalidadServicio/popupcalif';
-        
    // mostrar un imágenes de cargando a través de CSS
    //alert(settings.iid);
    var onclick;
@@ -256,12 +256,12 @@ popup= function(options) {
        closeText: 'Guardar y Cerrar',
        show: {
            effect: "blind",
-           duration: 1000
+           duration: 10
            
        },
        hide: {
            effect: "explode",
-           duration: 1000
+           duration: 500
        },
       close: function(event, ui) {
           
