@@ -202,6 +202,8 @@
                     <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
                     <img  title="Calificar Servicio" width='13' type=image src="/bundles/techt/images/star1_1.gif" />
                     </div>  
+                            
+                            
                     </div>
                         </li>
                         </ul>
@@ -244,8 +246,8 @@ popup= function(options) {
            jQuery.extend(settings, {cancel: (settings.maxvalue > 1) ? true : false});	
         //Buscar Curvalue
 
-        //var url2 = '/app/CalidadServicio/popupcalif';
         var url2 = '/app/CalidadServicio/popupcalif';
+        //var url2 = '/CalidadServicio/popupcalif';
    // mostrar un imágenes de cargando a través de CSS
    //alert(settings.iid);
    var onclick;
@@ -270,13 +272,14 @@ popup= function(options) {
           dialog.attr('onclick',onclick);
           
       },
-      
+
       modal: true,
       tittle: "Calificacion del Servicio",
       width:500,
       height:300
    });
-   
+           
+        
    dialog.load(
       url2,
       {
@@ -285,6 +288,7 @@ popup= function(options) {
          maxvalue: settings.maxvalue,
          curvalue: settings.curvalue
       }, // Datos para enviar (es este caso, ninguno)
+              
       function (responseText, textStatus, XMLHttpRequest) {
          // Quitar el class de “cargando”
          dialog.removeClass('loading');

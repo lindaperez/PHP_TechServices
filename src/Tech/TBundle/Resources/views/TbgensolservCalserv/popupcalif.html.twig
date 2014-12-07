@@ -10,7 +10,7 @@
 
     
     
-<div class="popup_container" >
+<div id='pop' class="popup_container" >
 
     <section width="200px" class="popup">
         <h1>Calificacion de Servicio (&#9733;) </h1>
@@ -18,15 +18,21 @@
         <table>
         <tr><td>Trato del Técnico: </td><td><div id="star1" class="rating" >&nbsp;</div></td>            </tr>
         <tr><td>Nivel de Satisfacción: </td><td><div id="star2" class="rating" >&nbsp;</div></td>            </tr>
-           
+        <tr><td></td><td><input type="submit" value="Cerrar" onclick='closeWin();'></button>  <td></tr>
         <noscript>&#9733;ec-stars-wrapperNecesita tener habilitado javascript para poder votar</noscript>
         </table>
             </div>
     </section>
-        
+      
 </div>
        <script type="text/javascript">
-           
+           function closeWin() {
+   
+        $('#pop').parent().dialog('close');       
+    
+    }
+        
+         
        $(document).ready(function() {
 
 $('#star1').rate({maxvalue: '{{maxvalue}}', curvalue:'{{curvalue}}', id:'{{iid}}',iid: '{{iid_solicitud}}',id_preg: 1, path:'/app/CalidadServicio/getcalif', path2: '/app/CalidadServicio/calif'});

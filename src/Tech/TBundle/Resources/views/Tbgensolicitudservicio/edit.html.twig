@@ -112,7 +112,7 @@
             
             <tr>
                 <td width="20" height="20">Calificar Servicio: </td>
-            <td width="80">
+            <td  width="80">
                 <ul>
                     <li>
                         <div  title="Haz Click Para Calificar tu Servicio" id="extern{{entity.id}}">
@@ -190,7 +190,7 @@ popup= function(options) {
         //Buscar Curvalue
 
         var url2 = '/app/CalidadServicio/popupcalif';
-        
+        //var url2 = '/CalidadServicio/popupcalif';
    // mostrar un imágenes de cargando a través de CSS
    //alert(settings.iid);
    var onclick;
@@ -201,12 +201,12 @@ popup= function(options) {
        closeText: 'Guardar y Cerrar',
        show: {
            effect: "blind",
-           duration: 1000
+           duration: 100
            
        },
        hide: {
            effect: "explode",
-           duration: 1000
+           duration: 400
        },
       close: function(event, ui) {
           
