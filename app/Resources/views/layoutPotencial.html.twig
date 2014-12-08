@@ -1,0 +1,33 @@
+{% extends "basePotencial.html.twig" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/techt/css/demo.css') }}" />
+    
+{% endblock %}
+
+{% block title 'Techtrol' %}
+
+{% block body %}
+
+    {% block content_header %}
+
+        
+            
+            {% block content_header_more %}
+            
+            
+    {{ parent() }}
+            {% endblock %}
+                
+        <div style="clear: both"></div>
+    {% endblock %}
+
+    <div class="block">
+        {% block content %}
+        
+{% endblock %}
+        <br><br>
+</div>
+
+
+{% endblock %}
