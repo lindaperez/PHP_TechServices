@@ -1,226 +1,207 @@
 {% extends '::layoutPotencial.html.twig' %}
 
 {% block content %}
-     
- 
-
-  <div class="container richtextpage pages">
+<div class="container richtextpage pages">
     <div class="row contact">
-   <div class="span8">
- <div class="row text">
-          <div class="span8">
- <h1>Atención al cliente</h1>
-<ul>
-<li>
-<h2><strong>0501 CAMARAS</strong><span>&nbsp;(2262727)</span></h2>
-</li>
-<li>Email:&nbsp;<strong><a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></strong></li>
-<li>Email2: <strong><a href="mailto:atencionalcliente@techtrol.com.ve">atencionalcliente@techtrol.com.ve</a></strong></li>
-</ul>
-     
-          </div>
- </div>
+        <div class="span4">
 
-        <div class="row">
-          <div class="span4">
-            <div class="principal">
-              <div class="address">
-                <ul>
-                  <li><h2><i class="fa fa-map-marker highlighted"></i> Oficina Principal</h2>
-                  </li><li>Calle 6 con calle 8, Edificio ZYS.</li>
-                  <li> La Urbina, Caracas, Venezuela.</li>
-                  <li><i class="fa fa-phone highlighted"></i> <a href="tel:0212 242 3062">0212 242 3062</a></li>
-                  
-                  
-                  <li>Fax: 0212 242 1119</li>
-                  
-                  <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></li>
-                </ul>
-              </div>
+            <div class="row text">
+                <div class="span4">
+                    <h1>Atención al cliente</h1>
+                    <ul>
+                        <li>
+                            <h2><strong>0501 CAMARAS</strong><span>&nbsp;(2262727)</span></h2>
+                        </li>
+                        <li>Email:&nbsp;<strong><a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></strong></li>
+                        <li>Email2: <strong><a href="mailto:atencionalcliente@techtrol.com.ve">atencionalcliente@techtrol.com.ve</a></strong></li>
+
+                    </ul>
+                    <br>
+
+                </div>
+                <div class="span4">
+                    <div class="principal">
+                        <div class="address">
+                            <ul>
+                                <li><h2><i class="fa fa-map-marker highlighted"></i> Oficina Principal</h2>
+                                </li><li>Calle 6 con calle 8, Edificio ZYS.</li>
+                                <li> La Urbina, Caracas, Venezuela.</li>
+                                <li><i class="fa fa-phone highlighted"></i> <a href="tel:0212 242 3062">0212 242 3062</a></li>
+
+
+                                <li>Fax: 0212 242 1119</li>
+
+                                <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="span4">
+                    <div id="map"><div style="overflow: hidden; width: 440px; height: 250px;"></div></div>
+                </div>
+
+
+
             </div>
-          </div>
-          <div class="span4">
-            <div id="map"><div style="overflow: hidden; width: 370px; height: 250px;"></div></div>
-          </div>
+
         </div>
-       
-       
-       
-        <div class="row">
-          <div class="span4">
-            <div class="address">
-              <ul>
-                <li><h3><i class="fa fa-map-marker highlighted"></i> Oficina Barquisimeto</h3></li>
-                <li>Av. Libertador, C.C El Recreo, Nivel 2, Ofic. 258</li>
-                <li>Barquisimeto, Edo. Lara</li>
-                <li><i class="fa fa-phone highlighted"></i> <a href="tel:0251 4454352">0251 4454352</a></li>
-                
-                <li><i class="fa fa-phone highlighted"></i> <a href="tel:0251 4460763">0251 4460763</a></li>
-                
-                
-                <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="span4">
-              <div class="address">
-              <ul>
-                <li><h3><i class="fa fa-map-marker highlighted"></i> Oficina Valencia</h3></li>
-                <li>C.C Milan Center. Piso 1, Ofic. 29</li>
-                <li>San Diego, Carabobo.</li>
-                <li><i class="fa fa-phone highlighted"></i> <a href="tel:0241 8210676">0241 8210676</a></li>
-                
-                <li><i class="fa fa-phone highlighted"></i> <a href="tel:0424 1315244">0424 1315244</a></li>
-                
-                
-                <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventasval@techtrol.com.ve">ventasval@techtrol.com.ve</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      
-        
-     </div>       
-        <div class="span4 form-wrapper">
-                    
+
+        <div class="span8 form-wrapper">
 
 {% for flashMessage in app.session.flashbag.get('flash_success') %}
-<div class="isa_success">
+            <div class="isa_success">
         {{ flashMessage }}
-    </div>
+            </div>
 
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('flash_info') %}
-<div class="isa_info">
-    
+            <div class="isa_info">
+
         {{ flashMessage }}
-    </div>
+            </div>
 
 {% endfor %}
- 
+
 
 {% for flashMessage in app.session.flashbag.get('flash_warning') %}
-<div class="isa_warning">
+            <div class="isa_warning">
         {{ flashMessage }}
-    </div>
+            </div>
 
 {% endfor %}
- 
+
 
 
 {% for flashMessage in app.session.flashbag.get('flash_error') %}
-<div class="isa_error">
+            <div class="isa_error">
         {{ flashMessage }}
-    </div>
+            </div>
 
 {% endfor %}
 
-      <h2>Contáctanos</h2>
+{%if (Mensaje!=null) %}   
+            <h2>Contáctenos</h2> 
+            <h3>Elija los Sistemas, Sectores y Ubicaciones de su interés. </h3>
+        {%if (Preguntas!=null  and Respuestas!=null) %}
 
-    
-    
-        <form action="{{ path('PersonaPotencial_create') }}" method="post" >
-            {{ form_start(form) }}
-        {{ form_errors(form) }}  
-            <table>
-
-                <td>                      
-                    
-                    <div class="error">
-                        {{ form_errors(form.vnombreCompleto) }}</div>       
-                    <table>  <tr><td width="200">
-                    {{ form_label(form.vnombreCompleto, 'Nombre Completo:') }}</td></tr>
-                        <tr>
-                        <td>{{ form_widget(form.vnombreCompleto) }}</td><tr>
-                    </table>
-                     <div class="error">
-                        {{ form_errors(form.vtelefono) }}</div>       
-                    <table> <tr><td width="200">
-                    {{ form_label(form.vtelefono, 'Teléfono:') }}</td></tr>
-                        <tr><td>{{ form_widget(form.vtelefono) }}</td></tr>
-                    </table>
-
-                     <div class="error">
-                        {{ form_errors(form.vcorreoEmail) }}</div>       
-                    <table>  <tr><td width="200">
-                    {{ form_label(form.vcorreoEmail, 'Correo:') }}</td></tr>
-                        <tr><td>{{ form_widget(form.vcorreoEmail) }}</td></tr>
-                    </table>
-                    <div class="error">
-                        {{ form_errors(form.vdepartamento) }}</div>       
-                    <table><tr>  <td width="200">
-                    {{ form_label(form.vdepartamento, 'Departamento:') }}</td></tr>
-                        <tr><td>{{ form_widget(form.vdepartamento) }}</td></tr>
-                    </table>
-                        
-                       <br> 
-                    <div class="error">
-                        {{ form_errors(form.vmensaje) }}</div>       
-                    <table><tr>  <td width="200">
-                    {{ form_label(form.vmensaje, 'Mensaje:') }}</td></tr>
-                        <tr><td>{{ form_widget(form.vmensaje) }}</td></tr>
-                    </table>
-
-                    <div style="display: none;">
-                    
-                    
-                {{ form_row(form.dfechaRegistro) }}
-
-                {{ form_row(form.submit, { 'label': 'Registrar' }) }}        
-
-    </div>
-
-                </td>
-                </table>   
-            <table>
-                <tr>
+            <form action="{{ path('PersonaPotencial_create') }}" method="post" >
+        {% set k =1%}
+            {% set m=1%}
+                <table>
+           {% for pregunta in Preguntas %}
                     <td>
-            <br> 
-                
+                        <table>
+                            <tr>
+
+                                <td align="left" width="420px">
+
+                                    <h2 align="left" >
+                                        <label for='preg'{{k}}>{{k}}.    {{ pregunta.FkIidpreg.vdescripcion }}
+                                        </label>
+                                    </h2><br>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>  
+
+                                <td align="left">  
+                  {% for respuesta in Respuestas[pregunta.id] %}
+                                    <input  type="checkbox" name="{{respuesta.IdResp.id}}"  value="{{ respuesta.IdPreg.id}}" /> {{ respuesta.IdResp.vdescripcion}}<br>
+                      {% set m=m+1 %}
+                  {% endfor %}  
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+            {% set k=k+1 %}        
+            {% endfor %}
+                </table>
+                <br>
+                <div align="right">
+
                     <p class="submit">   
                         <input type="submit" name="commit" value="Siguiente">
-                        </p>
-                        </td>
-            </tr>
-            </table>
-                {{ form_end(form) }} 
-                  
-        </form>  
-    
+                </div>
+            </form>
+        {%endif%}
+{%else%}
+            <h2>Gracias por Contactarnos</h2>
+{%endif%}
 
-  
-
-   
-  </div>
         </div>
-      </div>
-        <script src="{{ asset('bundles/techt/js/main.js') }}" type="text/javascript"></script>
+        <div class="span8">
+
+            <div class="row">
+                <div class="span4">
+                    <div class="address">
+                        <ul>
+                            <li><h3><i class="fa fa-map-marker highlighted"></i> Oficina Barquisimeto</h3></li>
+                            <li>Av. Libertador, C.C El Recreo, Nivel 2, Ofic. 258</li>
+                            <li>Barquisimeto, Edo. Lara</li>
+                            <li><i class="fa fa-phone highlighted"></i> <a href="tel:0251 4454352">0251 4454352</a></li>
+
+                            <li><i class="fa fa-phone highlighted"></i> <a href="tel:0251 4460763">0251 4460763</a></li>
+
+
+                            <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventas@techtrol.com.ve">ventas@techtrol.com.ve</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="address">
+                        <ul>
+                            <li><h3><i class="fa fa-map-marker highlighted"></i> Oficina Valencia</h3></li>
+                            <li>C.C Milan Center. Piso 1, Ofic. 29</li>
+                            <li>San Diego, Carabobo.</li>
+                            <li><i class="fa fa-phone highlighted"></i> <a href="tel:0241 8210676">0241 8210676</a></li>
+
+                            <li><i class="fa fa-phone highlighted"></i> <a href="tel:0424 1315244">0424 1315244</a></li>
+
+
+                            <li><i class="fa fa-envelope highlighted"></i> <a href="mailto:ventasval@techtrol.com.ve">ventasval@techtrol.com.ve</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+<script src="{{ asset('bundles/techt/js/main.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/techt/js/js') }}" type="text/javascript"></script>
 
 <script>
-              
-  function initialize () {
-    var canvas = document.getElementById("map");
-    var options = {
-      center: new google.maps.LatLng(10.492638,-66.80967),
-      zoom: 15,
-      disableDefaultUI: true,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    }
-    var map = new google.maps.Map(canvas, options);
 
-    var marker = new google.maps.Marker({
-      map: map,
-      position: map.getCenter()
-    });
-    var infowindow = new google.maps.InfoWindow();
+    function initialize() {
+        var canvas = document.getElementById("map");
+        var options = {
+            center: new google.maps.LatLng(10.492638, -66.80967),
+            zoom: 15,
+            disableDefaultUI: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        }
+        var map = new google.maps.Map(canvas, options);
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: map.getCenter()
+        });
+        var infowindow = new google.maps.InfoWindow();
         infowindow.setContent('<strong>Oficina Principal de Techtrol</strong>');
         google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map, marker);
-    });
+            infowindow.open(map, marker);
+        });
 
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock %}
+
+

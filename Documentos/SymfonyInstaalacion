@@ -36,7 +36,7 @@ Composer is the package manager used by modern PHP applications and the only rec
 
 3.
 
-	./configure --prefix=$HOME --with-pdo-mysql --with-pdo-pgsql=/usr/share/postgresql/9.3 --enable-bcmath --enable-calendar --enable-exif --enable-ftp --enable-mbstring --enable-soap --enable-zip --with-curl=$HOME --with-freetype-dir --with-gd --with-gettext --with-gmp --with-iconv --with-jpeg-dir --with-kerberos --with-mhash --with-mysql --with-mysqli --with-openssl=$HOME --with-pgsql=/usr/share/postgresql/9.3 --with-png-dir --with-regex --with-xmlrpc --with-xsl --with-zlib-dir --with-config-file-path=$HOME/lib --without-pear --enable-sockets --enable-intl --with-mysql-sock=/var/lib/mysql/mysql.sock
+	./configure --prefix=$HOME --with-pdo-mysql --with-pdo-pgsql=/usr/share/	postgresql/9.3 --enable-bcmath --enable-calendar --enable-exif --enable-ftp --enable-mbstring --enable-soap --enable-zip --with-curl=$HOME --with-freetype-dir --with-gd --with-gettext --with-gmp --with-iconv --with-jpeg-dir --with-kerberos --with-mhash --with-mysql --with-mysqli --with-openssl=$HOME --with-pgsql=/usr/share/postgresql/9.3 --with-png-dir --with-regex --with-xmlrpc --with-xsl --with-zlib-dir --with-config-file-path=$HOME/lib --without-pear --enable-sockets --enable-intl --with-mysql-sock=/var/lib/mysql/mysql.sock
 
 
 	Luego de mil vainas... 
