@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetproyecto
  *
- * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"})})
+ * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"}), @ORM\Index(name="fk_tbdetProyecto_tbdetEstatusProyecto1", columns={"fk_tbdetEstatusProyecto_id"})})
  * @ORM\Entity
  */
 class Tbdetproyecto
@@ -31,7 +31,7 @@ class Tbdetproyecto
     /**
      * @var integer
      *
-     * @ORM\Column(name="icantidad", type="integer", nullable=true)
+     * @ORM\Column(name="icantidad", type="integer", nullable=false)
      */
     private $icantidad;
 
@@ -44,6 +44,16 @@ class Tbdetproyecto
      * })
      */
     private $fkIcodcotizacion;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusproyecto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_tbdetEstatusProyecto_id", referencedColumnName="id")
+     * })
+     */
+    private $fkTbdetestatusproyecto;
 
 
 
@@ -124,5 +134,28 @@ class Tbdetproyecto
     public function getFkIcodcotizacion()
     {
         return $this->fkIcodcotizacion;
+    }
+
+    /**
+     * Set fkTbdetestatusproyecto
+     *
+     * @param \Tech\TBundle\Entity\Tbdetestatusproyecto $fkTbdetestatusproyecto
+     * @return Tbdetproyecto
+     */
+    public function setFkTbdetestatusproyecto(\Tech\TBundle\Entity\Tbdetestatusproyecto $fkTbdetestatusproyecto = null)
+    {
+        $this->fkTbdetestatusproyecto = $fkTbdetestatusproyecto;
+
+        return $this;
+    }
+
+    /**
+     * Get fkTbdetestatusproyecto
+     *
+     * @return \Tech\TBundle\Entity\Tbdetestatusproyecto 
+     */
+    public function getFkTbdetestatusproyecto()
+    {
+        return $this->fkTbdetestatusproyecto;
     }
 }

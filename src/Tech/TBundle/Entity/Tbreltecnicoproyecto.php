@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbreltecnicoproyecto
  *
- * @ORM\Table(name="tbrelTecnicoProyecto", indexes={@ORM\Index(name="fk_tbrelTecnicoProyecto_1", columns={"fk_iID_tbdetTecnico"}), @ORM\Index(name="fk_tbrelTecnicoProyecto_2", columns={"fk_iID_tbdetPRoyecto"}), @ORM\Index(name="fk_tbrelTecnicoProyecto_3", columns={"fk_iID_EstatusProyecto"})})
+ * @ORM\Table(name="tbrelTecnicoProyecto", indexes={@ORM\Index(name="fk_tbrelTecnicoProyecto_1", columns={"fk_iID_tbdetTecnico"}), @ORM\Index(name="fk_tbrelTecnicoProyecto_2", columns={"fk_iID_tbdetPRoyecto"})})
  * @ORM\Entity
  */
 class Tbreltecnicoproyecto
@@ -54,16 +54,6 @@ class Tbreltecnicoproyecto
      * })
      */
     private $fkIidTbdetproyecto;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusproyecto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_EstatusProyecto", referencedColumnName="id")
-     * })
-     */
-    private $fkIidEstatusproyecto;
 
 
 
@@ -167,28 +157,5 @@ class Tbreltecnicoproyecto
     public function getFkIidTbdetproyecto()
     {
         return $this->fkIidTbdetproyecto;
-    }
-
-    /**
-     * Set fkIidEstatusproyecto
-     *
-     * @param \Tech\TBundle\Entity\Tbdetestatusproyecto $fkIidEstatusproyecto
-     * @return Tbreltecnicoproyecto
-     */
-    public function setFkIidEstatusproyecto(\Tech\TBundle\Entity\Tbdetestatusproyecto $fkIidEstatusproyecto = null)
-    {
-        $this->fkIidEstatusproyecto = $fkIidEstatusproyecto;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatusproyecto
-     *
-     * @return \Tech\TBundle\Entity\Tbdetestatusproyecto 
-     */
-    public function getFkIidEstatusproyecto()
-    {
-        return $this->fkIidEstatusproyecto;
     }
 }

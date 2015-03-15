@@ -195,16 +195,6 @@ TechTBundle_Obra:
     resource: "@TechTBundle/Resources/config/routing/tbdetproyecto.yml"
     prefix:   /Obra
 
-
-TechTBundle_EstatusAlmacen:
-    resource: "@TechTBundle/Resources/config/routing/tbdetestatusalmacen.yml"
-    prefix:   /EstatusAlmacen
-
-TechTBundle_EstatusObra:
-    resource: "@TechTBundle/Resources/config/routing/tbdetestatusproyecto.yml"
-    prefix:   /EstatusObra
-
-
 TechTBundle_EstatusCotizacion:
     resource: "@TechTBundle/Resources/config/routing/tbdetestatusinstalacion.yml"
     prefix:   /EstatusCotizacion

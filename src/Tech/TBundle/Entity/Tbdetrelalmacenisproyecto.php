@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetrelalmacenisproyecto
  *
- * @ORM\Table(name="tbdetrelAlmacenisProyecto", indexes={@ORM\Index(name="fk_tbdetrelAlmacenisProyecto_1", columns={"fk_iID_tbdetProyecto_Alm"}), @ORM\Index(name="fk_tbdetrelAlmacenisProyecto_2", columns={"fk_iID_tbdetAlmacenista"}), @ORM\Index(name="fk_tbdetrelAlmacenisProyecto_3", columns={"fk_iID_EstatusAlmacen"})})
+ * @ORM\Table(name="tbdetrelAlmacenisProyecto", indexes={@ORM\Index(name="fk_tbdetrelAlmacenisProyecto_1", columns={"fk_iID_tbdetProyecto_Alm"}), @ORM\Index(name="fk_tbdetrelAlmacenisProyecto_2", columns={"fk_iID_tbdetAlmacenista"})})
  * @ORM\Entity
  */
 class Tbdetrelalmacenisproyecto
@@ -27,6 +27,13 @@ class Tbdetrelalmacenisproyecto
      * @ORM\Column(name="dfecha", type="datetime", nullable=false)
      */
     private $dfecha;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fk_iID_EstatusAlmacen", type="integer", nullable=false)
+     */
+    private $fkIidEstatusalmacen;
 
     /**
      * @var string
@@ -54,16 +61,6 @@ class Tbdetrelalmacenisproyecto
      * })
      */
     private $fkIidTbdetalmacenista;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbdetestatusalmacen
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusalmacen")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_EstatusAlmacen", referencedColumnName="id")
-     * })
-     */
-    private $fkIidEstatusalmacen;
 
 
 
@@ -98,6 +95,29 @@ class Tbdetrelalmacenisproyecto
     public function getDfecha()
     {
         return $this->dfecha;
+    }
+
+    /**
+     * Set fkIidEstatusalmacen
+     *
+     * @param integer $fkIidEstatusalmacen
+     * @return Tbdetrelalmacenisproyecto
+     */
+    public function setFkIidEstatusalmacen($fkIidEstatusalmacen)
+    {
+        $this->fkIidEstatusalmacen = $fkIidEstatusalmacen;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidEstatusalmacen
+     *
+     * @return integer 
+     */
+    public function getFkIidEstatusalmacen()
+    {
+        return $this->fkIidEstatusalmacen;
     }
 
     /**
@@ -167,28 +187,5 @@ class Tbdetrelalmacenisproyecto
     public function getFkIidTbdetalmacenista()
     {
         return $this->fkIidTbdetalmacenista;
-    }
-
-    /**
-     * Set fkIidEstatusalmacen
-     *
-     * @param \Tech\TBundle\Entity\Tbdetestatusalmacen $fkIidEstatusalmacen
-     * @return Tbdetrelalmacenisproyecto
-     */
-    public function setFkIidEstatusalmacen(\Tech\TBundle\Entity\Tbdetestatusalmacen $fkIidEstatusalmacen = null)
-    {
-        $this->fkIidEstatusalmacen = $fkIidEstatusalmacen;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatusalmacen
-     *
-     * @return \Tech\TBundle\Entity\Tbdetestatusalmacen 
-     */
-    public function getFkIidEstatusalmacen()
-    {
-        return $this->fkIidEstatusalmacen;
     }
 }

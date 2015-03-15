@@ -8,9 +8,6 @@ Tech\TBundle\Entity\Tbdetrelalmacenisproyecto:
         fk_tbdetrelAlmacenisProyecto_2:
             columns:
                 - fk_iID_tbdetAlmacenista
-        fk_tbdetrelAlmacenisProyecto_3:
-            columns:
-                - fk_iID_EstatusAlmacen
     id:
         id:
             type: integer
@@ -25,6 +22,12 @@ Tech\TBundle\Entity\Tbdetrelalmacenisproyecto:
             type: datetime
             nullable: false
             comment: ''
+        fkIidEstatusalmacen:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: fk_iID_EstatusAlmacen
         vdescripcion:
             type: string
             nullable: false
@@ -48,15 +51,6 @@ Tech\TBundle\Entity\Tbdetrelalmacenisproyecto:
             inversedBy: null
             joinColumns:
                 fk_iID_tbdetAlmacenista:
-                    referencedColumnName: id
-            orphanRemoval: false
-        fkIidEstatusalmacen:
-            targetEntity: Tbdetestatusalmacen
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_EstatusAlmacen:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

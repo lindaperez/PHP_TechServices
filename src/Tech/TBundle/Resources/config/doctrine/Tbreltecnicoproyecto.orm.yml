@@ -8,9 +8,6 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
         fk_tbrelTecnicoProyecto_2:
             columns:
                 - fk_iID_tbdetPRoyecto
-        fk_tbrelTecnicoProyecto_3:
-            columns:
-                - fk_iID_EstatusProyecto
     id:
         id:
             type: integer
@@ -49,15 +46,6 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             inversedBy: null
             joinColumns:
                 fk_iID_tbdetPRoyecto:
-                    referencedColumnName: id
-            orphanRemoval: false
-        fkIidEstatusproyecto:
-            targetEntity: Tbdetestatusproyecto
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_EstatusProyecto:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }
