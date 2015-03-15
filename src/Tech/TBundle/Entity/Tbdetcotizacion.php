@@ -22,21 +22,11 @@ class Tbdetcotizacion
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="codCotizacion", type="integer", nullable=false)
+     * @ORM\Column(name="codCotizacion", type="string", length=20, nullable=false)
      */
     private $codcotizacion;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbdetestatusinstalacion
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusinstalacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_EstatusInstalacion", referencedColumnName="id")
-     * })
-     */
-    private $fkIidEstatusinstalacion;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetcontratorif
@@ -47,6 +37,16 @@ class Tbdetcotizacion
      * })
      */
     private $tbdetcotizacioncol;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetestatusinstalacion
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusinstalacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_EstatusInstalacion", referencedColumnName="id")
+     * })
+     */
+    private $fkIidEstatusinstalacion;
 
 
 
@@ -63,7 +63,7 @@ class Tbdetcotizacion
     /**
      * Set codcotizacion
      *
-     * @param integer $codcotizacion
+     * @param string $codcotizacion
      * @return Tbdetcotizacion
      */
     public function setCodcotizacion($codcotizacion)
@@ -76,34 +76,11 @@ class Tbdetcotizacion
     /**
      * Get codcotizacion
      *
-     * @return integer 
+     * @return string 
      */
     public function getCodcotizacion()
     {
         return $this->codcotizacion;
-    }
-
-    /**
-     * Set fkIidEstatusinstalacion
-     *
-     * @param \Tech\TBundle\Entity\Tbdetestatusinstalacion $fkIidEstatusinstalacion
-     * @return Tbdetcotizacion
-     */
-    public function setFkIidEstatusinstalacion(\Tech\TBundle\Entity\Tbdetestatusinstalacion $fkIidEstatusinstalacion = null)
-    {
-        $this->fkIidEstatusinstalacion = $fkIidEstatusinstalacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidEstatusinstalacion
-     *
-     * @return \Tech\TBundle\Entity\Tbdetestatusinstalacion 
-     */
-    public function getFkIidEstatusinstalacion()
-    {
-        return $this->fkIidEstatusinstalacion;
     }
 
     /**
@@ -127,5 +104,28 @@ class Tbdetcotizacion
     public function getTbdetcotizacioncol()
     {
         return $this->tbdetcotizacioncol;
+    }
+
+    /**
+     * Set fkIidEstatusinstalacion
+     *
+     * @param \Tech\TBundle\Entity\Tbdetestatusinstalacion $fkIidEstatusinstalacion
+     * @return Tbdetcotizacion
+     */
+    public function setFkIidEstatusinstalacion(\Tech\TBundle\Entity\Tbdetestatusinstalacion $fkIidEstatusinstalacion = null)
+    {
+        $this->fkIidEstatusinstalacion = $fkIidEstatusinstalacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidEstatusinstalacion
+     *
+     * @return \Tech\TBundle\Entity\Tbdetestatusinstalacion 
+     */
+    public function getFkIidEstatusinstalacion()
+    {
+        return $this->fkIidEstatusinstalacion;
     }
 }

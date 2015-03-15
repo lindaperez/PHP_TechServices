@@ -1,0 +1,30 @@
+EstatusObra:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:index" }
+
+EstatusObra_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:show" }
+
+EstatusObra_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:new" }
+
+EstatusObra_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:create" }
+    requirements: { _method: post }
+
+EstatusObra_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:edit" }
+
+EstatusObra_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:update" }
+    requirements: { _method: post|put }
+
+EstatusObra_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetestatusproyecto:delete" }
+    requirements: { _method: post|delete }

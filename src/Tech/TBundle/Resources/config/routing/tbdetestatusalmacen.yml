@@ -1,0 +1,30 @@
+EstatusAlmacen:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:index" }
+
+EstatusAlmacen_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:show" }
+
+EstatusAlmacen_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:new" }
+
+EstatusAlmacen_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:create" }
+    requirements: { _method: post }
+
+EstatusAlmacen_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:edit" }
+
+EstatusAlmacen_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:update" }
+    requirements: { _method: post|put }
+
+EstatusAlmacen_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetestatusalmacen:delete" }
+    requirements: { _method: post|delete }

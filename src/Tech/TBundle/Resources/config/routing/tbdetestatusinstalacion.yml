@@ -1,0 +1,30 @@
+EstatusCotizacion:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:index" }
+
+EstatusCotizacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:show" }
+
+EstatusCotizacion_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:new" }
+
+EstatusCotizacion_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:create" }
+    requirements: { _method: post }
+
+EstatusCotizacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:edit" }
+
+EstatusCotizacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:update" }
+    requirements: { _method: post|put }
+
+EstatusCotizacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetestatusinstalacion:delete" }
+    requirements: { _method: post|delete }
