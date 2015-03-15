@@ -1,6 +1,10 @@
 Tech\TBundle\Entity\Tbdetalmacenista:
     type: entity
     table: tbdetAlmacenista
+    indexes:
+        fk_tbdetAlmacenista_1:
+            columns:
+                - fk_iID_USUA_DATOSALM
     id:
         id:
             type: integer
@@ -18,4 +22,14 @@ Tech\TBundle\Entity\Tbdetalmacenista:
             fixed: false
             comment: ''
             column: vAlias
+    manyToOne:
+        fkIidUsuaDatosalm:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_USUA_DATOSALM:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

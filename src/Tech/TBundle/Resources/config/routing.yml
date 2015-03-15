@@ -183,3 +183,15 @@ TechTBundle_Tecnico:
     resource: "@TechTBundle/Resources/config/routing/tbdettecnico.yml"
     prefix:   /Tecnico
 
+TechTBundle_Almacenista:
+    resource: "@TechTBundle/Resources/config/routing/tbdetalmacenista.yml"
+    prefix:   /Almacenista
+
+TechTBundle_Cotizacion:
+    resource: "@TechTBundle/Resources/config/routing/tbdetcotizacion.yml"
+    prefix:   /Cotizacion
+
+TechTBundle_Obra:
+    resource: "@TechTBundle/Resources/config/routing/tbdetproyecto.yml"
+    prefix:   /Obra
+

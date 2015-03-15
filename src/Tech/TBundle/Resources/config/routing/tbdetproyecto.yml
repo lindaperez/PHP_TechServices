@@ -1,0 +1,30 @@
+Obra:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:index" }
+
+Obra_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:show" }
+
+Obra_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:new" }
+
+Obra_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:create" }
+    requirements: { _method: post }
+
+Obra_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:edit" }
+
+Obra_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:update" }
+    requirements: { _method: post|put }
+
+Obra_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:delete" }
+    requirements: { _method: post|delete }

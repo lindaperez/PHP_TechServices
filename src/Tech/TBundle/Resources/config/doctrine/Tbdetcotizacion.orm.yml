@@ -25,15 +25,6 @@ Tech\TBundle\Entity\Tbdetcotizacion:
             comment: ''
             column: codCotizacion
     manyToOne:
-        tbdetcotizacioncol:
-            targetEntity: Tbdetcontratorif
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                tbdetCotizacioncol:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidEstatusinstalacion:
             targetEntity: Tbdetestatusinstalacion
             cascade: {  }
@@ -41,6 +32,15 @@ Tech\TBundle\Entity\Tbdetcotizacion:
             inversedBy: null
             joinColumns:
                 fk_iID_EstatusInstalacion:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tbdetcotizacioncol:
+            targetEntity: Tbdetcontratorif
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetCotizacioncol:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

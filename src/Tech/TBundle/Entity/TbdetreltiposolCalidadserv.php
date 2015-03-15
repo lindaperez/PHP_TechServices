@@ -22,16 +22,6 @@ class TbdetreltiposolCalidadserv
     private $id;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbgentiposolicitud
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgentiposolicitud")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iTIPO_SOl", referencedColumnName="id")
-     * })
-     */
-    private $fkItipoSol;
-
-    /**
      * @var \Tech\TBundle\Entity\Tbgencalidadservpreg
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgencalidadservpreg")
@@ -40,6 +30,16 @@ class TbdetreltiposolCalidadserv
      * })
      */
     private $fkIcalServ;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbgentiposolicitud
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbgentiposolicitud")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iTIPO_SOl", referencedColumnName="id")
+     * })
+     */
+    private $fkItipoSol;
 
 
 
@@ -51,29 +51,6 @@ class TbdetreltiposolCalidadserv
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set fkItipoSol
-     *
-     * @param \Tech\TBundle\Entity\Tbgentiposolicitud $fkItipoSol
-     * @return TbdetreltiposolCalidadserv
-     */
-    public function setFkItipoSol(\Tech\TBundle\Entity\Tbgentiposolicitud $fkItipoSol = null)
-    {
-        $this->fkItipoSol = $fkItipoSol;
-
-        return $this;
-    }
-
-    /**
-     * Get fkItipoSol
-     *
-     * @return \Tech\TBundle\Entity\Tbgentiposolicitud 
-     */
-    public function getFkItipoSol()
-    {
-        return $this->fkItipoSol;
     }
 
     /**
@@ -97,5 +74,28 @@ class TbdetreltiposolCalidadserv
     public function getFkIcalServ()
     {
         return $this->fkIcalServ;
+    }
+
+    /**
+     * Set fkItipoSol
+     *
+     * @param \Tech\TBundle\Entity\Tbgentiposolicitud $fkItipoSol
+     * @return TbdetreltiposolCalidadserv
+     */
+    public function setFkItipoSol(\Tech\TBundle\Entity\Tbgentiposolicitud $fkItipoSol = null)
+    {
+        $this->fkItipoSol = $fkItipoSol;
+
+        return $this;
+    }
+
+    /**
+     * Get fkItipoSol
+     *
+     * @return \Tech\TBundle\Entity\Tbgentiposolicitud 
+     */
+    public function getFkItipoSol()
+    {
+        return $this->fkItipoSol;
     }
 }

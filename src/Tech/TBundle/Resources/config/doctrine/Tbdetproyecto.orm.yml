@@ -21,6 +21,11 @@ Tech\TBundle\Entity\Tbdetproyecto:
             unsigned: false
             comment: ''
             column: iCodProyecto
+        icantidad:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
     manyToOne:
         fkIcodcotizacion:
             targetEntity: Tbdetcotizacion

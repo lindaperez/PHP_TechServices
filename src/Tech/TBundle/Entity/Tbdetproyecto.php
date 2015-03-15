@@ -29,6 +29,13 @@ class Tbdetproyecto
     private $icodproyecto;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="icantidad", type="integer", nullable=true)
+     */
+    private $icantidad;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetcotizacion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
@@ -71,6 +78,29 @@ class Tbdetproyecto
     public function getIcodproyecto()
     {
         return $this->icodproyecto;
+    }
+
+    /**
+     * Set icantidad
+     *
+     * @param integer $icantidad
+     * @return Tbdetproyecto
+     */
+    public function setIcantidad($icantidad)
+    {
+        $this->icantidad = $icantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get icantidad
+     *
+     * @return integer 
+     */
+    public function getIcantidad()
+    {
+        return $this->icantidad;
     }
 
     /**

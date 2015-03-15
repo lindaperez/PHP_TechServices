@@ -1,0 +1,30 @@
+Almacenista:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:index" }
+
+Almacenista_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:show" }
+
+Almacenista_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:new" }
+
+Almacenista_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:create" }
+    requirements: { _method: post }
+
+Almacenista_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:edit" }
+
+Almacenista_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:update" }
+    requirements: { _method: post|put }
+
+Almacenista_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetalmacenista:delete" }
+    requirements: { _method: post|delete }

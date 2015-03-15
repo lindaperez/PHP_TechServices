@@ -134,6 +134,9 @@ Database schema updated successfully! "7" queries were executed
 php5 app/console doctrine:generate: --entity=TechMyprojectBundle:Job --route-prefix=ens_job --with-write --format=yml
 php5 app/console doctrine:generate:crud --entity=TechMyprojectBundle:Category --route-prefix=ens_category --with-write --format=yml
 
+php5 app/console generate:doctrine:crud --entity=TechTBundle:Tbdettecnico --route-prefix=Tecnico --with-write --format=yml
+
+
 Renombrar el controlador 
 Si el comando es Ambiguo usar php5 app/console generate:doctrine:crud
 Cambiar el routing (Actualizarlo)

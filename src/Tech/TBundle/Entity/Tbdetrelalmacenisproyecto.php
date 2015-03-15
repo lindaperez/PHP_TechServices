@@ -22,11 +22,18 @@ class Tbdetrelalmacenisproyecto
     private $id;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="dfecha", type="string", length=45, nullable=false)
+     * @ORM\Column(name="dfecha", type="datetime", nullable=false)
      */
     private $dfecha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vdescripcion", type="string", length=200, nullable=false)
+     */
+    private $vdescripcion;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetproyecto
@@ -73,7 +80,7 @@ class Tbdetrelalmacenisproyecto
     /**
      * Set dfecha
      *
-     * @param string $dfecha
+     * @param \DateTime $dfecha
      * @return Tbdetrelalmacenisproyecto
      */
     public function setDfecha($dfecha)
@@ -86,11 +93,34 @@ class Tbdetrelalmacenisproyecto
     /**
      * Get dfecha
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getDfecha()
     {
         return $this->dfecha;
+    }
+
+    /**
+     * Set vdescripcion
+     *
+     * @param string $vdescripcion
+     * @return Tbdetrelalmacenisproyecto
+     */
+    public function setVdescripcion($vdescripcion)
+    {
+        $this->vdescripcion = $vdescripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get vdescripcion
+     *
+     * @return string 
+     */
+    public function getVdescripcion()
+    {
+        return $this->vdescripcion;
     }
 
     /**

@@ -22,9 +22,13 @@ Tech\TBundle\Entity\Tbdetrelalmacenisproyecto:
                 strategy: IDENTITY
     fields:
         dfecha:
+            type: datetime
+            nullable: false
+            comment: ''
+        vdescripcion:
             type: string
             nullable: false
-            length: 45
+            length: 200
             fixed: false
             comment: ''
     manyToOne:

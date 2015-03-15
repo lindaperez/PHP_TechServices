@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetalmacenista
  *
- * @ORM\Table(name="tbdetAlmacenista")
+ * @ORM\Table(name="tbdetAlmacenista", indexes={@ORM\Index(name="fk_tbdetAlmacenista_1", columns={"fk_iID_USUA_DATOSALM"})})
  * @ORM\Entity
  */
 class Tbdetalmacenista
@@ -27,6 +27,16 @@ class Tbdetalmacenista
      * @ORM\Column(name="vAlias", type="string", length=45, nullable=true)
      */
     private $valias;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetusuariodatos
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetusuariodatos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_USUA_DATOSALM", referencedColumnName="id")
+     * })
+     */
+    private $fkIidUsuaDatosalm;
 
 
 
@@ -61,5 +71,28 @@ class Tbdetalmacenista
     public function getValias()
     {
         return $this->valias;
+    }
+
+    /**
+     * Set fkIidUsuaDatosalm
+     *
+     * @param \Tech\TBundle\Entity\Tbdetusuariodatos $fkIidUsuaDatosalm
+     * @return Tbdetalmacenista
+     */
+    public function setFkIidUsuaDatosalm(\Tech\TBundle\Entity\Tbdetusuariodatos $fkIidUsuaDatosalm = null)
+    {
+        $this->fkIidUsuaDatosalm = $fkIidUsuaDatosalm;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidUsuaDatosalm
+     *
+     * @return \Tech\TBundle\Entity\Tbdetusuariodatos 
+     */
+    public function getFkIidUsuaDatosalm()
+    {
+        return $this->fkIidUsuaDatosalm;
     }
 }

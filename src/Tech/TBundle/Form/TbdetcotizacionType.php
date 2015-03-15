@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TbdettecnicoType extends AbstractType
+class TbdetcotizacionType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,9 @@ class TbdettecnicoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('valias')
-            ->add('fkIidUsuaDatostecn')
+            ->add('codcotizacion')
+            ->add('fkIidEstatusinstalacion')
+            ->add('tbdetcotizacioncol')
         ;
     }
     
@@ -26,7 +27,7 @@ class TbdettecnicoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Tech\TBundle\Entity\Tbdettecnico'
+            'data_class' => 'Tech\TBundle\Entity\Tbdetcotizacion'
         ));
     }
 
@@ -35,6 +36,6 @@ class TbdettecnicoType extends AbstractType
      */
     public function getName()
     {
-        return 'tech_tbundle_tbdettecnico';
+        return 'tech_tbundle_tbdetcotizacion';
     }
 }

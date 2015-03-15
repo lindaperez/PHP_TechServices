@@ -1,0 +1,30 @@
+Cotizacion:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:index" }
+
+Cotizacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:show" }
+
+Cotizacion_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:new" }
+
+Cotizacion_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:create" }
+    requirements: { _method: post }
+
+Cotizacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:edit" }
+
+Cotizacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:update" }
+    requirements: { _method: post|put }
+
+Cotizacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:delete" }
+    requirements: { _method: post|delete }

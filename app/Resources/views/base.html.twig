@@ -116,11 +116,23 @@
                         <li class="topmenu"><a href="#" title="Clientes" style="width:180px;"><span><img src="" alt="">Clientes</span></a>
                             <ul>
                                 <li><a href="{{ path('Registro_new') }}" title="Registrar Usuario"><img src="" alt="">Registrar Usuario</a></li>
-
                                 <li><a href="{{ path('Registro') }}" title="Listado de Registros"><img src="" alt="">Listado de Registros</a></li>
+                                        <li><a href="{{ path('Tecnico_new') }}" title="Asociar Tecnico"><img src="" alt="">Asociar Tecnico</a></li>
+                                <li><a href="{{ path('Tecnico') }}" title="Listado de Tecnicos"><img src="" alt="">Listado de Tecnicos</a></li>
+                                 <li><a href="{{ path('Almacenista_new') }}" title="Asociar Almacenista"><img src="" alt="">Asociar Almacenista</a></li>
+                                <li><a href="{{ path('Almacenista') }}" title="Listado de Almacenistas"><img src="" alt="">Listado de Almacenistas</a></li>
+                        
+                                
                             </ul>
                         </li>
-
+                        <li class="topmenu"><a href="#" title="Cotizaciones" style="width:180px;"><span><img src="" alt="">Cotizaciones</span></a>
+                            <ul>
+                                <li><a href="{{ path('Cotizacion') }}" title="Listado de Contizaciones"><img src="" alt="">Listado de Contizaciones</a></li>
+                             
+                        
+                                
+                            </ul>
+                        </li>
 
 
                 {% endif %}
@@ -182,9 +194,9 @@
                                 <li><a href="{{ path('Empresa') }}" title="Listado de Empresas"><img src="" alt="">Listado de Empresas</a></li>
                             </ul>
                         </li>
-
+                                                     
                     {%endif%}
-
+                        
                     {% endif %}
                     </ul>
                     <!-- /mp-menu -->

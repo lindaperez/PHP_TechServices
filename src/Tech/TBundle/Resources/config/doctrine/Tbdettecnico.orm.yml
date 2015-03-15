@@ -1,6 +1,10 @@
 Tech\TBundle\Entity\Tbdettecnico:
     type: entity
     table: tbdetTecnico
+    indexes:
+        fk_tbdetTecnico_1:
+            columns:
+                - fk_iID_USUA_DATOSTECN
     id:
         id:
             type: integer
@@ -13,9 +17,19 @@ Tech\TBundle\Entity\Tbdettecnico:
     fields:
         valias:
             type: string
-            nullable: true
+            nullable: false
             length: 45
             fixed: false
             comment: ''
             column: vAlias
+    manyToOne:
+        fkIidUsuaDatostecn:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_USUA_DATOSTECN:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -29,16 +29,6 @@ class Tbdetcotizacion
     private $codcotizacion;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetcontratorif
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="tbdetCotizacioncol", referencedColumnName="id")
-     * })
-     */
-    private $tbdetcotizacioncol;
-
-    /**
      * @var \Tech\TBundle\Entity\Tbdetestatusinstalacion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusinstalacion")
@@ -47,6 +37,16 @@ class Tbdetcotizacion
      * })
      */
     private $fkIidEstatusinstalacion;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetcontratorif
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tbdetCotizacioncol", referencedColumnName="id")
+     * })
+     */
+    private $tbdetcotizacioncol;
 
 
 
@@ -84,29 +84,6 @@ class Tbdetcotizacion
     }
 
     /**
-     * Set tbdetcotizacioncol
-     *
-     * @param \Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol
-     * @return Tbdetcotizacion
-     */
-    public function setTbdetcotizacioncol(\Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol = null)
-    {
-        $this->tbdetcotizacioncol = $tbdetcotizacioncol;
-
-        return $this;
-    }
-
-    /**
-     * Get tbdetcotizacioncol
-     *
-     * @return \Tech\TBundle\Entity\Tbdetcontratorif 
-     */
-    public function getTbdetcotizacioncol()
-    {
-        return $this->tbdetcotizacioncol;
-    }
-
-    /**
      * Set fkIidEstatusinstalacion
      *
      * @param \Tech\TBundle\Entity\Tbdetestatusinstalacion $fkIidEstatusinstalacion
@@ -127,5 +104,28 @@ class Tbdetcotizacion
     public function getFkIidEstatusinstalacion()
     {
         return $this->fkIidEstatusinstalacion;
+    }
+
+    /**
+     * Set tbdetcotizacioncol
+     *
+     * @param \Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol
+     * @return Tbdetcotizacion
+     */
+    public function setTbdetcotizacioncol(\Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol = null)
+    {
+        $this->tbdetcotizacioncol = $tbdetcotizacioncol;
+
+        return $this;
+    }
+
+    /**
+     * Get tbdetcotizacioncol
+     *
+     * @return \Tech\TBundle\Entity\Tbdetcontratorif 
+     */
+    public function getTbdetcotizacioncol()
+    {
+        return $this->tbdetcotizacioncol;
     }
 }
