@@ -72,5 +72,5 @@ class Tbgentiposolicitud
     {
 
     return strval($this->getVnombreTipoSol());
-    }
+}
 }

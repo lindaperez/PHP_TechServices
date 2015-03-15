@@ -5,12 +5,12 @@ namespace Tech\TBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Preguntaform
+ * Tbdetestatusproyecto
  *
- * @ORM\Table(name="PreguntaForm")
+ * @ORM\Table(name="tbdetEstatusProyecto")
  * @ORM\Entity
  */
-class Preguntaform
+class Tbdetestatusproyecto
 {
     /**
      * @var integer
@@ -24,7 +24,7 @@ class Preguntaform
     /**
      * @var string
      *
-     * @ORM\Column(name="vdescripcion", type="string", length=45, nullable=true)
+     * @ORM\Column(name="vdescripcion", type="string", length=45, nullable=false)
      */
     private $vdescripcion;
 
@@ -44,7 +44,7 @@ class Preguntaform
      * Set vdescripcion
      *
      * @param string $vdescripcion
-     * @return Preguntaform
+     * @return Tbdetestatusproyecto
      */
     public function setVdescripcion($vdescripcion)
     {

@@ -401,7 +401,7 @@ class Tbgensolicitudservicio
                //to string method   
     public function __toString()
     {
-        
+
     return strval($this->getId());
-}
-}
+    }
+    }

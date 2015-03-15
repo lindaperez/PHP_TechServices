@@ -95,12 +95,4 @@ class Tbgenespecsolicitud
     {
         return $this->fkIidEspSol;
     }
-
-    //to string method   
-    public function __toString()
-    {
-
-    return strval($this->getVnombreEspSol());
 }
-    
-    }

@@ -1,0 +1,21 @@
+Tech\TBundle\Entity\Tbdetalmacenista:
+    type: entity
+    table: tbdetAlmacenista
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        valias:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: ''
+            column: vAlias
+    lifecycleCallbacks: {  }

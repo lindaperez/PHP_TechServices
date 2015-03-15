@@ -1,0 +1,30 @@
+Tecnico:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdettecnico:index" }
+
+Tecnico_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdettecnico:show" }
+
+Tecnico_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdettecnico:new" }
+
+Tecnico_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdettecnico:create" }
+    requirements: { _method: post }
+
+Tecnico_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdettecnico:edit" }
+
+Tecnico_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdettecnico:update" }
+    requirements: { _method: post|put }
+
+Tecnico_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdettecnico:delete" }
+    requirements: { _method: post|delete }

@@ -62,12 +62,4 @@ class Tbgenestatussolicitud
     {
         return $this->vdescripcion;
     }
-    
-        
-        //to string method   
-    public function __toString()
-    {
-        
-    return $this->getVdescripcion();
-    }
 }

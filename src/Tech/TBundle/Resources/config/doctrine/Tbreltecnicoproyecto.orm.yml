@@ -1,0 +1,63 @@
+Tech\TBundle\Entity\Tbreltecnicoproyecto:
+    type: entity
+    table: tbrelTecnicoProyecto
+    indexes:
+        fk_tbrelTecnicoProyecto_1:
+            columns:
+                - fk_iID_tbdetTecnico
+        fk_tbrelTecnicoProyecto_2:
+            columns:
+                - fk_iID_tbdetPRoyecto
+        fk_tbrelTecnicoProyecto_3:
+            columns:
+                - fk_iID_EstatusProyecto
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dfecha:
+            type: datetime
+            nullable: false
+            comment: ''
+        descripcioncambioest:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+            comment: ''
+            column: descripcionCambioEst
+    manyToOne:
+        fkIidTbdettecnico:
+            targetEntity: Tbdettecnico
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetTecnico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidTbdetproyecto:
+            targetEntity: Tbdetproyecto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetPRoyecto:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEstatusproyecto:
+            targetEntity: Tbdetestatusproyecto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_EstatusProyecto:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

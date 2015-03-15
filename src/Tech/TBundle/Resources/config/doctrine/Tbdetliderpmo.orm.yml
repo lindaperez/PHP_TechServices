@@ -1,0 +1,21 @@
+Tech\TBundle\Entity\Tbdetliderpmo:
+    type: entity
+    table: tbdetLiderPMO
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        valias:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+            column: vAlias
+    lifecycleCallbacks: {  }

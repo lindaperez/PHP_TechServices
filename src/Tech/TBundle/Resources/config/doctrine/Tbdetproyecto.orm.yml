@@ -1,0 +1,34 @@
+Tech\TBundle\Entity\Tbdetproyecto:
+    type: entity
+    table: tbdetProyecto
+    indexes:
+        fk_tbdetProyecto_Cot:
+            columns:
+                - fk_iCodCotizacion
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        icodproyecto:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: iCodProyecto
+    manyToOne:
+        fkIcodcotizacion:
+            targetEntity: Tbdetcotizacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCodCotizacion:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

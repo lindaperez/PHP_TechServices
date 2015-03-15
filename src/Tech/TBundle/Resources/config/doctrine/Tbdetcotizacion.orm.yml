@@ -1,0 +1,46 @@
+Tech\TBundle\Entity\Tbdetcotizacion:
+    type: entity
+    table: tbdetCotizacion
+    indexes:
+        fk_tbdetCotizacion_Cont:
+            columns:
+                - tbdetCotizacioncol
+        fk_tbdetCotizacion_1:
+            columns:
+                - fk_iID_EstatusInstalacion
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        codcotizacion:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: codCotizacion
+    manyToOne:
+        tbdetcotizacioncol:
+            targetEntity: Tbdetcontratorif
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetCotizacioncol:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEstatusinstalacion:
+            targetEntity: Tbdetestatusinstalacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_EstatusInstalacion:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

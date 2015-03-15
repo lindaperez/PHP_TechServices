@@ -1,0 +1,58 @@
+Tech\TBundle\Entity\Tbdetrelalmacenisproyecto:
+    type: entity
+    table: tbdetrelAlmacenisProyecto
+    indexes:
+        fk_tbdetrelAlmacenisProyecto_1:
+            columns:
+                - fk_iID_tbdetProyecto_Alm
+        fk_tbdetrelAlmacenisProyecto_2:
+            columns:
+                - fk_iID_tbdetAlmacenista
+        fk_tbdetrelAlmacenisProyecto_3:
+            columns:
+                - fk_iID_EstatusAlmacen
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dfecha:
+            type: string
+            nullable: false
+            length: 45
+            fixed: false
+            comment: ''
+    manyToOne:
+        fkIidTbdetproyectoAlm:
+            targetEntity: Tbdetproyecto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetProyecto_Alm:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidTbdetalmacenista:
+            targetEntity: Tbdetalmacenista
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetAlmacenista:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidEstatusalmacen:
+            targetEntity: Tbdetestatusalmacen
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_EstatusAlmacen:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

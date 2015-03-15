@@ -179,3 +179,7 @@ TechTBundle_PersonaRespuestas:
     resource: "@TechTBundle/Resources/config/routing/personarespuesta.yml"
     prefix:   /PersonaRespuestas
 
+TechTBundle_Tecnico:
+    resource: "@TechTBundle/Resources/config/routing/tbdettecnico.yml"
+    prefix:   /Tecnico
+

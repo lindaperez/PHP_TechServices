@@ -62,11 +62,4 @@ class Tbgencalidadservresp
     {
         return $this->vrespuesta;
     }
-    
-                //to string method   
-    public function __toString()
-    {
-        
-    return strval($this->getVrespuesta());
-    }
 }

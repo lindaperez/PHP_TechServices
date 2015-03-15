@@ -62,9 +62,4 @@ class Respuestaform
     {
         return $this->vdescripcion;
     }
-    
-              public function __toString()
-    {
-        return strval($this->getVdescripcion());
-}
 }
