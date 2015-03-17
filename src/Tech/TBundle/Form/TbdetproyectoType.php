@@ -18,6 +18,8 @@ class TbdetproyectoType extends AbstractType
             ->add('icodproyecto')
             ->add('icantidad')
             ->add('fkIcodcotizacion')
+            ->add('fkTbdetestatusproyecto')
+            ->add('tbdetliderpmo')
         ;
     }
     

@@ -128,4 +128,10 @@ class Tbdetcotizacion
     {
         return $this->fkIidEstatusinstalacion;
     }
-}
+
+    public function __toString() {
+    return $this->codcotizacion;    
+    }
+    
+    
+    }

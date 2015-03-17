@@ -1,13 +1,13 @@
-Tech\TBundle\Entity\Tbreltecnicoproyecto:
+Tech\TBundle\Entity\Tbdetcoordinadorpmo:
     type: entity
-    table: tbrelTecnicoProyecto
+    table: tbdetCoordinadorPMO
     indexes:
-        fk_tbrelTecnicoProyecto_1:
+        fk_tbdetCoordinadorPMO_tbdetLiderPMO1:
             columns:
-                - fk_iID_tbdetTecnico
-        fk_tbrelTecnicoProyecto_2:
+                - tbdetLiderPMO_id
+        fk_tbdetCoordinadorPMO_tbdetUsuarioDatos1:
             columns:
-                - fk_iID_tbdetPRoyecto
+                - tbdetUsuarioDatos_id
     id:
         id:
             type: integer
@@ -18,34 +18,29 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             generator:
                 strategy: IDENTITY
     fields:
-        dfecha:
-            type: datetime
-            nullable: false
-            comment: ''
-        vdescripcioncambioest:
+        valias:
             type: string
             nullable: false
-            length: 200
+            length: 45
             fixed: false
             comment: ''
-            column: vdescripcionCambioEst
     manyToOne:
-        fkIidTbdettecnico:
-            targetEntity: Tbdettecnico
+        tbdetliderpmo:
+            targetEntity: Tbdetliderpmo
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                fk_iID_tbdetTecnico:
+                tbdetLiderPMO_id:
                     referencedColumnName: id
             orphanRemoval: false
-        fkIidTbdetproyecto:
-            targetEntity: Tbdetproyecto
+        tbdetusuariodatos:
+            targetEntity: Tbdetusuariodatos
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                fk_iID_tbdetPRoyecto:
+                tbdetUsuarioDatos_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

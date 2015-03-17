@@ -24,7 +24,7 @@ class Tbdetalmacenista
     /**
      * @var string
      *
-     * @ORM\Column(name="vAlias", type="string", length=45, nullable=true)
+     * @ORM\Column(name="vAlias", type="string", length=45, nullable=false)
      */
     private $valias;
 

@@ -31,9 +31,9 @@ class Tbreltecnicoproyecto
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcionCambioEst", type="string", length=200, nullable=false)
+     * @ORM\Column(name="vdescripcionCambioEst", type="string", length=200, nullable=false)
      */
-    private $descripcioncambioest;
+    private $vdescripcioncambioest;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdettecnico
@@ -91,26 +91,26 @@ class Tbreltecnicoproyecto
     }
 
     /**
-     * Set descripcioncambioest
+     * Set vdescripcioncambioest
      *
-     * @param string $descripcioncambioest
+     * @param string $vdescripcioncambioest
      * @return Tbreltecnicoproyecto
      */
-    public function setDescripcioncambioest($descripcioncambioest)
+    public function setVdescripcioncambioest($vdescripcioncambioest)
     {
-        $this->descripcioncambioest = $descripcioncambioest;
+        $this->vdescripcioncambioest = $vdescripcioncambioest;
 
         return $this;
     }
 
     /**
-     * Get descripcioncambioest
+     * Get vdescripcioncambioest
      *
      * @return string 
      */
-    public function getDescripcioncambioest()
+    public function getVdescripcioncambioest()
     {
-        return $this->descripcioncambioest;
+        return $this->vdescripcioncambioest;
     }
 
     /**

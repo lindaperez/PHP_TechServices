@@ -8,6 +8,9 @@ Tech\TBundle\Entity\Tbdetproyecto:
         fk_tbdetProyecto_tbdetEstatusProyecto1:
             columns:
                 - fk_tbdetEstatusProyecto_id
+        fk_tbdetProyecto_tbdetLiderPMO1:
+            columns:
+                - tbdetLiderPMO_id
     id:
         id:
             type: integer
@@ -47,6 +50,15 @@ Tech\TBundle\Entity\Tbdetproyecto:
             inversedBy: null
             joinColumns:
                 fk_tbdetEstatusProyecto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tbdetliderpmo:
+            targetEntity: Tbdetliderpmo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetLiderPMO_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

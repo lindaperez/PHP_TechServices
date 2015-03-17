@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetproyecto
  *
- * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"}), @ORM\Index(name="fk_tbdetProyecto_tbdetEstatusProyecto1", columns={"fk_tbdetEstatusProyecto_id"})})
+ * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"}), @ORM\Index(name="fk_tbdetProyecto_tbdetEstatusProyecto1", columns={"fk_tbdetEstatusProyecto_id"}), @ORM\Index(name="fk_tbdetProyecto_tbdetLiderPMO1", columns={"tbdetLiderPMO_id"})})
  * @ORM\Entity
  */
 class Tbdetproyecto
@@ -54,6 +54,16 @@ class Tbdetproyecto
      * })
      */
     private $fkTbdetestatusproyecto;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetliderpmo
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetliderpmo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tbdetLiderPMO_id", referencedColumnName="id")
+     * })
+     */
+    private $tbdetliderpmo;
 
 
 
@@ -157,5 +167,28 @@ class Tbdetproyecto
     public function getFkTbdetestatusproyecto()
     {
         return $this->fkTbdetestatusproyecto;
+    }
+
+    /**
+     * Set tbdetliderpmo
+     *
+     * @param \Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo
+     * @return Tbdetproyecto
+     */
+    public function setTbdetliderpmo(\Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo = null)
+    {
+        $this->tbdetliderpmo = $tbdetliderpmo;
+
+        return $this;
+    }
+
+    /**
+     * Get tbdetliderpmo
+     *
+     * @return \Tech\TBundle\Entity\Tbdetliderpmo 
+     */
+    public function getTbdetliderpmo()
+    {
+        return $this->tbdetliderpmo;
     }
 }

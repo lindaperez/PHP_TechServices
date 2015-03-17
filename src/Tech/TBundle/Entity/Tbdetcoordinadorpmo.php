@@ -5,12 +5,12 @@ namespace Tech\TBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tbdetliderpmo
+ * Tbdetcoordinadorpmo
  *
- * @ORM\Table(name="tbdetLiderPMO", indexes={@ORM\Index(name="fk_tbdetLiderPMO_tbdetUsuarioDatos1", columns={"tbdetUsuarioDatos_id"})})
+ * @ORM\Table(name="tbdetCoordinadorPMO", indexes={@ORM\Index(name="fk_tbdetCoordinadorPMO_tbdetLiderPMO1", columns={"tbdetLiderPMO_id"}), @ORM\Index(name="fk_tbdetCoordinadorPMO_tbdetUsuarioDatos1", columns={"tbdetUsuarioDatos_id"})})
  * @ORM\Entity
  */
-class Tbdetliderpmo
+class Tbdetcoordinadorpmo
 {
     /**
      * @var integer
@@ -27,6 +27,16 @@ class Tbdetliderpmo
      * @ORM\Column(name="valias", type="string", length=45, nullable=false)
      */
     private $valias;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetliderpmo
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetliderpmo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tbdetLiderPMO_id", referencedColumnName="id")
+     * })
+     */
+    private $tbdetliderpmo;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetusuariodatos
@@ -54,7 +64,7 @@ class Tbdetliderpmo
      * Set valias
      *
      * @param string $valias
-     * @return Tbdetliderpmo
+     * @return Tbdetcoordinadorpmo
      */
     public function setValias($valias)
     {
@@ -74,10 +84,33 @@ class Tbdetliderpmo
     }
 
     /**
+     * Set tbdetliderpmo
+     *
+     * @param \Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo
+     * @return Tbdetcoordinadorpmo
+     */
+    public function setTbdetliderpmo(\Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo = null)
+    {
+        $this->tbdetliderpmo = $tbdetliderpmo;
+
+        return $this;
+    }
+
+    /**
+     * Get tbdetliderpmo
+     *
+     * @return \Tech\TBundle\Entity\Tbdetliderpmo 
+     */
+    public function getTbdetliderpmo()
+    {
+        return $this->tbdetliderpmo;
+    }
+
+    /**
      * Set tbdetusuariodatos
      *
      * @param \Tech\TBundle\Entity\Tbdetusuariodatos $tbdetusuariodatos
-     * @return Tbdetliderpmo
+     * @return Tbdetcoordinadorpmo
      */
     public function setTbdetusuariodatos(\Tech\TBundle\Entity\Tbdetusuariodatos $tbdetusuariodatos = null)
     {

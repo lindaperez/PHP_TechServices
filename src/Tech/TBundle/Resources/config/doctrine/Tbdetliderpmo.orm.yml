@@ -1,6 +1,10 @@
 Tech\TBundle\Entity\Tbdetliderpmo:
     type: entity
     table: tbdetLiderPMO
+    indexes:
+        fk_tbdetLiderPMO_tbdetUsuarioDatos1:
+            columns:
+                - tbdetUsuarioDatos_id
     id:
         id:
             type: integer
@@ -17,5 +21,14 @@ Tech\TBundle\Entity\Tbdetliderpmo:
             length: 45
             fixed: false
             comment: ''
-            column: vAlias
+    manyToOne:
+        tbdetusuariodatos:
+            targetEntity: Tbdetusuariodatos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetUsuarioDatos_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

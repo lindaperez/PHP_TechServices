@@ -62,4 +62,7 @@ class Tbdetestatusproyecto
     {
         return $this->vdescripcion;
     }
+    public function __toString() {
+        return $this->getVdescripcion();
+    }
 }

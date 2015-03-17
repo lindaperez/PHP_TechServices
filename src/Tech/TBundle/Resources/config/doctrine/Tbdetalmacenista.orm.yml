@@ -17,7 +17,7 @@ Tech\TBundle\Entity\Tbdetalmacenista:
     fields:
         valias:
             type: string
-            nullable: true
+            nullable: false
             length: 45
             fixed: false
             comment: ''

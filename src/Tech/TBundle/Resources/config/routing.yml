@@ -198,3 +198,8 @@ TechTBundle_Obra:
 TechTBundle_EstatusCotizacion:
     resource: "@TechTBundle/Resources/config/routing/tbdetestatusinstalacion.yml"
     prefix:   /EstatusCotizacion
+
+TechTBundle_EstatusObra:
+    resource: "@TechTBundle/Resources/config/routing/tbdetestatusproyecto.yml"
+    prefix: /EstatusObra
+

@@ -5,12 +5,12 @@ namespace Tech\TBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tbdetestatusinstalacion
+ * Tbdetestatusalmacen
  *
- * @ORM\Table(name="tbdetEstatusInstalacion")
+ * @ORM\Table(name="tbdetEstatusAlmacen")
  * @ORM\Entity
  */
-class Tbdetestatusinstalacion
+class Tbdetestatusalmacen
 {
     /**
      * @var integer
@@ -44,7 +44,7 @@ class Tbdetestatusinstalacion
      * Set vdescripcion
      *
      * @param string $vdescripcion
-     * @return Tbdetestatusinstalacion
+     * @return Tbdetestatusalmacen
      */
     public function setVdescripcion($vdescripcion)
     {
@@ -61,8 +61,5 @@ class Tbdetestatusinstalacion
     public function getVdescripcion()
     {
         return $this->vdescripcion;
-    }
-    public function __toString() {
-        return $this->getVdescripcion();
     }
 }
