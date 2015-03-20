@@ -1,14 +1,75 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetproyecto creation</h1>
+{% block content -%}
+<h1>Creación de Obra</h1>
+  <div class="container" >
 
-    {{ form(form) }}
+    <section class="register">
+
+    <form action="{{ path('Obra_create',{ 'id': entity.id }) }}" method="post" id="login">
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <table>
+            <tr>
+                <td>
+        <div class="error">
+            {{ form_errors(form.icodproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.icodproyecto, 'Codigo:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.icodproyecto) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+            {{ form_errors(form.icantidad) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.icantidad, 'Cantidad:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.icantidad) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+         <div class="error">
+            {{ form_errors(form.fkIcodcotizacion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.fkIcodcotizacion, 'Cotizacion:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.fkIcodcotizacion) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        </tr>
+        <tr>
+        <td>
+        <div class="error">
+        {{ form_errors(form.fkTbdetestatusproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.fkTbdetestatusproyecto, 'Estatus:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.fkTbdetestatusproyecto) }}</td>
+        </table>
+        </td>
+        <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}
+        </div>
+        </tr>
+        </table>
+    
+<p class="submit">   
+                <input type="submit" name="commit" value="Guardar">
+            </p>
+        
+    
+   {{ form_end(form) }}     
+
+</form>
+</section>
+      </div>
+
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('Obra') }}">
-            Back to the list
+            <h4>Volver a Listado de Obras</h4>
         </a>
     </li>
 </ul>

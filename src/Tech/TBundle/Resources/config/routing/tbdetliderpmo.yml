@@ -1,0 +1,30 @@
+Lider:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:index" }
+
+Lider_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:show" }
+
+Lider_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:new" }
+
+Lider_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:create" }
+    requirements: { _method: post }
+
+Lider_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:edit" }
+
+Lider_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:update" }
+    requirements: { _method: post|put }
+
+Lider_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetliderpmo:delete" }
+    requirements: { _method: post|delete }

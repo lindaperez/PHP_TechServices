@@ -15,6 +15,35 @@ use Tech\TBundle\Form\TbdetcotizacionType;
 class TbdetcotizacionController extends Controller
 {
 
+     /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexTecnAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry=  array();
+            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$cotizacion));
+            
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdetproyecto'=>$cotizacion));
+               $pry[$proyecto->getId()]=$proyecto;
+            }
+            $cot[$cotizacion->getId()]=$pry;
+        }
+        
+        
+        return $this->render('TechTBundle:Tbdetcotizacion:index.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
     /**
      * Lists all Tbdetcotizacion entities.
      *
@@ -22,11 +51,14 @@ class TbdetcotizacionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $lista=  array();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-
+       
+        
+        
         return $this->render('TechTBundle:Tbdetcotizacion:index.html.twig', array(
             'entities' => $entities,
+            'cotizaciones' => $lista,
         ));
     }
     /**
@@ -96,7 +128,8 @@ class TbdetcotizacionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
-
+        $proyectos=$em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$entity)); 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
         }
@@ -105,6 +138,7 @@ class TbdetcotizacionController extends Controller
 
         return $this->render('TechTBundle:Tbdetcotizacion:show.html.twig', array(
             'entity'      => $entity,
+            'proyectos'   => $proyectos,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
@@ -117,7 +151,11 @@ class TbdetcotizacionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+         
+        $proyectos=$em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$entity)); 
 
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
         }
@@ -127,6 +165,7 @@ class TbdetcotizacionController extends Controller
 
         return $this->render('TechTBundle:Tbdetcotizacion:edit.html.twig', array(
             'entity'      => $entity,
+            'proyectos'   => $proyectos,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

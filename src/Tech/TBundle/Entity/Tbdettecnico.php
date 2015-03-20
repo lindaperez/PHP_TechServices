@@ -95,4 +95,8 @@ class Tbdettecnico
     {
         return $this->fkIidUsuaDatostecn;
     }
+public function __toString() {
+    return $this->valias;
 }
+    
+    }

@@ -22,8 +22,13 @@ detalls:
     pattern:   /detalls
     defaults:  { _controller: TechTBundle:Default:detalls }
 
+
+confirmObra:
+    pattern:   /confirmObra
+    defaults:  { _controller: TechTBundle:Default:confirmObra}
+
 logout:
-     pattern: /logout
+    pattern: /logout
 
 forgotpass:
     pattern:  /forgotpass
@@ -202,4 +207,16 @@ TechTBundle_EstatusCotizacion:
 TechTBundle_EstatusObra:
     resource: "@TechTBundle/Resources/config/routing/tbdetestatusproyecto.yml"
     prefix: /EstatusObra
+
+TechTBundle_Asignacion:
+    resource: "@TechTBundle/Resources/config/routing/tbreltecnicoproyecto.yml"
+    prefix:   /Asignacion
+
+TBundle_AsignacionLider:
+        resource: "@TechTBundle/Resources/config/routing/tbdetcoordinadorpmo.yml"
+        prefix:   /AsignacionLider
+
+TBundle_Lider:
+        resource: "@TechTBundle/Resources/config/routing/tbdetliderpmo.yml"
+        prefix:   /Lider
 

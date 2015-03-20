@@ -15,8 +15,6 @@
             <td width="40"></td>
             <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
             <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Fecha</strong></h4></td>
-            <td width="40"></td>
             <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
         </thead>
         <tbody>
@@ -30,8 +28,6 @@
                 <td align="center"  width="80">{{ entity.tbdetcotizacioncol }}</td>
                 <td width="40"></td>
                 <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
-                <td width="40"></td>
-             {#  <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                 <td width="40"></td>
                 <td align="center"  width="80">
                 
@@ -52,5 +48,11 @@
     </table>
 </setion>
 </div>
-        
+        <ul>
+        <li>
+            <a href="{{ path('Cotizacion_new') }}">
+               <h4> Crear nueva Cotización</h4>
+            </a>
+        </li>
+    </ul>
     {% endblock %}

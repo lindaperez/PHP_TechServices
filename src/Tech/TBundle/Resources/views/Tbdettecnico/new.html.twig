@@ -1,14 +1,57 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdettecnico creation</h1>
+{% block content %}
 
-    {{ form(form) }}
+<h1>Crear Técnico</h1>
+
+<div class="container" >
+
+<section class="register">    
+<form action="{{ path('Tecnico_create') }}" method="post" id="login">
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
+    <table>
+    <td>
+          <div class="error">
+            {{ form_errors(form.valias) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.valias, 'Alias:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.valias) }}</td>
+        </table>
+        </td>
+        <td width="30"></td>
+        <td>
+        <div class="error">
+        {{ form_errors(form.fkIidUsuaDatostecn) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.fkIidUsuaDatostecn, 'Usuario:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.fkIidUsuaDatostecn) }}</td>
+        </table>
+            </td>
+            <td width="30"></td>
+        <td>
+      
+</td>
+
+
+</table>
+    <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}
+    </div>
+<p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+            </p>    
+   {{ form_end(form) }}     
+
+</form>
+
+</section>
+</div>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('Tecnico') }}">
-            Back to the list
+          <h4> Volver Listado de Técnicos</h4>
         </a>
     </li>
 </ul>

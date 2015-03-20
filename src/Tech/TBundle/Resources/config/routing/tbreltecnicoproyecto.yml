@@ -1,0 +1,38 @@
+Asignacion:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:index" }
+
+Asignacion_indexTecn:
+    pattern: /indexTecn
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexTecn"}    
+
+Asignacion_indexAlm:
+    pattern: /indexAlm
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexAlm"}
+
+Asignacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:show" }
+
+Asignacion_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:new" }
+
+Asignacion_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:create" }
+    requirements: { _method: post }
+
+Asignacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:edit" }
+
+Asignacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:update" }
+    requirements: { _method: post|put }
+
+Asignacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:delete" }
+    requirements: { _method: post|delete }

@@ -1,32 +1,38 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdettecnico</h1>
+{% block content -%}
+    <h1>Técnico </h1>
 
+  <div class="container" >
+
+    <section class="register">
     <table class="record_properties">
-        <tbody>
+        <tbody>      
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Valias</th>
+            <td width="140">Alias: </td>  
                 <td>{{ entity.valias }}</td>
             </tr>
+            <tr>
+            <td width="140">Usuario Asociado: </td>  
+                <td>{{ entity.fkIidUsuadatostecn}}</td>
+            </tr>
+                
+            
+            
         </tbody>
     </table>
-
+</section>
+            </div>
         <ul class="record_actions">
     <li>
         <a href="{{ path('Tecnico') }}">
-            Back to the list
+         <h4>   Volver Listado de Tecnicos<h4>
         </a>
     </li>
-    <li>
-        <a href="{{ path('Tecnico_edit', { 'id': entity.id }) }}">
-            Edit
+       <li>
+        <a href="{{ path('Tecnico_delete', { 'id': entity.id }) }}">
+            <h4>Eliminar</h4>
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

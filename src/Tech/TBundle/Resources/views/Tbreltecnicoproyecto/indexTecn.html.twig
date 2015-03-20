@@ -1,0 +1,57 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado Asignación de Proyecto/Obras</h1>
+      <div class="container" >
+
+    <section class="register">
+<table class="records_list">
+        <thead>
+            <tr>
+            <td align="center"  width="80"><h4 ><strong>Proyecto</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="100"><h4 ><strong>Estatus Proyecto</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Obra</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="120"><h4 ><strong>Estatus Obra</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="120"><h4 ><strong>Fecha de Asignacion</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+            <td width="40"></td>
+            </tr>
+        </thead>
+        <tbody>
+            
+        {% for entity in entities %}
+            <tr>
+                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto.fkIcodcotizacion}}</td>
+                <td width="40"></td>
+                <td align="center"  width="100">{{ entity.fkIidTbdetproyecto.fkIcodcotizacion.fkIidEstatusinstalacion}}</td>
+                <td width="40"></td>
+                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto }}</td>
+                <td width="40"></td>
+                <td align="center"  width="120">{{ entity.fkIidTbdetproyecto.fkTbdetestatusproyecto}}</td>
+                <td width="40"></td>
+                <td align="center"  width="120">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
+                <td width="40"></td>
+                
+                <td align="center"  width="80">
+                <ul>
+                    <li>
+                          <a href="{{ path('Obra_edit', { 'id': entity.fkIidTbdetproyecto.id }) }}"><img width="40" height="40"  title="Cambiar Estatus de Obra" src="/bundles/techt/images/Draft.png"></a>
+                        
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+          
+        </tbody>
+    </table>
+</section>
+        
+        </div>
+
+    {% endblock %}

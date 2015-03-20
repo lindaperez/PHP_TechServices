@@ -1,16 +1,123 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetcotizacion edit</h1>
+{% block content %}
+    <h1>Modificar Cotización</h1>
+  <div class="container" >
 
-    {{ form(edit_form) }}
+    <section class="register">
+
+
+    <form action="{{ path('Cotizacion_update',{ 'id': entity.id }) }}" method="post" id="login">
+ {{ form_start(edit_form) }}
+        {{ form_errors(edit_form) }}
+        <table>
+            <tr>
+            <td>
+        <div class="error">
+            {{ form_errors(edit_form.codcotizacion) }}</div>       
+        <table>  <td width="80">
+        {{ form_label(edit_form.codcotizacion, 'Codigo:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.codcotizacion) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+            {{ form_errors(edit_form.tbdetcotizacioncol) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.tbdetcotizacioncol, 'Contrato:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.tbdetcotizacioncol) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+         <div class="error">
+            {{ form_errors(edit_form.fkIidEstatusinstalacion ) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkIidEstatusinstalacion, 'Estatus:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.fkIidEstatusinstalacion) }}</td>
+        </table>
+        </td>
+
+            </tr>
+        </table>
+        
+        <br>
+        <div style="display: none;">
+        {{ form_row(edit_form.submit, { 'label': 'Actualizar' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        </div>
+
+    
+<p class="submit">   
+                <input type="submit" name="commit" value="Guardar">
+            </p>
+        
+    
+   {{ form_end(edit_form) }}     
+   </section>
+   </div>
+   <div class="container" >
+
+    <section class="register">
+<br><br>
+        <h1> Listado de Obras de la Cotización: </h1>
+        <div id="accordion">
+            
+            {%for proyecto in proyectos %}
+                <table>
+                <td width="150px"><h4> {{proyecto.icodproyecto}} </h4></td>
+                <td width="250px">Estatus: {{proyecto.fkTbdetestatusproyecto}}</td>
+                </table>
+                <div>
+                    <table>
+                        <td width="250px">
+                         Cantidad: {{proyecto.icantidad}}
+                         </td>
+                         <td width="40px"></td>
+                         
+                    </table>
+                </div>
+            {%endfor%}
+        </div>
+</section>
+</div>
+        </form>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('Cotizacion') }}">
-            Back to the list
+           <h4> Volver Lista Cotizaciones </h4>
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+     <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+  });
+  
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click 
+        if($('#selecctall').is(':checked')) { // check select status
+               
+        $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        }else{
+            
+        $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false;  //unselect all checkboxes with class "checkbox1"               
+            });    
+        }
+    });
+    
+});
+  </script>
 {% endblock %}

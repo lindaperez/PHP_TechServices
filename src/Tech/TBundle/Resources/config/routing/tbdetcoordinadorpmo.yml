@@ -1,0 +1,30 @@
+AsignacionLider:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:index" }
+
+AsignacionLider_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:show" }
+
+AsignacionLider_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:new" }
+
+AsignacionLider_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:create" }
+    requirements: { _method: post }
+
+AsignacionLider_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:edit" }
+
+AsignacionLider_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:update" }
+    requirements: { _method: post|put }
+
+AsignacionLider_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetcoordinadorpmo:delete" }
+    requirements: { _method: post|delete }

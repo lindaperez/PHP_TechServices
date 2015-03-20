@@ -1,0 +1,59 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <h1>Listado Asignación de Proyecto/Obras</h1>
+      <div class="container" >
+
+    <section class="register">
+<table class="records_list">
+        <thead>
+            <tr>
+            <td align="center"  width="80"><h4 ><strong>Técnico</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Proyecto</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Obra</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Fecha</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+            <td width="40"></td>
+            </tr>
+        </thead>
+        <tbody>
+           
+        {% for clave,entity in entities %}
+            <tr>
+                <td align="center"  width="80"><a href="{{ path('Asignacion_show', { 'id': entity.id }) }}">{{ entity.fkIidTbdettecnico }}</a></td>
+                <td width="40"></td>
+                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto.fkIcodcotizacion }}</td>
+                <td width="40"></td>
+                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto }}</td>
+                <td width="40"></td>
+                <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td width="40"></td>
+                
+                <td align="center"  width="80">
+                <ul>
+                    <li>
+                        <a href="{{ path('Asignacion_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+          
+        </tbody>
+    </table>
+</section>
+        
+        </div>
+
+        <ul>
+        <li>
+            <a href="{{ path('Asignacion_new') }}">
+               <h4>Crear Nueva Asignacion</h4>
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

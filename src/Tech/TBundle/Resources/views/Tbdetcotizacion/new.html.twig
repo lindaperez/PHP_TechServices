@@ -1,14 +1,64 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetcotizacion creation</h1>
+{% block content %}
 
-    {{ form(form) }}
+<h1>Creación de Cotización</h1>
+
+<div class="container" >
+
+<section class="register">    
+<form action="{{ path('Cotizacion_create') }}" method="post" id="login">
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
+    <table>
+    <td>
+          <div class="error">
+            {{ form_errors(form.codcotizacion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.codcotizacion, 'Codigo:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(form.codcotizacion) }}</td>
+        </table>
+        </td>
+        <td width="30"></td>
+        <td>
+        <div class="error">
+        {{ form_errors(form.tbdetcotizacioncol) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.tbdetcotizacioncol, 'Contrato:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.tbdetcotizacioncol) }}</td>
+        </table>
+            </td>
+            <td width="30"></td>
+        <td>
+        <div class="error">
+        {{ form_errors(form.fkIidEstatusinstalacion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(form.fkIidEstatusinstalacion, 'Estatus:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(form.fkIidEstatusinstalacion) }}</td>
+        </table>
+</td>
+
+
+</table>
+    <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}
+    </div>
+    <br>
+<p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+            </p>    
+   {{ form_end(form) }}     
+
+</form>
+
+</section>
+</div>
+ 
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('Cotizacion') }}">
-            Back to the list
+           <h4> Volver Lista de Cotizaciones</h4>
         </a>
     </li>
 </ul>

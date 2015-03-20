@@ -1,32 +1,95 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetcotizacion</h1>
+{% block content -%}
+    <h1>Proyecto -{{ entity.codcotizacion }}</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Codcotizacion</th>
-                <td>{{ entity.codcotizacion }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container" >
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('Cotizacion') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('Cotizacion_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <section class="register">
+            <table class="record_properties">
+                <tbody>
+
+
+                    <tr>
+                        <td width="70"> Código: </td>  
+                        <td width="80">{{ entity.codcotizacion }}</td>
+                        <td  width="120"></td>
+                        <td width="130">Contrato Asociado: </td>  
+                        <td width="80">{{ entity.tbdetcotizacioncol }}</td>
+                        <td  width="120"></td>
+                        <td width="80">Estatus: </td>  
+                        <td width="80">{{ entity.fkIidEstatusinstalacion }}</td>
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+        </section>
+        {% if(app.session.get('usuario_rol')=="Administrador") %}
+            <ul class="record_actions" >
+
+                <li>
+                    <a href="{{ path('Cotizacion_delete', { 'id': entity.id }) }}">
+                        <h4>Eliminar</h4>
+                    </a>
+                </li>
+
+            </ul>
+        {%endif%}
+    </div>
+    <div class="container" >
+
+        <section class="register">
+            <br><br>
+            <h1> Listado de Obras: </h1>
+            <div id="accordion">
+
+                {%for proyecto in proyectos %}
+                    <table>
+                        <td width="150px"><h4> {{proyecto.icodproyecto}} </h4></td>
+                        <td width="250px">Estatus: {{proyecto.fkTbdetestatusproyecto}}</td>
+                    </table>
+                    <div>
+                        <table>
+                            <td width="250px">
+                                Cantidad: {{proyecto.icantidad}}
+                            </td>
+                            <td width="40px"></td>
+
+                        </table>
+                    </div>
+                {%endfor%}
+            </div>
+        </section>
+    </div>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                heightStyle: "content"
+            });
+        });
+
+        $(document).ready(function () {
+            $('#selecctall').click(function (event) {  //on click 
+                if ($('#selecctall').is(':checked')) { // check select status
+
+                    $('.checkbox1').each(function () { //loop through each checkbox
+                        this.checked = true;  //select all checkboxes with class "checkbox1"               
+                    });
+                } else {
+
+                    $('.checkbox1').each(function () { //loop through each checkbox
+                        this.checked = false;  //unselect all checkboxes with class "checkbox1"               
+                    });
+                }
+            });
+
+        });
+    </script>
 {% endblock %}

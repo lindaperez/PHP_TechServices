@@ -22,9 +22,9 @@ class Tbdetproyecto
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="iCodProyecto", type="integer", nullable=false)
+     * @ORM\Column(name="iCodProyecto", type="string", length=8, nullable=false)
      */
     private $icodproyecto;
 
@@ -70,7 +70,7 @@ class Tbdetproyecto
     /**
      * Set icodproyecto
      *
-     * @param integer $icodproyecto
+     * @param string $icodproyecto
      * @return Tbdetproyecto
      */
     public function setIcodproyecto($icodproyecto)
@@ -83,7 +83,7 @@ class Tbdetproyecto
     /**
      * Get icodproyecto
      *
-     * @return integer 
+     * @return string 
      */
     public function getIcodproyecto()
     {
@@ -157,5 +157,8 @@ class Tbdetproyecto
     public function getFkTbdetestatusproyecto()
     {
         return $this->fkTbdetestatusproyecto;
+    }
+    public function __toString() {
+        return $this->icodproyecto;
     }
 }

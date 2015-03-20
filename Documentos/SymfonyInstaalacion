@@ -112,7 +112,7 @@ para los campos agregados
 
 
 
-php5 app/console doctrine:mapping:import --force TechTBundle yml && php5 app/console doctrine:mapping:convert annotation ./src --force && php5 app/console doctrine:generate:entities TechTBundle && php5 app/console doctrine:schema:update --force && php5 app/console cache:clear --env=prod && php5 app/console cache:clear --env=dev 
+php5 app/console doctrine:mapping:import --force TechTBundle yml && php5 app/console doctrine:mapping:convert annotation ./src --force && php5- app/console doctrine:generate:entities TechTBundle && php5 app/console doctrine:schema:update --force && php5 app/console cache:clear --env=prod && php5 app/console cache:clear --env=dev 
 
 
 12. Se generan las entidades 

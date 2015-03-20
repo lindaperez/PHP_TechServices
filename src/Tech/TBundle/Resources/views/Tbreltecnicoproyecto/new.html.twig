@@ -1,0 +1,133 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+
+<h1>Asignación de Proyectos/Obras</h1>
+
+<div class="container" >
+<section class="register">
+    
+    <h1>Complete el siguiente formulario para asignar Proyectos/Obras al Técnico</h1>
+    <br>
+<form action="{{ path('Asignacion_create') }}" method="post" id="login">
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
+    <table>
+  
+      <tr>
+        <td>
+          <div class="error">
+            {{ form_errors(form.fkIidTbdettecnico) }}</div>       
+        <table>  <td width="160">
+        Seleccione al Técnico: *</td>
+            <td>{{ form_widget(form.fkIidTbdettecnico   ) }}</td>
+        </table>
+        </td>
+        <td width="30"></td>
+            </tr>
+            <tr>
+                <td>
+            Seleccione el Proyecto o Obra:
+            *</td>
+            </tr>
+            
+        <tr>
+            
+        <td>
+            
+      
+            <div id="accordion">
+                {% for  clave,cotizacion in cotizaciones %}
+                    <table>     
+                        <tr>
+                            
+                        <ul><input type="checkbox"  id="selecctall"> Proyecto: {{clave}}</ul>
+                        
+                        
+                        </tr>
+                    
+                        
+                        
+                        {% for proyecto in cotizacion%}
+                        <tr>
+                            <td width="750px">
+                                <div>
+                                    <p>
+                                        
+                                    <input class="checkbox1" type="checkbox" name= "cot.{{proyecto.id}}" value={{proyecto.id}}> Obra: {{ proyecto|e }}<br>
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </table>
+                {% endfor %}
+            </div>
+        </td>
+        </tr>
+        <tr>
+        
+         <td>
+          <div class="error">
+            {{ form_errors(form.vdescripcioncambioest) }}</div>       
+        <table>  <td width="160">
+        Introduzca el Mensaje de asignación: (Opcional) </td>
+            <td>{{ form_widget(form.vdescripcioncambioest) }}</td>
+        </table>
+        </td>
+        </tr>
+
+</table>
+    <div style="display: none;">
+        {{ form_row(form.submit, { 'label': 'Crear' }) }}
+        {{ form_row(form.dfecha) }}
+        {{ form_row(form.fkIidTbdetproyecto) }}
+        
+    </div>
+<p class="submit">   
+                <input type="submit" name="commit" value="Crear">
+            </p>    
+             
+   {{ form_end(form) }}     
+
+</form>
+
+</section>
+</div>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('Asignacion') }}">
+            <h4>Volver Listado Asignaciones </h4>
+        </a>
+    </li>
+</ul>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
+  <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+  });
+  
+  $(document).ready(function() {
+    $('#selecctall').click(function(event) {  //on click 
+        if($('#selecctall').is(':checked')) { // check select status
+               
+        $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        }else{
+            
+        $('.checkbox1').each(function() { //loop through each checkbox
+                this.checked = false;  //unselect all checkboxes with class "checkbox1"               
+            });    
+        }
+    });
+    
+});
+  </script>
+{% endblock %}

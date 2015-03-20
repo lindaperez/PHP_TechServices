@@ -261,26 +261,43 @@ class DefaultController extends Controller
 //Detalles
     
     //TERMINANTEMENTE PROHIBIDO LOS PRINT PARA EL JSON RESPONSE
-       public function detallsAction(Request $request)
-{
-    $tbgenespecsolicitud_id = $request->request->get('tbgenespecsolicitud_id');
-    
-       $em = $this->getDoctrine()->getManager();
-       $detalle = $em->getRepository('TechTBundle:Tbgendetalle')
-                ->findBy(array('fkIidEspSol'=> $tbgenespecsolicitud_id));
-       
-       $data=array();
-       if ($detalle!=null){  
+    public function detallsAction(Request $request) {
+        $tbgenespecsolicitud_id = $request->request->get('tbgenespecsolicitud_id');
+
+        $em = $this->getDoctrine()->getManager();
+        $detalle = $em->getRepository('TechTBundle:Tbgendetalle')
+                ->findBy(array('fkIidEspSol' => $tbgenespecsolicitud_id));
+
+        $data = array();
+        if ($detalle != null) {
             for ($i = 0; $i < count($detalle); $i++) {
-                $data[$i]=array('id'=>$detalle[$i]->getId(),
-                    'name'=>$detalle[$i]->getVdescripcion());
+                $data[$i] = array('id' => $detalle[$i]->getId(),
+                    'name' => $detalle[$i]->getVdescripcion());
             }
             return new JsonResponse($data);
-       }else{
-            return new JsonResponse(null);    
-       }
-}
-
-       
-    
+        } else {
+            return new JsonResponse(null);
         }
+    }
+      //TERMINANTEMENTE PROHIBIDO LOS PRINT PARA EL JSON RESPONSE
+      //confirmacion de obra cambio de estatus checkbox en vista de asignacion/Indexalm
+       public function confirmObraAction(Request $request)
+       {
+           $idObra = $request->request->get('idObra');
+           $idCotiza = $request->request->get('idCot');
+           $em = $this->getDoctrine()->getManager();
+           $obra= $em->getRepository('TechTBundle:Tbdetproyecto')
+                ->find($idObra);
+           $estatusSi= $em->getRepository('TechTBundle:Tbdetestatusproyecto')
+                ->findOneBy(array('vdescripcion'=>'Pedido Si'));
+           if ($estatusSi!=null){
+            $obra->setFkTbdetestatusproyecto($estatusSi);
+            $em->flush();
+            return new JsonResponse(array('id'=>1,'name'=>'ok'));
+           }else{
+               return new JsonResponse(null);
+           
+           }
+           
+           }
+}

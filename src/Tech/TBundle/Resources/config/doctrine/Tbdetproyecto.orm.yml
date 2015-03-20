@@ -19,9 +19,10 @@ Tech\TBundle\Entity\Tbdetproyecto:
                 strategy: IDENTITY
     fields:
         icodproyecto:
-            type: integer
+            type: string
             nullable: false
-            unsigned: false
+            length: 8
+            fixed: false
             comment: ''
             column: iCodProyecto
         icantidad:

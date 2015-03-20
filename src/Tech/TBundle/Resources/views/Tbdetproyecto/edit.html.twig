@@ -1,16 +1,77 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetproyecto edit</h1>
+{% block content -%}
+     {% if(app.session.get('usuario_rol')=="Tecnico") %}
+<h1>Cambiar Estatus</h1>
+     {%else%}
+         <h1>Modificar Obra</h1>
+ {%endif%}
+  <div class="container" >
 
-    {{ form(edit_form) }}
+    <section class="register">
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('Obra') }}">
-            Back to the list
-        </a>
-    </li>
+    <form action="{{ path('Obra_update',{ 'id': entity.id }) }}" method="post" id="login">
+ {{ form_start(edit_form) }}
+        {{ form_errors(edit_form) }}
+        <table>
+            <tr>
+                <td>
+        <div class="error">
+            {{ form_errors(edit_form.icodproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.icodproyecto, 'Codigo:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.icodproyecto) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+            {{ form_errors(edit_form.icantidad) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.icantidad, 'Cantidad:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.icantidad) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+         <div class="error">
+            {{ form_errors(edit_form.fkIcodcotizacion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkIcodcotizacion, 'Cotizacion:', {'required': 'true'}) }}</td>
+            <td>{{ form_widget(edit_form.fkIcodcotizacion) }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        </tr>
+        <tr>
+        <td>
+        <div class="error">
+        {{ form_errors(edit_form.fkTbdetestatusproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkTbdetestatusproyecto, 'Estatus:', {'required': 'true'}) }}</td>
+        <td>{{ form_widget(edit_form.fkTbdetestatusproyecto) }}</td>
+        </table>
+        </td>
+        <div style="display: none;">
+        {{ form_row(edit_form.submit, { 'label': 'Actualizar' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        </div>
+        </tr>
+        </table>
+    
+<p class="submit">   
+                <input type="submit" name="commit" value="Guardar">
+            </p>
+        
+    
+   {{ form_end(edit_form) }}     
+   <ul class="record_actions">
+    
     <li>{{ form(delete_form) }}</li>
 </ul>
+</form>
+</section>
+      </div>
+
+     
 {% endblock %}
