@@ -8,6 +8,9 @@ Tech\TBundle\Entity\Tbdetcotizacion:
         fk_tbdetCotizacion_1:
             columns:
                 - fk_iID_EstatusInstalacion
+        fk_tbdetCotizacion_tbdetLiderPMO1:
+            columns:
+                - tbdetLiderPMO_id
     id:
         id:
             type: integer
@@ -25,6 +28,10 @@ Tech\TBundle\Entity\Tbdetcotizacion:
             fixed: false
             comment: ''
             column: codCotizacion
+        dfecha:
+            type: datetime
+            nullable: false
+            comment: ''
     manyToOne:
         fkIidEstatusinstalacion:
             targetEntity: Tbdetestatusinstalacion
@@ -42,6 +49,15 @@ Tech\TBundle\Entity\Tbdetcotizacion:
             inversedBy: null
             joinColumns:
                 tbdetCotizacioncol:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tbdetliderpmo:
+            targetEntity: Tbdetliderpmo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetLiderPMO_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

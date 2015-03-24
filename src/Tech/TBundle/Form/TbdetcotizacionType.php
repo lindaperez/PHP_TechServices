@@ -16,8 +16,10 @@ class TbdetcotizacionType extends AbstractType
     {
         $builder
             ->add('codcotizacion')
-            ->add('tbdetcotizacioncol')
+            ->add('dfecha')
             ->add('fkIidEstatusinstalacion')
+            ->add('tbdetcotizacioncol')
+            ->add('tbdetliderpmo')
         ;
     }
     

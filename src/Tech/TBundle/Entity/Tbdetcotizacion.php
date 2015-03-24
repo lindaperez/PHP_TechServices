@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetcotizacion
  *
- * @ORM\Table(name="tbdetCotizacion", indexes={@ORM\Index(name="fk_tbdetCotizacion_Cont", columns={"tbdetCotizacioncol"}), @ORM\Index(name="fk_tbdetCotizacion_1", columns={"fk_iID_EstatusInstalacion"})})
+ * @ORM\Table(name="tbdetCotizacion", indexes={@ORM\Index(name="fk_tbdetCotizacion_Cont", columns={"tbdetCotizacioncol"}), @ORM\Index(name="fk_tbdetCotizacion_1", columns={"fk_iID_EstatusInstalacion"}), @ORM\Index(name="fk_tbdetCotizacion_tbdetLiderPMO1", columns={"tbdetLiderPMO_id"})})
  * @ORM\Entity
  */
 class Tbdetcotizacion
@@ -29,14 +29,11 @@ class Tbdetcotizacion
     private $codcotizacion;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetcontratorif
+     * @var \DateTime
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="tbdetCotizacioncol", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="dfecha", type="datetime", nullable=false)
      */
-    private $tbdetcotizacioncol;
+    private $dfecha;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetestatusinstalacion
@@ -47,6 +44,26 @@ class Tbdetcotizacion
      * })
      */
     private $fkIidEstatusinstalacion;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetcontratorif
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcontratorif")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tbdetCotizacioncol", referencedColumnName="id")
+     * })
+     */
+    private $tbdetcotizacioncol;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetliderpmo
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetliderpmo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tbdetLiderPMO_id", referencedColumnName="id")
+     * })
+     */
+    private $tbdetliderpmo;
 
 
 
@@ -84,26 +101,26 @@ class Tbdetcotizacion
     }
 
     /**
-     * Set tbdetcotizacioncol
+     * Set dfecha
      *
-     * @param \Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol
+     * @param \DateTime $dfecha
      * @return Tbdetcotizacion
      */
-    public function setTbdetcotizacioncol(\Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol = null)
+    public function setDfecha($dfecha)
     {
-        $this->tbdetcotizacioncol = $tbdetcotizacioncol;
+        $this->dfecha = $dfecha;
 
         return $this;
     }
 
     /**
-     * Get tbdetcotizacioncol
+     * Get dfecha
      *
-     * @return \Tech\TBundle\Entity\Tbdetcontratorif 
+     * @return \DateTime 
      */
-    public function getTbdetcotizacioncol()
+    public function getDfecha()
     {
-        return $this->tbdetcotizacioncol;
+        return $this->dfecha;
     }
 
     /**
@@ -129,9 +146,49 @@ class Tbdetcotizacion
         return $this->fkIidEstatusinstalacion;
     }
 
-    public function __toString() {
-    return $this->codcotizacion;    
+    /**
+     * Set tbdetcotizacioncol
+     *
+     * @param \Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol
+     * @return Tbdetcotizacion
+     */
+    public function setTbdetcotizacioncol(\Tech\TBundle\Entity\Tbdetcontratorif $tbdetcotizacioncol = null)
+    {
+        $this->tbdetcotizacioncol = $tbdetcotizacioncol;
+
+        return $this;
     }
-    
-    
+
+    /**
+     * Get tbdetcotizacioncol
+     *
+     * @return \Tech\TBundle\Entity\Tbdetcontratorif 
+     */
+    public function getTbdetcotizacioncol()
+    {
+        return $this->tbdetcotizacioncol;
     }
+
+    /**
+     * Set tbdetliderpmo
+     *
+     * @param \Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo
+     * @return Tbdetcotizacion
+     */
+    public function setTbdetliderpmo(\Tech\TBundle\Entity\Tbdetliderpmo $tbdetliderpmo = null)
+    {
+        $this->tbdetliderpmo = $tbdetliderpmo;
+
+        return $this;
+    }
+
+    /**
+     * Get tbdetliderpmo
+     *
+     * @return \Tech\TBundle\Entity\Tbdetliderpmo 
+     */
+    public function getTbdetliderpmo()
+    {
+        return $this->tbdetliderpmo;
+    }
+}

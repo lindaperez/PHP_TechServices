@@ -2,12 +2,12 @@ Tech\TBundle\Entity\Tbdetproyecto:
     type: entity
     table: tbdetProyecto
     indexes:
-        fk_tbdetProyecto_Cot:
-            columns:
-                - fk_iCodCotizacion
         fk_tbdetProyecto_tbdetEstatusProyecto1:
             columns:
                 - fk_tbdetEstatusProyecto_id
+        fk_tbdetProyecto_Cot:
+            columns:
+                - fk_iCodCotizacion
     id:
         id:
             type: integer
@@ -25,21 +25,18 @@ Tech\TBundle\Entity\Tbdetproyecto:
             fixed: false
             comment: ''
             column: iCodProyecto
+        fkIcodcotizacion:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: fk_iCodCotizacion
         icantidad:
             type: integer
             nullable: false
             unsigned: false
             comment: ''
     manyToOne:
-        fkIcodcotizacion:
-            targetEntity: Tbdetcotizacion
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iCodCotizacion:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkTbdetestatusproyecto:
             targetEntity: Tbdetestatusproyecto
             cascade: {  }
