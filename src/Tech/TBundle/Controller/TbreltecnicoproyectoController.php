@@ -15,17 +15,18 @@ use Tech\TBundle\Form\TbreltecnicoproyectoType;
 class TbreltecnicoproyectoController extends Controller
 {
 
-      /**
+     /**
      * Lists all Tbreltecnicoproyecto entities.
      *
      */
-    public function indexAlmAction() {
+    public function indexAlmAprobAction() {
         $em = $this->getDoctrine()->getManager();
         $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
         $proyecto=array();
         
-        $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->findOneBy(
-                array('vdescripcion'=>'Asignado'));
+        $estPedidoSi= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(4);
+        $estEntregadoTec= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(6);
+        $estEntregadoAlma= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(7);
         //print_r($estAsignado);
         foreach ($cotizaciones as $clave => $cotizacion) {
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
@@ -35,8 +36,11 @@ class TbreltecnicoproyectoController extends Controller
                         ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
                         ->where('rtp.fkIidTbdetproyecto =:pry')
                         ->setParameter('pry', $pry)
-                        ->andwhere('p.fkTbdetestatusproyecto=:status')
-                        ->setParameter('status', $estAsignado)                        
+                        ->andwhere('p.fkTbdetestatusproyecto=:status or p.fkTbdetestatusproyecto=:status1 or '
+                                . 'p.fkTbdetestatusproyecto=:status2')
+                        ->setParameter('status', $estPedidoSi)
+                        ->setParameter('status1', $estEntregadoTec)      
+                        ->setParameter('status2', $estEntregadoAlma)  
                         ->orderBy('rtp.dfecha', 'DESC')
                         ->getQuery();
           //      print_r($query);
@@ -47,11 +51,50 @@ class TbreltecnicoproyectoController extends Controller
             }
             
         }
+               
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:indexAlmAprob.html.twig', array(
+                    'lista' => $proyecto,
+        ));
+    }
+      /**
+     * Lists all Tbreltecnicoproyecto entities.
+     *
+     */
+    public function indexAlmAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
         
+        $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(3);
+        $estPorAsign= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(1);
+        $estPedidoNo= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(5);
+        //print_r($estAsignado);
+        foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
+                        ->where('rtp.fkIidTbdetproyecto =:pry')
+                        ->setParameter('pry', $pry)
+                        ->andwhere('p.fkTbdetestatusproyecto=:status or p.fkTbdetestatusproyecto=:status1 or '
+                                . 'p.fkTbdetestatusproyecto=:status2')
+                        ->setParameter('status', $estAsignado)
+                        ->setParameter('status1', $estPorAsign)      
+                        ->setParameter('status2', $estPedidoNo)  
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+          //      print_r($query);
+                $reltecnico = $query->getResult();
+                if ($reltecnico!=null){
+                $proyecto[$pry->getId()] = $reltecnico[0];
+                }
+            }
             
-            
+        }    
         return $this->render('TechTBundle:Tbreltecnicoproyecto:indexAlm.html.twig', array(
                     'lista' => $proyecto,
+                    
         ));
     }
       /**
@@ -68,11 +111,87 @@ class TbreltecnicoproyectoController extends Controller
         
         $entities = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
                     array('fkIidTbdettecnico'=>$tecnico)); 
-                
+           $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
+        
+        $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(3);
+        $estPedidoSi= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(4);
+        $estPedidoNo= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(5);
+              foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
+                        ->where('rtp.fkIidTbdetproyecto =:pry')
+                        ->setParameter('pry', $pry)
+                        ->andwhere('p.fkTbdetestatusproyecto=:status or p.fkTbdetestatusproyecto=:status1 or '
+                                . 'p.fkTbdetestatusproyecto=:status2')
+                        ->setParameter('status', $estAsignado)
+                        ->setParameter('status1', $estPedidoSi)      
+                        ->setParameter('status2', $estPedidoNo)      
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+          //      print_r($query);
+                $reltecnico = $query->getResult();
+                if ($pry!=null and $reltecnico!=null){
+                $proyecto[$pry->getId()] = $reltecnico[0];
+                }
+            }
+            
+        }
+        
 
         
         return $this->render('TechTBundle:Tbreltecnicoproyecto:indexTecn.html.twig', array(
-            'entities' => $entities,
+            'lista' => $proyecto,
+            
+        ));
+    }
+      /**
+     * Lists all Tbreltecnicoproyecto entities.
+     *
+     */
+    public function indexTecnInstAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        
+        $tecnico = $em->getRepository('TechTBundle:Tbdettecnico')->findBy(
+                    array('fkIidUsuaDatostecn'=>$user));
+        
+        $entities = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdettecnico'=>$tecnico)); 
+           $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
+        
+        
+        $estInst= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(7);
+              foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
+                        ->where('rtp.fkIidTbdetproyecto =:pry')
+                        ->setParameter('pry', $pry)
+                        ->andwhere('p.fkTbdetestatusproyecto=:status')
+                        ->setParameter('status', $estInst)      
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+          //      print_r($query);
+                $reltecnico = $query->getResult();
+                if ($pry!=null and $reltecnico!=null){
+                $proyecto[$pry->getId()] = $reltecnico[0];
+                }
+            }
+            
+        }
+        
+
+        
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:indexTecnInst.html.twig', array(
+            'lista' => $proyecto,
             
         ));
     }

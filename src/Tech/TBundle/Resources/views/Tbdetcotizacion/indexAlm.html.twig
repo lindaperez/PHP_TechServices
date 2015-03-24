@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Proyectos</h1>
+    <h1>Proyectos por Aprobar</h1>
 
     <div class="container" >
 
@@ -27,30 +27,27 @@
                         {% for  key2,proyectos in cot%}
                             {% if key2=='uno'%}
                                 {% for  clave,proyecto  in proyectos%}
-                                    <tr >
-                                        <td align="center"  width="80"><a href="{{ path('Obra_show', { 'id': proyecto.id }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                    
+                                    <tr>
+                                        <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
                                         <td width="40"></td>
-                                        <td align="center"  width="80"></td>
+                                        <td align="center"  width="80"> </td>
                                         <td width="40"></td>
                                         <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                         <td width="40"></td>
                                         <td align="center"  width="180">{{ proyecto.fkTbdetestatusproyecto }}</td>
                                         <td width="40"></td>
-                                        <td align="center"  width="80">
-                                            <ul>
-                                                <li>
-
-                                                </li>
-                                            </ul>
+                                        <td height="25" align="center"  width="80">
                                         </td>
                                     </tr>
+                                    
                                 {%endfor%}
                             {%else%}
 
                                 <tr bgcolor="#FFFFFF" >
 
 
-                                    <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}"><h4>{{cot['dos'].codcotizacion}}</h4></a></td>
+                                    <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="40"></td>
                                     <td align="center"  width="80">{{ cot['dos'].tbdetcotizacioncol.pkInroContrato }}</td>
                                     <td width="40"></td>
@@ -83,7 +80,7 @@
                                                         {% if key2=='uno'%}
                                                             {% for  clave,proyecto  in proyectos%}
                                                                 <tr>
-                                                                    <td align="center"  width="80"><a href="{{ path('Obra_show', { 'id': proyecto.id }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                                                    <td align="center"  width="80">{{ proyecto.icodproyecto}}</td>
                                                                     <td width="40"></td>
                                                                     <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                                                     <td width="40"></td>

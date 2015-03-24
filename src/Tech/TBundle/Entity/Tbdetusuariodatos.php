@@ -22,6 +22,7 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
     protected $usuarioacceso;
     protected $vrif;
     protected $vcontrato;
+    protected $valias;
     
   
     public function serialize()
@@ -556,5 +557,26 @@ class Tbdetusuariodatos implements UserInterface, \Serializable
 	//Corregir
         $this->vclave=$vclave;
     }
-    
+    /**
+     * Set valias Para registro de tecnicos almacenistas coordinadores lideres
+     *
+     * @param string $valias
+     * @return Tbdetusuariodatos
+     */
+    public function setValias($valias)
+    {
+        $this->valias = $valias;
+
+        return $this;
+    }
+
+    /**
+     * Get valias
+     *
+     * @return string 
+     */
+    public function getValias()
+    {
+        return $this->valias;
+    }
 }

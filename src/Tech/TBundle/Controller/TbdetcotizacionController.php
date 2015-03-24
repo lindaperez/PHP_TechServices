@@ -15,36 +15,7 @@ use Tech\TBundle\Form\TbdetcotizacionType;
 class TbdetcotizacionController extends Controller
 {
 
-     /**
-     * Lists all Tbdetcotizacion entities.
-     *
-     */
-    public function indexTecnAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
-        foreach ($entities as $claveCot => $cotizacion) {
-            $pry=  array();
-            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$cotizacion));
-            
-            foreach ($proyectos as $clavePry => $proyecto) {
-                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetproyecto'=>$cotizacion));
-               $pry[$proyecto->getId()]=$proyecto;
-            }
-            $cot[$cotizacion->getId()]=$pry;
-        }
-        
-        
-        return $this->render('TechTBundle:Tbdetcotizacion:index.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
-        ));
-    }
-    /**
+       /**
      * Lists all Tbdetcotizacion entities.
      *
      */
@@ -57,10 +28,119 @@ class TbdetcotizacionController extends Controller
         
         
         return $this->render('TechTBundle:Tbdetcotizacion:index.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $lista,
+            'entities' => $entities
         ));
     }
+    /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexAlmAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            $swith=false;
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
+                if($idPryEst==1 || $idPryEst==3 || $idPryEst==5) {
+                    $swith=true;
+                }
+                    $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                            array('fkIidTbdetproyecto' => $cotizacion));
+                    $pry[$proyecto->getId()] = $proyecto;
+                
+            }
+            if ($swith==true){
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            }
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexAlm.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
+    
+    /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexAlmAprobAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            $swith=false;
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
+                if($idPryEst==1 || $idPryEst==3 || $idPryEst==5) {
+                    $swith=true;
+                }
+                    $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                            array('fkIidTbdetproyecto' => $cotizacion));
+                    $pry[$proyecto->getId()] = $proyecto;
+                
+            }
+            if ($swith==false){
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            }
+            
+            
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexAlmAprob.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
+    
+     /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+     public function indexTecnAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry=  array();
+            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$cotizacion));
+            
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdetproyecto'=>$cotizacion));
+               $pry[$proyecto->getId()]=$proyecto;
+            }
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecn.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
+    
+ 
     /**
      * Creates a new Tbdetcotizacion entity.
      *

@@ -74,12 +74,19 @@
                     <table>  <td width="100">
                 {{ form_label(form.vcargo, 'Cargo:') }}</td><td>
                 {{ form_widget(form.vcargo) }}<br></td></table>
-                            <div class="error">
+                    <div class="error">
                 {{ form_errors(form.vcontrato) }}</div>
                     <table>  
                         <td width="100">{{ form_label(form.vcontrato, 'Contrato:') }}</td><td>
-                {{ form_widget(form.vcontrato) }}<br><br></td></table>
+                {{ form_widget(form.vcontrato) }}</td></table>
+                         
+            <div id='valias' style="display: none;">
+                     <div class="error">{{ form_errors(form.valias) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.valias, 'Alias:') }}</td><td>
+        {{ form_widget(form.valias) }}<br><br>  </td></table>
 
+            </div>
                 </td>
                 <td width="20"></td>
                 <td>
@@ -147,7 +154,8 @@
         <table>  <td width="100">
         {{ form_label(form.usuarioacceso.fkIidRol, 'Tipo Usuario:') }}</td><td>
         {{ form_widget(form.usuarioacceso.fkIidRol,{'required': 'true'}) }}<br></td></table>
-                    
+           
+        
         
                     <!--Campos ocultos -->
                     <div style="display: none;">
@@ -177,7 +185,54 @@
         </form>  
     </section>
 </div>
-
+<script>
+    $(function() {
+        
+        var $value=$('#tech_tbundle_tbdetusuariodatos_usuarioacceso_fkIidRol').val();
+        if ($value==='6' || $value==='7'
+                 || $value==='8' || $value==='9'){
+            $('#valias').removeAttr("style");
+            $('#valias').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('disabled',true);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('disabled',true);
+            
+         }else{
+             $('#valias').hide();
+             $('#valias').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('disabled',false);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('disabled',false);
+            
+         }
+       $(document).on('change', '#tech_tbundle_tbdetusuariodatos_usuarioacceso_fkIidRol', function() {
+         var $this = $(this);
+         var $value=$this.val();
+         //alert('VALUE:'+$this.val());
+         if ($value==='6' || $value==='7'
+                 || $value==='8' || $value==='9'){
+            $('#valias').removeAttr("style");
+            $('#valias').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('disabled',true);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('disabled',true);
+            
+         }else{
+             $('#valias').hide();
+             $('#valias').prop('required',false);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('required',true);
+            $('#tech_tbundle_tbdetusuariodatos_vcontrato').prop('disabled',false);
+            $('#tech_tbundle_tbdetusuariodatos_vrif').prop('disabled',false);
+            
+         }
+         
+        });
+    });
+</script>
 
 
 

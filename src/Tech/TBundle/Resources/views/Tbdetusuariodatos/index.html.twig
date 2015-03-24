@@ -32,6 +32,7 @@
          {% for usuariocontrato in search_form.contratos %}
              <li>
                  <div style="display: none;">
+                     {{ form_row(edit_form.valias,{ 'required': 'false' }) }}
                      {{ form_row(usuariocontrato.fkIci) }}       
                  </div>
                  <div class="error">

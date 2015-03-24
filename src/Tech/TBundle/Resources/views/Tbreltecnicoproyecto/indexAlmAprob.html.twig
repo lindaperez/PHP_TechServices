@@ -1,14 +1,14 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Obras por Aprobar</h1>
+    <h1>Obras Aprobadas</h1>
     <div class="container" >
 
         <section class="register">
             <table class="records_list">
                 <thead>
                     <tr>
-                        <td align="center"  width="120"><h4 ><strong>Tecnico</strong></h4></td>
+                        <td align="center"  width="100"><h4 ><strong>Tecnico</strong></h4></td>
                         <td width="40"></td>
                         <td align="center"  width="80"><h4 ><strong>Proyecto</strong></h4></td>
                         <td width="40"></td>
@@ -20,10 +20,7 @@
                         <td width="40"></td>
                         <td align="center"  width="140"><h4 ><strong>Estatus Obra</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="140"><h4 ><strong>Fecha Asignación</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="center"  width="140"><h4 ><strong>Acciones<br>Aprobar</strong></h4></td>
-                        <td width="40"></td>
+                        <td align="center"  width="120"><h4 ><strong>Fecha Asignación</strong></h4></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,30 +38,10 @@
                             <td align="center"  width="80">{{ entity.fkIidTbdetproyecto.icantidad }}</td>
                             <td width="40"></td>
                             
-                            <td align="center"  width="140">{{ entity.fkIidTbdetproyecto.fkTbdetestatusproyecto}}</td>
+                            <td align="center"  width="120">{{ entity.fkIidTbdetproyecto.fkTbdetestatusproyecto}}</td>
                             <td width="40"></td>
                             <td align="center"  width="120">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
-                            <td width="40"></td>
 
-                            <td align="center"  width="80">
-                                <ul>
-                                    <li>
-                                        <ul>
-                                            <input class="checkbox1" type="checkbox" 
-                                                   name= "pry.{{entity.fkIidTbdetproyecto}}" 
-                                                   value="{{entity.fkIidTbdetproyecto}}"
-                                                   onclick="confirmObra({idObra: '{{entity.fkIidTbdetproyecto.id}}', idCotiza:'{{entity.fkIidTbdetproyecto.fkIcodcotizacion.id}}'});"><br>
-                                                   
-                                            <div style="display:none"  id="d{{entity.fkIidTbdetproyecto.id}}" title="Confirmacion de Existencia">
-                                                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                                    </span>Esta confirmando la existencia de <b>{{entity.fkIidTbdetproyecto.icantidad}}</b><br> unidades
-                                                    de <b>{{entity.fkIidTbdetproyecto}}</b>. Esta Seguro?</p>
-                                            </div>
-
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
                         </tr>
                     {% endfor %}
 

@@ -15,6 +15,30 @@ use Tech\TBundle\Form\TbdetproyectoType;
 class TbdetproyectoController extends Controller
 {
 
+    
+    public function indexAlmAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
+        
+        $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(3);
+        $estPorAsign= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(1);
+        $estPedidoNo= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(5);
+        //print_r($estAsignado);
+        foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $proyecto[$pry->getId()] = $pry;
+                
+            }
+            
+        }
+             
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:indexAlm.html.twig', array(
+                    'lista' => $proyecto,
+        ));
+    }
     /**
      * Lists all Tbdetproyecto entities.
      *

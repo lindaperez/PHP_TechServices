@@ -2,6 +2,17 @@ Cotizacion:
     pattern:  /
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:index" }
 
+Cotizacion_indexAlm:
+    pattern:  /indexAlm
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexAlm"}
+
+Cotizacion_indexAlmAprob:
+    pattern:  /indexAlmAprob
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexAlmAprob"}
+
+Cotizacion_indexTecn:
+    pattern: /indexTecn
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecn"}
 Cotizacion_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:show" }

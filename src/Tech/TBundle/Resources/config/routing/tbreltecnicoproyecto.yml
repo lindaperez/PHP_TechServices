@@ -6,9 +6,17 @@ Asignacion_indexTecn:
     pattern: /indexTecn
     defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexTecn"}    
 
+Asignacion_indexTecnInst:
+    pattern: /indexTecnInst
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexTecnInst"}
+
 Asignacion_indexAlm:
     pattern: /indexAlm
     defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexAlm"}
+
+Asignacion_indexAlmAprob:
+    pattern: /indexAlmAprob
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:indexAlmAprob"}
 
 Asignacion_show:
     pattern:  /{id}/show

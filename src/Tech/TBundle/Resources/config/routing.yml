@@ -24,8 +24,20 @@ detalls:
 
 
 confirmObra:
-    pattern:   /confirmObra
+    pattern:  /confirmObra
     defaults:  { _controller: TechTBundle:Default:confirmObra}
+
+confirmCotizacion:
+    pattern:  /confirmCotizacion
+    defaults:  { _controller: TechTBundle:Default:confirmCotizacion}
+
+confirmObraIns:
+    pattern:  /confirmObraIns
+    defaults:  { _controller: TechTBundle:Default:confirmObraIns}
+
+confirmObraRec:
+    pattern:  /confirmObraRec
+    defaults:  { _controller: TechTBundle:Default:confirmObraRec}
 
 logout:
     pattern: /logout
@@ -213,10 +225,10 @@ TechTBundle_Asignacion:
     prefix:   /Asignacion
 
 TBundle_AsignacionLider:
-        resource: "@TechTBundle/Resources/config/routing/tbdetcoordinadorpmo.yml"
-        prefix:   /AsignacionLider
+    resource: "@TechTBundle/Resources/config/routing/tbdetcoordinadorpmo.yml"
+    prefix:   /AsignacionLider
 
 TBundle_Lider:
-        resource: "@TechTBundle/Resources/config/routing/tbdetliderpmo.yml"
-        prefix:   /Lider
+    resource: "@TechTBundle/Resources/config/routing/tbdetliderpmo.yml"
+    prefix:   /Lider
 

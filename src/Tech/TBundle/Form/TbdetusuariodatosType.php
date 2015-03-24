@@ -60,7 +60,9 @@ class TbdetusuariodatosType extends AbstractType
                     'allow_add' => true, 
                     'allow_delete' => true,
                     'required' => false,
-                    ));
+                    ))
+            ->add('valias','text',array ('invalid_message' => 'El valor Alias que introdujo no es correcto.'
+                . '. Ej. Alias1'));
     }
     
     /**

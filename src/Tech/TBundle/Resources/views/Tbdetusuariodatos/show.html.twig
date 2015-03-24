@@ -123,7 +123,9 @@
     
     
     <li>   
-                <div style="display: none;">{{ form(delete_form) }}</div></li>
+                <div style="display: none;">
+                    {{ form_row(form.valias,{ 'required': 'false' }) }}
+                    {{ form(delete_form) }}</div></li>
 </ul>
 {% endif %}
 {% endblock %}
