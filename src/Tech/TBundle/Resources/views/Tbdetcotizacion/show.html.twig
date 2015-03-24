@@ -60,24 +60,21 @@
                     <div>
                         <table>
                             <tr>
-                            <td width="80px">
-                                Cantidad: {{proyecto.icantidad}}
-                            </td>
-                            <td width="80px"></td>
+                            
                             <td width="150px">
                                 Descripción del Equipo: -----------------------------------------------
                             </td>
-                            <td width="80px"></td>
+                            <td width="100px"></td>
                             <td align="center" width="450px">
                                 Cantidad:
                                 <table>
                                     <tr>
                                         <td width="90px">Cotizada:</td>
-                                        <td width="50px">-----</td>
+                                        <td width="50px">{{proyecto.icantidad}}</td>
                                         <td width="90px">Entregada: </td>
-                                        <td width="50px">-----</td>
+                                        <td width="50px">{{proyecto.icantidadEntregada}}</td>
                                         <td width="200px">Pendiente por Cotizar:</td>
-                                        <td width="50px">-----</td>
+                                        <td width="50px">{{proyecto.icantidad-proyecto.icantidadEntregada}}</td>
 
                                     </tr>
                                 </table>    

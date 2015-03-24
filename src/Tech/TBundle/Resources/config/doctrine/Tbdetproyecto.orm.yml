@@ -36,6 +36,13 @@ Tech\TBundle\Entity\Tbdetproyecto:
             nullable: false
             unsigned: false
             comment: ''
+        icantidadentregada:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '0'
+            column: icantidadEntregada
     manyToOne:
         fkTbdetestatusproyecto:
             targetEntity: Tbdetestatusproyecto

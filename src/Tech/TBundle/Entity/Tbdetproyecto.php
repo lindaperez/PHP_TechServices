@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbdetproyecto
  *
- * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"}), @ORM\Index(name="fk_tbdetProyecto_tbdetEstatusProyecto1", columns={"fk_tbdetEstatusProyecto_id"})})
+ * @ORM\Table(name="tbdetProyecto", indexes={@ORM\Index(name="fk_tbdetProyecto_tbdetEstatusProyecto1", columns={"fk_tbdetEstatusProyecto_id"}), @ORM\Index(name="fk_tbdetProyecto_Cot", columns={"fk_iCodCotizacion"})})
  * @ORM\Entity
  */
 class Tbdetproyecto
@@ -31,19 +31,23 @@ class Tbdetproyecto
     /**
      * @var integer
      *
+     * @ORM\Column(name="fk_iCodCotizacion", type="integer", nullable=true)
+     */
+    private $fkIcodcotizacion;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="icantidad", type="integer", nullable=false)
      */
     private $icantidad;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetcotizacion
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCodCotizacion", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="icantidadEntregada", type="integer", nullable=false)
      */
-    private $fkIcodcotizacion;
+    private $icantidadentregada;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
@@ -91,6 +95,29 @@ class Tbdetproyecto
     }
 
     /**
+     * Set fkIcodcotizacion
+     *
+     * @param integer $fkIcodcotizacion
+     * @return Tbdetproyecto
+     */
+    public function setFkIcodcotizacion($fkIcodcotizacion)
+    {
+        $this->fkIcodcotizacion = $fkIcodcotizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIcodcotizacion
+     *
+     * @return integer 
+     */
+    public function getFkIcodcotizacion()
+    {
+        return $this->fkIcodcotizacion;
+    }
+
+    /**
      * Set icantidad
      *
      * @param integer $icantidad
@@ -114,26 +141,26 @@ class Tbdetproyecto
     }
 
     /**
-     * Set fkIcodcotizacion
+     * Set icantidadentregada
      *
-     * @param \Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion
+     * @param integer $icantidadentregada
      * @return Tbdetproyecto
      */
-    public function setFkIcodcotizacion(\Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion = null)
+    public function setIcantidadentregada($icantidadentregada)
     {
-        $this->fkIcodcotizacion = $fkIcodcotizacion;
+        $this->icantidadentregada = $icantidadentregada;
 
         return $this;
     }
 
     /**
-     * Get fkIcodcotizacion
+     * Get icantidadentregada
      *
-     * @return \Tech\TBundle\Entity\Tbdetcotizacion 
+     * @return integer 
      */
-    public function getFkIcodcotizacion()
+    public function getIcantidadentregada()
     {
-        return $this->fkIcodcotizacion;
+        return $this->icantidadentregada;
     }
 
     /**
@@ -157,8 +184,5 @@ class Tbdetproyecto
     public function getFkTbdetestatusproyecto()
     {
         return $this->fkTbdetestatusproyecto;
-    }
-    public function __toString() {
-        return $this->icodproyecto;
     }
 }
