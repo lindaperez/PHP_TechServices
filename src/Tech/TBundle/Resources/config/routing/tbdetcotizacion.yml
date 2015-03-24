@@ -13,6 +13,20 @@ Cotizacion_indexAlmAprob:
 Cotizacion_indexTecn:
     pattern: /indexTecn
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecn"}
+
+Cotizacion_indexTecnRet:
+    pattern: /indexTecnRet
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecnRet"}
+
+Cotizacion_indexTecnPorInst:
+    pattern: /indexTecnPorInst
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecnPorInst"}
+
+Cotizacion_indexTecnInst:
+    pattern: /indexTecnInst
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecnInst"}
+
+
 Cotizacion_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:show" }

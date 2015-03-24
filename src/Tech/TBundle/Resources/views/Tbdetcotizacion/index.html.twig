@@ -5,17 +5,19 @@
       <div class="container" >
 
     <section class="register">
-        {% if(app.session.get('usuario_rol')=="Tecnico") %}<h1>Sus proyectos asignados son:</h1>{%endif%}
+        
 <table class="records_list">
         <thead>
             <tr>
-            <td align="center"  width="80"><h4 ><strong>Código</strong></h4></td>
+            <td align="center"  width="80"><h4 ><strong>Fecha de la Notificación</strong></h4></td>
             <td width="40"></td>
-            <td align="center"  width="120"><h4 ><strong>Contrato Asociado</strong></h4></td>
+            <td align="center"  width="80"><h4 ><strong>Número de Cotización</strong></h4></td>
             <td width="40"></td>
             <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
             <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Fecha</strong></h4></td>
+            <td align="center"  width="80"><h4 ><strong>Lider Asignado</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Instalador Asignado</strong></h4></td>
             <td width="40"></td>
             <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
         </thead>
@@ -24,14 +26,16 @@
                 
             <tr>
                 
-                
-                <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
+                {#  <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                <td width="80">Fecha ----</td>
                 <td width="40"></td>
-                <td align="center"  width="80">{{ entity.tbdetcotizacioncol }}</td>
+                <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
                 <td width="40"></td>
                 <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
                 <td width="40"></td>
-             {#  <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                <td width="80">Lider ----</td>
+                <td width="40"></td>
+                <td width="80">Instalador ----</td>
                 <td width="40"></td>
                 <td align="center"  width="80">
                 

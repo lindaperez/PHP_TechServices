@@ -122,9 +122,10 @@
                         {% if(app.session.get('usuario_rol')=="Tecnico") %}
                          <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
                                 <ul>
-                                   
-                                    <li><a href="{{ path('Cotizacion_indexTecn') }}" title="Listado de Proyectos Asignados"><img src="" alt="">Proyectos Asignados</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexTecn') }}" title="Listado de Proyectos Asignados"><img src="" alt="">Proyectos Realizados</a></li>
+                                   <li><a href="{{ path('Cotizacion_indexTecn') }}" title="Proyectos Asignados"><img src="" alt="">Proyectos Asignados</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnRet') }}" title="Proyectos Asignados Por Recibir"><img src="" alt="">Proyectos Asignados Por Recibir</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnPorInst') }}" title="Proyectos Asignados Por Instalar"><img src="" alt="">Proyectos Asignados Por Instalar</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnInst') }}" title="Proyectos Realizados"><img src="" alt="">Proyectos Realizados</a></li>
                                      
                                 </ul>
                          </li>
@@ -133,8 +134,8 @@
                         
                         
                                      <li><a href="{{ path('Asignacion_indexTecn') }}" title="Listado de Obras Asignadas"><img src="" alt=""> Lista de Obras Asignadas</a></li>
-                                     <li><a href="{{ path('Asignacion_indexTecn') }}" title="Obras Por Retirar de Almacen"><img src="" alt="">Obras Por Retirar de Almacen</a></li>
-                                     <li><a href="{{ path('Asignacion_indexTecn') }}" title="Obras Por Instalar"><img src="" alt="">Obras Por Instalar</a></li>
+                                     <li><a href="{{ path('Asignacion_indexTecnRet') }}" title="Obras Por Retirar de Almacen"><img src="" alt="">Obras Por Retirar de Almacen</a></li>
+                                     <li><a href="{{ path('Asignacion_indexTecnPorInst') }}" title="Obras Por Instalar"><img src="" alt="">Obras Por Instalar</a></li>
                         
                         
                          

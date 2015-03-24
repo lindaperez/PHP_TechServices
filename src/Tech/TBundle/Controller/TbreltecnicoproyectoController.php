@@ -195,6 +195,101 @@ class TbreltecnicoproyectoController extends Controller
             
         ));
     }
+        /**
+     * Lists all Tbreltecnicoproyecto entities.
+     *
+     */
+    public function indexTecnRetAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        
+        $tecnico = $em->getRepository('TechTBundle:Tbdettecnico')->findBy(
+                    array('fkIidUsuaDatostecn'=>$user));
+        
+        $entities = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdettecnico'=>$tecnico)); 
+           $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
+        
+        
+        $estPedidoSi= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(4);
+              foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
+                        ->where('rtp.fkIidTbdetproyecto =:pry')
+                        ->setParameter('pry', $pry)
+                        ->andwhere('p.fkTbdetestatusproyecto=:status')
+                        ->setParameter('status', $estPedidoSi)      
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+          //      print_r($query);
+                $reltecnico = $query->getResult();
+                if ($pry!=null and $reltecnico!=null){
+                $proyecto[$pry->getId()] = $reltecnico[0];
+                }
+            }
+            
+        }
+        
+
+        
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:indexTecnRet.html.twig', array(
+            'lista' => $proyecto,
+            
+        ));
+    }
+           /**
+     * Lists all Tbreltecnicoproyecto entities.
+     *
+     */
+    public function indexTecnPorInstAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        
+        $tecnico = $em->getRepository('TechTBundle:Tbdettecnico')->findBy(
+                    array('fkIidUsuaDatostecn'=>$user));
+        
+        $entities = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdettecnico'=>$tecnico)); 
+           $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $proyecto=array();
+        
+        
+        $estEntregadoT= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(6);
+              foreach ($cotizaciones as $clave => $cotizacion) {
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clave => $pry) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->join('TechTBundle:Tbdetproyecto','p','WITH','rtp.fkIidTbdetproyecto=p.id')
+                        ->where('rtp.fkIidTbdetproyecto =:pry')
+                        ->setParameter('pry', $pry)
+                        ->andwhere('p.fkTbdetestatusproyecto=:status')
+                        ->setParameter('status', $estEntregadoT)      
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+          //      print_r($query);
+                $reltecnico = $query->getResult();
+                if ($pry!=null and $reltecnico!=null){
+                $proyecto[$pry->getId()] = $reltecnico[0];
+                }
+            }
+            
+        }
+        
+
+        
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:indexTecnPorInst.html.twig', array(
+            'lista' => $proyecto,
+            
+        ));
+    }
+    
     /**
      * Lists all Tbreltecnicoproyecto entities.
      *

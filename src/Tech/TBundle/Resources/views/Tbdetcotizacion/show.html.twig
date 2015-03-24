@@ -11,52 +11,79 @@
 
 
                     <tr>
-                        <td width="70"> Código: </td>  
-                        <td width="80">{{ entity.codcotizacion }}</td>
-                        <td  width="120"></td>
-                        <td width="130">Contrato Asociado: </td>  
-                        <td width="80">{{ entity.tbdetcotizacioncol }}</td>
-                        <td  width="120"></td>
-                        <td width="80">Estatus: </td>  
-                        <td width="80">{{ entity.fkIidEstatusinstalacion }}</td>
+                        
+                        <td width="140"> Fecha de la Cotización: </td>  
+                        <td width="50">--/--/----</td>
+                        <td  width="70"></td>
+                        <td width="140"> Número de Cotización: </td>  
+                        <td width="50">{{ entity.codcotizacion }}</td>
+                        <td  width="70"></td>
+                        <td align="center" width="60">Estatus: </td>  
+                        <td align="center" width="100">{{ entity.fkIidEstatusinstalacion }}</td>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align="right"><br>
+                            {% if(app.session.get('usuario_rol')=="Administrador") %}
+                                <ul class="record_actions" 
+                                    <li>
+                                        <a href="{{ path('Cotizacion_delete', { 'id': entity.id }) }}">
+                                            <h5>Eliminar</h5>
+                                        </a>
+                                    </li>
 
+                                </ul>
+                            {%endif%}
+                        </td>
+                    </tr>
 
 
                 </tbody>
             </table>
-        </section>
-        {% if(app.session.get('usuario_rol')=="Administrador") %}
-            <ul class="record_actions" >
-
-                <li>
-                    <a href="{{ path('Cotizacion_delete', { 'id': entity.id }) }}">
-                        <h4>Eliminar</h4>
-                    </a>
-                </li>
-
-            </ul>
-        {%endif%}
-    </div>
-    <div class="container" >
-
-        <section class="register">
-            <br><br>
+      
+            
             <h1> Listado de Obras: </h1>
             <div id="accordion">
 
                 {%for proyecto in proyectos %}
                     <table>
                         <td width="150px"><h4> {{proyecto.icodproyecto}} </h4></td>
+                        
                         <td width="250px">Estatus: {{proyecto.fkTbdetestatusproyecto}}</td>
                     </table>
                     <div>
                         <table>
-                            <td width="250px">
+                            <tr>
+                            <td width="80px">
                                 Cantidad: {{proyecto.icantidad}}
                             </td>
-                            <td width="40px"></td>
+                            <td width="80px"></td>
+                            <td width="150px">
+                                Descripción del Equipo: -----------------------------------------------
+                            </td>
+                            <td width="80px"></td>
+                            <td align="center" width="450px">
+                                Cantidad:
+                                <table>
+                                    <tr>
+                                        <td width="90px">Cotizada:</td>
+                                        <td width="50px">-----</td>
+                                        <td width="90px">Entregada: </td>
+                                        <td width="50px">-----</td>
+                                        <td width="200px">Pendiente por Cotizar:</td>
+                                        <td width="50px">-----</td>
 
+                                    </tr>
+                                </table>    
+                            </td>
+                            <td width="40px"></td>
+                            </tr>
                         </table>
                     </div>
                 {%endfor%}

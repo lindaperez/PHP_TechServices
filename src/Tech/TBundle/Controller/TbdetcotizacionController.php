@@ -84,18 +84,18 @@ class TbdetcotizacionController extends Controller
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            $swith=false;
+            $swicth=false;
             foreach ($proyectos as $clavePry => $proyecto) {
                 $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
                 if($idPryEst==1 || $idPryEst==3 || $idPryEst==5) {
-                    $swith=true;
+                    $switch=true;
                 }
                     $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
                             array('fkIidTbdetproyecto' => $cotizacion));
                     $pry[$proyecto->getId()] = $proyecto;
                 
             }
-            if ($swith==false){
+            if ($switch==false){
             $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
             }
             
@@ -116,9 +116,8 @@ class TbdetcotizacionController extends Controller
      public function indexTecnAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        $cot=  array();
         
         foreach ($entities as $claveCot => $cotizacion) {
             $pry=  array();
@@ -140,7 +139,117 @@ class TbdetcotizacionController extends Controller
         ));
     }
     
- 
+     /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos con obras por retirar
+     */
+     public function indexTecnRetAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $switch=true;
+            $pry=  array();
+            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$cotizacion));
+            
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
+                if($idPryEst!=4) {
+                    $switch=false;
+                }
+                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdetproyecto'=>$cotizacion));
+               $pry[$proyecto->getId()]=$proyecto;
+            }
+            if ($switch == true){
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            }
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnRet.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
+     /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos con obras por instalar
+     */
+     public function indexTecnPorInstAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $switch=true;
+            $pry=  array();
+            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$cotizacion));
+            
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
+                if($idPryEst!=6) {
+                    $switch=false;
+                }
+                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdetproyecto'=>$cotizacion));
+               $pry[$proyecto->getId()]=$proyecto;
+            }
+            if ($switch == true){
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            }
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnPorInst.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
+    /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos con obras por instalar
+     */
+     public function indexTecnInstAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cot=  array();
+        
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        
+        foreach ($entities as $claveCot => $cotizacion) {
+            $switch=true;
+            $pry=  array();
+            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion'=>$cotizacion));
+            
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
+                if($idPryEst!=7) {
+                    $switch=false;
+                }
+                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                    array('fkIidTbdetproyecto'=>$cotizacion));
+               $pry[$proyecto->getId()]=$proyecto;
+            }
+            if ($switch == true){
+            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            }
+        }
+        
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnInst.html.twig', array(
+            'entities' => $entities,
+            'cotizaciones' => $cot,
+        ));
+    }
     /**
      * Creates a new Tbdetcotizacion entity.
      *

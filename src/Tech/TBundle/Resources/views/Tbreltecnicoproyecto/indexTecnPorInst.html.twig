@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Obras Asignadas</h1>
+    <h1>Obras Por Instalar </h1>
     <div class="container" >
 
         <section class="register">
@@ -20,7 +20,7 @@
                         <td width="40"></td>
                         <td align="center"  width="140"><h4 ><strong>Fecha Asignación</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="100"><h4 ><strong>Acciones<br>Recibido/Instalado</strong></h4></td>
+                        <td align="center"  width="100"><h4 ><strong>Acciones<br>Instalado</strong></h4></td>
                         <td width="40"></td>
                     </tr>
                 </thead>
@@ -44,20 +44,7 @@
                             <td align="center"  width="80">
                                 <ul>
                                     <table>
-                                        <td>
-                                    <input class="checkbox1" type="checkbox" 
-                                           name= "pryR.{{entity.fkIidTbdetproyecto}}" 
-                                           value="{{entity.fkIidTbdetproyecto}}"
-                                           onclick="confirmObraRec({idObra: '{{entity.fkIidTbdetproyecto.id}}'});"><br>
-                                     <div style="display:none"  id="r{{entity.fkIidTbdetproyecto.id}}" title="Confirmacion de Existencia">
-                                        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                            </span>Esta confirmando que recibió <b>{{entity.fkIidTbdetproyecto.icantidad}}</b><br> unidades
-                                            de <b>{{entity.fkIidTbdetproyecto}}</b>. Esta Seguro?</p>
-                                    </div>
-                                    </td>
-                                    <td width='20px'></td>
-                                        <td>
-                                            
+                                        
                                     <input class="checkbox1" type="checkbox" 
                                            name= "pryI.{{entity.fkIidTbdetproyecto}}" 
                                            value="{{entity.fkIidTbdetproyecto}}"
@@ -122,41 +109,6 @@
                 }
                 });
     }
-     function confirmObraRec (options) {
-            $("#r"+options.idObra).dialog({
-                resizable: false,
-                height: 200,
-                modal: true,
-                title:'Confirmación de Recibo',
-                buttons: {
-                    "No": function () {
-                        $(this).dialog("close");
-                    },
-                    Si: function () {
-                        var data = {
-                        idObra: options.idObra
-                        };
-                        $.ajax({
-                            type: 'post',
-                            url: '{{ path("confirmObraRec") }}',
-                            data: data,
-                            dataType: 'json',
-                        success: function(data) {
-                            if (data.error !== undefined && data.error !== '') {
-                                alert(data.error);
-                            } else {
-                            $("#r"+options.idObra).dialog("close");
-                            }
-                        },
-                        
-                        error: function(e, ts, et) {
-                            alert(ts);   
-                        }
-                        });
-                        //
-                }
-                }
-                });
-    }
+    
     </script>
 {% endblock %}
