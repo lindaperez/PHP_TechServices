@@ -26,14 +26,14 @@
                 
             <tr>
                 
-                {#  <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-                <td width="80">Fecha ----</td>
+                
+                <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
                 <td width="40"></td>
                 <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
                 <td width="40"></td>
                 <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
                 <td width="40"></td>
-                <td width="80">Lider ----</td>
+                <td align="center"  width="80">{% if entity.tbdetliderpmo %}{{ entity.tbdetliderpmo.valias }}{% else %}"No posee"{%endif%}</td>
                 <td width="40"></td>
                 <td width="80">Instalador ----</td>
                 <td width="40"></td>

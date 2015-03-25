@@ -15,6 +15,7 @@ class TbdetproyectoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('vdescripcion')
             ->add('icodproyecto')
             ->add('fkIcodcotizacion')
             ->add('icantidad')

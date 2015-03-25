@@ -13,7 +13,7 @@
                     <tr>
                         
                         <td width="140"> Fecha de la Cotización: </td>  
-                        <td width="50">--/--/----</td>
+                        <td align="center"  width="70">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
                         <td  width="70"></td>
                         <td width="140"> Número de Cotización: </td>  
                         <td width="50">{{ entity.codcotizacion }}</td>
@@ -62,7 +62,7 @@
                             <tr>
                             
                             <td width="150px">
-                                Descripción del Equipo: -----------------------------------------------
+                                Descripción del Equipo: {{proyecto.vdescripcion}}
                             </td>
                             <td width="100px"></td>
                             <td align="center" width="450px">

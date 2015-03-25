@@ -158,4 +158,6 @@ class Tbreltecnicoproyecto
     {
         return $this->fkIidTbdetproyecto;
     }
+    
+ 
 }

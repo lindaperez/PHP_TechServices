@@ -32,7 +32,7 @@
          {% for usuariocontrato in search_form.contratos %}
              <li>
                  <div style="display: none;">
-                     {{ form_row(edit_form.valias,{ 'required': 'false' }) }}
+                     
                      {{ form_row(usuariocontrato.fkIci) }}       
                  </div>
                  <div class="error">
@@ -135,6 +135,7 @@
         {{ form_row(search_form.vtelfLocal,  {'label': 'Telf-Local'}) }}
         {{ form_row(search_form.vtelfMovil,  {'label': 'Telf-Movil'}) }}
         {{ form_row(search_form.vtipoCi, {'label': 'Tipo-CI:'}) }}
+        {{ form_row(search_form.valias) }}
                 </div>    
 
 

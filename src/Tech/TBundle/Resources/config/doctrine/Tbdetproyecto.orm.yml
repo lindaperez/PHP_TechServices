@@ -18,6 +18,12 @@ Tech\TBundle\Entity\Tbdetproyecto:
             generator:
                 strategy: IDENTITY
     fields:
+        vdescripcion:
+            type: string
+            nullable: false
+            length: 200
+            fixed: false
+            comment: ''
         icodproyecto:
             type: string
             nullable: false
@@ -41,7 +47,6 @@ Tech\TBundle\Entity\Tbdetproyecto:
             nullable: false
             unsigned: false
             comment: ''
-            default: '0'
             column: icantidadEntregada
     manyToOne:
         fkTbdetestatusproyecto:

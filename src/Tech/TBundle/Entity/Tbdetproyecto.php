@@ -24,6 +24,13 @@ class Tbdetproyecto
     /**
      * @var string
      *
+     * @ORM\Column(name="vdescripcion", type="string", length=200, nullable=false)
+     */
+    private $vdescripcion;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="iCodProyecto", type="string", length=8, nullable=false)
      */
     private $icodproyecto;
@@ -69,6 +76,29 @@ class Tbdetproyecto
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set vdescripcion
+     *
+     * @param string $vdescripcion
+     * @return Tbdetproyecto
+     */
+    public function setVdescripcion($vdescripcion)
+    {
+        $this->vdescripcion = $vdescripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get vdescripcion
+     *
+     * @return string 
+     */
+    public function getVdescripcion()
+    {
+        return $this->vdescripcion;
     }
 
     /**
@@ -184,5 +214,8 @@ class Tbdetproyecto
     public function getFkTbdetestatusproyecto()
     {
         return $this->fkTbdetestatusproyecto;
+    }
+    public function __toString() {
+        return $this->getIcodproyecto();
     }
 }
