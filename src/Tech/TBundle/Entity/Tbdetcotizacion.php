@@ -191,8 +191,4 @@ class Tbdetcotizacion
     {
         return $this->tbdetliderpmo;
     }
-    
-    public function __toString() {
-        return $this->codcotizacion;
-    }
 }
