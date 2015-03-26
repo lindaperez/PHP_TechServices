@@ -544,6 +544,17 @@ class TbdetusuariodatosController extends Controller {
         }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetusuariodatos')->find($id);
+        
+        $usuarioAcceso= $em->getRepository('TechTBundle:Tbdetusuarioacceso')->findOneBy(
+                array('fkIci'=>$entity));
+        $idRol=$usuarioAcceso->getFkIidRol()->getId();
+        
+        if ($idRol==6 || $idRol==7 || $idRol==8  || $idRol==9){
+            $entityTec = $em->getRepository('TechTBundle:Tbdettecnico')->findOneBy(
+                    array('fkIidUsuaDatostecn' => $entity));
+            //print_r($entityTec->getValias());
+            $entity->setValias($entityTec->getValias());
+        }
         $entity->setVrif("V000000000");
         $entity->setVcontrato(0);
         $entity->setUsuarioAcceso(null);

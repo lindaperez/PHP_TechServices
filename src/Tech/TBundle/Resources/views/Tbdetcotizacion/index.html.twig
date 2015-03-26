@@ -2,59 +2,59 @@
 
 {% block content %}
     <h1>Proyectos</h1>
-      <div class="container" >
+    <div class="container" >
 
-    <section class="register">
-        
-<table class="records_list">
-        <thead>
-            <tr>
-            <td align="center"  width="80"><h4 ><strong>Fecha de la Notificación</strong></h4></td>
-            <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Número de Cotización</strong></h4></td>
-            <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
-            <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Lider Asignado</strong></h4></td>
-            <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Instalador Asignado</strong></h4></td>
-            <td width="40"></td>
-            <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
-        </thead>
-        <tbody>
-        {% for  entity in entities %}
-                
-            <tr>
-                
-                
-                <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
-                <td width="40"></td>
-                <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
-                <td width="40"></td>
-                <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
-                <td width="40"></td>
-                <td align="center"  width="80">{% if entity.tbdetliderpmo %}{{ entity.tbdetliderpmo.valias }}{% else %}"No posee"{%endif%}</td>
-                <td width="40"></td>
-                <td width="80">Instalador ----</td>
-                <td width="40"></td>
-                <td align="center"  width="80">
-                
-                    <ul>
-                    <li>
-                        
-                        {% if(app.session.get('usuario_rol')=="Tecnico") %}
-                        <a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver" src="/bundles/techt/images/Draft.png"></a>
-                        {%else%}
-                        <a href="{{ path('Cotizacion_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
-                        {%endif%}
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</setion>
-</div>
-        
-    {% endblock %}
+        <section class="register">
+
+            <table class="records_list">
+                <thead>
+                    <tr>
+                        <td align="center"  width="80"><h4 ><strong>Fecha de la Notificación</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="center"  width="80"><h4 ><strong>Número de Cotización</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="center"  width="80"><h4 ><strong>Lider Asignado</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="center"  width="80"><h4 ><strong>Instalador Asignado</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+                </thead>
+                <tbody>
+                    {% for  entity in entities %}
+
+                        <tr>
+
+
+                            <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
+                            <td width="40"></td>
+                            <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
+                            <td width="40"></td>
+                            <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
+                            <td width="40"></td>
+                            <td align="center"  width="80">{% if entity.tbdetliderpmo %}{{ entity.tbdetliderpmo.valias }}{% else %}"No posee"{%endif%}</td>
+                            <td width="40"></td>
+                            <td width="80">Instalador ----</td>
+                            <td width="40"></td>
+                            <td align="center"  width="80">
+
+                                <ul>
+                                    <li>
+
+                                        {% if(app.session.get('usuario_rol')=="Tecnico") %}
+                                            <a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver" src="/bundles/techt/images/Draft.png"></a>
+                                            {%else%}
+                                            <a href="{{ path('Cotizacion_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
+                                            {%endif%}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </setion>
+    </div>
+
+{% endblock %}

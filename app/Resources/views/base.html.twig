@@ -119,7 +119,7 @@
                                 </ul>
                          </li>
                         {%endif%}
-                        {% if(app.session.get('usuario_rol')=="Tecnico") %}
+                        {% if(app.session.get('usuario_rol')=="Instalador") %}
                          <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
                                 <ul>
                                    <li><a href="{{ path('Cotizacion_indexTecn') }}" title="Proyectos Asignados"><img src="" alt="">Proyectos Asignados</a></li>
@@ -148,15 +148,17 @@
                          </li>
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Almacenista") %}
-                         <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
+                         <li class="topmenu"><a href="#" title="Equipos" style="width:180px;"><span><img src="" alt="">Equipos</span></a>
                                 <ul>
-                                    <li><a href="{{ path('Cotizacion_indexAlm') }}" title="Listado de Proyectos por Aprobar"><img src="" alt="">Proyectos por Aprobar</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="Listado de Proyectos Aprobados"><img src="" alt="">Proyectos Aprobados</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlm') }}" title="Equipos por Entregar a Proyectos"><img src="" alt="">Por Entregar a Proyectos</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="EquiposEntregados a Proyectos"><img src="" alt="">Entregados a Proyectos</a></li>
+                                    
+                                    
                                     
                                     
                                 </ul>
                          </li>
-                         <li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
+                          <li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
                                 <ul>
                                     <li><a href="{{ path('Asignacion_indexAlm') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras por Aprobar</a></li>
                                     <li><a href="{{ path('Asignacion_indexAlmAprob') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras Aprobadas</a></li>
@@ -174,12 +176,12 @@
                                             <li><a href="{{ path('Registro') }}" title="Listado de Registros"><img src="" alt="">Listado de Registros</a></li>
                                         </ul>
                                     </li>
-                                    <li class="topmenu"><a href="#" title="Tecnicos" style="width:180px;">Tecnicos</a>
+                                    <li class="topmenu"><a href="#" title="Instalador" style="width:180px;">Intalador</a>
                                         <ul>
-                                            <li><a href="{{ path('Tecnico_new') }}" title="Asociar Técnico"><img src="" alt="">Asociar Técnico</a></li>
-                                            <li><a href="{{ path('Tecnico') }}" title="Listado de Técnicos"><img src="" alt="">Listado de Técnicos</a></li>
-                                            <li><a href="{{ path('Asignacion') }}" title="Asignar Técnico a Obra"><img src="" alt="">Asignar Técnico a Obra</a></li>
-                                            <li><a href="{{ path('Asignacion') }}" title="Asignar Técnico a Cotización"><img src="" alt="">Asignar Técnico a Cotización</a></li>
+                                            <li><a href="{{ path('Tecnico_new') }}" title="Asociar Intalador"><img src="" alt="">Asociar Intalador</a></li>
+                                            <li><a href="{{ path('Tecnico') }}" title="Listado de Intaladores"><img src="" alt="">Listado de Intaladores</a></li>
+                                            <li><a href="{{ path('Asignacion') }}" title="Asignar Intaladores a Obra"><img src="" alt="">Asignar Intaladores a Obra</a></li>
+                                            <li><a href="{{ path('Asignacion') }}" title="Asignar Intaladores a Cotización"><img src="" alt="">Asignar Intaladores a Cotización</a></li>
                                         </ul>
                                     </li>
                                     <li class="topmenu"><a href="#" title="Almacenistas" style="width:180px;">Almacenistas</a>

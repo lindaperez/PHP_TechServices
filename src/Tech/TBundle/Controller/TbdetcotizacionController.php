@@ -49,15 +49,14 @@ class TbdetcotizacionController extends Controller
             $swith=false;
             foreach ($proyectos as $clavePry => $proyecto) {
                 $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst==1 || $idPryEst==3 || $idPryEst==5) {
-                    $swith=true;
-                }
+                if($idPryEst==1 || $idPryEst==3 || $idPryEst==4 || $idPryEst==5) {
+                    
                     $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
                             array('fkIidTbdetproyecto' => $cotizacion));
                     $pry[$proyecto->getId()] = $proyecto;
-                
+                }
             }
-            if ($swith==true){
+            if ($pry!=null){
             $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
             }
         }
@@ -87,19 +86,17 @@ class TbdetcotizacionController extends Controller
             $swicth=false;
             foreach ($proyectos as $clavePry => $proyecto) {
                 $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst==1 || $idPryEst==3 || $idPryEst==5) {
-                    $switch=true;
-                }
+                if($idPryEst==6 || $idPryEst==7) {
+            
+                
                     $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
                             array('fkIidTbdetproyecto' => $cotizacion));
                     $pry[$proyecto->getId()] = $proyecto;
-                
+                }
             }
-            if ($switch==false){
+            if ($pry!=null){
             $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
             }
-            
-            
         }
         
 
@@ -108,6 +105,7 @@ class TbdetcotizacionController extends Controller
             'cotizaciones' => $cot,
         ));
     }
+      
     
      /**
      * Lists all Tbdetcotizacion entities.

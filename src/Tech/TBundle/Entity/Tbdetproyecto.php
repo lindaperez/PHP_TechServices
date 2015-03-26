@@ -38,13 +38,6 @@ class Tbdetproyecto
     /**
      * @var integer
      *
-     * @ORM\Column(name="fk_iCodCotizacion", type="integer", nullable=true)
-     */
-    private $fkIcodcotizacion;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="icantidad", type="integer", nullable=false)
      */
     private $icantidad;
@@ -55,6 +48,16 @@ class Tbdetproyecto
      * @ORM\Column(name="icantidadEntregada", type="integer", nullable=false)
      */
     private $icantidadentregada;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetcotizacion
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iCodCotizacion", referencedColumnName="id")
+     * })
+     */
+    private $fkIcodcotizacion;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
@@ -125,29 +128,6 @@ class Tbdetproyecto
     }
 
     /**
-     * Set fkIcodcotizacion
-     *
-     * @param integer $fkIcodcotizacion
-     * @return Tbdetproyecto
-     */
-    public function setFkIcodcotizacion($fkIcodcotizacion)
-    {
-        $this->fkIcodcotizacion = $fkIcodcotizacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIcodcotizacion
-     *
-     * @return integer 
-     */
-    public function getFkIcodcotizacion()
-    {
-        return $this->fkIcodcotizacion;
-    }
-
-    /**
      * Set icantidad
      *
      * @param integer $icantidad
@@ -194,6 +174,29 @@ class Tbdetproyecto
     }
 
     /**
+     * Set fkIcodcotizacion
+     *
+     * @param \Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion
+     * @return Tbdetproyecto
+     */
+    public function setFkIcodcotizacion(\Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion = null)
+    {
+        $this->fkIcodcotizacion = $fkIcodcotizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIcodcotizacion
+     *
+     * @return \Tech\TBundle\Entity\Tbdetcotizacion 
+     */
+    public function getFkIcodcotizacion()
+    {
+        return $this->fkIcodcotizacion;
+    }
+
+    /**
      * Set fkTbdetestatusproyecto
      *
      * @param \Tech\TBundle\Entity\Tbdetestatusproyecto $fkTbdetestatusproyecto
@@ -217,5 +220,5 @@ class Tbdetproyecto
     }
     public function __toString() {
         return $this->getIcodproyecto();
-    }
+}
 }

@@ -1,0 +1,112 @@
+{% extends '::layout.html.twig' %}
+
+{% block content %}
+    <h1>Proyectos Aprobados</h1>
+
+    <div class="container" >
+
+        <section class="register">
+           
+            <table class="records_list">
+                <thead>
+                    <tr>
+                         <td align="center"  width="80"><h4 ><strong>Fecha de la Notificación</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Número de Cotización</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Lider Asignado</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Instalador Asignado</strong></h4></td>
+            <td width="40"></td>
+            <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+                        
+                </thead>
+                <tbody>
+
+                    {% for  key,cot in cotizaciones%}
+
+                        {% for  key2,proyectos in cot%}
+                            {% if key2=='uno'%}
+                                {% for  clave,proyecto  in proyectos%}
+                                    
+                                    <tr>
+                                        <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
+                                        <td width="40"></td>
+                                        <td align="center"  width="80"> </td>
+                                        <td width="40"></td>
+                                        <td align="center"  width="80">{{ proyecto.icantidad }}</td>
+                                        <td width="40"></td>
+                                        <td align="center"  width="180">{{ proyecto.fkTbdetestatusproyecto }}</td>
+                                        <td width="40"></td>
+                                        <td height="25" align="center"  width="80">
+                                        </td>
+                                    </tr>
+                                    
+                                {%endfor%}
+                            {%else%}
+
+                                <tr bgcolor="#FFFFFF" >
+
+
+                                    <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="40"></td>
+                                    <td align="center"  width="80">{{ cot['dos'].tbdetcotizacioncol.pkInroContrato }}</td>
+                                    <td width="40"></td>
+                                    <td align="center"  width="80"></td>
+                                    <td width="40"></td>
+                                    <td align="center"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                    
+                                </tr>
+                            {%endif%}
+                        {%endfor%}
+                    {%endfor%}
+
+
+                </tbody>
+            </table>
+            </setion>
+    </div>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        function confirmCot(options) {
+            $("#d" + options.idCot).dialog({
+                resizable: false,
+                height: 350,
+                width:400,
+                modal: true,
+                title: 'Confirmación de Existencia',
+                buttons: {
+                    "No": function () {
+                        $(this).dialog("close");
+                    },
+                    Si: function () {
+                        var data = {
+                            idCot: options.idCot
+                        };
+                        $.ajax({
+                            type: 'post',
+                        url: '{{ path("confirmCotizacion") }}',
+                            data: data,
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.error !== undefined && data.error !== '') {
+                                    alert(data.error);
+                                } else {
+                                    $("#d" + options.idCot).dialog("close");
+                                }
+                            },
+                            error: function (e, ts, et) {
+                                alert(ts);
+                            }
+                        });
+                        //
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

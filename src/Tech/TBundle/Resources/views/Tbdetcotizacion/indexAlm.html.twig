@@ -1,160 +1,185 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Proyectos por Aprobar</h1>
+    <h1>Equipos por Entregar a Proyectos</h1>
 
     <div class="container" >
 
         <section class="register">
-            {% if(app.session.get('usuario_rol')=="Tecnico") %}<h1>Sus proyectos asignados son:</h1>{%endif%}
             <table class="records_list">
                 <thead>
                     <tr>
-                        <td align="center"  width="80"><h4 ><strong>Código</strong></h4></td>
+                        
+                        <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="120"><h4 ><strong>Contrato Asociado</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="120"><h4 ><strong>Cantidad</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Estatus </strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
+                        
+                        {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
+                        </tr>
                 </thead>
-                <tbody>
 
-                    {% for  key,cot in cotizaciones%}
+            </table>
+            <div id="accordion">    
+                {% for  key,cot in cotizaciones%}
 
-                        {% for  key2,proyectos in cot%}
-                            {% if key2=='uno'%}
+                    {% for  key2,proyectos in cot%}
+
+                        {% if key2=='uno'%}
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr bgcolor="#EEEEEE">
+                                            
+                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Entregada</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Pendiente</td>
+                                            <td width="20"></td>
+                                             <td align="center"  width="140">Disponible</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="100">Estatus Almacén</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="100">Acciones Disponibilidad</td>
+                                            
+                                            
+                                        </tr>
+                                    </thead>
+                                </table>
+
                                 {% for  clave,proyecto  in proyectos%}
-                                    
-                                    <tr>
-                                        <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
-                                        <td width="40"></td>
-                                        <td align="center"  width="80"> </td>
-                                        <td width="40"></td>
-                                        <td align="center"  width="80">{{ proyecto.icantidad }}</td>
-                                        <td width="40"></td>
-                                        <td align="center"  width="180">{{ proyecto.fkTbdetestatusproyecto }}</td>
-                                        <td width="40"></td>
-                                        <td height="25" align="center"  width="80">
-                                        </td>
-                                    </tr>
-                                    
-                                {%endfor%}
-                            {%else%}
 
-                                <tr bgcolor="#FFFFFF" >
-
-
-                                    <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="80">{{ cot['dos'].tbdetcotizacioncol.pkInroContrato }}</td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="80"></td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="80">
+                                    <table>
+                                        <tr>
+                                            
+                                            <td height="25" align="center"  width="160"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.icantidad }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="100">
+                                                 <ul>
+                                    <li>
                                         <ul>
                                             <input class="checkbox1" type="checkbox" 
-                                                   name= "cot.{{cot['dos'].id}}" 
-                                                   value="{{cot['dos'].id}}"
-                                                   onclick="confirmCot({idCot: '{{cot['dos'].id}}'});"><br>
-
-                                            <div style="display:none"  id="d{{cot['dos'].id}}" title="Confirmacion de Existencia">
+                                                   name= "pry.{{proyecto.id}}" 
+                                                   value="{{proyecto.id}}"
+                                                   onclick="confirmObra({idObra: '{{proyecto.id}}'});"><br>
+                                                   
+                                            <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
                                                 <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                                    </span>Esta confirmando la existencia de 
-
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <td align="center"  width="80"><h4 ><strong>Código</strong></h4></td>
-                                                            <td width="40"></td>
-                                                            <td align="center"  width="120"><h4 ><strong>Cantidad</strong></h4></td>
-                                                            <td width="40"></td>
-                                                            <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
-                                                        </tr>
-                                                    </thead>
-                                                    {% for  key2,proyectos in cot%}
-                                                        {% if key2=='uno'%}
-                                                            {% for  clave,proyecto  in proyectos%}
-                                                                <tr>
-                                                                    <td align="center"  width="80">{{ proyecto.icodproyecto}}</td>
-                                                                    <td width="40"></td>
-                                                                    <td align="center"  width="80">{{ proyecto.icantidad }}</td>
-                                                                    <td width="40"></td>
-                                                                    <td align="center"  width="180">{{ proyecto.fkTbdetestatusproyecto }}</td>
-                                                                    <td width="40"></td>
-                                                                    <td align="center"  width="80">
-                                                                        <ul>
-                                                                            <li>
-
-                                                                            </li>
-                                                                        </ul>
-                                                                    </td>
-                                                                </tr>
-                                                            {%endfor%}
-                                                        {%endif%}    
-                                                    {%endfor%}
-                                                    
-                                                </table> 
-                                                <br>
-                                                <p>Esta Seguro?</p>
+                                                    </span>Esta confirmando la existencia de <b>{{proyecto.icantidad}}</b><br> unidades
+                                                    de <b>{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</b>. Esta Seguro?</p>
                                             </div>
 
                                         </ul>
+                                    </li>
+                                </ul>
+                                                
+                                            </td>
+                                           
+                                            
+                                        </tr>
+                                    </table>
 
-                                    </td>
+                                {%endfor%}
+                            </div>
+                        {%else%}
+
+                            <table>
+                                <tr>
+
+                                    <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120">Lider</td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120">Instalador</td>
+
                                 </tr>
-                            {%endif%}
-                        {%endfor%}
+                            </table>
+
+                        {%endif%}
+
                     {%endfor%}
 
+                {%endfor%}
+            </div>  
 
-                </tbody>
-            </table>
+
+
             </setion>
     </div>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                heightStyle: "content"
+            });
+        });
+    </script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    
     <script>
-        function confirmCot(options) {
-            $("#d" + options.idCot).dialog({
+        function confirmObra (options) {
+            $("#d"+options.idObra).dialog({
                 resizable: false,
-                height: 350,
-                width:400,
+                height: 200,
                 modal: true,
-                title: 'Confirmación de Existencia',
+                title:'Confirmación de Existencia',
                 buttons: {
                     "No": function () {
                         $(this).dialog("close");
                     },
                     Si: function () {
                         var data = {
-                            idCot: options.idCot
+                        idObra: options.idObra
                         };
                         $.ajax({
                             type: 'post',
-                        url: '{{ path("confirmCotizacion") }}',
+                            url: '{{ path("confirmObra") }}',
                             data: data,
                             dataType: 'json',
-                            success: function (data) {
-                                if (data.error !== undefined && data.error !== '') {
-                                    alert(data.error);
-                                } else {
-                                    $("#d" + options.idCot).dialog("close");
-                                }
-                            },
-                            error: function (e, ts, et) {
-                                alert(ts);
+                        success: function(data) {
+                            if (data.error !== undefined && data.error !== '') {
+                                alert(data.error);
+                            } else {
+                            $("#d"+options.idObra).dialog("close");
                             }
+                        },
+                        
+                        error: function(e, ts, et) {
+                            alert(ts);   
+                        }
                         });
                         //
-                    }
                 }
-            });
-        }
+                }
+                });
+    }
     </script>
 {% endblock %}
