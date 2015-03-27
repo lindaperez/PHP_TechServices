@@ -93,12 +93,11 @@ class TbdetcotizacionController extends Controller
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            $swicth=false;
-            foreach ($proyectos as $clavePry => $proyecto) {
-                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst==6 || $idPryEst==7) {
             
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $pendiente=  abs($proyecto->getIcantidad()-$proyecto->getIcantidadEntregada());
                 
+                if($pendiente==0) {    
                     $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
                             array('fkIidTbdetproyecto' => $cotizacion));
                     $pry[$proyecto->getId()] = $proyecto;

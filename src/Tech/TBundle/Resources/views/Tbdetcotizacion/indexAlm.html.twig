@@ -48,9 +48,8 @@
                                             <td width="20"></td>
                                             <td align="center"  width="140">A Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">Estatus Almacén</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="100">Acciones Disponibilidad</td>
+                                            
+                                            <td align="center"  width="100">Acciones </td>
 
 
                                         </tr>
@@ -72,10 +71,9 @@
                                             <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
-                                            <td width="20"></td>
+                                            
                                             <td align="center"  width="100">
                                                 <ul>
                                                     <li>
@@ -96,7 +94,7 @@
                                                                     </td>
                                                                     </tr>
                                                                     <tr>
-                                                                     <td height="50px" align="center"><input type="number"  name="fn{{proyecto.id}}" value=55 id="fn{{proyecto.id}}"><br></td>
+                                                                     <td height="50px" align="center"><input min=0 max={{proyecto.icantidad-proyecto.icantidadEntregada}}  type="number"  name="fn{{proyecto.id}}" value=55 id="fn{{proyecto.id}}"><br></td>
                                                                      
                                                                     </tr>
                                                                       <tr>
@@ -142,6 +140,7 @@
                     {%endfor%}
 
                 {%endfor%}
+                
             </div>  
 
 
@@ -152,7 +151,8 @@
     <script>
         $(function () {
             $("#accordion").accordion({
-                heightStyle: "content"
+                heightStyle: "content",
+                collapsible: true
             });
         });
     </script>
@@ -174,8 +174,7 @@
                         $(this).dialog("close");
                     },
                     Si: function () {
-                        var ientrega=$("#fn"+options.idObra);
-                        
+                        var ientrega=$("#fn"+options.idObra).val();
                         var data = {
                             idObra: options.idObra,
                             iEntrega: ientrega

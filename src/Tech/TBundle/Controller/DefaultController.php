@@ -274,20 +274,19 @@ class DefaultController extends Controller {
     public function confirmObraAction(Request $request) {
         
         $idObra = $request->request->get('idObra');
+        //$idObra=1;
         $icantidadEntrega= $request->request->get('iEntrega');
+        //$icantidadEntrega=2;
         
         $em = $this->getDoctrine()->getManager();
         $obra = $em->getRepository('TechTBundle:Tbdetproyecto')
                 ->find($idObra);
-                //Buscar las entregas de acuerdo a la entrega hacer set del estatus
-            $entregasPrev = $em->getRepository('TechTBundle:TbdetEntrega')
+            //Buscar las entregas de acuerdo a la entrega hacer set del estatus
+            $entregasPrev = $em->getRepository('TechTBundle:Tbdetentrega')
                 ->findBy(array('tbdetproyecto'=>$idObra));
-            $total=0;
-            foreach ($entregasPrev as $entregaPrev ){
-                $total=$entregaPrev->getIcantidadentregada()+$total;
-            }
+           $total=$obra->getIcantidadEntregada();
             $cotizado=$obra->getIcantidad();
-            $pendiente=$total-$cotizado;
+            $pendiente=  abs($total-$cotizado);
 
             if ($icantidadEntrega<$pendiente){
                         $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
@@ -296,19 +295,8 @@ class DefaultController extends Controller {
                         $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
                         ->find(4);
             }
-        if ($estatusSi != null) {
-            //Actualizar entregados
-            $entrega=new Tbdetentrega();
-            //asignar fecha 
-            $entrega->setDfecha(new DateTime);
-            $entrega->setTbdetproyecto($obra);
-            $entrega->setIcantidadentregada($icantidadEntrega);
-            //Buscar Lider 
-            $tbdetliderpmo=$obra->getFkIcodcotizacion()->getTbdetliderpmo();
-            $entrega->setTbdetliderpmo();
-            $entrega->setTbdetliderpmo($tbdetliderpmo);
-            
-            $obra->setIcantidadEntregada($total+$icantidadEntrega);
+        if ($estatusSi != null) {            
+            $obra->setIcantidadDisponible($icantidadEntrega);
             $obra->setFkTbdetestatusproyecto($estatusSi);
             $em->flush();
             return new JsonResponse(array('id' => 1, 'name' => 'ok'));

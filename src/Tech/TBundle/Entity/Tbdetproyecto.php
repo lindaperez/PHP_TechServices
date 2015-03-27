@@ -50,14 +50,11 @@ class Tbdetproyecto
     private $icantidadentregada;
 
     /**
-     * @var \Tech\TBundle\Entity\Tbdetcotizacion
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iCodCotizacion", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="icantidadDisponible", type="integer", nullable=false)
      */
-    private $fkIcodcotizacion;
+    private $icantidaddisponible;
 
     /**
      * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
@@ -68,6 +65,16 @@ class Tbdetproyecto
      * })
      */
     private $fkTbdetestatusproyecto;
+
+    /**
+     * @var \Tech\TBundle\Entity\Tbdetcotizacion
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iCodCotizacion", referencedColumnName="id")
+     * })
+     */
+    private $fkIcodcotizacion;
 
 
 
@@ -174,26 +181,26 @@ class Tbdetproyecto
     }
 
     /**
-     * Set fkIcodcotizacion
+     * Set icantidaddisponible
      *
-     * @param \Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion
+     * @param integer $icantidaddisponible
      * @return Tbdetproyecto
      */
-    public function setFkIcodcotizacion(\Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion = null)
+    public function setIcantidaddisponible($icantidaddisponible)
     {
-        $this->fkIcodcotizacion = $fkIcodcotizacion;
+        $this->icantidaddisponible = $icantidaddisponible;
 
         return $this;
     }
 
     /**
-     * Get fkIcodcotizacion
+     * Get icantidaddisponible
      *
-     * @return \Tech\TBundle\Entity\Tbdetcotizacion 
+     * @return integer 
      */
-    public function getFkIcodcotizacion()
+    public function getIcantidaddisponible()
     {
-        return $this->fkIcodcotizacion;
+        return $this->icantidaddisponible;
     }
 
     /**
@@ -218,7 +225,30 @@ class Tbdetproyecto
     {
         return $this->fkTbdetestatusproyecto;
     }
+
+    /**
+     * Set fkIcodcotizacion
+     *
+     * @param \Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion
+     * @return Tbdetproyecto
+     */
+    public function setFkIcodcotizacion(\Tech\TBundle\Entity\Tbdetcotizacion $fkIcodcotizacion = null)
+    {
+        $this->fkIcodcotizacion = $fkIcodcotizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIcodcotizacion
+     *
+     * @return \Tech\TBundle\Entity\Tbdetcotizacion 
+     */
+    public function getFkIcodcotizacion()
+    {
+        return $this->fkIcodcotizacion;
+    }
     public function __toString() {
         return $this->getIcodproyecto();
-}
+    }
 }

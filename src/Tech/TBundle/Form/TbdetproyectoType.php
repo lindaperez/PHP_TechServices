@@ -17,10 +17,11 @@ class TbdetproyectoType extends AbstractType
         $builder
             ->add('vdescripcion')
             ->add('icodproyecto')
-            ->add('fkIcodcotizacion')
             ->add('icantidad')
             ->add('icantidadentregada')
+            ->add('icantidaddisponible')
             ->add('fkTbdetestatusproyecto')
+            ->add('fkIcodcotizacion')
         ;
     }
     

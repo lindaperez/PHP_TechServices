@@ -38,6 +38,15 @@ Tech\TBundle\Entity\Tbdetentrega:
             fixed: false
             comment: ''
     manyToOne:
+        tbdetliderpmo:
+            targetEntity: Tbdetliderpmo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetLiderPMO_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         tbdetproyecto:
             targetEntity: Tbdetproyecto
             cascade: {  }
@@ -54,15 +63,6 @@ Tech\TBundle\Entity\Tbdetentrega:
             inversedBy: null
             joinColumns:
                 tbdetTecnico_id:
-                    referencedColumnName: id
-            orphanRemoval: false
-        tbdetliderpmo:
-            targetEntity: Tbdetliderpmo
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                tbdetLiderPMO_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }
