@@ -549,12 +549,28 @@ class TbdetusuariodatosController extends Controller {
                 array('fkIci'=>$entity));
         $idRol=$usuarioAcceso->getFkIidRol()->getId();
         
-        if ($idRol==6 || $idRol==7 || $idRol==8  || $idRol==9){
-            $entityTec = $em->getRepository('TechTBundle:Tbdettecnico')->findOneBy(
+        if ($idRol==6 ){
+            $entityE = $em->getRepository('TechTBundle:Tbdettecnico')->findOneBy(
                     array('fkIidUsuaDatostecn' => $entity));
             //print_r($entityTec->getValias());
-            $entity->setValias($entityTec->getValias());
         }
+        if ($idRol==7 ){
+            $entityE = $em->getRepository('TechTBundle:Tbdetalmacenista')->findOneBy(
+                    array('fkIidUsuaDatosalm' => $entity));
+            //print_r($entityTec->getValias());
+        }
+        if ($idRol==8 ){
+            $entityE = $em->getRepository('TechTBundle:Tbdetliderpmo')->findOneBy(
+                    array('tbdetusuariodatos' => $entity));
+            //print_r($entityTec->getValias());
+        }
+        if ($idRol==9 ){
+            $entityE = $em->getRepository('TechTBundle:Tbdetcoodinadorpmo')->findOneBy(
+                    array('tbdetusuariodatos' => $entity));
+            //print_r($entityTec->getValias());
+        }
+            $entity->setValias($entityE->getValias());
+        
         $entity->setVrif("V000000000");
         $entity->setVcontrato(0);
         $entity->setUsuarioAcceso(null);
@@ -716,6 +732,35 @@ class TbdetusuariodatosController extends Controller {
             $usuario_acc = $em->getRepository('TechTBundle:Tbdetusuarioacceso')
                     ->findOneBy(array('fkIci' => $entity));
             $id_u = $usuario_acc->getId();
+                    //Segun su tipo de rol    
+                        $idRol=$usuario_acc->getFkIidRol()->getId();
+                        $valias=$entity->getValias();
+                    if ($idRol==6 ){
+                        $entityE = $em->getRepository('TechTBundle:Tbdettecnico')->findOneBy(
+                                array('fkIidUsuaDatostecn' => $entity));
+                        $entityE->setValias($valias);
+                        //print_r($entityTec->getValias());
+                    }
+                    if ($idRol==7 ){
+                        $entityE = $em->getRepository('TechTBundle:Tbdetalmacenista')->findOneBy(
+                                array('fkIidUsuaDatosalm' => $entity));
+                        $entityE->setValias($valias);
+                        //print_r($entityTec->getValias());
+                    }
+                    if ($idRol==8 ){
+                        $entityE = $em->getRepository('TechTBundle:Tbdetliderpmo')->findOneBy(
+                                array('tbdetusuariodatos' => $entity));
+                        $entityE->setValias($valias);
+                        //print_r($entityTec->getValias());
+                    }
+                    if ($idRol==9 ){
+                        $entityE = $em->getRepository('TechTBundle:Tbdetcoodinadorpmo')->findOneBy(
+                                array('tbdetusuariodatos' => $entity));
+                        $entityE->setValias($valias);
+                        //print_r($entityTec->getValias());
+                    }
+                        
+
             $this->makeLogChangesStatus($em, $entity, $usuario_acc, $entity->getVcorreoEmail());
             //B. Se actualiza la relacion
 

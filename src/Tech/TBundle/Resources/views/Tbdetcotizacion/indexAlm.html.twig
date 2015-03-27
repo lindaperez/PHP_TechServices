@@ -81,8 +81,9 @@
                                                             <input class="checkbox1" type="checkbox" 
                                                                    name= "pry.{{proyecto.id}}" 
                                                                    value="{{proyecto.id}}"
-                                                                   onclick="confirmObra({idObra: '{{proyecto.id}}'});"><br>
-
+                                                                   onclick="confirmObra({idObra: '{{proyecto.id}}'});"
+                                                                       {%if proyecto.icantidaddisponible!=0 %} checked {%endif%}><br>
+                                                            <a href="{{ path('Obra_editAlm', { 'id': proyecto.id }) }}"><img  width="30"  height="30" title="Editar" src="/bundles/techt/images/Draft.png"/></a>
                                                             <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
                                                                 <table>
                                                                     <tr>
@@ -94,7 +95,7 @@
                                                                     </td>
                                                                     </tr>
                                                                     <tr>
-                                                                     <td height="50px" align="center"><input min=0 max={{proyecto.icantidad-proyecto.icantidadEntregada}}  type="number"  name="fn{{proyecto.id}}" value=55 id="fn{{proyecto.id}}"><br></td>
+                                                                     <td height="50px" align="center"><input min=0 max={{proyecto.icantidad-proyecto.icantidadEntregada}}  type="number"  name="fn{{proyecto.id}}"  id="fn{{proyecto.id}}"><br></td>
                                                                      
                                                                     </tr>
                                                                       <tr>
@@ -104,9 +105,13 @@
                                                                 </table>
                                                                 
                                                             </div>
-
+                                                                     
                                                         </ul>
+                                                                     
                                                     </li>
+
+                                                    
+                                                    
                                                 </ul>
 
                                             </td>
@@ -128,7 +133,7 @@
                                     <td width="40"></td>
                                     <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120">Lider</td>
+                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="40"></td>
                                     <td align="left"  width="120">Instalador</td>
 

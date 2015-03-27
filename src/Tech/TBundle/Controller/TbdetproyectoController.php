@@ -155,7 +155,25 @@ class TbdetproyectoController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+  public function editAlmAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $entity = $em->getRepository('TechTBundle:Tbdetproyecto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetproyecto entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('TechTBundle:Tbdetproyecto:editAlm.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
     /**
     * Creates a form to edit a Tbdetproyecto entity.
     *
@@ -199,6 +217,36 @@ class TbdetproyectoController extends Controller
         }
 
         return $this->render('TechTBundle:Tbdetproyecto:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+    /**
+     * Edits an existing Tbdetproyecto entity.
+     *
+     */
+    public function updateAlmAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TechTBundle:Tbdetproyecto')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetproyecto entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('Obra_editAlm', array('id' => $id)));
+        }
+
+        return $this->render('TechTBundle:Tbdetproyecto:editAlm.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

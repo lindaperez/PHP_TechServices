@@ -1,0 +1,102 @@
+{% extends '::layout.html.twig' %}
+
+{% block content -%}
+     {% if(app.session.get('usuario_rol')=="Tecnico") %}
+<h1>Cambiar Estatus</h1>
+     {%else%}
+         <h1>Modificar Diponibilidad de Equipos</h1>
+ {%endif%}
+  <div class="container" >
+
+    <section class="register">
+
+    <form action="{{ path('Obra_updateAlm',{ 'id': entity.id }) }}" method="post" id="login">
+ {{ form_start(edit_form) }}
+        {{ form_errors(edit_form) }}
+        <table>
+            <tr>
+                <td>
+        
+        <table>  <td width="100">
+        {{ form_label(edit_form.icodproyecto, 'Codigo:', {'required': 'true'}) }}</td>
+            <td>{{ entity.icodproyecto}}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+            {{ form_errors(edit_form.icantidad) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.icantidad, 'Cantidad:', {'required': 'true'}) }}</td>
+            <td>{{ entity.icantidad}}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+         <div class="error">
+            {{ form_errors(edit_form.fkIcodcotizacion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkIcodcotizacion, 'Cotizacion:', {'required': 'true'}) }}</td>
+            <td>{{ entity.fkIcodcotizacion }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        </tr>
+        <tr>
+        <td>
+        <div class="error">
+        {{ form_errors(edit_form.fkTbdetestatusproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkTbdetestatusproyecto, 'Estatus:', {'required': 'true'}) }}</td>
+        <td>{{ entity.fkTbdetestatusproyecto.vdescripcion }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+        {{ form_errors(edit_form.vdescripcion) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.vdescripcion, 'Descripcion:', {'required': 'true'}) }}</td>
+        <td>{{ entity.vdescripcion }}</td>
+        </table>
+        </td>
+        <td width='20px'></td>
+        <td>
+        <div class="error">
+        {{ form_errors(edit_form.fkTbdetestatusproyecto) }}</div>       
+        <table>  <td width="100">
+        {{ form_label(edit_form.fkTbdetestatusproyecto, 'Estatus:', {'required': 'true'}) }}</td>
+        <td>{{ entity.fkTbdetestatusproyecto.vdescripcion }}</td>
+        </table>
+        </td>
+        
+        <div style="display: none;">
+        {{ form_row(edit_form.submit, { 'label': 'Actualizar' }) }}
+        {{ form_row(delete_form.submit, { 'label': 'Eliminar' }) }}
+        {{ form_row(edit_form.vdescripcion,{ 'required': false }) }}
+        {{ form_row(edit_form.icodproyecto,{ 'required': false }) }}
+        {{ form_row(edit_form.icantidad,{ 'required': false }) }}
+        {{ form_row(edit_form.icantidadentregada,{ 'required': false }) }}
+        {{ form_row(edit_form.fkTbdetestatusproyecto,{ 'required': false }) }}
+        {{ form_row(edit_form.fkIcodcotizacion,{ 'required': false }) }}
+        
+        </div>
+        </tr>
+        </table>
+    
+<p class="submit">   
+                <input type="submit" name="commit" value="Guardar">
+            </p>
+        
+    
+   {{ form_end(edit_form) }}     
+   <ul class="record_actions">
+    
+    <li>{{ form(delete_form) }}</li>
+</ul>
+</form>
+</section>
+      </div>
+
+     
+{% endblock %}

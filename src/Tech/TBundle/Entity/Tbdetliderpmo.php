@@ -95,4 +95,10 @@ class Tbdetliderpmo
     {
         return $this->tbdetusuariodatos;
     }
-}
+
+    
+    public function __toString() {
+        return $this->getValias();
+    }
+    
+    }

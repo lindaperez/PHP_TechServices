@@ -24,6 +24,17 @@ Obra_update:
     defaults: { _controller: "TechTBundle:Tbdetproyecto:update" }
     requirements: { _method: post|put }
 
+Obra_updateAlm:
+    pattern: /{id}/updateAlm
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:updateAlm"}
+    requirements: { _method: post|put}
+
+
+Obra_editAlm:
+    pattern: /{id}/editAlm
+    defaults: { _controller: "TechTBundle:Tbdetproyecto:editAlm"}
+
+
 Obra_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "TechTBundle:Tbdetproyecto:delete" }
