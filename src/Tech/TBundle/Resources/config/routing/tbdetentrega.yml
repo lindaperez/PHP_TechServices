@@ -1,0 +1,30 @@
+Entrega:
+    pattern:  /
+    defaults: { _controller: "TechTBundle:Tbdetentrega:index" }
+
+Entrega_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "TechTBundle:Tbdetentrega:show" }
+
+Entrega_new:
+    pattern:  /new
+    defaults: { _controller: "TechTBundle:Tbdetentrega:new" }
+
+Entrega_create:
+    pattern:  /create
+    defaults: { _controller: "TechTBundle:Tbdetentrega:create" }
+    requirements: { _method: post }
+
+Entrega_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "TechTBundle:Tbdetentrega:edit" }
+
+Entrega_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "TechTBundle:Tbdetentrega:update" }
+    requirements: { _method: post|put }
+
+Entrega_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "TechTBundle:Tbdetentrega:delete" }
+    requirements: { _method: post|delete }

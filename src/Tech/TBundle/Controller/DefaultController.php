@@ -8,7 +8,10 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tech\TBundle\Entity\Utilities;
 use Tech\TBundle\Entity\Tbdetusuariodatos;
+use Tech\TBundle\Entity\Tbdetentrega;
 use Tech\TBundle\Form\ForgotpassType;
+use \DateTime;
+
 
 class DefaultController extends Controller {
 
@@ -267,14 +270,45 @@ class DefaultController extends Controller {
     }
 
     //confirmacion de obra cambio de estatus checkbox en vista de asignacion/Indexalm
+    //Accion que realiza el almacenista
     public function confirmObraAction(Request $request) {
+        
         $idObra = $request->request->get('idObra');
+        $icantidadEntrega= $request->request->get('iEntrega');
+        
         $em = $this->getDoctrine()->getManager();
         $obra = $em->getRepository('TechTBundle:Tbdetproyecto')
                 ->find($idObra);
-        $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
-                ->find(4);
+                //Buscar las entregas de acuerdo a la entrega hacer set del estatus
+            $entregasPrev = $em->getRepository('TechTBundle:TbdetEntrega')
+                ->findBy(array('tbdetproyecto'=>$idObra));
+            $total=0;
+            foreach ($entregasPrev as $entregaPrev ){
+                $total=$entregaPrev->getIcantidadentregada()+$total;
+            }
+            $cotizado=$obra->getIcantidad();
+            $pendiente=$total-$cotizado;
+
+            if ($icantidadEntrega<$pendiente){
+                        $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
+                        ->find(3);
+            }else{
+                        $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
+                        ->find(4);
+            }
         if ($estatusSi != null) {
+            //Actualizar entregados
+            $entrega=new Tbdetentrega();
+            //asignar fecha 
+            $entrega->setDfecha(new DateTime);
+            $entrega->setTbdetproyecto($obra);
+            $entrega->setIcantidadentregada($icantidadEntrega);
+            //Buscar Lider 
+            $tbdetliderpmo=$obra->getFkIcodcotizacion()->getTbdetliderpmo();
+            $entrega->setTbdetliderpmo();
+            $entrega->setTbdetliderpmo($tbdetliderpmo);
+            
+            $obra->setIcantidadEntregada($total+$icantidadEntrega);
             $obra->setFkTbdetestatusproyecto($estatusSi);
             $em->flush();
             return new JsonResponse(array('id' => 1, 'name' => 'ok'));

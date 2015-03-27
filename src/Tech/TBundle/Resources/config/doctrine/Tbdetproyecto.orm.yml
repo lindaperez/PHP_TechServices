@@ -43,15 +43,6 @@ Tech\TBundle\Entity\Tbdetproyecto:
             comment: ''
             column: icantidadEntregada
     manyToOne:
-        fkIcodcotizacion:
-            targetEntity: Tbdetcotizacion
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iCodCotizacion:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkTbdetestatusproyecto:
             targetEntity: Tbdetestatusproyecto
             cascade: {  }
@@ -59,6 +50,15 @@ Tech\TBundle\Entity\Tbdetproyecto:
             inversedBy: null
             joinColumns:
                 fk_tbdetEstatusProyecto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIcodcotizacion:
+            targetEntity: Tbdetcotizacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iCodCotizacion:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -9,7 +9,7 @@
             <table class="records_list">
                 <thead>
                     <tr>
-                        
+
                         <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
@@ -19,9 +19,9 @@
                         <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
-                        
+
                         {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
-                        </tr>
+                    </tr>
                 </thead>
 
             </table>
@@ -35,7 +35,7 @@
                                 <table>
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
-                                            
+
                                             <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">Cantidad Cotizada</td>
@@ -46,13 +46,13 @@
                                             <td width="20"></td>
                                             <td align="center"  width="140">Pendiente</td>
                                             <td width="20"></td>
-                                             <td align="center"  width="140">Disponible</td>
+                                            <td align="center"  width="140">A Entregar</td>
                                             <td width="20"></td>
                                             <td align="center"  width="100">Estatus Almacén</td>
                                             <td width="20"></td>
                                             <td align="center"  width="100">Acciones Disponibilidad</td>
-                                            
-                                            
+
+
                                         </tr>
                                     </thead>
                                 </table>
@@ -61,7 +61,7 @@
 
                                     <table>
                                         <tr>
-                                            
+
                                             <td height="25" align="center"  width="160"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
@@ -77,27 +77,43 @@
                                             <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="100">
-                                                 <ul>
-                                    <li>
-                                        <ul>
-                                            <input class="checkbox1" type="checkbox" 
-                                                   name= "pry.{{proyecto.id}}" 
-                                                   value="{{proyecto.id}}"
-                                                   onclick="confirmObra({idObra: '{{proyecto.id}}'});"><br>
-                                                   
-                                            <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
-                                                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                                    </span>Esta confirmando la existencia de <b>{{proyecto.icantidad}}</b><br> unidades
-                                                    de <b>{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</b>. Esta Seguro?</p>
-                                            </div>
+                                                <ul>
+                                                    <li>
+                                                        <ul>
+                                                            <input class="checkbox1" type="checkbox" 
+                                                                   name= "pry.{{proyecto.id}}" 
+                                                                   value="{{proyecto.id}}"
+                                                                   onclick="confirmObra({idObra: '{{proyecto.id}}'});"><br>
 
-                                        </ul>
-                                    </li>
-                                </ul>
-                                                
+                                                            <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>
+                                                                <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
+                                                                    </span> 
+                                                                    Introduzca la cantidad de <b>{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</b>
+                                                                    que posee disponible para entregar al tecnico y lider de obra, (Pendientes <b>{{proyecto.icantidad}}</b>)
+                                                                    </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                     <td height="50px" align="center"><input type="number"  name="fn{{proyecto.id}}" value=55 id="fn{{proyecto.id}}"><br></td>
+                                                                     
+                                                                    </tr>
+                                                                      <tr>
+                                                                      <td align="left">Se encuentra seguro?</td>
+                                                                     
+                                                                    </tr> 
+                                                                </table>
+                                                                
+                                                            </div>
+
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+
                                             </td>
-                                           
-                                            
+
+
                                         </tr>
                                     </table>
 
@@ -140,46 +156,50 @@
             });
         });
     </script>
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    
+
     <script>
-        function confirmObra (options) {
-            $("#d"+options.idObra).dialog({
+        function confirmObra(options) {
+            $("#d" + options.idObra).dialog({
                 resizable: false,
-                height: 200,
+                height: 250,
+                width: 400, 
                 modal: true,
-                title:'Confirmación de Existencia',
+                title: 'Confirmación de Existencia',
                 buttons: {
                     "No": function () {
+                        
                         $(this).dialog("close");
                     },
                     Si: function () {
+                        var ientrega=$("#fn"+options.idObra);
+                        
                         var data = {
-                        idObra: options.idObra
+                            idObra: options.idObra,
+                            iEntrega: ientrega
                         };
                         $.ajax({
                             type: 'post',
                             url: '{{ path("confirmObra") }}',
                             data: data,
                             dataType: 'json',
-                        success: function(data) {
-                            if (data.error !== undefined && data.error !== '') {
-                                alert(data.error);
-                            } else {
-                            $("#d"+options.idObra).dialog("close");
+                            success: function (data) {
+                                if (data.error !== undefined && data.error !== '') {
+                                    alert(data.error);
+                                } else {
+                                    $("#d" + options.idObra).dialog("close");
+                                }
+                            },
+                            error: function (e, ts, et) {
+                                alert(ts);
                             }
-                        },
-                        
-                        error: function(e, ts, et) {
-                            alert(ts);   
-                        }
                         });
                         //
+                    }
                 }
-                }
-                });
-    }
+            });
+        }
     </script>
 {% endblock %}

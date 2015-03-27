@@ -1,0 +1,68 @@
+Tech\TBundle\Entity\Tbdetentrega:
+    type: entity
+    table: tbdetEntrega
+    indexes:
+        fk_tbdetEntrega_tbdetProyecto1:
+            columns:
+                - tbdetProyecto_id
+        fk_tbdetEntrega_tbdetTecnico1:
+            columns:
+                - tbdetTecnico_id
+        fk_tbdetEntrega_tbdetLiderPMO1:
+            columns:
+                - tbdetLiderPMO_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dfecha:
+            type: datetime
+            nullable: false
+            comment: ''
+        icantidadentregada:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: icantidadEntregada
+        vobservaciones:
+            type: string
+            nullable: true
+            length: 500
+            fixed: false
+            comment: ''
+    manyToOne:
+        tbdetproyecto:
+            targetEntity: Tbdetproyecto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetProyecto_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tbdettecnico:
+            targetEntity: Tbdettecnico
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetTecnico_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tbdetliderpmo:
+            targetEntity: Tbdetliderpmo
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tbdetLiderPMO_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -6,7 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Tech\TBundle\Entity\Tbdetcotizacion;
+use Tech\TBundle\Entity\Tbdetentrega;
 use Tech\TBundle\Form\TbdetcotizacionType;
+use Tech\TBundle\Form\TbdetentregaType;
 
 /**
  * Tbdetcotizacion controller.
@@ -61,10 +63,18 @@ class TbdetcotizacionController extends Controller
             }
         }
         
+        $entityEntrega = new Tbdetentrega();
+        $formEntrega = $this->createForm(new TbdetentregaType(), $entityEntrega, array(
+            'action' => $this->generateUrl('Entrega_create'),
+            'method' => 'POST',
+        ));
 
+        $formEntrega->add('submit', 'submit', array('label' => 'Create'));
+        
         return $this->render('TechTBundle:Tbdetcotizacion:indexAlm.html.twig', array(
             'entities' => $entities,
             'cotizaciones' => $cot,
+            'formEntrega' => $formEntrega,
         ));
     }
     

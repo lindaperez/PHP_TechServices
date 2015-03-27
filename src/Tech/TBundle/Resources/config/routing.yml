@@ -232,3 +232,7 @@ TBundle_Lider:
     resource: "@TechTBundle/Resources/config/routing/tbdetliderpmo.yml"
     prefix:   /Lider
 
+TechTBundle_Entrega:
+    resource: "@TechTBundle/Resources/config/routing/tbdetentrega.yml"
+    prefix:   /Entrega
+
