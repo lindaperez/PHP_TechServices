@@ -17,8 +17,8 @@ class TbreltecnicoproyectoType extends AbstractType
         $builder
             ->add('dfecha')
             ->add('vdescripcioncambioest')
+            ->add('fkIidTbdetcotizacion')
             ->add('fkIidTbdettecnico')
-            ->add('fkIidTbdetproyecto')
         ;
     }
     

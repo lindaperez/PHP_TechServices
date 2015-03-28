@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tbreltecnicoproyecto
  *
- * @ORM\Table(name="tbrelTecnicoProyecto", indexes={@ORM\Index(name="fk_tbrelTecnicoProyecto_1", columns={"fk_iID_tbdetTecnico"}), @ORM\Index(name="fk_tbrelTecnicoProyecto_2", columns={"fk_iID_tbdetPRoyecto"})})
+ * @ORM\Table(name="tbrelTecnicoProyecto", indexes={@ORM\Index(name="fk_tbrelTecnicoProyecto_1", columns={"fk_iID_tbdetTecnico"}), @ORM\Index(name="fk_tbrelTecnicoCotizacion_2", columns={"fk_iID_tbdetCotizacion"})})
  * @ORM\Entity
  */
 class Tbreltecnicoproyecto
@@ -36,6 +36,16 @@ class Tbreltecnicoproyecto
     private $vdescripcioncambioest;
 
     /**
+     * @var \Tech\TBundle\Entity\Tbdetcotizacion
+     *
+     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetcotizacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_iID_tbdetCotizacion", referencedColumnName="id")
+     * })
+     */
+    private $fkIidTbdetcotizacion;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdettecnico
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdettecnico")
@@ -44,16 +54,6 @@ class Tbreltecnicoproyecto
      * })
      */
     private $fkIidTbdettecnico;
-
-    /**
-     * @var \Tech\TBundle\Entity\Tbdetproyecto
-     *
-     * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetproyecto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_iID_tbdetPRoyecto", referencedColumnName="id")
-     * })
-     */
-    private $fkIidTbdetproyecto;
 
 
 
@@ -114,6 +114,29 @@ class Tbreltecnicoproyecto
     }
 
     /**
+     * Set fkIidTbdetcotizacion
+     *
+     * @param \Tech\TBundle\Entity\Tbdetcotizacion $fkIidTbdetcotizacion
+     * @return Tbreltecnicoproyecto
+     */
+    public function setFkIidTbdetcotizacion(\Tech\TBundle\Entity\Tbdetcotizacion $fkIidTbdetcotizacion = null)
+    {
+        $this->fkIidTbdetcotizacion = $fkIidTbdetcotizacion;
+
+        return $this;
+    }
+
+    /**
+     * Get fkIidTbdetcotizacion
+     *
+     * @return \Tech\TBundle\Entity\Tbdetcotizacion 
+     */
+    public function getFkIidTbdetcotizacion()
+    {
+        return $this->fkIidTbdetcotizacion;
+    }
+
+    /**
      * Set fkIidTbdettecnico
      *
      * @param \Tech\TBundle\Entity\Tbdettecnico $fkIidTbdettecnico
@@ -134,29 +157,6 @@ class Tbreltecnicoproyecto
     public function getFkIidTbdettecnico()
     {
         return $this->fkIidTbdettecnico;
-    }
-
-    /**
-     * Set fkIidTbdetproyecto
-     *
-     * @param \Tech\TBundle\Entity\Tbdetproyecto $fkIidTbdetproyecto
-     * @return Tbreltecnicoproyecto
-     */
-    public function setFkIidTbdetproyecto(\Tech\TBundle\Entity\Tbdetproyecto $fkIidTbdetproyecto = null)
-    {
-        $this->fkIidTbdetproyecto = $fkIidTbdetproyecto;
-
-        return $this;
-    }
-
-    /**
-     * Get fkIidTbdetproyecto
-     *
-     * @return \Tech\TBundle\Entity\Tbdetproyecto 
-     */
-    public function getFkIidTbdetproyecto()
-    {
-        return $this->fkIidTbdetproyecto;
     }
     
  

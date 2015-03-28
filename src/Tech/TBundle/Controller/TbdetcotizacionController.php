@@ -53,28 +53,30 @@ class TbdetcotizacionController extends Controller
                 $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
                 if($idPryEst==1 || $idPryEst==3 || $idPryEst==4 || $idPryEst==5) {
                     
-                    $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                            array('fkIidTbdetproyecto' => $cotizacion));
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
             if ($pry!=null){
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if($reltecnico!=null){   
+                    $tecnico=$reltecnico[0];
+                }
+                $cot[$cotizacion->getCodcotizacion()]=array('tres'=>$reltecnico[0],'dos'=>$cotizacion,'uno'=>$pry);
+        
             }
         }
         
-        $entityEntrega = new Tbdetentrega();
-        $formEntrega = $this->createForm(new TbdetentregaType(), $entityEntrega, array(
-            'action' => $this->generateUrl('Entrega_create'),
-            'method' => 'POST',
-        ));
-
-        $formEntrega->add('submit', 'submit', array('label' => 'Create'));
+                
+        
         
         return $this->render('TechTBundle:Tbdetcotizacion:indexAlm.html.twig', array(
             'entities' => $entities,
             'cotizaciones' => $cot,
-            'formEntrega' => $formEntrega,
         ));
     }
     
@@ -98,13 +100,21 @@ class TbdetcotizacionController extends Controller
                 $pendiente=  abs($proyecto->getIcantidad()-$proyecto->getIcantidadEntregada());
                 
                 if($pendiente==0) {    
-                    $reltecnicos = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                            array('fkIidTbdetproyecto' => $cotizacion));
+        
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
             if ($pry!=null){
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if($reltecnico!=null){   
+                    $tecnico=$reltecnico[0];
+                }
+            $cot[$cotizacion->getCodcotizacion()]=array('tres'=>$tecnico,'dos'=>$cotizacion,'uno'=>$pry);
             }
         }
         
@@ -132,8 +142,7 @@ class TbdetcotizacionController extends Controller
                     array('fkIcodcotizacion'=>$cotizacion));
             
             foreach ($proyectos as $clavePry => $proyecto) {
-                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetproyecto'=>$cotizacion));
+                
                $pry[$proyecto->getId()]=$proyecto;
             }
             $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
@@ -158,21 +167,18 @@ class TbdetcotizacionController extends Controller
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
         
         foreach ($entities as $claveCot => $cotizacion) {
-            $switch=true;
+            
             $pry=  array();
             $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion'=>$cotizacion));
             
             foreach ($proyectos as $clavePry => $proyecto) {
-                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst!=4) {
-                    $switch=false;
+                $disponible=$proyecto->getIcantidaddisponible();
+                if($disponible!=0) {
+                    $pry[$proyecto->getId()]=$proyecto;
                 }
-                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetproyecto'=>$cotizacion));
-               $pry[$proyecto->getId()]=$proyecto;
             }
-            if ($switch == true){
+            if($pry!=null){
             $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
             }
         }
@@ -205,8 +211,7 @@ class TbdetcotizacionController extends Controller
                 if($idPryEst!=6) {
                     $switch=false;
                 }
-                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetproyecto'=>$cotizacion));
+                
                $pry[$proyecto->getId()]=$proyecto;
             }
             if ($switch == true){
@@ -242,8 +247,7 @@ class TbdetcotizacionController extends Controller
                 if($idPryEst!=7) {
                     $switch=false;
                 }
-                $reltecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetproyecto'=>$cotizacion));
+                
                $pry[$proyecto->getId()]=$proyecto;
             }
             if ($switch == true){

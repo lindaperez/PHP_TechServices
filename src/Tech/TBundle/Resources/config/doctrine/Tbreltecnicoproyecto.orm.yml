@@ -5,9 +5,9 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
         fk_tbrelTecnicoProyecto_1:
             columns:
                 - fk_iID_tbdetTecnico
-        fk_tbrelTecnicoProyecto_2:
+        fk_tbrelTecnicoCotizacion_2:
             columns:
-                - fk_iID_tbdetPRoyecto
+                - fk_iID_tbdetCotizacion
     id:
         id:
             type: integer
@@ -30,6 +30,15 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             comment: ''
             column: vdescripcionCambioEst
     manyToOne:
+        fkIidTbdetcotizacion:
+            targetEntity: Tbdetcotizacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetCotizacion:
+                    referencedColumnName: id
+            orphanRemoval: false
         fkIidTbdettecnico:
             targetEntity: Tbdettecnico
             cascade: {  }
@@ -37,15 +46,6 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             inversedBy: null
             joinColumns:
                 fk_iID_tbdetTecnico:
-                    referencedColumnName: id
-            orphanRemoval: false
-        fkIidTbdetproyecto:
-            targetEntity: Tbdetproyecto
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_tbdetPRoyecto:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

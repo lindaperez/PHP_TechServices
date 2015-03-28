@@ -273,17 +273,13 @@ class DefaultController extends Controller {
     //Accion que realiza el almacenista
     public function confirmObraAction(Request $request) {
         
-        $idObra = $request->request->get('idObra');
-        //$idObra=1;
+        $idObra = $request->request->get('idObra');                
         $icantidadEntrega= $request->request->get('iEntrega');
-        //$icantidadEntrega=2;
         
         $em = $this->getDoctrine()->getManager();
+        
         $obra = $em->getRepository('TechTBundle:Tbdetproyecto')
                 ->find($idObra);
-            //Buscar las entregas de acuerdo a la entrega hacer set del estatus
-            $entregasPrev = $em->getRepository('TechTBundle:Tbdetentrega')
-                ->findBy(array('tbdetproyecto'=>$idObra));
            $total=$obra->getIcantidadEntregada();
             $cotizado=$obra->getIcantidad();
             $pendiente=  abs($total-$cotizado);
@@ -299,6 +295,19 @@ class DefaultController extends Controller {
             $obra->setIcantidadDisponible($icantidadEntrega);
             $obra->setFkTbdetestatusproyecto($estatusSi);
             $em->flush();
+            // Enviar Mail 
+            
+            $cotizacion=$obra->getFkIcodcotizacion();
+            $tecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
+                array('fkIidTbdetcotizacion'=>$cotizacion));
+        if ($tecnicos!=null){
+            $tecnico=$tecnicos[0];
+        }
+        $mailLid=$cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+        $pry[$obra->getId()] = $obra;
+               $this->mailer('Notificación de Equipos Disponibles en Almacen',
+                       $mailLid,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexAlmMail.html.twig',array($cotizacion->getId()=>array('tres'=>$tecnico,'dos'=>$cotizacion,'uno'=>$pry))); 
             return new JsonResponse(array('id' => 1, 'name' => 'ok'));
         } else {
             return new JsonResponse(null);
@@ -355,5 +364,19 @@ class DefaultController extends Controller {
             return new JsonResponse(null);
         }
     }
+        public function mailer($subject,$to,$view,$object) {
 
+        $message = \Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom('techtroll.ve@gmail.com')
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                        //'TechTBundle:Default:mail.html.twig'
+                        $view, array('object' => $object)
+                )
+                , 'text/html')
+        ;
+        $this->get('mailer')->send($message);
+    }
 }
