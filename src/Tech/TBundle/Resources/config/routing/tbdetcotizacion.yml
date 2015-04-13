@@ -6,6 +6,10 @@ Cotizacion_indexAlm:
     pattern:  /indexAlm
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexAlm"}
 
+Cotizacion_indexAlmPorEnt: 
+    pattern:  /indexAlmPorEnt
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexAlmPorEnt"}
+
 Cotizacion_indexAlmAprob:
     pattern:  /indexAlmAprob
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexAlmAprob"}
@@ -26,10 +30,19 @@ Cotizacion_indexTecnInst:
     pattern: /indexTecnInst
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexTecnInst"}
 
+Cotizacion_indexLiderPorInst:
+    pattern: /indexLiderPorInst
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexLiderPorInst"}
+
+Cotizacion_indexLiderInst:
+    pattern: /indexLiderInst
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexLiderInst"}
 
 Cotizacion_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:show" }
+
+
 
 Cotizacion_new:
     pattern:  /new
@@ -44,10 +57,30 @@ Cotizacion_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:edit" }
 
+
+Cotizacion_editAlm:
+    pattern: /{id}/editAlm
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:editAlm"}
+
+Cotizacion_editTecnEnt:
+    pattern: /{id}/editTecnEnt
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:editTecnEnt"}
+
 Cotizacion_update:
     pattern:  /{id}/update
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:update" }
     requirements: { _method: post|put }
+
+Cotizacion_updateAlm:
+    pattern:  /{id}/updateAlm
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:updateAlm" }
+    requirements: { _method: post|put }
+
+Cotizacion_updateTecnEnt:
+    pattern:  /{id}/updateTecnEnt
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:updateTecnEnt"}
+    requirements: { _method: post|put }
+
 
 Cotizacion_delete:
     pattern:  /{id}/delete

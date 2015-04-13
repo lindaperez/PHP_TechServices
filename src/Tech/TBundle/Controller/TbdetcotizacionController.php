@@ -4,269 +4,425 @@ namespace Tech\TBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Tech\TBundle\Entity\Tbdetcotizacion;
 use Tech\TBundle\Entity\Tbdetentrega;
 use Tech\TBundle\Form\TbdetcotizacionType;
 use Tech\TBundle\Form\TbdetentregaType;
+use Tech\TBundle\Entity\Tbreltecnicoproyecto;
 
 /**
  * Tbdetcotizacion controller.
  *
  */
-class TbdetcotizacionController extends Controller
-{
+class TbdetcotizacionController extends Controller {
 
-       /**
+    /**
      * Lists all Tbdetcotizacion entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $lista=  array();
+        $cot = array();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-       
-        
-        
+
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $pry[$proyecto->getId()] = $proyecto;
+            }
+
+            $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                    ->where('rtp.fkIidTbdetcotizacion=:cot')
+                    ->setParameter('cot', $cotizacion)
+                    ->orderBy('rtp.dfecha', 'DESC')
+                    ->getQuery();
+            $reltecnico = $query->getResult();
+            if ($reltecnico != null) {
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
+            } else {
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => new Tbreltecnicoproyecto(), 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+
         return $this->render('TechTBundle:Tbdetcotizacion:index.html.twig', array(
-            'entities' => $entities
+                    'entities' => $entities,
+                    'cotizaciones' => $cot
         ));
     }
+
     /**
      * Lists all Tbdetcotizacion entities.
      *
      */
-    public function indexAlmAction()
-    {
+    public function indexAlmPorEntAction() {
+        $cot = array();
         $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
+
         foreach ($entities as $claveCot => $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            $swith=false;
             foreach ($proyectos as $clavePry => $proyecto) {
-                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst==1 || $idPryEst==3 || $idPryEst==4 || $idPryEst==5) {
-                    
+                $idPryEst = $proyecto->getFkTbdetestatusproyecto()->getId();
+                //	Por Asignar al Técnico,	Asignado,Pedido Si,Pedido No
+                if ($idPryEst != 7 ) {
+
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
-            if ($pry!=null){
+            if ($pry != null) {
                 $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
                         ->where('rtp.fkIidTbdetcotizacion=:cot')
                         ->setParameter('cot', $cotizacion)
                         ->orderBy('rtp.dfecha', 'DESC')
                         ->getQuery();
                 $reltecnico = $query->getResult();
-                if($reltecnico!=null){   
-                    $tecnico=$reltecnico[0];
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
                 }
-                $cot[$cotizacion->getCodcotizacion()]=array('tres'=>$reltecnico[0],'dos'=>$cotizacion,'uno'=>$pry);
-        
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
             }
         }
-        
-                
-        
-        
+
+
+
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexAlmPorEnt.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
+    /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexAlmAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            $swith = false;
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst = $proyecto->getFkTbdetestatusproyecto()->getId();
+                if ($idPryEst == 1 || $idPryEst == 3 || $idPryEst == 4 || $idPryEst == 5) {
+
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
+                }
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+
+
         return $this->render('TechTBundle:Tbdetcotizacion:indexAlm.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
         ));
     }
-    
+
     /**
      * Lists all Tbdetcotizacion entities.
      *
      */
-    public function indexAlmAprobAction()
-    {
+    public function indexAlmAprobAction() {
         $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
+        $cot = array();
+
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
+
         foreach ($entities as $claveCot => $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            
+
             foreach ($proyectos as $clavePry => $proyecto) {
-                $pendiente=  abs($proyecto->getIcantidad()-$proyecto->getIcantidadEntregada());
-                
-                if($pendiente==0) {    
-        
+                $recibido = abs($proyecto->getIcantidadrecibida());
+
+                if ($recibido != 0) {
+
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
-            if ($pry!=null){
+            if ($pry != null) {
                 $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
                         ->where('rtp.fkIidTbdetcotizacion=:cot')
                         ->setParameter('cot', $cotizacion)
                         ->orderBy('rtp.dfecha', 'DESC')
                         ->getQuery();
                 $reltecnico = $query->getResult();
-                if($reltecnico!=null){   
-                    $tecnico=$reltecnico[0];
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
                 }
-            $cot[$cotizacion->getCodcotizacion()]=array('tres'=>$tecnico,'dos'=>$cotizacion,'uno'=>$pry);
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $tecnico, 'dos' => $cotizacion, 'uno' => $pry);
             }
         }
-        
+
 
         return $this->render('TechTBundle:Tbdetcotizacion:indexAlmAprob.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
         ));
     }
-      
-    
-     /**
+
+    /**
      * Lists all Tbdetcotizacion entities.
      *
      */
-     public function indexTecnAction()
-    {
+    public function indexTecnAction() {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        $cot=  array();
+        $cot = array();
+        
+        //Buscar Tecnico
+        $user=$this->getUser();
+        $tecnico= $em->getRepository('TechTBundle:Tbdet')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
         
         foreach ($entities as $claveCot => $cotizacion) {
-            $pry=  array();
-            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$cotizacion));
-            
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
             foreach ($proyectos as $clavePry => $proyecto) {
-                
-               $pry[$proyecto->getId()]=$proyecto;
+
+                $pry[$proyecto->getId()] = $proyecto;
             }
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                    ->where('rtp.fkIidTbdetcotizacion=:cot')
+                    ->setParameter('cot', $cotizacion)
+                    ->orderBy('rtp.dfecha', 'DESC')
+                    ->getQuery();
+            $reltecnico = $query->getResult();
+            if (!empty($reltecnico)) {
+                if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                    $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+                }
+            }
+            $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
         }
-        
 
         return $this->render('TechTBundle:Tbdetcotizacion:indexTecn.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
         ));
     }
-    
-     /**
+
+    /**
      * Lists all Tbdetcotizacion entities.
      * Proyectos con obras por retirar
      */
-     public function indexTecnRetAction()
-    {
+    public function indexTecnRetAction() {
         $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
+        $cot = array();
+
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
+
         foreach ($entities as $claveCot => $cotizacion) {
-            
-            $pry=  array();
-            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$cotizacion));
-            
+
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
             foreach ($proyectos as $clavePry => $proyecto) {
-                $disponible=$proyecto->getIcantidaddisponible();
-                if($disponible!=0) {
-                    $pry[$proyecto->getId()]=$proyecto;
+                $disponible = $proyecto->getIcantidaddisponible();
+                if ($disponible != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
                 }
             }
-            if($pry!=null){
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            if ($pry != null) {
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
             }
         }
-        
+
 
         return $this->render('TechTBundle:Tbdetcotizacion:indexTecnRet.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
         ));
     }
-     /**
-     * Lists all Tbdetcotizacion entities.
-     * Proyectos con obras por instalar
-     */
-     public function indexTecnPorInstAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
-        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
-        foreach ($entities as $claveCot => $cotizacion) {
-            $switch=true;
-            $pry=  array();
-            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$cotizacion));
-            
-            foreach ($proyectos as $clavePry => $proyecto) {
-                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst!=6) {
-                    $switch=false;
-                }
-                
-               $pry[$proyecto->getId()]=$proyecto;
-            }
-            if ($switch == true){
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
-            }
-        }
-        
 
-        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnPorInst.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
-        ));
-    }
     /**
      * Lists all Tbdetcotizacion entities.
      * Proyectos con obras por instalar
      */
-     public function indexTecnInstAction()
-    {
+    public function indexTecnPorInstAction() {
         $em = $this->getDoctrine()->getManager();
-        $cot=  array();
-        
+        $cot = array();
+
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        
+
         foreach ($entities as $claveCot => $cotizacion) {
-            $switch=true;
-            $pry=  array();
-            $proyectos= $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$cotizacion));
-            
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
             foreach ($proyectos as $clavePry => $proyecto) {
-                $idPryEst=$proyecto->getFkTbdetestatusproyecto()->getId();
-                if($idPryEst!=7) {
-                    $switch=false;
+                $recibido = $proyecto->getIcantidadrecibida();
+                if ($recibido != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
                 }
-                
-               $pry[$proyecto->getId()]=$proyecto;
             }
-            if ($switch == true){
-            $cot[$cotizacion->getCodcotizacion()]=array('dos'=>$cotizacion,'uno'=>$pry);
+            if ($pry != null) {
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
             }
         }
-        
 
-        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnInst.html.twig', array(
-            'entities' => $entities,
-            'cotizaciones' => $cot,
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnPorInst.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
         ));
     }
+
+    /**
+      /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos por confirmar instalacion del Lider
+     */
+    public function indexLiderPorInstAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        //Buscar Lider
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $recibido = $proyecto->getIcantidadrecibida();
+                if ($recibido != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                //Buscar tecnico
+                $user = $this->getUser();
+
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->where('rtp.fkIidUsuaDatostecn=:per')
+                        ->setParameter('cot', $cotizacion)
+                        ->setParameter('per', $user)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
+                }
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $tecnico, 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexLiderPorInst.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
+    public function indexLiderInstAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        //Buscar Lider
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $entregado = $proyecto->getIcantidadentregada();
+                if ($entregado != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                //Buscar tecnico
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
+                }
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $tecnico, 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexLiderInst.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
+    /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos con obras isntaladas
+     */
+    public function indexTecnInstAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $instalado = $proyecto->getIcantidadentregada();
+                if ($instalado != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexTecnInst.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
     /**
      * Creates a new Tbdetcotizacion entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Tbdetcotizacion();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -280,20 +436,19 @@ class TbdetcotizacionController extends Controller
         }
 
         return $this->render('TechTBundle:Tbdetcotizacion:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Tbdetcotizacion entity.
-    *
-    * @param Tbdetcotizacion $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Tbdetcotizacion $entity)
-    {
+     * Creates a form to create a Tbdetcotizacion entity.
+     *
+     * @param Tbdetcotizacion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Tbdetcotizacion $entity) {
         $form = $this->createForm(new TbdetcotizacionType(), $entity, array(
             'action' => $this->generateUrl('Cotizacion_create'),
             'method' => 'POST',
@@ -308,14 +463,13 @@ class TbdetcotizacionController extends Controller
      * Displays a form to create a new Tbdetcotizacion entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Tbdetcotizacion();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('TechTBundle:Tbdetcotizacion:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -323,39 +477,53 @@ class TbdetcotizacionController extends Controller
      * Finds and displays a Tbdetcotizacion entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
-        $proyectos=$em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$entity)); 
+        $cot = array();
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
         }
+        $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                ->where('rtp.fkIidTbdetcotizacion=:cot')
+                ->setParameter('cot', $entity)
+                ->orderBy('rtp.dfecha', 'DESC')
+                ->getQuery();
+        $reltecnico = $query->getResult();
 
+
+        if (!empty($reltecnico)) {
+            if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+            }
+        }
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TechTBundle:Tbdetcotizacion:show.html.twig', array(
-            'entity'      => $entity,
-            'proyectos'   => $proyectos,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'cotizaciones' => $cot,
+                    'delete_form' => $deleteForm->createView(),
+                    'instalador' => $instalador));
     }
 
     /**
      * Displays a form to edit an existing Tbdetcotizacion entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
-         
-        $proyectos=$em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
-                    array('fkIcodcotizacion'=>$entity)); 
 
-        
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
         }
@@ -364,22 +532,92 @@ class TbdetcotizacionController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('TechTBundle:Tbdetcotizacion:edit.html.twig', array(
-            'entity'      => $entity,
-            'proyectos'   => $proyectos,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'proyectos' => $proyectos,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Tbdetcotizacion entity.
-    *
-    * @param Tbdetcotizacion $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Tbdetcotizacion $entity)
-    {
+     * Displays a form to edit an existing Tbdetcotizacion entity.
+     *
+     */
+    public function editAlmAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+        $cot = array();
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
+        }
+        $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                ->where('rtp.fkIidTbdetcotizacion=:cot')
+                ->setParameter('cot', $entity)
+                ->orderBy('rtp.dfecha', 'DESC')
+                ->getQuery();
+        $reltecnico = $query->getResult();
+
+
+        if (!empty($reltecnico)) {
+            if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+            }
+        }
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
+             
+        return $this->render('TechTBundle:Tbdetcotizacion:editAlm.html.twig', array(
+                    'entity' => $entity,
+                    'cotizaciones' => $cot,
+                    'instalador' => $instalador
+                ));
+    }
+    /**
+     * Displays a form to edit an existing Tbdetcotizacion entity.
+     *
+     */
+    public function editTecnEntAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+        $cot = array();
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
+        }
+        $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                ->where('rtp.fkIidTbdetcotizacion=:cot')
+                ->setParameter('cot', $entity)
+                ->orderBy('rtp.dfecha', 'DESC')
+                ->getQuery();
+        $reltecnico = $query->getResult();
+
+
+        if (!empty($reltecnico)) {
+            if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+            }
+        }
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
+             
+        return $this->render('TechTBundle:Tbdetcotizacion:editTecnEnt.html.twig', array(
+                    'entity' => $entity,
+                    'cotizaciones' => $cot,
+                    'instalador' => $instalador
+                ));
+    }
+
+    /**
+     * Creates a form to edit a Tbdetcotizacion entity.
+     *
+     * @param Tbdetcotizacion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Tbdetcotizacion $entity) {
         $form = $this->createForm(new TbdetcotizacionType(), $entity, array(
             'action' => $this->generateUrl('Cotizacion_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -389,16 +627,16 @@ class TbdetcotizacionController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Tbdetcotizacion entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
         }
@@ -414,17 +652,99 @@ class TbdetcotizacionController extends Controller
         }
 
         return $this->render('TechTBundle:Tbdetcotizacion:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+    /**
+     * Edits an existing Tbdetcotizacion entity.
+     *
+     */
+    public function updateAlmAction(Request $request, $id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
+        }
+        
+        foreach ($_POST as $proy => $value){
+            
+            if (strpos($proy, 'p_')!==false){
+                //Buscar proy
+                $proyecto= $em->getRepository('TechTBundle:Tbdetproyecto')->find(substr($proy,2));
+                $cant=$proyecto->getIcantidaddisponible();    
+                $proyecto->setIcantidaddisponible($cant+$value);
+                $em->flush();
+            }
+        }
+        $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                ->where('rtp.fkIidTbdetcotizacion=:cot')
+                ->setParameter('cot', $entity)
+                ->orderBy('rtp.dfecha', 'DESC')
+                ->getQuery();
+        $reltecnico = $query->getResult();
+        if (!empty($reltecnico)) {
+            if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+            }
+        }
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
+             
+        return $this->render('TechTBundle:Tbdetcotizacion:editAlm.html.twig', array(
+                    'entity' => $entity,
+                    'cotizaciones' => $cot,
+        ));
+    }
+    public function updateTecnEntAction(Request $request, $id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
+        }
+        
+        foreach ($_POST as $proy => $value){
+            
+            if (strpos($proy, 'p_')!==false){
+                //Buscar proy
+                $proyecto= $em->getRepository('TechTBundle:Tbdetproyecto')->find(substr($proy,2));
+                $cant=$proyecto->getIcantidadrecibida();    
+                $cantdisp=$proyecto->getIcantidaddisponible();    
+                $proyecto->setIcantidadrecibida($cant+$value);
+                $proyecto->setIcantidaddisponible($cantdisp-$value);
+                $em->flush();
+            }
+        }
+        $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                ->where('rtp.fkIidTbdetcotizacion=:cot')
+                ->setParameter('cot', $entity)
+                ->orderBy('rtp.dfecha', 'DESC')
+                ->getQuery();
+        $reltecnico = $query->getResult();
+        if (!empty($reltecnico)) {
+            if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+            }
+        }
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
+             
+        return $this->render('TechTBundle:Tbdetcotizacion:editTecnEnt.html.twig', array(
+                    'entity' => $entity,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
     /**
      * Deletes a Tbdetcotizacion entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -450,13 +770,13 @@ class TbdetcotizacionController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('Cotizacion_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('Cotizacion_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

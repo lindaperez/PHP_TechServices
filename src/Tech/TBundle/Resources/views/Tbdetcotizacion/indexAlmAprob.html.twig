@@ -44,8 +44,7 @@
                                             <td align="center"  width="140">Entregado</td>
                                             <td width="20"></td>
                                             
-                                            <td align="center"  width="140">Pendiente</td>
-                                            <td width="20"></td>
+                                            
                                             <td align="center"  width="140">Por Entregar</td>
                                             <td width="20"></td>
                                             <td align="center"  width="100">Estatus</td>
@@ -66,12 +65,11 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
-                                            <td width="20"></td>
+                           
                                             <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
                                             <td width="20"></td>
                                             
@@ -89,7 +87,7 @@
 
                                     <td align="center"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                     <td width="40"></td>
-                                    <td align="center"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="40"></td>
                                     <td align="center"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
@@ -161,8 +159,16 @@
     <script>
         $(function () {
             $("#accordion").accordion({
-                heightStyle: "content"
+                active: false,
+                collapsible: true,
+                heightStyle: "content",
+                navigation: true,
             });
         });
+        
+         $('#accordion input[type="checkbox"]').click(function(e) {
+                e.stopPropagation();
+            });
+            $("a").click(function(event){ event.stopPropagation(); });
     </script>
 {% endblock %}

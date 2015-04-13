@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Equipos por Instalar</h1>
+    <h1>Equipos Instalados </h1>
 
     <div class="container" >
 
@@ -14,9 +14,9 @@
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
                         <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Estatus </strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Estatus Proyecto</strong></h4></td>
                         <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Técnico Asignado</strong></h4></td>
                         
                     </tr>
                 </thead>
@@ -43,10 +43,7 @@
                                             <td width="20"></td>
                                             <td align="center"  width="140">Pendiente</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Por Instalar</td>
-                                           
-
-
+                                            <td align="center"  width="140">Por Retirar</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -66,8 +63,7 @@
                                             <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
-
+                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                         </tr>
                                     </table>
 
@@ -84,7 +80,7 @@
                                     <td width="40"></td>
                                     <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="120">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                 </tr>
                             </table>
                             {%endif%}
@@ -104,10 +100,8 @@
     <script>
         $(function () {
             $("#accordion").accordion({
-                active: false,
-                collapsible: true,
                 heightStyle: "content",
-                navigation: true,
+                collapsible: true
             });
         });
     </script>
@@ -116,13 +110,13 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script>
-        function confirmObra(options) {
+        function confirmObraInst(options) {
             $("#d" + options.idObra).dialog({
                 resizable: false,
-                height: 290,
+                height: 300,
                 width: 400, 
                 modal: true,
-                title: 'Confirmación de Existencia',
+                title: 'Confirmación de Instalción',
                 buttons: {
                     "No": function () {
                         
@@ -137,7 +131,7 @@
                         };
                         $.ajax({
                             type: 'post',
-                            url: '{{ path("confirmObra") }}',
+                            url: '{{ path("confirmObraInst") }}',
                             data: data,
                             dataType: 'json',
                             success: function (data) {

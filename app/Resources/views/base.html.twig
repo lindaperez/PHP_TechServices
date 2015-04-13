@@ -25,9 +25,9 @@
 
         <script src="{{ asset('bundles/techt/js/84a4ae93bd83.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/techt/js/-Vvtx4nI8SHe_WYPalc1ijR-UNJ9GZaWikvdqm7tI20.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/techt/js/html5player.js') }}" type="text/javascript"></script>
+        
         <script src="{{ asset('bundles/techt/js/jquery.modal.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/techt/js/www-embed-player.js') }}" type="text/javascript"></script>
+        
 
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -110,61 +110,69 @@
                                 {%  if(app.session.get('usuario_rol')=="Cliente") %}
                             <li class="topmenu"><a href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}" title="Ver Perfil" style="width:180px;"><span><img src="" alt="">Perfil</span></a></li>
                                     {%endif%}
-                         {% if(app.session.get('usuario_rol')=="Coordinador PMO") %}
-                         <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
+                                    {% if(app.session.get('usuario_rol')=="Coordinador PMO") %}
+                            <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
                                 <ul>
-                                   
+
                                     <li><a href="{{ path('Cotizacion') }}" title="Listado de Proyectos Asignados"><img src="" alt="">Proyectos Asignados</a></li>
-                                     <li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>
+                                                <li><a href="{{ path('Asignacion') }}" title="Asignar Proyectos a Lider"><img src="" alt="">Asignar Lider a Proyecto</a></li>
+                                                <li><a href="{{ path('Asignacion_new') }}" title="Asignar Proyectos a Instalador"><img src="" alt="">Asignar Instalador a Proyecto</a></li>
+                                            {#<li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>#}</ul>
+                            </li>
+                            
+                        {%endif%}
+                        {% if(app.session.get('usuario_rol')=="Lider PMO") %}
+                            <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
+                                <ul>
+
+                                    <li><a href="{{ path('Cotizacion_indexLiderPorInst') }}" title="Con Equipos por Confirmar Instalación"><img src="" alt="">Con Equipos por Confirmar Instalación</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexLiderInst') }}" title="Con Equipos con Instalación confirmada"><img src="" alt="">Con Equipos con Instalación confirmada</a></li>
+                                            {#<li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>#}
                                 </ul>
-                         </li>
+                            </li>
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Instalador") %}
-                         <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
+                            <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
                                 <ul>
-                                   
-                                    <li><a href="{{ path('Cotizacion_indexTecnRet') }}" title="Proyectos Asignados Por Recibir"><img src="" alt="">Proyectos Asignados Por Recibir</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexTecnPorInst') }}" title="Proyectos Asignados Por Instalar"><img src="" alt="">Proyectos Asignados Por Instalar</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexTecnInst') }}" title="Proyectos Realizados"><img src="" alt="">Proyectos Realizados</a></li>
-                                     
+                                    <li><a href="{{ path('Cotizacion_indexTecn') }}" title="Todos los Proyectos"><img src="" alt="">Todos los Proyectos</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnRet') }}" title="Proyectos Asignados Por Recibir"><img src="" alt="">Con Equipos por Retirar del Almacen</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnPorInst') }}" title="Proyectos Asignados Por Instalar"><img src="" alt="">Con Obras por Realizar</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexTecnInst') }}" title="Proyectos Realizados"><img src="" alt="">Con Obras Realizadas</a></li>
+
                                 </ul>
-                         </li>
-                         <li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
-                         <ul>
-                        
-                        
-                                     <li><a href="{{ path('Asignacion_indexTecn') }}" title="Listado de Obras Asignadas"><img src="" alt=""> Lista de Obras Asignadas</a></li>
-                                     <li><a href="{{ path('Asignacion_indexTecnRet') }}" title="Obras Por Retirar de Almacen"><img src="" alt="">Obras Por Retirar de Almacen</a></li>
-                                     <li><a href="{{ path('Asignacion_indexTecnPorInst') }}" title="Obras Por Instalar"><img src="" alt="">Obras Por Instalar</a></li>
-                        
-                        
-                         
-                        
-                                     <li><a href="{{ path('Asignacion_indexTecnInst') }}" title="Obras Instaladas"><img src="" alt="">Obras Instaladas</a></li>
-                        
-                        
-                        
-                         </ul>
-                         </li>
+                            </li>
+                            {#<li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
+                            <ul>
+                           
+                           
+                                        <li><a href="{{ path('Asignacion_indexTecn') }}" title="Listado de Obras Asignadas"><img src="" alt=""> Lista de Obras Asignadas</a></li>
+                                        <li><a href="{{ path('Asignacion_indexTecnRet') }}" title="Obras Por Retirar de Almacen"><img src="" alt="">Obras Por Retirar de Almacen</a></li>
+                                        <li><a href="{{ path('Asignacion_indexTecnPorInst') }}" title="Obras Por Instalar"><img src="" alt="">Obras Por Instalar</a></li>
+                                        <li><a href="{{ path('Asignacion_indexTecnInst') }}" title="Obras Instaladas"><img src="" alt="">Obras Instaladas</a></li>
+                           
+                           
+                           
+                            </ul>
+                            </li>#}
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Almacenista") %}
-                         <li class="topmenu"><a href="#" title="Equipos" style="width:180px;"><span><img src="" alt="">Equipos</span></a>
-                                <ul>
-                                    <li><a href="{{ path('Cotizacion_indexAlm') }}" title="Equipos por Entregar a Proyectos"><img src="" alt="">Por Entregar a Proyectos</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="EquiposEntregados a Proyectos"><img src="" alt="">Entregados a Proyectos</a></li>
-                                    
-                                    
-                                    
-                                    
+                            <li class="topmenu"><a href="#" title="Equipos" style="width:180px;"><span><img src="" alt="">Equipos</span></a>
+                                <ul><li><a href="{{ path('Cotizacion_indexAlm') }}" title="Todos los Proyectos"><img src="" alt="">Todos los Proyectos</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlmPorEnt') }}" title="Equipos por Entregar a Proyectos"><img src="" alt="">Por Entregar</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="EquiposEntregados a Proyectos"><img src="" alt="">Entregados</a></li>
+
+
+
+
                                 </ul>
-                         </li>
-                          <li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
-                                <ul>
-                                    <li><a href="{{ path('Asignacion_indexAlm') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras por Aprobar</a></li>
-                                    <li><a href="{{ path('Asignacion_indexAlmAprob') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras Aprobadas</a></li>
-                                    
-                                </ul>
-                         </li>
+                            </li>
+                            {#<li class="topmenu"><a href="#" title="Obras" style="width:180px;"><span><img src="" alt="">Obras</span></a>
+                                  <ul>
+                                      <li><a href="{{ path('Asignacion_indexAlm') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras por Aprobar</a></li>
+                                      <li><a href="{{ path('Asignacion_indexAlmAprob') }}" title="Listado de Obras por Aprobar"><img src="" alt="">Obras Aprobadas</a></li>
+                                      
+                                  </ul>
+                           </li>#}
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Administrador") %}
 

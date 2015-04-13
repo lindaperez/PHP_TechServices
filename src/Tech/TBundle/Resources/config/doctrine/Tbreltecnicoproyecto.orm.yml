@@ -30,15 +30,6 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             comment: ''
             column: vdescripcionCambioEst
     manyToOne:
-        fkIidTbdetcotizacion:
-            targetEntity: Tbdetcotizacion
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                fk_iID_tbdetCotizacion:
-                    referencedColumnName: id
-            orphanRemoval: false
         fkIidTbdettecnico:
             targetEntity: Tbdettecnico
             cascade: {  }
@@ -46,6 +37,15 @@ Tech\TBundle\Entity\Tbreltecnicoproyecto:
             inversedBy: null
             joinColumns:
                 fk_iID_tbdetTecnico:
+                    referencedColumnName: id
+            orphanRemoval: false
+        fkIidTbdetcotizacion:
+            targetEntity: Tbdetcotizacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                fk_iID_tbdetCotizacion:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

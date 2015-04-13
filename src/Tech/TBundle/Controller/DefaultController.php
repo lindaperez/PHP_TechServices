@@ -313,36 +313,70 @@ class DefaultController extends Controller {
             return new JsonResponse(null);
         }
     }
+        //confirmacion de obra cambio de estatus checkbox en vista de asignacion/Indexalm
+    //Accion que realiza el Tecnico para recibir los equipos
     public function confirmObraRecAction(Request $request) {
-        $idObra = $request->request->get('idObra');
+        
+        $idObra = $request->request->get('idObra');                
+        
         $em = $this->getDoctrine()->getManager();
+        
         $obra = $em->getRepository('TechTBundle:Tbdetproyecto')
                 ->find($idObra);
-        $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
-                ->find(6);
-        if ($estatusSi != null) {
-            $obra->setFkTbdetestatusproyecto($estatusSi);
+        
+        $obra->setIcantidadrecibida($obra->getIcantidaddisponible());           
+        $obra->setIcantidaddisponible(0);
+            $entregadoTecnico = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
+            ->find(6);
+            
+        if ($entregadoTecnico != null) {            
+            $obra->setFkTbdetestatusproyecto($entregadoTecnico);
             $em->flush();
+            // Enviar Mail 
+            //Almacenista, Lider, tecnico que el tecnico ha recibido el material            
+          //  $cotizacion=$obra->getFkIcodcotizacion();
+
+        //$mailLid=$cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+        //$pry[$obra->getId()] = $obra;
+          //     $this->mailer('Notificación de Equipos Disponibles en Almacen',
+            //           $mailLid,'TechTBundle:Tbdetcotiza'
+              //         . 'cion:indexAlmMail.html.twig',array($cotizacion->getId()=>array('tres'=>$tecnico,'dos'=>$cotizacion,'uno'=>$pry))); 
             return new JsonResponse(array('id' => 1, 'name' => 'ok'));
         } else {
             return new JsonResponse(null);
         }
     }
-        public function confirmObraInsAction(Request $request) {
-        $idObra = $request->request->get('idObra');
+    public function confirmObraInstAction(Request $request) {
+        
+        $idObra = $request->request->get('idObra');                
+        
         $em = $this->getDoctrine()->getManager();
+        
         $obra = $em->getRepository('TechTBundle:Tbdetproyecto')
                 ->find($idObra);
-        $estatusSi = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
-                ->find(7);
-        if ($estatusSi != null) {
-            $obra->setFkTbdetestatusproyecto($estatusSi);
+        $obra->setIcantidadentregada($obra->getIcantidaddisponible());
+        $obra->setIcantidadrecibida(0);          
+            $entregado = $em->getRepository('TechTBundle:Tbdetestatusproyecto')
+            ->find(7);
+            
+        if ($entregado != null) {            
+            $obra->setFkTbdetestatusproyecto($entregado);
             $em->flush();
+            // Enviar Mail 
+            //Almacenista, Lider, tecnico que el tecnico ha recibido el material            
+          //  $cotizacion=$obra->getFkIcodcotizacion();
+
+        //$mailLid=$cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+        //$pry[$obra->getId()] = $obra;
+          //     $this->mailer('Notificación de Equipos Disponibles en Almacen',
+            //           $mailLid,'TechTBundle:Tbdetcotiza'
+              //         . 'cion:indexAlmMail.html.twig',array($cotizacion->getId()=>array('tres'=>$tecnico,'dos'=>$cotizacion,'uno'=>$pry))); 
             return new JsonResponse(array('id' => 1, 'name' => 'ok'));
         } else {
             return new JsonResponse(null);
         }
     }
+     
 
     //confirmacion de obra cambio de estatus checkbox en vista de asignacion/Indexalm
     public function confirmCotizacionAction(Request $request) {

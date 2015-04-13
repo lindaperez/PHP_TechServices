@@ -6,7 +6,8 @@
     <div class="container" >
 
         <section class="register">
-            
+            <form action="{{ path('Cotizacion_updateTecnEnt',{ 'id': entity.id }) }}" method="post" id="login">
+
             <table class="records_list">
                 <thead>
                     <tr>
@@ -20,12 +21,12 @@
                         <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
-                        
+
                     </tr>
                 </thead>
 
             </table>
-             <div id="accordion">    
+            <div id="accordion">    
                 {% for  key,cot in cotizaciones%}
 
                     {% for  key2,proyectos in cot%}
@@ -35,54 +36,59 @@
                                 <table>
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
-                                            
-                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+
+                                            <td height="25" align="center"  width="100">Código Equipos Cotizados</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">Cantidad Cotizada</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                            <td align="center"  width="100">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregada</td>
+                                            <td align="center"  width="80">Entregada </td>
                                             <td width="20"></td>            
-                                            <td align="center"  width="140">Pendiente</td>
+                                            <td align="center"  width="85">Por Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Disponible Almacen</td>
+                                            <td align="center"  width="85">Por Recibir </td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Por Entregar Almacen</td>
-                                            <td width="20"></td>
-                                        
-                                            
+
+                                            <td align="center"  width="50">Cantidad recibida</td>
+
+
                                         </tr>
                                     </thead>
                                 </table>
-                                
+
                                 {% for  clave,proyecto  in proyectos%}
 
                                     <table>
-                                        
+
                                         <tr>
-                                            
-                                            <td height="25" align="center"  width="160">{{ proyecto.icodproyecto  }}</td>
+
+                                            <td height="25" align="center"  width="100">{{ proyecto.icodproyecto  }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-                                           
-                                            <td align="center"  width="140">{{ proyecto.icantidadentregada}}</td>
+
+                                            <td align="center"  width="90">{{ proyecto.icantidadentregada}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadrecibida}}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidadrecibida)|abs}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
-                                            <td width="20"></td>
-                           
-                                           
-                                            
-                                           
-                                           
-                                            
+
+                                            <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Existencia de Equipo en Almacén" 
+                                                                                  type="number" name= "p_{{proyecto.id}}" value= "{{proyecto.icantidaddisponible|abs}}"
+                                                                                  max={{proyecto.icantidaddisponible|abs}}><br>
+
+                                            </td>
+
+
+
+
+
+
+
                                         </tr>
                                     </table>
 
@@ -90,23 +96,23 @@
                             </div>
                         {%else%}
                             {% if key2=='dos'%}
-                            <table>
-                                <tr>
+                                <table>
+                                    <tr>
 
-                                    <td align="left"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
-                                    <td width="40"></td>
-                                    
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
-                                    <td width="40"></td>
-                            
-                                    <td align="left"  width="120">{% if cot['tres']!=null%}{{ cot['tres'].valias}} {%else%} 'No Asignado' {%endif%}</td>
-                            
-                                </tr>
-                            </table>
+                                        <td align="left"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                        <td width="40"></td>
+
+                                        <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                        <td width="40"></td>
+
+                                        <td align="left"  width="120">{% if cot['tres']!=null%}{{ cot['tres'].valias}} {%else%} 'No Asignado' {%endif%}</td>
+
+                                    </tr>
+                                </table>
                             {%endif%}   
                         {%endif%}
 
@@ -116,8 +122,13 @@
             </div>  
 
 
-                
-
+            <br>
+            
+            <p class="submit">   
+                <input  type="submit" name="commit" value="Recibir">
+            </p>
+            </form>
+            
         </section>
     </div>
 

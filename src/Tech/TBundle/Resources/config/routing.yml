@@ -31,9 +31,9 @@ confirmCotizacion:
     pattern:  /confirmCotizacion
     defaults:  { _controller: TechTBundle:Default:confirmCotizacion}
 
-confirmObraIns:
-    pattern:  /confirmObraIns
-    defaults:  { _controller: TechTBundle:Default:confirmObraIns}
+confirmObraInst:
+    pattern:  /confirmObraInst
+    defaults:  { _controller: TechTBundle:Default:confirmObraInst}
 
 confirmObraRec:
     pattern:  /confirmObraRec

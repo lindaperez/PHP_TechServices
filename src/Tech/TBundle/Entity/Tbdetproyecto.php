@@ -57,6 +57,13 @@ class Tbdetproyecto
     private $icantidaddisponible;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="icantidadRecibida", type="integer", nullable=false)
+     */
+    private $icantidadrecibida;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetestatusproyecto
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusproyecto")
@@ -204,6 +211,29 @@ class Tbdetproyecto
     }
 
     /**
+     * Set icantidadrecibida
+     *
+     * @param integer $icantidadrecibida
+     * @return Tbdetproyecto
+     */
+    public function setIcantidadrecibida($icantidadrecibida)
+    {
+        $this->icantidadrecibida = $icantidadrecibida;
+
+        return $this;
+    }
+
+    /**
+     * Get icantidadrecibida
+     *
+     * @return integer 
+     */
+    public function getIcantidadrecibida()
+    {
+        return $this->icantidadrecibida;
+    }
+
+    /**
      * Set fkTbdetestatusproyecto
      *
      * @param \Tech\TBundle\Entity\Tbdetestatusproyecto $fkTbdetestatusproyecto
@@ -250,5 +280,5 @@ class Tbdetproyecto
     }
     public function __toString() {
         return $this->getIcodproyecto();
-    }
+}
 }

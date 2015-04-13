@@ -8,7 +8,7 @@
 <table class="records_list">
         <thead>
             <tr>
-            <td align="center"  width="80"><h4 ><strong>Técnico</strong></h4></td>
+            <td align="center"  width="80"><h4 ><strong>Instalador</strong></h4></td>
             <td width="40"></td>
             <td align="center"  width="80"><h4 ><strong>Proyecto</strong></h4></td>
             <td width="40"></td>
@@ -26,9 +26,9 @@
             <tr>
                 <td align="center"  width="80"><a href="{{ path('Asignacion_show', { 'id': entity.id }) }}">{{ entity.fkIidTbdettecnico }}</a></td>
                 <td width="40"></td>
-                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto.fkIcodcotizacion }}</td>
+                <td align="center"  width="80">{{ entity.fkIidTbdetcotizacion}}</td>
                 <td width="40"></td>
-                <td align="center"  width="80">{{ entity.fkIidTbdetproyecto }}</td>
+                <td align="center"  width="80">{{ entity.fkIidTbdetcotizacion }}</td>
                 <td width="40"></td>
                 <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td width="40"></td>

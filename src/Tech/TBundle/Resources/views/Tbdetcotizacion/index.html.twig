@@ -2,59 +2,169 @@
 
 {% block content %}
     <h1>Proyectos</h1>
+
     <div class="container" >
 
         <section class="register">
-
             <table class="records_list">
                 <thead>
                     <tr>
-                        <td align="center"  width="80"><h4 ><strong>Fecha de la Notificación</strong></h4></td>
+                        <td width="20"></td>
+                        <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Número de Cotización</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Estatus</strong></h4></td>
+                        <td align="left"  width="90"><h4 ><strong>Estatus </strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Lider Asignado</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
                         <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Instalador Asignado</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
+
+                        {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
+                    </tr>
                 </thead>
-                <tbody>
-                    {% for  entity in entities %}
 
-                        <tr>
-
-
-                            <td align="center"  width="80">{% if entity.dfecha %}{{ entity.dfecha|date('d-m-Y') }}{% endif %}</td>
-                            <td width="40"></td>
-                            <td align="center"  width="80"><a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}">{{ entity.codcotizacion }}</a></td>
-                            <td width="40"></td>
-                            <td align="center"  width="80">{{ entity.fkiidestatusinstalacion.vdescripcion }}</td>
-                            <td width="40"></td>
-                            <td align="center"  width="80">{% if entity.tbdetliderpmo %}{{ entity.tbdetliderpmo.valias }}{% else %}"No posee"{%endif%}</td>
-                            <td width="40"></td>
-                            <td width="80">Instalador ----</td>
-                            <td width="40"></td>
-                            <td align="center"  width="80">
-
-                                <ul>
-                                    <li>
-
-                                        {% if(app.session.get('usuario_rol')=="Tecnico") %}
-                                            <a href="{{ path('Cotizacion_show', { 'id': entity.id }) }}"><img width="40" height="40"  title="Ver" src="/bundles/techt/images/Draft.png"></a>
-                                            {%else%}
-                                            <a href="{{ path('Cotizacion_edit', { 'id': entity.id }) }}"><img width="40" height="40"  title="Editar" src="/bundles/techt/images/Draft.png"></a>
-                                            {%endif%}
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
             </table>
+            <div id="accordion">    
+                {% for  key,cot in cotizaciones%}
+
+                    {% for  key2,proyectos in cot%}
+
+                        {% if key2=='uno'%}
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr bgcolor="#EEEEEE">
+                                                
+                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Entregada</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Pendiente</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">A Entregar</td>
+                                            <td width="20"></td>
+                                            
+
+
+
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                {% for  clave,proyecto  in proyectos%}
+
+                                    <table>
+                                        <tr>
+
+                                            <td height="25" align="center"  width="160"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.icantidad }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                            <td width="20"></td>
+                                            
+                                          
+
+                                        </tr>
+                                    </table>
+
+                                {%endfor%}
+                            </div>
+                        {%else%}
+                            {% if key2=='dos'%}
+                            <table>
+                                <tr>
+
+                                    <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="90">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                    <td width="40"></td>
+                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td width="40"></td>
+                            
+                                    <td align="left"  width="120">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                            
+                                </tr>
+                            </table>
+                            {%endif%}
+                        {%endif%}
+
+                    {%endfor%}
+
+                {%endfor%}
+                
+            </div>  
+
+
+
             </setion>
     </div>
 
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                heightStyle: "content",
+                collapsible: true
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        function confirmObra(options) {
+            $("#d" + options.idObra).dialog({
+                resizable: false,
+                height: 250,
+                width: 400, 
+                modal: true,
+                title: 'Confirmación de Existencia',
+                buttons: {
+                    "No": function () {
+                        
+                        $(this).dialog("close");
+                    },
+                    Si: function () {
+                        var ientrega=$("#fn"+options.idObra).val();
+                        var data = {
+                            idObra: options.idObra,
+                            iEntrega: ientrega,
+                            idCot: options.idCot
+                        };
+                        $.ajax({
+                            type: 'post',
+                            url: '{{ path("confirmObra") }}',
+                            data: data,
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.error !== undefined && data.error !== '') {
+                                    alert(data.error);
+                                } else {
+                                    $("#d" + options.idObra).dialog("close");
+                                }
+                            },
+                            error: function (e, ts, et) {
+                                alert(ts);
+                            }
+                        });
+                        //
+                    }
+                }
+            });
+        }
+    </script>
 {% endblock %}

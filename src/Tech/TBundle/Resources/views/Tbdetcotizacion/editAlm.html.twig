@@ -1,0 +1,150 @@
+{% extends '::layout.html.twig' %}
+
+{% block content -%}
+    <h1>Proyecto -{{ entity.codcotizacion }}</h1>
+
+    <div class="container" >
+
+        <section class="register">
+            <form action="{{ path('Cotizacion_updateAlm',{ 'id': entity.id }) }}" method="post" id="login">
+
+            <table class="records_list">
+                <thead>
+                    <tr>
+                        <td width="30"></td>
+                        <td align="left"  width="120"><h4 ><strong>Fecha Cotización</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="80"><h4 ><strong>Estatus </strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
+
+                    </tr>
+                </thead>
+
+            </table>
+            <div id="accordion">    
+                {% for  key,cot in cotizaciones%}
+
+                    {% for  key2,proyectos in cot%}
+
+                        {% if key2=='uno'%}
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr bgcolor="#EEEEEE">
+
+                                            <td height="25" align="center"  width="100">Código Equipos Cotizados</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="100">Código Equipos a Entregar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">Entregada a Instalador</td>
+                                            <td width="20"></td>            
+                                            <td align="center"  width="85">Por Entregar a Instalador</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="85">Disponible Almacen</td>
+                                            <td width="20"></td>
+
+                                            <td align="center"  width="50">Añadir a Disponibilidad</td>
+
+
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                {% for  clave,proyecto  in proyectos%}
+
+                                    <table>
+
+                                        <tr>
+
+                                            <td height="25" align="center"  width="100">{{ proyecto.icodproyecto  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="60">{{ proyecto.icantidad }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+
+                                            <td align="center"  width="90">{{ proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidad-proyecto.icantidadentregada-proyecto.icantidadrecibida)|abs}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
+                                            <td width="20"></td>
+
+                                            <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Existencia de Equipo en Almacén" 
+                                                                                  type="number" name= "p_{{proyecto.id}}" value= "{{((proyecto.icantidad-proyecto.icantidadrecibida)|abs-proyecto.icantidaddisponible)|abs}}"
+                                                                                  max={{(proyecto.icantidad-proyecto.icantidadentregada-proyecto.icantidadrecibida)-proyecto.icantidaddisponible|abs}}><br>
+
+                                            </td>
+
+
+
+
+
+
+
+                                        </tr>
+                                    </table>
+
+                                {%endfor%}
+                            </div>
+                        {%else%}
+                            {% if key2=='dos'%}
+                                <table>
+                                    <tr>
+
+                                        <td align="left"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                        <td width="40"></td>
+
+                                        <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                        <td width="40"></td>
+
+                                        <td align="left"  width="120">{% if cot['tres']!=null%}{{ cot['tres'].valias}} {%else%} 'No Asignado' {%endif%}</td>
+
+                                    </tr>
+                                </table>
+                            {%endif%}   
+                        {%endif%}
+
+                    {%endfor%}
+
+                {%endfor%}
+            </div>  
+
+
+            <br>
+            
+            <p class="submit">   
+                <input  type="submit" name="commit" value="Guardar">
+            </p>
+            </form>
+            
+        </section>
+    </div>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                active: false,
+                collapsible: false,
+                heightStyle: "content",
+                navigation: false,
+            });
+        });
+
+    </script>
+{% endblock %}

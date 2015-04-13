@@ -48,6 +48,12 @@ Tech\TBundle\Entity\Tbdetproyecto:
             unsigned: false
             comment: ''
             column: icantidadDisponible
+        icantidadrecibida:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: icantidadRecibida
     manyToOne:
         fkTbdetestatusproyecto:
             targetEntity: Tbdetestatusproyecto

@@ -20,6 +20,7 @@ class TbdetproyectoType extends AbstractType
             ->add('icantidad')
             ->add('icantidadentregada')
             ->add('icantidaddisponible')
+            ->add('icantidadrecibida')
             ->add('fkTbdetestatusproyecto')
             ->add('fkIcodcotizacion')
         ;

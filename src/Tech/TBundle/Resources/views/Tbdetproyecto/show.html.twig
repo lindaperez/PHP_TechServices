@@ -10,34 +10,60 @@
         <tbody>
             
                
-            <tr>
-            <td width="140">Codigo: </td>  
+            <tr height="40">
+            <td width="100">Codigo de Obra: </td>  
                 <td>{{ entity.icodproyecto }}</td>
-             </tr>   
-            <tr>
-            <td width="140">Cantidad: </td>  
-                <td>{{ entity.icantidad }}</td>
-            </tr>
-            <td width="140">Cotizacion: </td>  
+                <td width="40"></td>
+            <td width="100">Codigo de Equipo: </td>  
+            <td>{{ entity.icodproyecto|replace('S','V') }}</td>
+                <td width="40"></td>
+                <td width="100">Cotizacion: </td>  
                 <td>{{ entity.fkIcodcotizacion }}</td>
-            </tr>
-            <td width="140">Estatus: </td>  
+                <td width="40"></td>
+                <td width="100">Estatus: </td>  
                 <td>{{ entity.fkTbdetestatusproyecto }}</td>
+             </tr>   
+            
+            <tr height="40">
+            <td width="100">Cantidad Cotizada: </td>  
+                <td>{{ entity.icantidad }}</td>
+                <td width="20"></td>
+            <td width="100">Cantidad Entregada: </td>  
+                <td>{{ entity.icantidadEntregada }}</td>
+        <td width="20"></td>
+            <td width="100">Cantidad Instalador: </td>  
+                <td>{{ entity.icantidadRecibida }}</td>
+            <td width="20"></td>
+            <td width="100">Cantidad en Almacen</td>  
+                <td>{{ entity.icantidaddisponible }}</td>
+            
+            <tr height="20">
+            <table>
+             <tr>
+            <td width="100">Descripcion: </td>  
+                <td width="500">{{ entity.vdescripcion}}</td>
+                </tr>
+                </table>
+            {#    <td width="140">Cantidad a la espera de Almacen (Pendiente)</td>  
+                <td>{{ (entity.icantidad-entity.icantidadentregada)|abs }}</td>#}
+            
+            
             </tr>
         </tbody>
     </table>
 </section>
             </div>
         <ul class="record_actions">
-    <li>
+    {#<li>
         <a href="{{ path('Obra') }}">
             <h4>Volver Listado de Obras</h4>
         </a>
-    </li>
-       <li>
+    </li>#}
+     {#  <li>
         <a href="{{ path('Obra_delete', { 'id': entity.id }) }}">
             <h4>Eliminar</h4>
         </a>
     </li>
+    #}
 </ul>
 {% endblock %}
