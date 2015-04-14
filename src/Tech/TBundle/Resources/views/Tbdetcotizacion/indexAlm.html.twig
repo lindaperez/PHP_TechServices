@@ -42,16 +42,11 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregada</td>
+                                            <td align="center"  width="140">Entregado</td>
                                             <td width="20"></td>
                                             <td align="center"  width="140">Pendiente</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">A Entregar</td>
-                                            <td width="20"></td>
-                                            
-                                            <td align="center"  width="100">Acciones </td>
-
-
+                                            <td align="center"  width="140">Por Entregar</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -74,53 +69,7 @@
                                             <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
                                             
-                                            <td align="center"  width="100">
-                                                <ul>
-                                                    <li>
-                                                        <ul>
-                                                            <table>
-                                                                <tr>
-                                                            <td><input title="Existencia de Equipo en Almacén" class="checkbox1" type="checkbox" 
-                                                                   name= "pry.{{proyecto.id}}" 
-                                                                   value="{{proyecto.id}}"
-                                                                   onclick="confirmObra({idObra: '{{proyecto.id}}',idCot: '{{proyecto.fkIcodcotizacion}}'});"
-                                                                       {%if proyecto.icantidaddisponible!=0 %} checked {%endif%}><br>
-                                                            </td><td><a href="{{ path('Obra_editAlm', { 'id': proyecto.id }) }}"><img  width="30"  height="30" title="Modificar Disponibilidad" src="/bundles/techt/images/Draft.png"/></a>
-                                                            </td>
-                                                                </tr>
-                                                            </table>
-                                                            <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
-                                                                <table>
-                                                                    <tr>
-                                                                        <td>
-                                                                <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                                                    </span> 
-                                                                    Introduzca la cantidad de <b>{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</b>
-                                                                    que posee disponible para entregar al tecnico y lider de obra, (Pendientes <b>{{proyecto.icantidad}}</b>)
-                                                                    </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                     <td height="50px" align="center"><input min=0 max={{proyecto.icantidad-proyecto.icantidadEntregada}}  type="number"  name="fn{{proyecto.id}}"  id="fn{{proyecto.id}}"><br></td>
-                                                                     
-                                                                    </tr>
-                                                                      <tr>
-                                                                      <td align="left">Se encuentra seguro?</td>
-                                                                     
-                                                                    </tr> 
-                                                                </table>
-                                                                
-                                                            </div>
-                                                                     
-                                                        </ul>
-                                                                     
-                                                    </li>
-
-                                                    
-                                                    
-                                                </ul>
-
-                                            </td>
-
+                                            
 
                                         </tr>
                                     </table>
@@ -132,7 +81,7 @@
                             <table>
                                 <tr>
 
-                                    <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td align="left"  width="110">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                     <td width="40"></td>
                                     <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="40"></td>
@@ -174,50 +123,5 @@
             });
             $("a").click(function(event){ event.stopPropagation(); });
     </script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script>
-        function confirmObra(options) {
-            $("#d" + options.idObra).dialog({
-                resizable: false,
-                height: 250,
-                width: 400, 
-                modal: true,
-                title: 'Confirmación de Existencia',
-                buttons: {
-                    "No": function () {
-                        
-                        $(this).dialog("close");
-                    },
-                    Si: function () {
-                        var ientrega=$("#fn"+options.idObra).val();
-                        var data = {
-                            idObra: options.idObra,
-                            iEntrega: ientrega,
-                            idCot: options.idCot
-                        };
-                        $.ajax({
-                            type: 'post',
-                            url: '{{ path("confirmObra") }}',
-                            data: data,
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data.error !== undefined && data.error !== '') {
-                                    alert(data.error);
-                                } else {
-                                    $("#d" + options.idObra).dialog("close");
-                                }
-                            },
-                            error: function (e, ts, et) {
-                                alert(ts);
-                            }
-                        });
-                        //
-                    }
-                }
-            });
-        }
-    </script>
+    
 {% endblock %}

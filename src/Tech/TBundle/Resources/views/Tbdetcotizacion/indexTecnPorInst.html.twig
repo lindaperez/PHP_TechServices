@@ -80,7 +80,7 @@
 
                                     <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="40"></td>
                                     <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
@@ -110,10 +110,12 @@
                 navigation: true,
             });
         });
+             $('#accordion input[type="checkbox"]').click(function(e) {
+                e.stopPropagation();
+            });
+            $("a").click(function(event){ event.stopPropagation(); });
     </script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 
     <script>
         function confirmObra(options) {

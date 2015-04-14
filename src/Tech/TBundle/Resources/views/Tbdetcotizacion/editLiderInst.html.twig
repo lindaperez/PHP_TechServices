@@ -1,12 +1,12 @@
 {% extends '::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Entrega de Equipos -{{ entity.codcotizacion }}</h1>
+    <h1>Confirmación de Instalación de Equipos</h1>
 
     <div class="container" >
 
         <section class="register">
-
+            <form action="{{ path('Cotizacion_updateLiderInst',{ 'id': entity.id }) }}" method="post" id="login">
 
             <table class="records_list">
                 <thead>
@@ -43,12 +43,15 @@
                                             <td width="20"></td>
                                             <td align="center"  width="100">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Entregada a Instalador</td>
+                                            <td align="center"  width="80">Entregado </td>
                                             <td width="20"></td>            
-                                            <td align="center"  width="85">Por Entregar a Instalador</td>
+                                            <td align="center"  width="85">Por Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">Disponible Almacen</td>
+                                            <td align="center"  width="85">Por Retirar </td>
                                             <td width="20"></td>
+
+                                            <td align="center"  width="50">Cantidad Instalada</td>
+
 
                                         </tr>
                                     </thead>
@@ -64,17 +67,21 @@
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
 
-                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
+                                            <td align="center"  width="90">{{ proyecto.icantidadentregada}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">{{ (proyecto.icantidad-proyecto.icantidadentregada-proyecto.icantidadrecibida)|abs}}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidadrecibida)|abs}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
 
-                                            
+                                            <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Confirmación de Instalación" 
+                                                                                  type="number" name= "p_{{proyecto.id}}" value= "{{proyecto.icantidadrecibida|abs}}"
+                                                                                  max={{proyecto.icantidadrecibida|abs}}><br>
+
+                                            </td>
 
 
 
@@ -92,9 +99,9 @@
                                 <table>
                                     <tr>
 
-                                        <td align="left"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                        <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                         <td width="40"></td>
-                                        <td align="left"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                        <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                         <td width="40"></td>
                                         <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                         <td width="40"></td>
@@ -117,10 +124,27 @@
 
             <br>
             
+            <p class="submit">   
+                <input  type="submit" name="commit" value="Recibir">
+            </p>
+            </form>
             
         </section>
     </div>
 
 
- 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                active: false,
+                collapsible: false,
+                heightStyle: "content",
+                navigation: false,
+            });
+        });
+
+    </script>
 {% endblock %}

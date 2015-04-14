@@ -132,7 +132,7 @@
                             <table>
                                 <tr>
 
-                                    <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td align="left"  width="100">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                     <td width="20"></td>
                                     <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="20"></td>
@@ -141,9 +141,9 @@
                                     <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="20"></td>
                             
-                                    <td align="left"  width="120">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="140">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="20"></td>
-                                    <td align="left"><a href="{{ path('Cotizacion_editAlm', { 'id': cot['dos'].id }) }}"><img  width="30"  height="30" title="Modificar Disponibilidad en Masa" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
+                                    <td align="center"><a href="{{ path('Cotizacion_editAlm', { 'id': cot['dos'].id }) }}"><img  width="30"  height="30" title="Modificar Disponibilidad en Masa" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
                                 </tr>
                             </table>
                             {%endif%}

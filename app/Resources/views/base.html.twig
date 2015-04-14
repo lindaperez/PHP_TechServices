@@ -30,6 +30,25 @@
         
 
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <script>
+        $(function () {
+            $("#accordion").accordion({
+                active: false,
+                collapsible: true,
+                heightStyle: "content",
+                navigation: true,
+            });
+        });
+        
+         $('#accordion input[type="checkbox"]').click(function(e) {
+                e.stopPropagation();
+            });
+            $("a").click(function(event){ event.stopPropagation(); });
+    </script>
 
         {% block head %}
         {% endblock %}
@@ -124,7 +143,8 @@
                         {% if(app.session.get('usuario_rol')=="Lider PMO") %}
                             <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
                                 <ul>
-
+                                    <li><a href="{{ path('Cotizacion_indexLider') }}" title="Todos los Proyectos que lideriza"><img src="" alt="">Proyectos que Lideriza</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexLiderRet') }}" title="Proyectos Asignados Por Recibir"><img src="" alt="">Con Equipos por Retirar del Almacen</a></li>
                                     <li><a href="{{ path('Cotizacion_indexLiderPorInst') }}" title="Con Equipos por Confirmar Instalación"><img src="" alt="">Con Equipos por Confirmar Instalación</a></li>
                                     <li><a href="{{ path('Cotizacion_indexLiderInst') }}" title="Con Equipos con Instalación confirmada"><img src="" alt="">Con Equipos con Instalación confirmada</a></li>
                                             {#<li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>#}

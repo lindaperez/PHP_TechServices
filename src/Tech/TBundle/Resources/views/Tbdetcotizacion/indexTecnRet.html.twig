@@ -9,7 +9,7 @@
             <table class="records_list">
                 <thead>
                     <tr>
-                        <td width="30"></td>
+                        
                         <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
@@ -117,15 +117,15 @@
                             <table>
                                 <tr>
 
-                                    <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td align="left"  width="90">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                     <td width="40"></td>
                                     <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                     <td width="40"></td>
                                     <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="100">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="40"></td>
-                                    <td align="left"><a href="{{ path('Cotizacion_editTecnEnt', { 'id': cot['dos'].id }) }}"><img  width="40"  height="30" title="Modificar Disponibilidad en Masa" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
+                                    <td align="left"><a href="{{ path('Cotizacion_editTecnEnt', { 'id': cot['dos'].id }) }}"><img  width="30"  height="30" title="Modificar Disponibilidad en Masa" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
                                 </tr>
                             </table>
                             {%endif%}
@@ -151,16 +151,13 @@
                 navigation: true,
             });
         });
-        
+    
          $('#accordion input[type="checkbox"]').click(function(e) {
                 e.stopPropagation();
             });
-            $("a").click(function(event){ event.stopPropagation(); });
+            $("a").click(function(event){ event.stopPropagation(); });  
     </script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
+    
     <script>
         function confirmObraRec(options) {
             $("#d" + options.idObra).dialog({
