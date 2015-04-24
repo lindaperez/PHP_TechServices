@@ -21,9 +21,9 @@ class TbdetproyectoController extends Controller
         $cotizaciones = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
         $proyecto=array();
         
-        $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(3);
-        $estPorAsign= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(1);
-        $estPedidoNo= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(5);
+       // $estAsignado= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(3);
+       // $estPorAsign= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(1);
+        //$estPedidoNo= $em->getRepository('TechTBundle:Tbdetestatusproyecto')->find(5);
         //print_r($estAsignado);
         foreach ($cotizaciones as $clave => $cotizacion) {
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(

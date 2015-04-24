@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Proyecto -{{ entity.codcotizacion }}</h1>
+    <h1>Confirmación de Retiro de Equipos de Almacén </h1>
 
     <div class="container" >
 
@@ -43,16 +43,13 @@
                                             <td width="20"></td>
                                             <td align="center"  width="100">Código Equipos a Entregar</td>
                                             <td width="20"></td>
+                                            <td align="center"  width="85">Por Retirar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="85">Por Entregar </td>
+                                            <td width="20"></td>
                                             <td align="center"  width="80">Entregada </td>
-                                            <td width="20"></td>            
-                                            <td align="center"  width="85">Por Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">Por Recibir </td>
-                                            <td width="20"></td>
-
-                                            <td align="center"  width="50">Cantidad recibida</td>
-
-
+                                            <td align="center"  width="80">Cantidad Retirada</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -70,13 +67,12 @@
                                             <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
 
-                                            <td align="center"  width="90">{{ proyecto.icantidadentregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="80">{{ (proyecto.icantidadrecibida)|abs}}</td>
-                                            <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-
+                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="90">{{ proyecto.icantidadentregada}}</td>
+                                            <td width="20"></td>
                                             <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Existencia de Equipo en Almacén" 
                                                                                   type="number" name= "p_{{proyecto.id}}" value= "{{proyecto.icantidaddisponible|abs}}"
                                                                                   max={{proyecto.icantidaddisponible|abs}}><br>
@@ -125,17 +121,12 @@
             <br>
             
             <p class="submit">   
-                <input  type="submit" name="commit" value="Recibir">
+                <input  type="submit" name="commit" value="Confirmar">
             </p>
             </form>
             
         </section>
     </div>
-
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
     <script>
         $(function () {
             $("#accordion").accordion({

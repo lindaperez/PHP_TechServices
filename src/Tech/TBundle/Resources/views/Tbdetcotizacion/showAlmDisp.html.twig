@@ -43,11 +43,11 @@
                                             <td width="20"></td>
                                             <td align="center"  width="100">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Entregada a Instalador</td>
+                                            <td align="center"  width="80">Pendiente</td>
                                             <td width="20"></td>            
-                                            <td align="center"  width="85">Por Entregar a Instalador</td>
+                                            <td align="center"  width="85">Disponible</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">Disponible Almacen</td>
+                                            <td align="center"  width="85">Entregado</td>
                                             <td width="20"></td>
 
                                         </tr>
@@ -60,27 +60,19 @@
 
                                         <tr>
 
-                                            <td height="25" align="center"  width="100">{{ proyecto.icodproyecto  }}</td>
+                                         <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-
-                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidad-(proyecto.icantidaddisponible+proyecto.icantidadentregada+proyecto.icantidadrecibida)|abs)}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">{{ (proyecto.icantidad-proyecto.icantidadentregada-proyecto.icantidadrecibida)|abs}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadentregada+proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-
-                                            
-
-
-
-
-
-
+                                            <td align="center"  width="120">{{ proyecto.vdescripcion}}</td>
 
                                         </tr>
                                     </table>

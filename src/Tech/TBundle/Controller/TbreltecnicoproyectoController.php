@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Tech\TBundle\Entity\Tbreltecnicoproyecto;
 use Tech\TBundle\Form\TbreltecnicoproyectoType;
+use Tech\TBundle\Entity\Tbdetcotizacion;
+use Tech\TBundle\Form\TbdetcotizacionType;
 
 /**
  * Tbreltecnicoproyecto controller.
@@ -296,9 +298,9 @@ class TbreltecnicoproyectoController extends Controller {
      * Creates a new Tbreltecnicoproyecto entity.
      *
      */
-    public function create2Action(Request $request) {
-        $entity = new Tbreltecnicoproyecto();
-        $form = $this->createCreateForm($entity);
+    public function createLidAction(Request $request) {
+        $entity = new Tbdetcotizacion();
+        $form = $this->createCreateFormCot($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -307,29 +309,20 @@ class TbreltecnicoproyectoController extends Controller {
             foreach ($_POST as $clave => $cot) {
                 if (strpos($clave, 'cot_') !== false) {
                     $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($cot);
-
-                    $relcotizacion = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                            array('fkIidTbdetcotizacion' => $cotizacion,
-                                'fkIidTbdettecnico' => $entity->getFkIidTbdettecnico()));
-                    if (empty($relcotizacion) || $relcotizacion == null) {
-                        $relTecnicoPry = new Tbreltecnicoproyecto();
-                    }
-                    $relTecnicoPry->setDfecha(new \DateTime);
-                    $relTecnicoPry->setFkIidTbdetcotizacion($cotizacion);
-                    $relTecnicoPry->setFkIidTbdettecnico($entity->getFkIidTbdettecnico());
-                    $relTecnicoPry->setVdescripcioncambioest($entity->getVdescripcioncambioest());
-                    $em->persist($relTecnicoPry);
+                    //Set lider
+                    $cotizacion->setTbdetliderpmo($entity->getTbdetliderpmo());
+                    $em->flush();
                 }
             }
 
             //print($_POST);
 
-            $em->flush();
+            
 
-            return $this->redirect($this->generateUrl('Asignacion_new'));
+            return $this->redirect($this->generateUrl('Asignacion_newLid'));
         }
 
-        return $this->render('TechTBundle:Tbreltecnicoproyecto:new.html.twig', array(
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:newLid.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -399,7 +392,7 @@ class TbreltecnicoproyectoController extends Controller {
 
         return $form;
     }
-
+ 
     /**
      * Displays a form to create a new Tbreltecnicoproyecto entity.
      *
@@ -411,29 +404,24 @@ class TbreltecnicoproyectoController extends Controller {
         //Buscar Cotizaciones
         $cot = null;
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as  $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-
-            foreach ($proyectos as $clavePry => $proyecto) {
-
+            foreach ($proyectos as  $proyecto) {
                 $pry[$proyecto->getId()] = $proyecto;
             }
 
             $rel = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findOneBy(
                     array('fkIidTbdetcotizacion' => $cotizacion));
-
+            
             if (empty($pry)){
                 $pry=null;
             }
-            if (empty($rel)) {
+            if ((empty($rel) || $rel->getFkIidTbdettecnico()==null) && $pry!=null) {
 
-                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
-            } else {
-                if ($rel->getFkIidTbdettecnico()==null){
                     $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
-                }
+                
             }
         }
 
@@ -444,40 +432,55 @@ class TbreltecnicoproyectoController extends Controller {
                     'cotizaciones' => $cot,
         ));
     }
+     /**
+     * Creates a form to create a Tbdetcotizacion entity.
+     *
+     * @param Tbdetcotizacion $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateFormCot(Tbdetcotizacion $entity) {
+        $form = $this->createForm(new TbdetcotizacionType(), $entity, array(
+            'action' => $this->generateUrl('Asignacion_createLid'),
+            'method' => 'POST',
+        ));
 
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
     /**
      * Displays a form to create a new Tbreltecnicoproyecto entity.
      *
      */
-    public function new2Action() {
-        $entity = new Tbreltecnicoproyecto();
-        $form = $this->createCreateForm($entity);
+    public function newLidAction() {
+        $entity = new Tbdetcotizacion();
+        $form = $this->createCreateFormCot($entity);
         $em = $this->getDoctrine()->getManager();
         //Buscar Cotizaciones
         $cot = null;
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as  $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-
-            foreach ($proyectos as $clavePry => $proyecto) {
-
+            foreach ($proyectos as  $proyecto) {
                 $pry[$proyecto->getId()] = $proyecto;
             }
 
-            $rel = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
-                    array('fkIidTbdetcotizacion' => $cotizacion));
+            
+            if (empty($pry)){
+                $pry=null;
+            }
+            if ( $cotizacion->getTbdetliderpmo()==null &&  $pry!=null) {
 
-
-            if (empty($rel)) {
-
-                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
+                    $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
+                
             }
         }
 
 
-        return $this->render('TechTBundle:Tbreltecnicoproyecto:new.html.twig', array(
+        return $this->render('TechTBundle:Tbreltecnicoproyecto:newLid.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
                     'cotizaciones' => $cot,

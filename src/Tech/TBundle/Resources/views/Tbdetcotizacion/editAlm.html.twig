@@ -37,17 +37,17 @@
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
 
-                                            <td height="25" align="center"  width="100">Código Equipos Cotizados</td>
+                                            <td height="25" align="center"  width="80">Código Equipos Cotizados</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">Cantidad Cotizada</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">Código Equipos a Entregar</td>
+                                            <td align="center"  width="80">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Entregada a Instalador</td>
+                                            <td align="center"  width="80">Pendiente</td>
                                             <td width="20"></td>            
-                                            <td align="center"  width="85">Por Entregar a Instalador</td>
+                                            <td align="center"  width="80">Disponible</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">Disponible Almacen</td>
+                                            <td align="center"  width="80">Entregado</td>
                                             <td width="20"></td>
 
                                             <td align="center"  width="50">Añadir a Disponibilidad</td>
@@ -63,18 +63,17 @@
 
                                         <tr>
 
-                                            <td height="25" align="center"  width="100">{{ proyecto.icodproyecto  }}</td>
+                                            <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="60">{{ proyecto.icantidad }}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-
-                                            <td align="center"  width="90">{{ proyecto.icantidadrecibida}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="80">{{ (proyecto.icantidad-proyecto.icantidadentregada-proyecto.icantidadrecibida)|abs}}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidad-(proyecto.icantidaddisponible+proyecto.icantidadentregada+proyecto.icantidadrecibida)|abs)}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadentregada+proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
 
                                             <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Existencia de Equipo en Almacén" 
@@ -131,10 +130,6 @@
             
         </section>
     </div>
-
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script>
         $(function () {

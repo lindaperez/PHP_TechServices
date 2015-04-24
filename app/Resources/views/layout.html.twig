@@ -22,8 +22,8 @@
                 <tr>
                     <td width="18"></td>                    
 <td width="780" align="left">    
-Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
-         <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a> </h4>
+Bienvenido,  <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'id': app.session.get('usuario_ci') }) }}">
+         <strong>{{  app.user.vnombre }} {{  app.user.vapellido}}</strong></a>
  
 </td>
 <td><a title="Cerrar Session" href="{{ path('logout') }}"><h4>Salir</h4></a></td>
@@ -31,7 +31,7 @@ Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'i
 
 
 </table>
-<br>
+
     {% else %}
     
 
@@ -68,7 +68,7 @@ Bienvenido, <h4> <a title="Ver Perfil" href="{{ path('Registro_showperfil', { 'i
         {% block content %}
         
 {% endblock %}
-        <br><br>
+        <br><br><br><br><br><br><br><br><br><br>
 </div>
 
 {% endblock %}

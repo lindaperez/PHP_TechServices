@@ -41,16 +41,11 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregada</td>
+                                            <td align="center"  width="140">Por Retirar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Pendiente</td>
+                                            <td align="center"  width="140">Por Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">A Entregar</td>
-                                            <td width="20"></td>
-                                            
-
-
-
+                                            <td align="center"  width="140">Entregado</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -66,12 +61,14 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadentregada}}</td>
+                                            
+                                            
+                                            
                                             
                                           
 
@@ -127,9 +124,6 @@
             });
             $("a").click(function(event){ event.stopPropagation(); });
     </script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script>
         function confirmObra(options) {

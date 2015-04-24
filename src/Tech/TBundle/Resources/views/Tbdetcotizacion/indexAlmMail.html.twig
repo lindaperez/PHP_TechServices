@@ -1,7 +1,7 @@
 
 
 {% block content %}
-    <h1>Notificacion de Equipo Disponible en Almacen</h1>
+    <h1>Notificación de Equipos Disponibles en Almacen</h1>
 
   
             <table>
@@ -20,7 +20,7 @@
 
                     </tr>
                 </thead>
-
+                
             </table>
              
                 {% for  key,cot in object%}
@@ -39,12 +39,19 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregada</td>
-                                            <td width="20"></td>
+                                            {% if(cot['cuat']=="Almacenista") %}
                                             <td align="center"  width="140">Pendiente</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">A Entregar</td>
-                                            
+                                            <td align="center"  width="140">Disponible</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Entregado</td>
+                                            {%else%}
+                                            <td align="center"  width="140">Por Retirar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Por Entregar</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Entregado</td>
+                                                {%endif%}
                                         </tr>
                                     </thead>
                                 </table>
@@ -60,12 +67,19 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
+                                            {% if(cot['cuat']=="Almacenista") %}
                                             <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
-                                            
+                                            {%else%}
+                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadentregada}}</td>
+                                            {%endif%}
 
 
                                         </tr>
@@ -84,12 +98,13 @@
                                     <td width="40"></td>
                                     <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="120">{% if (cot['dos'].tbdetliderpmo!=null) %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="40"></td>
-                                    <td align="left"  width="120">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="120">{% if (cot['tres']!=null)%}{{ cot['tres'].valias}} {%else%} 'No Asignado' {%endif%}</td>
                             
                                 </tr>
                             </table>
+                                    <br>
                             {%endif%}
                         {%endif%}
 

@@ -28,11 +28,25 @@
         
         <script src="{{ asset('bundles/techt/js/jquery.modal.min.js') }}" type="text/javascript"></script>
         
-
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      
+        
+        <link  href="{{ asset('bundles/techt/css/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+        <script src="{{ asset('bundles/techt/js/jquery-1.10.2.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/techt/js/jquery-ui.js') }}" type="text/javascript"></script>
+        
+        {#Acordions
+        
+        
+      Acordion
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        
+        #}  
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        
+
+        
+        
+        
 
         <script>
         $(function () {
@@ -58,68 +72,7 @@
     <body>                  
         <div id="body">
             <div class="wrapper">
-                <div class="navbar navbar-inverse navbar-static-top">
-                    <div class="container header">
-                        <div class="bg">
-                            <div class="row">
-                                <div class="span8 branding">
-                                    <a  href="./Inicio   Techtrol Website_files/Inicio   Techtrol Website.html" class="navbar-brand">
-                                        <img src="/bundles/techt/images/new_logo.png" class="visible-desktop">
-                                        <img src="/bundles/techt/images/logo_color.png" class="visible-mobile">
-                                    </a>
-                                    <div class="slogan">
-                                        <div>
-                                            <strong>SOMOS</strong> CONFIANZA Y COMPROMISO
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span4 social-media">
-                                    <a href="http://www.twitter.com/techtrolcctv" class="tw">
-                                        <span class="fa-stack">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                    <a href="http://www.facebook.com/Techtrol" class="fb">
-                                        <span class="fa-stack">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="navbar-inner">
-                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
-                            <div class="nav-collapse collapse">
-
-
-
-                                <ul id="primary-menu" class="nav"><li id="primary-menu--" class="active">
-                                        <a href="{{path('index')}}">Home</a></li>
-                                    <li id="primary-menu-about" class=""><a href="http://www.techtrol.com.ve/about/">Quiénes Somos</a></li>
-                                    <li id="primary-menu-clients" class=""><a href="http://www.techtrol.com.ve/clients/">Clientes</a></li>
-                                    <li id="primary-menu-faq" class=""><a href="http://www.techtrol.com.ve/faq/">Preguntas Frecuentes</a></li>
-                                    <li id="primary-menu-payment" class=""><a href="http://www.techtrol.com.ve/payment/">Mis cuentas</a></li>
-                                    <li id="primary-menu-contact" class=" last"><a href="{{ path('PersonaPotencial_new') }}">Contacto</a></li>
-                                </ul>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-
-
-                </div>
+             
 
                 <div class="container">
                     <!-- Start css3menu.com BODY section -->
@@ -134,7 +87,7 @@
                                 <ul>
 
                                     <li><a href="{{ path('Cotizacion') }}" title="Listado de Proyectos Asignados"><img src="" alt="">Proyectos Asignados</a></li>
-                                                <li><a href="{{ path('Asignacion') }}" title="Asignar Proyectos a Lider"><img src="" alt="">Asignar Lider a Proyecto</a></li>
+                                                <li><a href="{{ path('Asignacion_newLid') }}" title="Asignar Proyectos a Lider"><img src="" alt="">Asignar Lider a Proyecto</a></li>
                                                 <li><a href="{{ path('Asignacion_new') }}" title="Asignar Proyectos a Instalador"><img src="" alt="">Asignar Instalador a Proyecto</a></li>
                                             {#<li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>#}</ul>
                             </li>
@@ -176,10 +129,10 @@
                             </li>#}
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Almacenista") %}
-                            <li class="topmenu"><a href="#" title="Equipos" style="width:180px;"><span><img src="" alt="">Equipos</span></a>
+                            <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Equipos</span></a>
                                 <ul><li><a href="{{ path('Cotizacion_indexAlm') }}" title="Todos los Proyectos"><img src="" alt="">Todos los Proyectos</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexAlmPorEnt') }}" title="Equipos por Entregar a Proyectos"><img src="" alt="">Por Entregar</a></li>
-                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="EquiposEntregados a Proyectos"><img src="" alt="">Entregados</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlmPorEnt') }}" title="Equipos por Entregar a Proyectos"><img src="" alt="">Con Equipos por Entregar</a></li>
+                                    <li><a href="{{ path('Cotizacion_indexAlmAprob') }}" title="EquiposEntregados a Proyectos"><img src="" alt="">Con Equipos Entregados</a></li>
 
 
 
@@ -312,8 +265,7 @@
                                     <div class="block block-40 clearfix">
                                         {% block body %}
                                         {% endblock %}                      
-
-                                        <p><a href="#" id="trigger" ></a></p>			
+	
                                     </div>
                                 </div>
                             </div><!-- /scroller-inner -->

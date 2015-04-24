@@ -9,16 +9,27 @@
             <table class="records_list">
                 <thead>
                     <tr>
-                        <td width="20"></td>
-                        <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="90"><h4 ><strong>Estatus </strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
+                        <td width="30"></td>
+                        <td align="left"  width="75"><h4 ><strong>Fecha Notificación</strong></h4></td>
+                        <td width="15"></td>
+                        
+                        <td align="left"  width="90"><h4 ><strong>Cotización Equipos</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="90"><h4 ><strong>Cotización Instalación</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Asignación</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Inicio</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Fin</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="80"><h4 ><strong>Estatus Almacén</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="90"><h4 ><strong>Lider PMO Asignado</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="70"><h4 ><strong>Instalador Asignado</strong></h4></td>
+                        <td width="15"></td>
+                        <td align="left"  width="50"><h4 ><strong>Prioridad</strong></h4></td>
 
                         {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
                     </tr>
@@ -42,11 +53,12 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">Código Equipos a Entregar</td>
                                             <td width="20"></td>
+                                            <td align="center"  width="140">Pendiente </td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">Disponible</td>
+                                            <td width="20"></td>
                                             <td align="center"  width="140">Entregado</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">Pendiente</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">Por Entregar</td>
+                                            
                                         </tr>
                                     </thead>
                                 </table>
@@ -62,13 +74,12 @@
                                             <td width="20"></td>
                                             <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidad-(proyecto.icantidaddisponible+proyecto.icantidadentregada+proyecto.icantidadrecibida)|abs)}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            
+                                            <td align="center"  width="140">{{ proyecto.icantidadentregada+proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
                                             
 
                                         </tr>
@@ -81,17 +92,26 @@
                             <table>
                                 <tr>
 
-                                    <td align="left"  width="110">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="90">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
-                                    <td width="40"></td>
-                            
-                                    <td align="left"  width="120">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
-                            
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="15"></td>
+                                    
+                                    <td align="left"  width="90"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="90"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="90">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="70">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td width="15"></td>
+                                    <td align="left"  width="50">5</td>
                                 </tr>
                             </table>
                             {%endif%}

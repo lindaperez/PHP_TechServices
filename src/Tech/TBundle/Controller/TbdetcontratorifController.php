@@ -130,7 +130,8 @@ class TbdetcontratorifController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
+        //print_r($this->getRequest());
+        ///print($this->getRequest());
         return $this->render('TechTBundle:Tbdetcontratorif:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

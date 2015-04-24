@@ -34,9 +34,19 @@ Asignacion_new:
     pattern:  /new
     defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:new" }
 
+
+Asignacion_newLid:
+    pattern:  /newLid
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:newLid" }
+
 Asignacion_create:
     pattern:  /create
     defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:create" }
+    requirements: { _method: post }
+
+Asignacion_createLid:
+    pattern:  /createLid
+    defaults: { _controller: "TechTBundle:Tbreltecnicoproyecto:createLid" }
     requirements: { _method: post }
 
 Asignacion_edit:

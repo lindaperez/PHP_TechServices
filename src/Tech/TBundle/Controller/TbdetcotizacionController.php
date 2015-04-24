@@ -9,6 +9,7 @@ use Tech\TBundle\Entity\Tbdetentrega;
 use Tech\TBundle\Form\TbdetcotizacionType;
 use Tech\TBundle\Form\TbdetentregaType;
 use Tech\TBundle\Entity\Tbreltecnicoproyecto;
+use Tech\TBundle\Controller\DefaultController;
 
 /**
  * Tbdetcotizacion controller.
@@ -89,9 +90,6 @@ class TbdetcotizacionController extends Controller {
                 $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
             }
         }
-
-
-
 
         return $this->render('TechTBundle:Tbdetcotizacion:indexAlmPorEnt.html.twig', array(
                     'entities' => $entities,
@@ -787,6 +785,7 @@ class TbdetcotizacionController extends Controller {
         }
         $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
 
+        
         return $this->render('TechTBundle:Tbdetcotizacion:editTecnEnt.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -872,13 +871,42 @@ class TbdetcotizacionController extends Controller {
                 ->orderBy('rtp.dfecha', 'DESC')
                 ->getQuery();
         $reltecnico = $query->getResult();
+        $instalador=null;
         if (!empty($reltecnico)) {
             if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
                 $instalador = $reltecnico[0]->getFkIidtbdettecnico();
             }
         }
-        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
-
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 
+                                    'dos' => $entity, 'uno' => $proyectos);
+            // Enviar Mail 
+        if ($entity->getTbdetliderpmo()!=null){
+        $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+               $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen',
+                       $mailLid,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexAlmMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        }
+        if ($instalador!=null){
+        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+               $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen',
+                       $mailInst,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexAlmMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        
+               
+        }
+        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+            foreach ($coords as  $coord) {
+                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+                $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen',
+                       $mailCoord,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexAlmMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+            }
         return $this->render('TechTBundle:Tbdetcotizacion:editAlm.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -918,8 +946,38 @@ class TbdetcotizacionController extends Controller {
                 $instalador = $reltecnico[0]->getFkIidtbdettecnico();
             }
         }
+        
         $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
-
+                
+        if ($instalador!=null){
+        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+               $this->mailer('Notificación a Instalador de Retiro de Equipos de Almacén',
+                       $mailInst,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexTecnMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        
+               
+        }
+        
+        if ($entity->getTbdetliderpmo()!=null){
+            $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+               $this->mailer('Notificación a Lider PMO de Retiro de Equipos de Almacén',
+                       $mailLid,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexTecnMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        }
+        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+            foreach ($coords as  $coord) {
+                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+                $this->mailer('Notificación a Coordinador PMO de Retiro de Equipos de Almacén',
+                       $mailCoord,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexTecnMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+            }
+            $instalador=null; 
         return $this->render('TechTBundle:Tbdetcotizacion:editTecnEnt.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -959,7 +1017,34 @@ class TbdetcotizacionController extends Controller {
             }
         }
         $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
-
+         if ($entity->getTbdetliderpmo()!=null){
+        $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+               $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen',
+                       $mailLid,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexLiderMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        }
+        if ($instalador!=null){
+        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+               $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen',
+                       $mailInst,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexLiderMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        
+               
+        }
+        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+            foreach ($coords as  $coord) {
+                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+                $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen',
+                       $mailCoord,'TechTBundle:Tbdetcotiza'
+                       . 'cion:indexLiderMail.html.twig',
+                       array($entity->getId()=>
+                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+            }
+            $instalador=null; 
         return $this->render('TechTBundle:Tbdetcotizacion:editLiderInst.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -1004,5 +1089,19 @@ class TbdetcotizacionController extends Controller {
                         ->getForm()
         ;
     }
+        public function mailer($subject,$to,$view,$object) {
 
+        $message = \Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom('techtroll.ve@gmail.com')
+                ->setTo($to)
+                ->setBody(
+                $this->renderView(
+                        //'TechTBundle:Default:mail.html.twig'
+                        $view, array('object' => $object)
+                )
+                , 'text/html')
+        ;
+        $this->get('mailer')->send($message);
+    }
 }

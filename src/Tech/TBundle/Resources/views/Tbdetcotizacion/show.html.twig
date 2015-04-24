@@ -36,20 +36,29 @@
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
                                             
-                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+                                            <td height="25" align="center"  width="80">Código Equipos Cotizados</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">Cantidad Cotizada</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                            <td align="center"  width="80">Código Equipos a Entregar</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregado</td>
+                                            {% if(app.session.get('usuario_rol')=="Almacenista") %}
+                                            <td align="center"  width="80">Pendiente</td>
                                             <td width="20"></td>            
-                                            <td align="center"  width="140">Por Entregar</td>
+                                            <td align="center"  width="80">Disponbile</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Por Retirar</td>
+                                            <td align="center"  width="80">Entregado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Pendiente</td>
+                                            <td align="center"  width="120">Observaciones</td>
+                                            {%else%}
+                                                <td align="center"  width="80">Por Retirar</td>
+                                            <td width="20"></td>            
+                                            <td align="center"  width="80">Por Entregar</td>
                                             <td width="20"></td>
+                                            <td align="center"  width="80">Entregado</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="120">Observaciones</td>
+                                            {%endif%}
                                         
                                             
                                         </tr>
@@ -62,22 +71,29 @@
                                         
                                         <tr>
                                             
-                                            <td height="25" align="center"  width="160">{{ proyecto.icodproyecto  }}</td>
+                                            <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
-                                           
-                                            <td align="center"  width="140">{{ proyecto.icantidadentregada}}</td>
+                                            {% if(app.session.get('usuario_rol')=="Almacenista") %}
+                                            <td align="center"  width="80">{{ (proyecto.icantidad-(proyecto.icantidaddisponible+proyecto.icantidadentregada+proyecto.icantidadrecibida)|abs)}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadentregada+proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadentregada}}</td>
+                                            <td align="center"  width="120">{{ proyecto.vdescripcion}}</td>
+                                            {%else%}
+                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                           
+                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadentregada}}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="120">{{ proyecto.vdescripcion}}</td>
+                                            {%endif%}    
                                            
                                             
                                            

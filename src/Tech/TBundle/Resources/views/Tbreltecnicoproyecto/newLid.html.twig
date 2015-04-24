@@ -2,14 +2,14 @@
 
 {% block content %}
 
-    <h1>Asignación de Proyectos a Instalador</h1>
+    <h1>Asignación de Proyectos a Lider PMO</h1>
 
     <div class="container" >
         <section class="register">
 
             <h1>Complete el siguiente formulario</h1>
             <br>
-            <form action="{{ path('Asignacion_create') }}" method="post" id="login">
+            <form action="{{ path('Asignacion_createLid') }}" method="post" id="login">
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
                 <table>
@@ -17,10 +17,10 @@
                     <tr>
                         <td>
                             <div class="error">
-                                {{ form_errors(form.fkIidTbdettecnico) }}</div>       
+                                {{ form_errors(form.tbdetliderpmo) }}</div>       
                                 <table>  <td width="200">
-                                    Seleccione al Instalador: *</td>
-                                <td>{{ form_widget(form.fkIidTbdettecnico,{'required': true,'empty_value':'Seleccionar'}) }}</td>
+                                    Seleccione al Lider: *</td>
+                                <td>{{ form_widget(form.tbdetliderpmo,{'required': true,'empty_value':'Seleccionar'}) }}</td>
                             </table>
                         </td>
                     </tr>
@@ -30,7 +30,7 @@
                         <td>
                         <table>
                         
-                            </td>
+                            
                             <hr>
                         <td align="left" width="160px" height="40px">
                             Seleccione el Proyecto:
@@ -54,7 +54,7 @@
                         <td width="40"></td>
                         <td align="left"  width="90"><h4 ><strong>Estatus </strong></h4></td>
                         <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
+                        <td align="left"  width="120"><h4 ><strong>Instalador Asignado</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Seleccionar</strong></h4></td>
 
@@ -170,10 +170,10 @@
                             <table>  <tr ><hr>
                             <td height="40px" width="200">
                                 <div class="error">
-                                {{ form_errors(form.vdescripcioncambioest) }}</div>       
+                                {{ form_errors(form.vdescripcion) }}</div>       
                             
                                     Introduzca el Mensaje: <br>(Opcional) </td>
-                                <td>{{ form_widget(form.vdescripcioncambioest) }}</td></tr>
+                                <td>{{ form_widget(form.vdescripcion) }}</td></tr>
                             </table>
                         </td>
                     </tr>
@@ -185,7 +185,10 @@
                 <div style="display: none;">
                     {{ form_row(form.submit, { 'label': 'Crear' }) }}
                     {{ form_row(form.dfecha) }}
-                    {{ form_row(form.fkIidTbdetcotizacion) }}
+                    {{ form_row(form.codcotizacion, { 'required': false }) }}
+                    {{ form_row(form.fkIidEstatusinstalacion) }}
+                    {{ form_row(form.tbdetcotizacioncol) }}
+                    
 
                 </div>
                 <p class="submit">   

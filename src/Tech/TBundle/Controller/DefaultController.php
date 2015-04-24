@@ -295,7 +295,7 @@ class DefaultController extends Controller {
             $obra->setIcantidadDisponible($icantidadEntrega);
             $obra->setFkTbdetestatusproyecto($estatusSi);
             $em->flush();
-            // Enviar Mail 
+          
             
             $cotizacion=$obra->getFkIcodcotizacion();
             $tecnicos= $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findBy(
@@ -303,6 +303,7 @@ class DefaultController extends Controller {
         if ($tecnicos!=null){
             $tecnico=$tecnicos[0];
         }
+          // Enviar Mail 
         $mailLid=$cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
         $pry[$obra->getId()] = $obra;
                $this->mailer('Notificación de Equipos Disponibles en Almacen',

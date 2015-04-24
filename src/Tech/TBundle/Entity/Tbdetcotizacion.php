@@ -65,7 +65,9 @@ class Tbdetcotizacion
      */
     private $tbdetliderpmo;
 
+    
 
+    private $vdescripcion;
 
     /**
      * Get id
@@ -191,6 +193,30 @@ class Tbdetcotizacion
     {
         return $this->tbdetliderpmo;
     }
+    //
+    /* Set dfecha
+     *
+     * @param \DateTime $vdescripcion
+     * @return Tbdetcotizacion
+     */
+    public function setVdescripcion($vdescripcion)
+    {
+        $this->vdescripcion = $vdescripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get vdescripcion
+     *
+     * @return \DateTime 
+     */
+    public function getVdescripcion()
+    {
+        return $this->vdescripcion;
+    }
+
+    //
     public function __toString() {
         return $this->getCodcotizacion();
     }
