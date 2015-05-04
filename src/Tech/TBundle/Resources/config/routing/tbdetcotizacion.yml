@@ -47,6 +47,28 @@ Cotizacion_indexLiderRet:
     pattern: /indexLiderRet
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexLiderRet"}
 
+Cotizacion_indexCoord:
+    pattern: /indexCoord
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexCoord"}
+
+
+Cotizacion_indexCoordPorInst:
+    pattern: /indexCoordPorInst
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexCoordPorInst"}
+
+
+Cotizacion_indexCoordPorRet:
+    pattern: /indexCoordPorRet
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexCoordPorRet"}
+
+
+
+
+Cotizacion_indexGer:
+    pattern: /indexGer
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:indexGer"}
+
+
 Cotizacion_show:
     pattern:  /{id}/show
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:show" }
@@ -66,6 +88,9 @@ Cotizacion_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "TechTBundle:Tbdetcotizacion:edit" }
 
+Cotizacion_editPrioridad:
+    pattern:  /{id}/editPrioridad
+    defaults: { _controller: "TechTBundle:Tbdetcotizacion:editPrioridad" }
 
 Cotizacion_editAlm:
     pattern: /{id}/editAlm

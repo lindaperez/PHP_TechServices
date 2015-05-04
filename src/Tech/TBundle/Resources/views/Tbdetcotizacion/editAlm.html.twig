@@ -16,7 +16,7 @@
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
                         <td width="40"></td>
-                        <td align="left"  width="80"><h4 ><strong>Estatus </strong></h4></td>
+                        <td align="left"  width="80"><h4 ><strong>Estatus Proyecto</strong></h4></td>
                         <td width="40"></td>
                         <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
                         <td width="40"></td>
@@ -36,21 +36,24 @@
                                 <table>
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
-
-                                            <td height="25" align="center"  width="80">Código Equipos Cotizados</td>
+                                            <td height="25" align="center"  width="140">Código Equipo Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td align="center"  width="140">Código Equipo</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Código Equipos a Entregar</td>
+                                            <td align="center"  width="80">Estatus Almacén</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Pendiente</td>
-                                            <td width="20"></td>            
-                                            <td align="center"  width="80">Disponible</td>
+                                            <td bgcolor="#FF5F55" align="center"  width="80">Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Entregado</td>
+                                            <td bgcolor="#0BD4FF" align="center"  width="80">Instalado</td>
                                             <td width="20"></td>
-
-                                            <td align="center"  width="50">Añadir a Disponibilidad</td>
+                                            <td bgcolor="#EB6E00" align="center"  width="80">Entregado </td>
+                                            <td width="20"></td>
+                                            <td bgcolor="#61EB00" align="center"  width="80">Preparado</td>
+                                            <td width="20"></td>
+                                            <td bgcolor="#FFFF40" align="center"  width="80">Por Entregar</td>
+                                            <td width="20"></td>
+                                           
+                                            <td align="center"  width="40">Añadir a Preparado</td>
 
 
                                         </tr>
@@ -63,18 +66,24 @@
 
                                         <tr>
 
-                                            <td height="25" align="center"  width="80">{{ proyecto.icodproyecto  }}</td>
+                                             <tr>
+
+                                           <td height="25" align="center"  width="130"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="130">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.fkTbdetestatusproyecto.vdescripcion}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidadentregada)}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ (proyecto.icantidad-(proyecto.icantidaddisponible+proyecto.icantidadentregada+proyecto.icantidadrecibida)|abs)}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
+                                            <td bgcolor="#EEEEEE" align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icantidadentregada+proyecto.icantidadrecibida}}</td>
-                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ ((proyecto.icantidad-proyecto.icantidadrecibida)|abs)}}</td>
+                                               <td width="20"></td>
 
                                             <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Existencia de Equipo en Almacén" 
                                                                                   type="number" name= "p_{{proyecto.id}}" value= "{{((proyecto.icantidad-proyecto.icantidadrecibida)|abs-proyecto.icantidaddisponible)|abs}}"
@@ -98,9 +107,9 @@
                                 <table>
                                     <tr>
 
-                                        <td align="left"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                        <td align="left"  width="120">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
                                         <td width="40"></td>
-                                        <td align="left"  width="140"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                        <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
                                         <td width="40"></td>
                                         <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
                                         <td width="40"></td>

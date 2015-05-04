@@ -36,6 +36,27 @@ class Tbdetcotizacion
     private $dfecha;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dfecha_ini", type="datetime", nullable=false)
+     */
+    private $dfechaIni;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dfecha_fin", type="datetime", nullable=false)
+     */
+    private $dfechaFin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="iprioridad", type="integer", nullable=false)
+     */
+    private $iprioridad;
+
+    /**
      * @var \Tech\TBundle\Entity\Tbdetestatusinstalacion
      *
      * @ORM\ManyToOne(targetEntity="Tech\TBundle\Entity\Tbdetestatusinstalacion")
@@ -66,6 +87,13 @@ class Tbdetcotizacion
     private $tbdetliderpmo;
 
     
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dfecha_asig", type="datetime", nullable=false)
+     */
+    private $dfechaAsig;
+
 
     private $vdescripcion;
 
@@ -123,6 +151,75 @@ class Tbdetcotizacion
     public function getDfecha()
     {
         return $this->dfecha;
+    }
+
+    /**
+     * Set dfechaIni
+     *
+     * @param \DateTime $dfechaIni
+     * @return Tbdetcotizacion
+     */
+    public function setDfechaIni($dfechaIni)
+    {
+        $this->dfechaIni = $dfechaIni;
+
+        return $this;
+    }
+
+    /**
+     * Get dfechaIni
+     *
+     * @return \DateTime 
+     */
+    public function getDfechaIni()
+    {
+        return $this->dfechaIni;
+    }
+
+    /**
+     * Set dfechaFin
+     *
+     * @param \DateTime $dfechaFin
+     * @return Tbdetcotizacion
+     */
+    public function setDfechaFin($dfechaFin)
+    {
+        $this->dfechaFin = $dfechaFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dfechaFin
+     *
+     * @return \DateTime 
+     */
+    public function getDfechaFin()
+    {
+        return $this->dfechaFin;
+    }
+
+    /**
+     * Set iprioridad
+     *
+     * @param integer $iprioridad
+     * @return Tbdetcotizacion
+     */
+    public function setIprioridad($iprioridad)
+    {
+        $this->iprioridad = $iprioridad;
+
+        return $this;
+    }
+
+    /**
+     * Get iprioridad
+     *
+     * @return integer 
+     */
+    public function getIprioridad()
+    {
+        return $this->iprioridad;
     }
 
     /**
@@ -194,6 +291,30 @@ class Tbdetcotizacion
         return $this->tbdetliderpmo;
     }
     //
+    /**
+     * Set dfechaAsig
+     *
+     * @param \DateTime $dfechaAsig
+     * @return Tbdetcotizacion
+     */
+    public function setDfechaAsig($dfechaAsig)
+    {
+        $this->dfechaAsig= $dfechaAsig;
+
+        return $this;
+    }
+
+    /**
+     * Get dfechaAsig
+     *
+     * @return \DateTime 
+     */
+    public function getDfechaAsig()
+    {
+        return $this->dfechaAsig;
+    }
+    
+    
     /* Set dfecha
      *
      * @param \DateTime $vdescripcion
@@ -204,7 +325,7 @@ class Tbdetcotizacion
         $this->vdescripcion = $vdescripcion;
 
         return $this;
-    }
+}
 
     /**
      * Get vdescripcion

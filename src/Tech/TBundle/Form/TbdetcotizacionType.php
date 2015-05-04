@@ -20,6 +20,7 @@ class TbdetcotizacionType extends AbstractType
             ->add('fkIidEstatusinstalacion')
             ->add('tbdetcotizacioncol')
             ->add('tbdetliderpmo')
+            ->add('iprioridad')
             ->add('vdescripcion','text', array('attr'=>array('style' => 'width:550px;height:60px')))
         ;
     }

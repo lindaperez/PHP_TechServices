@@ -137,22 +137,14 @@ class TbdetcotizacionController extends Controller {
                     'cotizaciones' => $cot,
         ));
     }
-    /**
-     * Lists all Tbdetcotizacion entities.
-     *
-     */
-    public function indexLiderAction() {
+    public function proyectos($idEstatus,$idEstatus2, $entities){
         $em = $this->getDoctrine()->getManager();
         $cot = array();
-        $user=$this->getUser();
-        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            foreach ($proyectos as $clavePry => $proyecto) {
-                
+            foreach ($proyectos as $proyecto) {
                     $pry[$proyecto->getId()] = $proyecto;
                 
             }
@@ -166,11 +158,111 @@ class TbdetcotizacionController extends Controller {
                 if ($reltecnico != null) {
                     $tecnico = $reltecnico[0];
                 }
-                //Definir Lider
-                if($cotizacion->getTbdetliderpmo()!=null){
-                if($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId()==$user->getId()){
-                    $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
+                $idPryEst = $cotizacion->getFkIidEstatusinstalacion()->getId();
+                if ($idPryEst == $idEstatus || $idPryEst == $idEstatus2) {
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
                 }
+                
+                }
+        }
+        return $cot;
+    }
+    /**
+      /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexCoordAction() {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+        //Por Entregar
+        $cotPE=$this->proyectos(1,1, $entities);
+        //En ejecucion
+        $cotE=$this->proyectos(2,3, $entities);
+        //Terminados
+        $cotT=$this->proyectos(4,4, $entities);
+        return $this->render('TechTBundle:Tbdetcotizacion:indexCoord.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cotPE,
+                    'cotizaciones2' => $cotE,
+                    'cotizaciones3' => $cotT
+        ));
+    }
+
+    /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexGerAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            $swith = false;
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $idPryEst = $proyecto->getFkTbdetestatusproyecto()->getId();
+                if ($idPryEst == 1 || $idPryEst == 3 || $idPryEst == 4 || $idPryEst == 5) {
+
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
+                }
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+        return $this->render('TechTBundle:Tbdetcotizacion:indexGer.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
+    /**
+     * Lists all Tbdetcotizacion entities.
+     *
+     */
+    public function indexLiderAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+        $user = $this->getUser();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        foreach ($entities as $claveCot => $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $clavePry => $proyecto) {
+
+                $pry[$proyecto->getId()] = $proyecto;
+            }
+            if ($pry != null) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $tecnico = $reltecnico[0];
+                }
+                //Definir Lider
+                if ($cotizacion->getTbdetliderpmo() != null) {
+                    if ($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId() == $user->getId()) {
+                        $cot[$cotizacion->getCodcotizacion()] = array('tres' => $reltecnico[0], 'dos' => $cotizacion, 'uno' => $pry);
+                    }
                 }
             }
         }
@@ -232,17 +324,14 @@ class TbdetcotizacionController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
         $cot = array();
-
         //Buscar Tecnico
         $user = $this->getUser();
-
-
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
 
-            foreach ($proyectos as $clavePry => $proyecto) {
+            foreach ($proyectos as  $proyecto) {
 
                 $pry[$proyecto->getId()] = $proyecto;
             }
@@ -252,7 +341,7 @@ class TbdetcotizacionController extends Controller {
                     ->orderBy('rtp.dfecha', 'DESC')
                     ->getQuery();
             $reltecnico = $query->getResult();
-            if (!empty($reltecnico)) {
+            if (!empty($reltecnico) && $pry != null) {
                 if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
                     $instalador = $reltecnico[0]->getFkIidtbdettecnico();
                     if ($instalador != null) {
@@ -277,16 +366,17 @@ class TbdetcotizacionController extends Controller {
     public function indexTecnRetAction() {
         $em = $this->getDoctrine()->getManager();
         $cot = array();
+        $instalador=null;
         $user = $this->getUser();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
 
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as  $cotizacion) {
 
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
 
-            foreach ($proyectos as $clavePry => $proyecto) {
+            foreach ($proyectos as $proyecto) {
                 $disponible = $proyecto->getIcantidaddisponible();
                 if ($disponible != 0) {
                     $pry[$proyecto->getId()] = $proyecto;
@@ -302,14 +392,17 @@ class TbdetcotizacionController extends Controller {
             if (!empty($reltecnico)) {
                 if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
                     $instalador = $reltecnico[0]->getFkIidtbdettecnico();
-                }
-            }
             ///
             if ($pry != null && $instalador != null) {
                 if ($instalador->getFkIidUsuaDatostecn()->getId() == $user->getId()) {
                     $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
                 }
+                $instalador=null;
             }
+                }
+            }
+            
+            
         }
 
 
@@ -318,6 +411,7 @@ class TbdetcotizacionController extends Controller {
                     'cotizaciones' => $cot,
         ));
     }
+
     /**
      * Lists all Tbdetcotizacion entities.
      * Proyectos con obras por retirar
@@ -353,9 +447,9 @@ class TbdetcotizacionController extends Controller {
                 }
             }
             ///
-            if ($pry != null && $cotizacion->getTbdetliderpmo()!=null) {
-                if ($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId()==$user->getId()){
-                    $cot[$cotizacion->getCodcotizacion()] = array('tres'=>$instalador,'dos' => $cotizacion, 'uno' => $pry);
+            if ($pry != null && $cotizacion->getTbdetliderpmo() != null) {
+                if ($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId() == $user->getId()) {
+                    $cot[$cotizacion->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $cotizacion, 'uno' => $pry);
                 }
             }
         }
@@ -369,27 +463,27 @@ class TbdetcotizacionController extends Controller {
 
     /**
      * Lists all Tbdetcotizacion entities.
-     * Proyectos con obras por instalar
+     * Proyectos con obras por retirar
      */
-    public function indexTecnPorInstAction() {
+    public function indexCoordPorRetAction() {
         $em = $this->getDoctrine()->getManager();
         $cot = array();
-        $user = $this->getUser();    
+        $user = $this->getUser();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
 
         foreach ($entities as $claveCot => $cotizacion) {
+
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
 
             foreach ($proyectos as $clavePry => $proyecto) {
-                $recibido = $proyecto->getIcantidadrecibida();
-                if ($recibido != 0) {
+                $disponible = $proyecto->getIcantidaddisponible();
+                if ($disponible != 0) {
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
-            
-            //--
+            ///
             $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
                     ->where('rtp.fkIidTbdetcotizacion=:cot')
                     ->setParameter('cot', $cotizacion)
@@ -401,12 +495,66 @@ class TbdetcotizacionController extends Controller {
                     $instalador = $reltecnico[0]->getFkIidtbdettecnico();
                 }
             }
-            
+            if ($pry != null) {
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+        if ($this->getRequest()->getSession()->get('usuario_rol') == 'Administrador') {
+            return $this->render('TechTBundle:Tbdetcotizacion:indexAdminPorRet.html.twig', array(
+                        'entities' => $entities,
+                        'cotizaciones' => $cot,
+            ));
+        }
+
+        return $this->render('TechTBundle:Tbdetcotizacion:indexCoordPorRet.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
+    /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos con obras por instalar
+     */
+    public function indexTecnPorInstAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+        $instalador=null;
+        $user = $this->getUser();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+        foreach ($entities as $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $clavePry => $proyecto) {
+                $recibido = $proyecto->getIcantidadrecibida();
+                if ($recibido != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+
+            //--
+            $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                    ->where('rtp.fkIidTbdetcotizacion=:cot')
+                    ->setParameter('cot', $cotizacion)
+                    ->orderBy('rtp.dfecha', 'DESC')
+                    ->getQuery();
+            $reltecnico = $query->getResult();
+            if (!empty($reltecnico)) {
+                if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
+                    $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+               
             if ($pry != null && $instalador != null) {
                 if ($instalador->getFkIidUsuaDatostecn()->getId() == $user->getId()) {
                     $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
                 }
             }
+            }
+            }
+            $instalador=null;
             //--
         }
 
@@ -418,7 +566,6 @@ class TbdetcotizacionController extends Controller {
     }
 
     /**
-      /**
      * Lists all Tbdetcotizacion entities.
      * Proyectos por confirmar instalacion del Lider
      */
@@ -450,13 +597,13 @@ class TbdetcotizacionController extends Controller {
                         ->getQuery();
                 $reltecnico = $query->getResult();
                 if ($reltecnico != null) {
-                    $tecnico = $reltecnico[0];
+                    $instalador = $reltecnico[0]->getFkIidtbdettecnico();
                 }
-                
-                if($cotizacion->getTbdetliderpmo()!=null){
-                if($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId()==$user->getId()){
-                    $cot[$cotizacion->getCodcotizacion()] = array('tres' => $tecnico, 'dos' => $cotizacion, 'uno' => $pry);
-                }
+
+                if ($cotizacion->getTbdetliderpmo() != null) {
+                    if ($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId() == $user->getId()) {
+                        $cot[$cotizacion->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $cotizacion, 'uno' => $pry);
+                    }
                 }
             }
         }
@@ -468,10 +615,58 @@ class TbdetcotizacionController extends Controller {
         ));
     }
 
+    /**
+     * Lists all Tbdetcotizacion entities.
+     * Proyectos por confirmar instalacion del Lider
+     */
+    public function indexCoordPorInstAction() {
+        $em = $this->getDoctrine()->getManager();
+        $cot = array();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
+
+
+        foreach ($entities as $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+
+            foreach ($proyectos as $proyecto) {
+                $recibido = $proyecto->getIcantidadrecibida();
+                if ($recibido != 0) {
+                    $pry[$proyecto->getId()] = $proyecto;
+                }
+            }
+            if ($pry != null) {
+                $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
+                        ->where('rtp.fkIidTbdetcotizacion=:cot')
+                        ->setParameter('cot', $cotizacion)
+                        ->orderBy('rtp.dfecha', 'DESC')
+                        ->getQuery();
+                $reltecnico = $query->getResult();
+                if ($reltecnico != null) {
+                    $instalador = $reltecnico[0]->getFkIidtbdettecnico();
+                }
+                $cot[$cotizacion->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
+
+
+        if ($this->getRequest()->getSession()->get('usuario_rol') == 'Administrador') {
+            return $this->render('TechTBundle:Tbdetcotizacion:indexAdminPorInst.html.twig', array(
+                        'entities' => $entities,
+                        'cotizaciones' => $cot,
+            ));
+        }
+        return $this->render('TechTBundle:Tbdetcotizacion:indexCoordPorInst.html.twig', array(
+                    'entities' => $entities,
+                    'cotizaciones' => $cot,
+        ));
+    }
+
     public function indexLiderInstAction() {
         $em = $this->getDoctrine()->getManager();
         $cot = array();
-        $user= $this->getUser();
+        $user = $this->getUser();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
 
         //Buscar Lider
@@ -495,13 +690,13 @@ class TbdetcotizacionController extends Controller {
                         ->getQuery();
                 $reltecnico = $query->getResult();
                 if ($reltecnico != null) {
-                    $tecnico = $reltecnico[0];
+                    $instalador = $reltecnico[0]->getFkIidtbdettecnico();
                 }
-                     
-                if($cotizacion->getTbdetliderpmo()!=null){
-                if($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId()==$user->getId()){
-                    $cot[$cotizacion->getCodcotizacion()] = array('tres' => $tecnico, 'dos' => $cotizacion, 'uno' => $pry);
-                }
+
+                if ($cotizacion->getTbdetliderpmo() != null) {
+                    if ($cotizacion->getTbdetliderpmo()->getTbdetusuariodatos()->getId() == $user->getId()) {
+                        $cot[$cotizacion->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $cotizacion, 'uno' => $pry);
+                    }
                 }
             }
         }
@@ -520,21 +715,22 @@ class TbdetcotizacionController extends Controller {
     public function indexTecnInstAction() {
         $em = $this->getDoctrine()->getManager();
         $cot = array();
+        $instalador=null;
         $user = $this->getUser();
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
 
-        foreach ($entities as $claveCot => $cotizacion) {
+        foreach ($entities as $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
 
-            foreach ($proyectos as $clavePry => $proyecto) {
+            foreach ($proyectos as  $proyecto) {
                 $instalado = $proyecto->getIcantidadentregada();
                 if ($instalado != 0) {
                     $pry[$proyecto->getId()] = $proyecto;
                 }
             }
-            
+
             //--
             $query = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->createQueryBuilder('rtp')
                     ->where('rtp.fkIidTbdetcotizacion=:cot')
@@ -545,16 +741,15 @@ class TbdetcotizacionController extends Controller {
             if (!empty($reltecnico)) {
                 if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
                     $instalador = $reltecnico[0]->getFkIidtbdettecnico();
-                }
-            }
-            
+                
             if ($pry != null && $instalador != null) {
                 if ($instalador->getFkIidUsuaDatostecn()->getId() == $user->getId()) {
                     $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
                 }
             }
+            }
+            }
             //--
-            
         }
 
 
@@ -689,6 +884,34 @@ class TbdetcotizacionController extends Controller {
      * Displays a form to edit an existing Tbdetcotizacion entity.
      *
      */
+    public function editPrioridadAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
+
+        $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                array('fkIcodcotizacion' => $entity));
+
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Tbdetcotizacion entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('TechTBundle:Tbdetcotizacion:editPrioridad.html.twig', array(
+                    'entity' => $entity,
+                    'proyectos' => $proyectos,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing Tbdetcotizacion entity.
+     *
+     */
     public function editAlmAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
@@ -720,6 +943,7 @@ class TbdetcotizacionController extends Controller {
                     'instalador' => $instalador
         ));
     }
+
     /**
      * Displays a form to edit an existing Tbdetcotizacion entity.
      *
@@ -764,6 +988,7 @@ class TbdetcotizacionController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($id);
         $cot = array();
+        $instalador=null;
         $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                 array('fkIcodcotizacion' => $entity));
 
@@ -871,42 +1096,34 @@ class TbdetcotizacionController extends Controller {
                 ->orderBy('rtp.dfecha', 'DESC')
                 ->getQuery();
         $reltecnico = $query->getResult();
-        $instalador=null;
+        $instalador = null;
         if (!empty($reltecnico)) {
             if ($reltecnico[0]->getFkIidtbdettecnico() != null) {
                 $instalador = $reltecnico[0]->getFkIidtbdettecnico();
             }
         }
-        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 
-                                    'dos' => $entity, 'uno' => $proyectos);
-            // Enviar Mail 
-        if ($entity->getTbdetliderpmo()!=null){
-        $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
-               $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen',
-                       $mailLid,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexAlmMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        $cot[$entity->getCodcotizacion()] = array('tres' => $instalador,
+            'dos' => $entity, 'uno' => $proyectos);
+        // Enviar Mail 
+        if ($entity->getTbdetliderpmo() != null) {
+            $mailLid = $entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen', $mailLid, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexAlmMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Lider', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        if ($instalador!=null){
-        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
-               $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen',
-                       $mailInst,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexAlmMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-        
-               
+        if ($instalador != null) {
+            $mailInst = $instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+            $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen', $mailInst, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexAlmMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
-            foreach ($coords as  $coord) {
-                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
-                $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen',
-                       $mailCoord,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexAlmMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-            }
+        $coords = $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+        foreach ($coords as $coord) {
+            $mailCoord = $coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen', $mailCoord, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexAlmMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
+        }
         return $this->render('TechTBundle:Tbdetcotizacion:editAlm.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -946,43 +1163,36 @@ class TbdetcotizacionController extends Controller {
                 $instalador = $reltecnico[0]->getFkIidtbdettecnico();
             }
         }
-        
+
         $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
-                
-        if ($instalador!=null){
-        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
-               $this->mailer('Notificación a Instalador de Retiro de Equipos de Almacén',
-                       $mailInst,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexTecnMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-        
-               
+
+        if ($instalador != null) {
+            $mailInst = $instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+            $this->mailer('Notificación a Instalador de Retiro de Equipos de Almacén', $mailInst, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexTecnMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        
-        if ($entity->getTbdetliderpmo()!=null){
-            $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
-               $this->mailer('Notificación a Lider PMO de Retiro de Equipos de Almacén',
-                       $mailLid,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexTecnMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+
+        if ($entity->getTbdetliderpmo() != null) {
+            $mailLid = $entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Lider PMO de Retiro de Equipos de Almacén', $mailLid, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexTecnMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Lider', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
-            foreach ($coords as  $coord) {
-                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
-                $this->mailer('Notificación a Coordinador PMO de Retiro de Equipos de Almacén',
-                       $mailCoord,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexTecnMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-            }
-            $instalador=null; 
+        $coords = $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+        foreach ($coords as $coord) {
+            $mailCoord = $coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Coordinador PMO de Retiro de Equipos de Almacén', $mailCoord, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexTecnMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
+        }
+        $instalador = null;
         return $this->render('TechTBundle:Tbdetcotizacion:editTecnEnt.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
         ));
     }
+
     public function updateLiderInstAction(Request $request, $id) {
 
         $em = $this->getDoctrine()->getManager();
@@ -1001,7 +1211,7 @@ class TbdetcotizacionController extends Controller {
                 $cant = $proyecto->getIcantidadrecibida();
                 $cantEnt = $proyecto->getIcantidadentregada();
                 $proyecto->setIcantidadrecibida($cant - $value);
-                $proyecto->setIcantidadentregada($cantEnt+$value);
+                $proyecto->setIcantidadentregada($cantEnt + $value);
                 $em->flush();
             }
         }
@@ -1017,34 +1227,26 @@ class TbdetcotizacionController extends Controller {
             }
         }
         $cot[$entity->getCodcotizacion()] = array('tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos);
-         if ($entity->getTbdetliderpmo()!=null){
-        $mailLid=$entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
-               $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen',
-                       $mailLid,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexLiderMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Lider','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
+        if ($entity->getTbdetliderpmo() != null) {
+            $mailLid = $entity->getTbdetliderpmo()->getTbdetusuariodatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Lider PMO de Equipos Disponibles en Almacen', $mailLid, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexLiderMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Lider', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        if ($instalador!=null){
-        $mailInst=$instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
-               $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen',
-                       $mailInst,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexLiderMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-        
-               
+        if ($instalador != null) {
+            $mailInst = $instalador->getFkIidUsuaDatostecn()->getVcorreoEmail();
+            $this->mailer('Notificación a Instalador de Equipos Disponibles en Almacen', $mailInst, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexLiderMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
         }
-        $coords= $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
-            foreach ($coords as  $coord) {
-                $mailCoord=$coord->getTbdetUsuarioDatos()->getVcorreoEmail();
-                $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen',
-                       $mailCoord,'TechTBundle:Tbdetcotiza'
-                       . 'cion:indexLiderMail.html.twig',
-                       array($entity->getId()=>
-                        array('cuat'=>'Instalador','tres'=>$instalador,'dos'=>$entity,'uno'=>$proyectos))); 
-            }
-            $instalador=null; 
+        $coords = $em->getRepository('TechTBundle:Tbdetcoordinadorpmo')->findAll();
+        foreach ($coords as $coord) {
+            $mailCoord = $coord->getTbdetUsuarioDatos()->getVcorreoEmail();
+            $this->mailer('Notificación a Coordinador PMO Equipos Disponibles en Almacen', $mailCoord, 'TechTBundle:Tbdetcotiza'
+                    . 'cion:indexLiderMail.html.twig', array($entity->getId() =>
+                array('cuat' => 'Instalador', 'tres' => $instalador, 'dos' => $entity, 'uno' => $proyectos)));
+        }
+        $instalador = null;
         return $this->render('TechTBundle:Tbdetcotizacion:editLiderInst.html.twig', array(
                     'entity' => $entity,
                     'cotizaciones' => $cot,
@@ -1089,7 +1291,8 @@ class TbdetcotizacionController extends Controller {
                         ->getForm()
         ;
     }
-        public function mailer($subject,$to,$view,$object) {
+
+    public function mailer($subject, $to, $view, $object) {
 
         $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
@@ -1104,4 +1307,5 @@ class TbdetcotizacionController extends Controller {
         ;
         $this->get('mailer')->send($message);
     }
+
 }

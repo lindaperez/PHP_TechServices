@@ -48,10 +48,13 @@
         <form action="{{ path('Registro_create') }}" method="post" >
               {{ form_start(form) }}
         {{ form_errors(form) }}  
-            <table>
+   
+        <table>
 
                 <td>                      
-                    
+                    <table>  <td width="100">
+        {{ form_label(form.usuarioacceso.fkIidRol, 'Tipo Usuario:') }}</td><td>
+        {{ form_widget(form.usuarioacceso.fkIidRol,{'required': 'true'}) }}<br></td></table>
                     <div class="error">
                         {{ form_errors(form.pkIci) }}</div>       
                     <table>  <td width="100">
@@ -59,16 +62,30 @@
                         <td>{{ form_widget(form.pkIci) }}</td>
                     </table>
 
+                    <div class="error"> {{ form_errors(form.vnombre) }} </div>
+                    <table>  <td width="100"> {{ form_label(form.vnombre, 'Nombre:') }}<td>
+                        <td> {{ form_widget(form.vnombre) }}</td>
+                    </table>
 
 
-
-                    <div class="error">{{ form_errors(form.vcorreoEmail) }}</div>
+                   <div class="error">{{ form_errors(form.vapellido) }}</div>
                     <table>  <td width="100">
-        {{ form_label(form.vcorreoEmail, 'Correo:') }}</td><td>
-        {{ form_widget(form.vcorreoEmail) }}<br></td></table>
+        {{ form_label(form.vapellido, 'Apellido:') }}</td><td>
+        {{ form_widget(form.vapellido) }}</td></table>
 
 
 
+            <div id='valias' style="display: none;">
+                     <div class="error">{{ form_errors(form.valias) }}</div>
+                    <table>  <td width="100">
+        {{ form_label(form.valias, 'Alias:') }}</td><td>
+        {{ form_widget(form.valias) }}<br><br>  </td></table>
+
+            </div>
+                </td>
+                <td width="40"></td>
+                <td>
+                    
                     <div class="error">
                 {{ form_errors(form.vcargo) }}</div>
                     <table>  <td width="100">
@@ -80,40 +97,17 @@
                         <td width="100">{{ form_label(form.vcontrato, 'Contrato:') }}</td><td>
                 {{ form_widget(form.vcontrato) }}</td></table>
                          
-            <div id='valias' style="display: none;">
-                     <div class="error">{{ form_errors(form.valias) }}</div>
+                      <div class="error">{{ form_errors(form.vcorreoEmail) }}</div>
                     <table>  <td width="100">
-        {{ form_label(form.valias, 'Alias:') }}</td><td>
-        {{ form_widget(form.valias) }}<br><br>  </td></table>
-
-            </div>
-                </td>
-                <td width="20"></td>
-                <td>
-
+        {{ form_label(form.vcorreoEmail, 'Correo:') }}</td><td>
+        {{ form_widget(form.vcorreoEmail) }}<br></td></table>
                  
-                    <div class="error"> {{ form_errors(form.vnombre) }} </div>
-                    <table>  <td width="100"> {{ form_label(form.vnombre, 'Nombre:') }}<td>
-                        <td> {{ form_widget(form.vnombre) }}</td>
-                    </table>
+                    
                     <div class="error">{{ form_errors(form.vtelfLocal) }}</div>
                     <table>  
                         <td width="100">{{ form_label(form.vtelfLocal, 'Telf-Local:') }}</td>
                         <td> {{ form_widget(form.vtelfLocal) }}</td></table>
-                    <div class="error"> {{ form_errors(form.vdepartamento) }}</div>
-                    <table>
-                        <td width="100">{{ form_label(form.vdepartamento, 'Dpto: ') }}</td>
-                        <td>{{ form_widget(form.vdepartamento) }}<br></td></table>
-
-
-
-
-                    <div class="error">
-            {{ form_errors(form.vrif) }}</div>
-                    <table>  <td width="100">
-        {{ form_label(form.vrif, 'Rif:') }}</td><td>
-        {{ form_widget(form.vrif) }}<br><td></table>
-
+                    
                     <div style="display: none;">
                         <ul class="contratos" data-prototype="{{ form_widget(form.contratos.vars.prototype)|e }}">
 
@@ -132,12 +126,22 @@
 
                     </div>
                 </td>
-                <td width="20"></td>
+                <td width="40"></td>
                 <td>
-             <div class="error">{{ form_errors(form.vapellido) }}</div>
+            
+<div class="error"> {{ form_errors(form.vdepartamento) }}</div>
+                    <table>
+                        <td width="100">{{ form_label(form.vdepartamento, 'Dpto: ') }}</td>
+                        <td>{{ form_widget(form.vdepartamento) }}<br></td></table>
+
+
+
+
+                    <div class="error">
+            {{ form_errors(form.vrif) }}</div>
                     <table>  <td width="100">
-        {{ form_label(form.vapellido, 'Apellido:') }}</td><td>
-        {{ form_widget(form.vapellido) }}</td></table>
+        {{ form_label(form.vrif, 'Rif:') }}</td><td>
+        {{ form_widget(form.vrif) }}<br><td></table>
 
                     <div class="error">
         {{ form_errors(form.vtelfMovil) }}</div>
@@ -151,9 +155,7 @@
                         <td>
         {{ form_widget(form.vsucursal) }}<br></td>
                     </table>
-        <table>  <td width="100">
-        {{ form_label(form.usuarioacceso.fkIidRol, 'Tipo Usuario:') }}</td><td>
-        {{ form_widget(form.usuarioacceso.fkIidRol,{'required': 'true'}) }}<br></td></table>
+      
            
         
         
@@ -174,7 +176,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td></td><td></td>
                 <td>
                     <p class="submit">   
                         <input type="submit" name="commit" value="Registrar">

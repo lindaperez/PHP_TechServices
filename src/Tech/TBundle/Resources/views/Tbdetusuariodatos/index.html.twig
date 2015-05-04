@@ -162,21 +162,21 @@
                 <tr>
                 <!--td width="80"><h4><strong>knp_pagination_sortable(pagination, 'Cédula', 'ud.pkIci') }}</strong></h4></td-->
                 <td align="center" width="80"><h4><strong>Cédula</strong></h4></td>
-                <td width="40"></td>
-                <td align="center" width="80"><h4><strong>Nombre</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
+                <td align="center" width="120"><h4><strong>Nombre</strong></h4></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Cargo</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Sucursal</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Contratos</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Estatus</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Fecha Reg.</strong></h4></td>
-                <td width="40"></td>
+                <td width="20"></td>
                 <!--td width="80"><h4><strong>Rol</strong></h4></td-->
-                <td width="40"></td>
+                <td width="20"></td>
                 <td align="center" width="80"><h4><strong>Acciones</strong></h4></td>
                 </tr>
             </thead>
@@ -190,26 +190,26 @@
                 <tr {% if loop.index is odd %} bgcolor="#FFFFFF" {% endif %}>
 
                 <td align="center">{{ entity.pkIci }}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{{ entity.vnombre }} {{ entity.vapellido }}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{{ entity.vcargo }}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{{ entity.vsucursal }}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{% for contrato in entity.contratos  %}
 
                     <a href="{{ path('Contratos_show', { 'id': contrato.fkInroContrato.id }) }}">{{ contrato.fkInroContrato.pkInroContrato }}</a>
                    {% endfor %}
                 </td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{{ entity.usuarioacceso.fkIidEstatus }}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <td align="center">{% if entity.dfechaRegistro %}{{ entity.dfechaRegistro|date('d\-m\-y') }}{% endif %}</td>
-                <td align="center" width="40"></td>
+                <td width="20"></td>
                 <!--td>{{ entity.usuarioacceso.fkIidRol }}</td-->
-                <td align="center" width="40"></td>
-                <td align="center" width="40">
+                <td width="20"></td>
+                <td align='center' width="20">
                     <ul>
                     
                         <li>
@@ -225,15 +225,8 @@
     {{ knp_pagination_render(pagination) }} 
         </div>
     </section>
-    <br><br>
-    <ul>
-        <li>
-            <a href="{{ path('Registro_new') }}">
-                <h4><strong>   Realizar Solicitud de Registro de Cliente</strong></h4>
-            </a>
-        </li>
-    </ul>
-
+    
+    
 </div>
 <script>
     

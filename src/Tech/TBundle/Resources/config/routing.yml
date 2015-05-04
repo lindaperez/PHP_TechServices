@@ -39,6 +39,14 @@ confirmObraRec:
     pattern:  /confirmObraRec
     defaults:  { _controller: TechTBundle:Default:confirmObraRec}
 
+confirmPrioridad:
+    pattern:  /confirmPrioridad
+    defaults:  { _controller: TechTBundle:Default:confirmPrioridad}
+
+consultaInstalador:
+    pattern:  /consultaInstalador
+    defaults:  { _controller: TechTBundle:Default:consultaInstalador}
+
 logout:
     pattern: /logout
 

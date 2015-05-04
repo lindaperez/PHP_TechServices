@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1> Proyectos</h1>
+    <h1> Proyectos con Equipos Por Retirar de Almacen</h1>
 
     <div class="container" >
 
@@ -48,19 +48,19 @@
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
                                                 
-                                            <td height="25" align="center"  width="140">Código Equipo Cotizado</td>
+                                            <td height="25" align="center"  width="160">Código Equipo Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Código Equipo</td>
+                                            <td align="center"  width="160">Código Equipo</td>
                                             <td width="20"></td>
                                             <td bgcolor="#FF5F55" align="center"  width="80">Cotizado</td>
                                             <td width="20"></td>
-                                            <td bgcolor="#0BD4FF" align="center"  width="80">Instalado</td>
+                                            <td bgcolor="#0BD4FF" align="center"  width="140">Instalado</td>
                                             <td width="20"></td>
                                             <td bgcolor="#EB6E00" align="center"  width="80">Entregado </td>
                                             <td width="20"></td>
-                                            <td bgcolor="#61EB00" align="center"  width="80">Preparado</td>
+                                            <td bgcolor="#61EB00" align="center"  width="140">Preparado</td>
                                             <td width="20"></td>
-                                            <td bgcolor="#FFFF40" align="center"  width="80">Por Entregar</td>
+                                            <td bgcolor="#FFFF40" align="center"  width="140">Por Entregar</td>
                                             
                                         </tr>
                                     </thead>
@@ -71,20 +71,22 @@
                                     <table>
                                         <tr>
 
-                                           <td height="25" align="center"  width="140"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                           <td height="25" align="center"  width="160"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ (proyecto.icantidadentregada)}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
+                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ ((proyecto.icantidadrecibida-proyecto.icantidaddisponible)|abs)}}</td>
                                            
+                                            
+
                                         </tr>
                                     </table>
 
@@ -114,7 +116,7 @@
                                     <td width="10"></td>
                                     <td align="left"  width="90">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="10"></td>
-                                    <td align="left"  width="70">{% if cot['tres'].fkIidTbdettecnico%}{{ cot['tres'].fkIidTbdettecnico.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td align="left"  width="70">{% if cot['tres']%}{{ cot['tres'].valias}} {%else%} 'No Asignado' {%endif%}</td>
                                     <td width="10"></td>
                                     <td align="left"  width="30">{% if cot['dos'].iprioridad%}{{ cot['dos'].iprioridad}} {%else%} 'No Asignado' {%endif%}</td>
                                 </tr>
@@ -130,58 +132,23 @@
 
 
 
-        </section>
+            </section>
     </div>
 
     <script>
         $(function () {
             $("#accordion").accordion({
+                active: false,
+                collapsible: true,
                 heightStyle: "content",
-                collapsible: true
+                navigation: true,
             });
         });
-    </script>
-  
-    <script>
-        function confirmObra(options) {
-            $("#d" + options.idObra).dialog({
-                resizable: false,
-                height: 250,
-                width: 400, 
-                modal: true,
-                title: 'Confirmación de Existencia',
-                buttons: {
-                    "No": function () {
-                        
-                        $(this).dialog("close");
-                    },
-                    Si: function () {
-                        var ientrega=$("#fn"+options.idObra).val();
-                        var data = {
-                            idObra: options.idObra,
-                            iEntrega: ientrega,
-                            idCot: options.idCot
-                        };
-                        $.ajax({
-                            type: 'post',
-                            url: '{{ path("confirmObra") }}',
-                            data: data,
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data.error !== undefined && data.error !== '') {
-                                    alert(data.error);
-                                } else {
-                                    $("#d" + options.idObra).dialog("close");
-                                }
-                            },
-                            error: function (e, ts, et) {
-                                alert(ts);
-                            }
-                        });
-                        //
-                    }
-                }
+        
+         $('#accordion input[type="checkbox"]').click(function(e) {
+                e.stopPropagation();
             });
-        }
+            $("a").click(function(event){ event.stopPropagation(); });
     </script>
+    
 {% endblock %}

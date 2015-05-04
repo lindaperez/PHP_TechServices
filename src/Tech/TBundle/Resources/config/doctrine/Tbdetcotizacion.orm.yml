@@ -32,6 +32,22 @@ Tech\TBundle\Entity\Tbdetcotizacion:
             type: datetime
             nullable: false
             comment: ''
+        dfechaIni:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dfecha_ini
+        dfechaFin:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dfecha_fin
+        iprioridad:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '5'
     manyToOne:
         fkIidEstatusinstalacion:
             targetEntity: Tbdetestatusinstalacion

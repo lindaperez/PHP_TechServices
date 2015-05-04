@@ -1,7 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
-    <h1>Equipos por Retirar de Almacén</h1>
+    <h1> Proyectos con Equipos Por Retirar de Almacen</h1>
 
     <div class="container" >
 
@@ -9,15 +9,30 @@
             <table class="records_list">
                 <thead>
                     <tr>
-                        
-                        <td align="left"  width="120"><h4 ><strong>Fecha Notificación</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Estatus </strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
-                         <td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>
+                        <td width="30"></td>
+                        <td align="left"  width="75"><h4 ><strong>Fecha Notificación</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Número cotización</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Cotización Equipos</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Cotización Instalación</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Asignación</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Inicio</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="70"><h4 ><strong>Fecha Fin</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="80"><h4 ><strong>Estatus Proyecto</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="90"><h4 ><strong>Lider PMO Asignado</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="50"><h4 ><strong>Prioridad</strong></h4></td>
+                        <td width="10"></td>
+                        <td align="left"  width="50"><h4 ><strong>Acciones</strong></h4></td>
+
+                        {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
                     </tr>
                 </thead>
 
@@ -32,23 +47,23 @@
                                 <table>
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
-
-                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+                                                
+                                            <td height="25" align="center"  width="140">Código Equipo Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td align="center"  width="140">Código Equipo</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                            <td align="center"  width="80">Estatus Almacén</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Por Retirar</td>
+                                            <td bgcolor="#FF5F55" align="center"  width="80">Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Por Entregar</td>
+                                            <td bgcolor="#0BD4FF" align="center"  width="80">Instalado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">Entregado</td>
+                                            <td bgcolor="#EB6E00" align="center"  width="80">Entregado </td>
                                             <td width="20"></td>
+                                            <td bgcolor="#61EB00" align="center"  width="80">Preparado</td>
+                                            <td width="20"></td>
+                                            <td bgcolor="#FFFF40" align="center"  width="80">Por Entregar</td>
                                             
-                                            <td align="center"  width="100">Acciones </td>
-
-
                                         </tr>
                                     </thead>
                                 </table>
@@ -58,55 +73,22 @@
                                     <table>
                                         <tr>
 
-                                            <td height="25" align="center"  width="160"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                           <td height="25" align="center"  width="140"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="140">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.fkTbdetestatusproyecto.vdescripcion}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidadentregada)}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadrecibida}}</td>
+                                            <td bgcolor="#EEEEEE" align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
-                                            
-                                            <td align="center"  width="100">
-                                                <ul>
-                                                    <li>
-                                                        <ul>
-                                                            
-                                                            <a onclick="confirmObraRec({idObra: '{{proyecto.id}}',idCot: '{{proyecto.fkIcodcotizacion}}'});"><img  width="30"  height="30" title="Confirmar Recepción de Equipo" src="/bundles/techt/images/UserSecCheck.jpg"/></a>
-                                                            <div style="display:none"  id="d{{proyecto.id}}" title="Confirmacion de Existencia">
-                                                                <table>
-                                                                    <tr>
-                                                                        <td>
-                                                                <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">                                                    
-                                                                    </span> 
-                                                                   Confirma que recibió de Almacén <br><br> Cantidad: <b>{{proyecto.icantidaddisponible}}</b>
-                                                                   <br>Equipo: <b>{{ proyecto.icodproyecto}}</b><br> Instalacion:
-                                                                   <b>{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</b><br> 
-                                                                   Proyecto: <b>{{proyecto.fkIcodcotizacion.codcotizacion}}</b><br><br>
-                                                                    </td>
-                                                                    </tr>
-                                                                      <tr>
-                                                                      <td align="left">Se encuentra Usted seguro?</td>
-                                                                    </tr> 
-                                                                </table>
-                                                                
-                                                            </div>
-                                                                     
-                                                        </ul>
-                                                                     
-                                                    </li>
-
-                                                    
-                                                    
-                                                </ul>
-
-                                            </td>
-
-
+                                            <td align="center"  width="80">{{ ((proyecto.icantidad-proyecto.icantidadrecibida)|abs)}}</td>
+                                           
                                         </tr>
                                     </table>
 
@@ -117,15 +99,28 @@
                             <table>
                                 <tr>
 
-                                    <td align="left"  width="90">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="120">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
-                                    <td width="40"></td>
-                                    <td align="left"  width="100">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
-                                    <td width="40"></td>
-                                    <td align="left"><a href="{{ path('Cotizacion_editTecnEnt', { 'id': cot['dos'].id }) }}"><img  width="30"  height="30" title="Modificar Disponibilidad en Masa" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="10"></td>
+                                    
+                                    <td align="left"  width="70"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="70"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="70"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].id }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfechaIni %}{{ cot['dos'].dfechaIni|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="70">{% if cot['dos'].dfechaFin %}{{ cot['dos'].dfechaFin|date('d-m-Y') }}{% endif %}</td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="80">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="90">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td width="10"></td>
+                                    <td align="left"  width="50">{% if cot['dos'].iprioridad%}{{ cot['dos'].iprioridad}} {%else%} 'No Asignado' {%endif%}</td>
+                                    <td width="10"></td>
+                                    <td align="left"><a href="{{ path('Cotizacion_editTecnEnt', { 'id': cot['dos'].id }) }}"><img  width="30"  height="30" title="Modificar lo Preparado para Instalador" src="/bundles/techt/images/entregaAInstalador.jpg"/></a></td>
                                 </tr>
                             </table>
                             {%endif%}
@@ -139,9 +134,8 @@
 
 
 
-            </setion>
+        </section>
     </div>
-
     <script>
         $(function () {
             $("#accordion").accordion({

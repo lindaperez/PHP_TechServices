@@ -1,28 +1,37 @@
-{% extends '::base.html.twig' %}
+{% extends '::layout.html.twig' %}
 
-{% block body -%}
-    <h1>Tbdetestatusinstalacion list</h1>
+{% block content -%}
+    <h1>Estatus Proyecto</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Vdescripcion</th>
-                <th>Actions</th>
+    <div class="container" >
+
+        <section class="register">
+            <table class="records_list">
+                <thead>
+                    <tr>
+                        <td align="left"  width="50"><h4 ><strong>Id</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="200"><h4 ><strong>Decripcion</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="70"><h4 ><strong>Acciones</strong></h4></td>
+                
             </tr>
         </thead>
         <tbody>
+            
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('EstatusCotizacion_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.vdescripcion }}</td>
-                <td>
+                <td align="left"  width="50"><a href="{{ path('EstatusCotizacion_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td width="40"></td>
+                <td align="left"  width="200">{{ entity.vdescripcion }}</td>
+                <td width="40"></td>
+                <td align="left"  width="70">
                 <ul>
                     <li>
-                        <a href="{{ path('EstatusCotizacion_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('EstatusCotizacion_show', { 'id': entity.id }) }}">Ver</a>
                     </li>
                     <li>
-                        <a href="{{ path('EstatusCotizacion_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('EstatusCotizacion_edit', { 'id': entity.id }) }}">Editar</a>
                     </li>
                 </ul>
                 </td>
@@ -31,11 +40,10 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('EstatusCotizacion_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+        
+                
+            </section>
+        </div>
+                
     {% endblock %}
+    

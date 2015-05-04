@@ -36,20 +36,23 @@
                                 <table>
                                     <thead>
                                         <tr bgcolor="#EEEEEE">
-
-                                            <td height="25" align="center"  width="100">Código Equipos Cotizados</td>
+                                                
+                                            <td height="25" align="center"  width="120">Código Equipo Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                            <td align="center"  width="120">Código Equipo</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="100">Código Equipos a Entregar</td>
+                                            <td align="center"  width="80">Estatus Almacén</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="80">Entregado </td>
-                                            <td width="20"></td>            
-                                            <td align="center"  width="85">Por Entregar</td>
+                                            <td bgcolor="#FF5F55" align="center"  width="80">Cotizado</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="85">Por Retirar </td>
+                                            <td bgcolor="#0BD4FF" align="center"  width="80">Instalado</td>
                                             <td width="20"></td>
-
+                                            <td bgcolor="#EB6E00" align="center"  width="80">Entregado </td>
+                                            <td width="20"></td>
+                                            <td bgcolor="#61EB00" align="center"  width="80">Preparado</td>
+                                            <td width="20"></td>
+                                            <td bgcolor="#FFFF40" align="center"  width="80">Por Entregar</td>
+                                            <td width="20"></td>
                                             <td align="center"  width="50">Cantidad Instalada</td>
 
 
@@ -61,23 +64,26 @@
 
                                     <table>
 
-                                        <tr>
+                                  <tr>
 
-                                            <td height="25" align="center"  width="100">{{ proyecto.icodproyecto  }}</td>
+                                           <td height="25" align="center"  width="120"><a href="{{ path('Obra_show', { 'id': proyecto.id   }) }}">{{ proyecto.icodproyecto  }}</a></td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="120">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td width="20"></td>
+                                            <td align="center"  width="80">{{ proyecto.fkTbdetestatusproyecto.vdescripcion}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidad }}</td>
                                             <td width="20"></td>
-                                            <td align="center"  width="90">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                            <td align="center"  width="80">{{ (proyecto.icantidadentregada)}}</td>
                                             <td width="20"></td>
-
-                                            <td align="center"  width="90">{{ proyecto.icantidadentregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="80">{{ (proyecto.icantidadrecibida)|abs}}</td>
+                                            <td align="center"  width="80">{{ proyecto.icantidadrecibida}}</td>
                                             <td width="20"></td>
                                             <td align="center"  width="80">{{ proyecto.icantidaddisponible}}</td>
                                             <td width="20"></td>
+                                            <td align="center"  width="80">{{ ((proyecto.icantidad-proyecto.icantidadrecibida)|abs)}}</td>
+                                            <td width="20"></td>
 
-                                            <td align="center" width="40"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Confirmación de Instalación" 
+                                            <td align="center" width="50"><input  min=0  style='alignment-adjust: center; width: 55px;' title="Confirmación de Instalación" 
                                                                                   type="number" name= "p_{{proyecto.id}}" value= "{{proyecto.icantidadrecibida|abs}}"
                                                                                   max={{proyecto.icantidadrecibida|abs}}><br>
 

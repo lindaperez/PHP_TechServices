@@ -302,29 +302,64 @@ class TbreltecnicoproyectoController extends Controller {
         $entity = new Tbdetcotizacion();
         $form = $this->createCreateFormCot($entity);
         $form->handleRequest($request);
+        //Buscar Cotizaciones
+        $cot = null;
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
 
+        foreach ($entities as $cotizacion) {
+            $pry = array();
+            $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
+                    array('fkIcodcotizacion' => $cotizacion));
+            foreach ($proyectos as $proyecto) {
+                $pry[$proyecto->getId()] = $proyecto;
+            }
+
+
+            if (empty($pry)) {
+                $pry = null;
+            }
+            if ($cotizacion->getTbdetliderpmo() == null && $pry != null) {
+
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
+            }
+        }
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
-            foreach ($_POST as $clave => $cot) {
-                if (strpos($clave, 'cot_') !== false) {
-                    $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($cot);
-                    //Set lider
-                    $cotizacion->setTbdetliderpmo($entity->getTbdetliderpmo());
+            $lideres = $em->getRepository('TechTBundle:Tbdetliderpmo')->findAll();
+            //buscar cotizaciones de liderez existentes
+            foreach ($lideres as $lider) {
+                $cotizacionesL = $em->getRepository('TechTBundle:Tbdetcotizacion')->
+                        findBy(array('tbdetliderpmo' => $lider));
+                $cotL[$lider->getId()] = array(1 => $lider, 2 => $cotizacionesL);
+            }
+
+            foreach ($_POST as $clave => $cott) {
+                $a = strpos($clave, 's_');
+                if ($a !== false) {
+
+                    $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')->find(substr($clave, 2));
+                    $lider = $em->getRepository('TechTBundle:Tbdetliderpmo')->find($cott);
+                    $cotizacion->setTbdetliderpmo($lider);
                     $em->flush();
                 }
             }
+            $message_success = "Su asociación se realizó correctamente";
+            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
 
-            //print($_POST);
-
-            
 
             return $this->redirect($this->generateUrl('Asignacion_newLid'));
         }
 
+        $message_error = "Ocurrió un Error con el formulario";
+        $this->get('session')->getFlashBag()->add('flash_error', $message_error);
+
         return $this->render('TechTBundle:Tbreltecnicoproyecto:newLid.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'cotizaciones' => $cot,
+                    'lideres' => $lideres,
+                    'cotL' => $cotL
         ));
     }
 
@@ -336,36 +371,39 @@ class TbreltecnicoproyectoController extends Controller {
         $entity = new Tbreltecnicoproyecto();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $persist=false;
-            foreach ($_POST as $clave => $cot) {
-                if (strpos($clave, 'cot_') !== false) {
-                    $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')->find($cot);
 
+            $persist = false;
+            foreach ($_POST as $clave => $ins) {
+                $a = strpos($clave, 's_');
+                if ($a !== false) {
+                    $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')->find(substr($clave, 2));
                     $relcotizacion = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findOneBy(
-                            array('fkIidTbdetcotizacion' => $cotizacion,
-                                'fkIidTbdettecnico' => $entity->getFkIidTbdettecnico()));
+                            array('fkIidTbdetcotizacion' => $cotizacion));
+                    $instalador = $em->getRepository('TechTBundle:Tbdettecnico')->find($ins);
                     if (empty($relcotizacion) || $relcotizacion == null) {
                         $relTecnicoPry = new Tbreltecnicoproyecto();
-                        $persist=true;
+                        $persist = true;
                     }
-                    //print_r($entity->getFkIidTbdettecnico());
+                    $relTecnicoPry = $relcotizacion;
                     $relTecnicoPry->setDfecha(new \DateTime);
                     $relTecnicoPry->setFkIidTbdetcotizacion($cotizacion);
-                    $relTecnicoPry->setFkIidTbdettecnico($entity->getFkIidTbdettecnico());
-                    $relTecnicoPry->setVdescripcioncambioest($entity->getVdescripcioncambioest());
-                    if ($persist){
-                    $em->persist($relTecnicoPry);
+                    $relTecnicoPry->setFkIidTbdettecnico($instalador);
+                    $relTecnicoPry->setVdescripcioncambioest('');
+                    if ($persist) {
+                        $em->persist($relTecnicoPry);
                     }
                 }
             }
-            
-            
+
+
 
             $em->flush();
             //print($_POST);
+            $message_success = "Su asociación se realizó correctamente";
+            $this->get('session')->getFlashBag()->add('flash_success', $message_success);
             return $this->redirect($this->generateUrl('Asignacion_new'));
         }
 
@@ -392,7 +430,7 @@ class TbreltecnicoproyectoController extends Controller {
 
         return $form;
     }
- 
+
     /**
      * Displays a form to create a new Tbreltecnicoproyecto entity.
      *
@@ -401,27 +439,29 @@ class TbreltecnicoproyectoController extends Controller {
         $entity = new Tbreltecnicoproyecto();
         $form = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
+
+
+        $instaladores = $em->getRepository('TechTBundle:Tbdettecnico')->findAll();
         //Buscar Cotizaciones
         $cot = null;
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        foreach ($entities as  $cotizacion) {
+        foreach ($entities as $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            foreach ($proyectos as  $proyecto) {
+            foreach ($proyectos as $proyecto) {
                 $pry[$proyecto->getId()] = $proyecto;
             }
 
             $rel = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')->findOneBy(
                     array('fkIidTbdetcotizacion' => $cotizacion));
-            
-            if (empty($pry)){
-                $pry=null;
-            }
-            if ((empty($rel) || $rel->getFkIidTbdettecnico()==null) && $pry!=null) {
 
-                    $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
-                
+            if (empty($pry)) {
+                $pry = null;
+            }
+            if ((empty($rel) || $rel->getFkIidTbdettecnico() == null) && $pry != null) {
+
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
             }
         }
 
@@ -430,9 +470,11 @@ class TbreltecnicoproyectoController extends Controller {
                     'entity' => $entity,
                     'form' => $form->createView(),
                     'cotizaciones' => $cot,
+                    'instaladores' => $instaladores
         ));
     }
-     /**
+
+    /**
      * Creates a form to create a Tbdetcotizacion entity.
      *
      * @param Tbdetcotizacion $entity The entity
@@ -449,33 +491,44 @@ class TbreltecnicoproyectoController extends Controller {
 
         return $form;
     }
+
     /**
      * Displays a form to create a new Tbreltecnicoproyecto entity.
      *
      */
     public function newLidAction() {
+
         $entity = new Tbdetcotizacion();
         $form = $this->createCreateFormCot($entity);
         $em = $this->getDoctrine()->getManager();
+
+        $lideres = $em->getRepository('TechTBundle:Tbdetliderpmo')->findAll();
+        //buscar cotizaciones de liderez existentes
+        foreach ($lideres as $lider) {
+            $cotizacionesL = $em->getRepository('TechTBundle:Tbdetcotizacion')->
+                    findBy(array('tbdetliderpmo' => $lider));
+            $cotL[$lider->getId()] = array(1 => $lider, 2 => $cotizacionesL);
+        }
+
         //Buscar Cotizaciones
         $cot = null;
         $entities = $em->getRepository('TechTBundle:Tbdetcotizacion')->findAll();
-        foreach ($entities as  $cotizacion) {
+
+        foreach ($entities as $cotizacion) {
             $pry = array();
             $proyectos = $em->getRepository('TechTBundle:Tbdetproyecto')->findBy(
                     array('fkIcodcotizacion' => $cotizacion));
-            foreach ($proyectos as  $proyecto) {
+            foreach ($proyectos as $proyecto) {
                 $pry[$proyecto->getId()] = $proyecto;
             }
 
-            
-            if (empty($pry)){
-                $pry=null;
-            }
-            if ( $cotizacion->getTbdetliderpmo()==null &&  $pry!=null) {
 
-                    $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
-                
+            if (empty($pry)) {
+                $pry = null;
+            }
+            if ($cotizacion->getTbdetliderpmo() == null && $pry != null) {
+
+                $cot[$cotizacion->getCodcotizacion()] = array('dos' => $cotizacion, 'uno' => $pry);
             }
         }
 
@@ -484,6 +537,8 @@ class TbreltecnicoproyectoController extends Controller {
                     'entity' => $entity,
                     'form' => $form->createView(),
                     'cotizaciones' => $cot,
+                    'lideres' => $lideres,
+                    'cotL' => $cotL
         ));
     }
 

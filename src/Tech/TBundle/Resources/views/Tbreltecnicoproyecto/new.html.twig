@@ -1,220 +1,336 @@
 {% extends '::layout.html.twig' %}
 
 {% block content %}
+    {% for flashMessage in app.session.flashbag.get('flash_info') %}
+        <div class="isa_info">
+            {{ flashMessage }}
+        </div>
 
-    <h1>Asignación de Proyectos a Instalador</h1>
+    {% endfor %}
+
+
+    {% for flashMessage in app.session.flashbag.get('flash_warning') %}
+        <div class="isa_warning">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
+
+
+    {% for flashMessage in app.session.flashbag.get('flash_error') %}
+        <div class="isa_error">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
+
+
+    {% for flashMessage in app.session.flashbag.get('flash_success') %}
+        <div class="isa_success">
+            {{ flashMessage }}
+        </div>
+
+    {% endfor %}
+
+    <h1>Asignación de Instalador a Proyectos</h1>
 
     <div class="container" >
         <section class="register">
 
-            <h1>Complete el siguiente formulario</h1>
-            <br>
+            
+
             <form action="{{ path('Asignacion_create') }}" method="post" id="login">
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
                 <table>
-
                     <tr>
                         <td>
-                            <div class="error">
-                                {{ form_errors(form.fkIidTbdettecnico) }}</div>       
-                                <table>  <td width="200">
-                                    Seleccione al Instalador: *</td>
-                                <td>{{ form_widget(form.fkIidTbdettecnico,{'required': true,'empty_value':'Seleccionar'}) }}</td>
+                            {% if (cotizaciones!=null)%}
+                            <table>
+
+                                <td align="left" width="300px" height="40px">
+                                    Seleccione el instalador para cada proyecto:
+                                    *</td>
                             </table>
+                            {%endif%}
                         </td>
                     </tr>
-                         
-                    <tr>
-                        
-                        <td>
-                        <table>
-                        
-                            </td>
-                            <hr>
-                        <td align="left" width="160px" height="40px">
-                            Seleccione el Proyecto:
-                            *</td>
-                        </table>
-                    </td>
-                    </tr>
 
                     <tr>
 
                         <td>
+                            
+                            {% if (cotizaciones!=null)%}
+                            <table class="records_list">
+                                <thead>
+                                    <tr>
+                                        <td width="30"></td>
+                                        <td align="left"  width="140"><h4 ><strong>Fecha Notificación</strong></h4></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="90"><h4 ><strong>Estatus Proyecto</strong></h4></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
+                                        <td width="40"></td>
+                                        <td align="left"  width="120"><h4 ><strong>Seleccionar Instalador</strong></h4></td>
+
+                                        {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
+                                    </tr>
+                                </thead>
+
+                            </table>          
+                                    {%else%}
+                                        <h5><strong>Todas las cotizaciones poseen instalador asignado.</strong></h5>
+                                        {%endif%}
+                            <div id="accordion">    
+                                {% for  key,cot in cotizaciones%}
+
+                                    {% for  key2,proyectos in cot%}
+
+                                        {% if key2=='uno'%}
+                                            <div>
+                                                <table>
+                                                    <thead>
+                                                        <tr bgcolor="#EEEEEE">
+
+                                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="80">Cantidad Cotizada</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="160">Código Equipos a Entregar</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="140">Entregado</td>
+                                                            <td width="20"></td>
+
+                                                            <td align="center"  width="140">Pendiente</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="140">Por Entregar</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="100">Estatus</td>
+                                                            <td width="20"></td>
+
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+
+                                                {% for  clave,proyecto  in proyectos%}
+
+                                                    <table>
+                                                        <tr>
+
+                                                            <td height="25" align="center"  width="160">{{ proyecto.icodproyecto  }}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="80">{{ proyecto.icantidad }}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
+                                                            <td width="20"></td>
+                                                            <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
+                                                            <td width="20"></td>
 
 
-                     <table class="records_list">
-                <thead>
-                    <tr>
-                        <td width="30"></td>
-                        <td align="left"  width="140"><h4 ><strong>Fecha Notificación</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Número Cotización</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="90"><h4 ><strong>Estatus </strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Lider Asignado</strong></h4></td>
-                        <td width="40"></td>
-                        <td align="left"  width="120"><h4 ><strong>Seleccionar</strong></h4></td>
 
-                        {#<td align="center"  width="80"><h4 ><strong>Acciones</strong></h4></td>#}
-                    </tr>
-                </thead>
+                                                        </tr>
+                                                    </table>
 
-            </table>          
-                      <div id="accordion">    
-                {% for  key,cot in cotizaciones%}
+                                                {%endfor%}
+                                            </div>
+                                        {%else%}
+                                            {% if key2=='dos'%}
+                                                <table>
+                                                    <tr>
 
-                    {% for  key2,proyectos in cot%}
+                                                        <td align="center"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
+                                                        <td width="40"></td>
+                                                        <td align="center"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
+                                                        <td width="40"></td>
+                                                        <td align="center"  width="90">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
+                                                        <td width="40"></td>
 
-                        {% if key2=='uno'%}
-                            <div>
-                                <table>
-                                    <thead>
-                                        <tr bgcolor="#EEEEEE">
-                                            
-                                            <td height="25" align="center"  width="160">Código Equipos Cotizados</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="80">Cantidad Cotizada</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="160">Código Equipos a Entregar</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">Entregado</td>
-                                            <td width="20"></td>
-                                            
-                                            <td align="center"  width="140">Pendiente</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">Por Entregar</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="100">Estatus</td>
-                                            <td width="20"></td>
-                                            
-                                        </tr>
-                                    </thead>
-                                </table>
+                                                        <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
+                                                        <td width="40"></td>
+                                                        <td align="center" width="120">
 
-                                {% for  clave,proyecto  in proyectos%}
+                                                            <select  name='s_{{cot['dos'].id}}'> 
+                                                                <option value=0 >Seleccionar</option>
+                                                                {% for item in instaladores%}
+                                                                    <option value='{{item.id}}'  >'{{item.valias}}'</option>
+                                                                {%endfor%}
+                                                            </select>
+                                                        </td>
 
-                                    <table>
-                                        <tr>
-                                            
-                                            <td height="25" align="center"  width="160">{{ proyecto.icodproyecto  }}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="80">{{ proyecto.icantidad }}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="160">{{ proyecto.icodproyecto|replace({'S': 'V'})  }}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidad-proyecto.icantidadEntregada}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="140">{{ proyecto.icantidaddisponible}}</td>
-                                            <td width="20"></td>
-                                            <td align="center"  width="100">{{ proyecto.fkTbdetestatusproyecto }}</td>
-                                            <td width="20"></td>
-                                            
-                                           
-                                            
-                                        </tr>
-                                    </table>
+                                                        </td>
+
+
+
+
+
+                                                    </tr>
+                                                </table>
+
+
+
+                                            {%endif%}   
+                                        {%endif%}
+
+                                    {%endfor%}
 
                                 {%endfor%}
-                            </div>
-                        {%else%}
-                            {% if key2=='dos'%}
-                            <table>
-                                <tr>
+                            </div>  
 
-                                    <td align="center"  width="140">{% if cot['dos'].dfecha %}{{ cot['dos'].dfecha|date('d-m-Y') }}{% endif %}</td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="120"><a href="{{ path('Cotizacion_show', { 'id': cot['dos'].codcotizacion }) }}">{{cot['dos'].codcotizacion}}</a></td>
-                                    <td width="40"></td>
-                                    <td align="center"  width="90">{{ cot['dos'].fkiidestatusinstalacion.vdescripcion }}</td>
-                                    <td width="40"></td>
-                                    
-                                    <td align="left"  width="120">{% if cot['dos'].tbdetliderpmo %}{{ cot['dos'].tbdetliderpmo.valias}} {%else%} 'No Asignado' {%endif%}</td>
-                                    <td width="40"></td>
-                                    <td align="center" width="120">
-                                       
-                                                       <input class="checkbox1" type="checkbox" 
-                                                   name= "cot.{{cot['dos'].codcotizacion}}" 
-                                                   value="{{cot['dos'].id}}">
-                                       
-                                    </td>
-                                     
-                                                   
-                            
-                                    
-                            
-                                </tr>
-                            </table>
-                                    
-                     
-                                        
-                            {%endif%}   
-                        {%endif%}
-
-                    {%endfor%}
-
-                {%endfor%}
-            </div>  
-                            
                         </td>
+
                     </tr>
-                    
                     <tr height="15px"></tr>
-                       <tr>
-
-                        <td >
-                            <table>  <tr ><hr>
-                            <td height="40px" width="200">
-                                <div class="error">
-                                {{ form_errors(form.vdescripcioncambioest) }}</div>       
-                            
-                                    Introduzca el Mensaje: <br>(Opcional) </td>
-                                <td>{{ form_widget(form.vdescripcioncambioest) }}</td></tr>
-                            </table>
-                        </td>
+                    <tr>
+                        {#
+                    <td >
+                        <table>  <tr ><hr>
+                        <td height="40px" width="200">
+                            <div class="error">
+                            {{ form_errors(form.vdescripcioncambioest) }}</div>       
+                        
+                                Introduzca el Mensaje: <br>(Opcional) </td>
+                            <td>{{ form_widget(form.vdescripcioncambioest) }}</td></tr>
+                        </table>
+                    </td>#}
                     </tr>
-            
+
 
                 </table>
-            <br>
-                        <br>
+                <br>
+                <br>
                 <div style="display: none;">
                     {{ form_row(form.submit, { 'label': 'Crear' }) }}
                     {{ form_row(form.dfecha) }}
+                    {{ form_row(form.vdescripcioncambioest,{'required':false}) }}
                     {{ form_row(form.fkIidTbdetcotizacion) }}
+                    {{ form_row(form.fkIidTbdettecnico) }}
 
                 </div>
+                    {% if (cotizaciones!=null)%}
                 <p class="submit">   
                     <input type="submit" name="commit" value="Asociar">
                 </p>    
-
+                {%endif%}
                 {{ form_end(form) }}     
 
             </form>
 
         </section>
+        <section class="register">
+            <h1>Consulta de Instaladores</h1>
+
+            <table>
+
+                <td align="left" width="160px" height="40px">
+                    Seleccione al Instalador:
+                    *</td>
+                <td>        
+                    <select id="ins" name='instaladores'> 
+                        <option value=0 >Seleccionar </option>
+                        {% for item in instaladores%}
+                            <option value='{{item.id}}'  >'{{item.valias}}'</option>
+                        {%endfor%}
+                    </select>
+                </td>
+            </table>
+            <table id="tabla" class="records_list">
+
+
+
+            </table> 
+        </section>
     </div>
 
-   
+
 
     <script>
         $(function () {
             $("#accordion").accordion({
-                   active: false,
-                   collapsible: true,
-                   heightStyle: "content",
-                   navigation: true,
-                   
+                active: false,
+                collapsible: false,
+                heightStyle: "content",
+                navigation: true,
             });
-            $('#accordion input[type="checkbox"]').click(function(e) {
+            $('#accordion input[type="checkbox"]').click(function (e) {
                 e.stopPropagation();
             });
         });
-    
+
     </script>
-    
+    <script>
+        $(document).on('change', '#ins', function () {
+            var $this = $(this);
+            //alert('VALUE:' + $this.val());
+            var idLider = $this.val();
+            var data = {
+                idLider: idLider
+            };
+            $.ajax({
+                type: 'post',
+                url: '{{ path("consultaInstalador") }}',
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error !== undefined && data.error !== '') {
+                        alert(data.error);
+                    } else {
+                        //alert('True');
+                        if (data['id']=== 1) {
+                            
+                            $("#tabla").empty();
+                        } else {
+                            $("#tabla").empty();
+                            var fila = "";
+                            fila += "<thead><tr><td align='left'  width='75'><h4 ><strong>Fecha Notificación</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Número cotización</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Cotización Equipos</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Cotización Instalación</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Fecha Asignación</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Fecha Inicio</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='70'><h4 ><strong>Fecha Fin</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='80'><h4 ><strong>Estatus Almacén</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='90'><h4 ><strong>Lider PMO Asignado</strong></h4></td><td width='15'></td>";
+                            fila += "<td align='left'  width='50'><h4 ><strong>Prioridad</strong></h4></td></tr></thead>";
+                            $("#tabla").append(fila);
+                            var nuevaFila = "";
+                            for (i = 1; i <= data['id']; i++) {
+                                if (i % 2 === 0) {
+                                    nuevaFila += "<tr>";
+                                } else {
+                                    nuevaFila += "<tr bgcolor='#FFFFFF'>";
+                                }
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].fecha + "</td><td width='15'>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].num + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].equip + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].inst + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].fechaA + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].fechaI + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='70'>" + data['cots'][i].fechaF + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='80'>" + data['cots'][i].estatus + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='90'>" + data['cots'][i].lider + "</td><td width='15'></td>";
+                                nuevaFila += " <td align='left'  width='50'>" + data['cots'][i].prioridad + "</td><td width='15'></td>";
+                            }
+
+                            $("#tabla").append(nuevaFila);
+                            //alert('True');
+                        }
+                    }
+                },
+                error: function (e, ts, et) {
+                    alert(ts);
+                }
+            });
+        });
+
+    </script>
 {% endblock %}

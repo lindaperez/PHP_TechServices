@@ -399,6 +399,74 @@ class DefaultController extends Controller {
             return new JsonResponse(null);
         }
     }
+    //confirmacion de obra cambio de estatus checkbox en vista de asignacion/Indexalm
+    public function confirmPrioridadAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $idCotiza = $request->request->get('idCot');
+        $icantidadPrioridad= $request->request->get('iPri');
+        $cotizacion = $em->getRepository('TechTBundle:Tbdetcotizacion')
+                ->find($idCotiza);
+        
+        $cotizacion->setIprioridad($icantidadPrioridad);
+        
+        if ($em->flush()) {
+            
+            return new JsonResponse(array('id' => 1, 'name' => 'ok'));
+        } else {
+            return new JsonResponse(null);
+        }
+    }
+    //idLider
+    public function consultaInstaladorAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $idLider= $request->request->get('idLider');
+        if ($idLider!=0){
+        //$idLider=1;
+        $Lider = $em->getRepository('TechTBundle:Tbdettecnico')
+                ->find($idLider);
+        $Cots = $em->getRepository('TechTBundle:Tbreltecnicoproyecto')
+                ->findBy(array('fkIidTbdettecnico'=>$Lider));
+        
+        if ($Cots!=null) {
+            $count=1;
+            foreach ($Cots as $cotRel){
+                $cotiza=$cotRel->getFkIidTbdetcotizacion();     
+                if ($cotiza->getDfecha()!=null){
+                $dfecha=$cotiza->getDfecha()->format('d-m-Y');
+                }else $dfecha='';
+                if ($cotiza->getDfechaAsig()!=null){
+                $dfechaAsig=$cotiza->getDfechaAsig()->format('d-m-Y');
+                }else $dfechaAsig='No posee';
+                if ($cotiza->getDfechaIni()!=null){
+                $dfechaIni=$cotiza->getDfechaIni()->format('d-m-Y');
+                }else $dfechaIni='No posee';
+                if ($cotiza->getDfechaFin()!=null){
+                $dfechaFin=$cotiza->getDfechaFin()->format('d-m-Y');
+                }else $dfechaFin='No posee';
+            $value[$count]=array('fecha'=>$dfecha,
+                                'num'=>$cotiza->getCodcotizacion(),
+                                'equip'=>$cotiza->getCodcotizacion(),
+                                'inst'=>$cotiza->getCodcotizacion(),
+                                'fechaA'=>$dfechaAsig,
+                                'fechaI'=>$dfechaIni,
+                                'fechaF'=>$dfechaFin,
+                                'estatus'=>$cotiza->getFkIidEstatusinstalacion()->getVdescripcion(),
+                                'lider'=>$cotiza->getTbdetliderpmo()->getValias(),
+                                'prioridad'=>$cotiza->getIprioridad(),
+                                    );
+                $count++;
+            }
+            
+            return new JsonResponse(array('id' => count($Cots), 'name' => $Lider->getId(),'cots'=>$value));
+            
+            
+        } else {
+            return new JsonResponse(array('id' => 1, ));
+        }
+        }else{
+            return new JsonResponse(array('id' => 1, ));
+        }
+    }
         public function mailer($subject,$to,$view,$object) {
 
         $message = \Swift_Message::newInstance()

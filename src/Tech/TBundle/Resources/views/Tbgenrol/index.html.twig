@@ -2,21 +2,29 @@
 
 {% block content %}
     <h1>Lista de Roles</h1>
-<br><br>
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descripcion</th>
-                <th>Acciones</th>
+
+    <div class="container" >
+
+        <section class="register">
+            <table class="records_list">
+                <thead>
+                    <tr>
+                    <td align="left"  width="50"><h4 ><strong>Id</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="200"><h4 ><strong>Decripcion</strong></h4></td>
+                        <td width="40"></td>
+                        <td align="left"  width="70"><h4 ><strong>Acciones</strong></h4></td>
+                
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('Roles_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.vdescripcion }}</td>
-                <td>
+                <td width="70"><a href="{{ path('Roles_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td width="40"></td>
+                <td width="200">{{ entity.vdescripcion }}</td>
+                <td width="40"></td>
+                <td width="70">
                 <ul>
                     <li>
                         <a href="{{ path('Roles_show', { 'id': entity.id }) }}">Ver</a>
@@ -30,12 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
-<br>
-        <ul>
-        <li>
-            <a href="{{ path('Roles_new') }}">
-                Crear Rol
-            </a>
-        </li>
-    </ul>
+
+                </section>
+                </div>
     {% endblock %}
