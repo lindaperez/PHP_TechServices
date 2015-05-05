@@ -114,6 +114,11 @@
                                             {#<li><a href="{{ path('Asignacion') }}" title="Listado de Obras Asignadas"><img src="" alt="">Obras Asignadas</a></li>#}
                                 </ul>
                             </li>
+                            <li class="topmenu"><a href="#" title="Pagos" style="width:180px;"><span><img src="" alt="">Pagos</span></a>
+                                <ul>
+                                    <li><a href="{{ path('Cotizacion') }}" title="Cronograma de Pagos"><img src="" alt="">Cronograma de Pagos</a></li>
+                            </ul>
+                            </li>
                         {%endif%}
                         {% if(app.session.get('usuario_rol')=="Instalador") %}
                             <li class="topmenu"><a href="#" title="Proyectos" style="width:180px;"><span><img src="" alt="">Proyectos</span></a>
