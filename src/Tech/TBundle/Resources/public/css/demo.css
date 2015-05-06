@@ -3,8 +3,8 @@ body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 }
 h1.title {
-    font-size: 45px;
-    padding-bottom: 30px;
+    font-size: 35px;
+    padding-bottom: 0px;
 }
 .sf-reset h2 {
     font-weight:   bold;

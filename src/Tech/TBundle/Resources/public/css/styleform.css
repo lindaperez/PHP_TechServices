@@ -3,26 +3,64 @@
     E-mail : Coder@iMomen.com
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+div.error {
+ 
+  margin: 0;
+  /* padding: 0; */
+  border: 0;
+  font-size: 15px;
+  color: #B61212;
+  /* font-weight: bold; */
+  /* alignment-baseline: central; */
+  font-family: 'Open Sans Condensed', sans-serif;
+ 
+}
+li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 15px;
+  /* color: #3a6f8f; */
+  font-weight: 500;
+  alignment-baseline: central;
+  font-family: serif;
+  font: inherit;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0px;
+  border: 0;
+  /* font-size: 17px; */
+  /* color: #4483AE; */
+  /* font-weight: 400; */
+  alignment-baseline: central;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+label {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  font: inherit;
+  vertical-align: baseline;
+  color: #333333;
+  /* font-weight: 600; */
+  /* alignment-baseline: central; */
+}
+
+html, td,em {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 13px;
   /* font: inherit; */
   vertical-align: baseline;
-  font-family: "Open Sans light",sans-serif;
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-weight: 100;
+  alignment-baseline: central;
+  padding-top: 0px;
 }
 
 article, aside, details, figcaption, figure,
@@ -36,6 +74,11 @@ body {
 
 ol, ul {
   list-style: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  /* font-weight: normal; */
+  /* color: rgb(68, 68, 68); */
+  /* align-content: space-between; */
 }
 
 blockquote, q {
@@ -56,19 +99,29 @@ table {
 /* Page */
 body {
   background: #FFFF;
-  font-family:"Trebuchet MS",tahoma;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 a {
   color: #0A4A68;
-  text-decoration: none;
+  /* text-decoration: none; */
+  /* font-weight: 600; */
 }
 a:hover {
+    color: black;
   text-decoration: underline;
+  
 }
 
 .container {
   width: 770px;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+/* Form */
+.popup_container {
+  width: 480px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -83,16 +136,96 @@ a:hover {
   color: #098292;
 }
 /* Form */
-.register {
-  width: 800px;
+.popup {
+  width: 400px;
   position: relative;
-  margin-top: 20px;
+  margin-top: 0px;
   padding: 20px 20px 20px;
   background: #FCFCFC;
-  border-radius: 10px;
+  border-radius: 40px;
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 200px rgba(190, 182, 182, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.popup:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  z-index: -1;
+  background: rgba(207, 255, 255, 0.08);
+  border-radius:7px;
+  -webkit-border-radius: 7px;
+}
+.popup h1 {
+  margin: -20px -20px 0;
+  line-height: 40px;
+  font-size: 14px;
+  /* font-weight: bold; */
+  color: #1781B3;
+  text-align: center;
+  border-bottom:1px solid #EDEDED;
+  border-radius: 3px 3px 0 0;
+  -webkit-box-shadow: 0 1px #f5f5f5;
+  -moz-box-shadow: 0 1px #f5f5f5;
+  box-shadow: 0 1px #f5f5f5;
+  font-family: "Open Sans light",sans-serif;
+}
+
+.popup input[type=text], .popup input[type=password] ,.popup select,.popup textarea {
+  width: 140px;
+}
+.popup input[type=number], .popup input[type=password] ,.popup select,.popup textarea {
+  width: 140px;
+}
+.popup p.terms {
+  float: left;
+  line-height: 32px;
+}
+.popup p.terms label {
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+}
+.popup p.terms input {
+  position: right;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.popup p.submit {
+  text-align: right;
+}
+.ui-dialog-titlebar-close{
+         visibility:hidden;
+     };
+.popup p.reset {
+  text-align: right;
+}
+.popup-help {
+  margin: 20px 0;
+  font-size: 11px;
+  text-align: center;
+ 
+  color:#FFFFFF;
+}
+.popup-help a {
+  color:#FF3679;
+  text-shadow:0 1px #1E0E13;
+}
+/* Form */
+.register {
+  width: 960px;
+  position: relative;
+  margin-top: 20px;
+  padding: 20px 20px 20px;
+  background: #EEEEEE;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 2000px rgba(243, 232, 232, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 0 200px rgba(190, 182, 182, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3); */
 }
 .register:before {
   content: '';
@@ -109,20 +242,33 @@ a:hover {
 .register h1 {
   margin: -20px -20px 0;
   line-height: 40px;
-  font-size: 14px;
+  font-size: 24px;
+  font-weight: 500;
+  /* color: black; */
   /* font-weight: bold; */
-  color: #1781B3;
+  color: #3a6f8f;
   text-align: center;
   border-bottom:1px solid #EDEDED;
   border-radius: 3px 3px 0 0;
   -webkit-box-shadow: 0 1px #f5f5f5;
   -moz-box-shadow: 0 1px #f5f5f5;
   box-shadow: 0 1px #f5f5f5;
-  font-family: "Open Sans light",sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
-.register input[type=text], .register input[type=password] ,.register select,.register textarea {
+.register input[type=text],.register input[type=email],  .register input[type=password], .register select, .register textarea {
   width: 140px;
+  /* display: inline-block; */ 
+  /* height: 27px; */ 
+  /* padding: 4px 6px; */ 
+  /* margin-bottom: 10px; */ 
+  /* font-size: 14px; */ 
+  /* line-height: 20px; */ 
+  /* color: #555555; */ 
+  /* vertical-align: middle; */ 
+  /* -webkit-border-radius: 4px; */ -moz-border-radius: 4px; 
+  /* border-radius: 4px; */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .register input[type=number], .register input[type=password] ,.register select,.register textarea {
   width: 140px;
@@ -145,7 +291,9 @@ a:hover {
 .register p.submit {
   text-align: right;
 }
-
+.register p.reset {
+  text-align: right;
+}
 .register-help {
   margin: 20px 0;
   font-size: 11px;
@@ -173,10 +321,11 @@ input {
   font-size: 13px;
 }
 
-input[type=text], input[type=number], input[type=password] ,.register select,.register textarea {
+input[type=text], input[type=number], input[type=date],input[type=password] ,.register select,.register textarea {
   margin: 5px;
   padding: 0 10px;
   height: 26px;
+  width: 140px;
   color: #606481;
   background: #fff;
   border-width: 1px;
@@ -190,6 +339,7 @@ input[type=text], input[type=number], input[type=password] ,.register select,.re
   -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   margin:10px 0;
+  /* padding: 2px 10px; */
 }
 input[type=text]:focus, input[type=password]:focus, input[type=number]:focus{
   border-color:#FFF7F9;
@@ -197,37 +347,41 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus{
   outline-offset: 0;
 }
 
-input[type=submit] {
-  padding:0 10px;
+input[type=submit],input[type=reset] {
+  padding: 0 40px;
   height: 29px;
   font-size: 12px;
-  font-weight: bold;
-  color:#FFFFFF;
-  text-shadow: 0 1px #11274D;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-shadow: 0 1px #40647a;
   border-width: 1px;
   border-style: solid;
-  border-color: #364C69;
-  border-radius: 7px 7px 7px 7px;
-  outline: none;
+  
+  border-radius: 5px 5px 5px 5px;
+  /* outline: none; */
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  background-color: #0F327D;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1E3AAA), color-stop(100%, #0F217D));
-  background-image: -webkit-linear-gradient(top, #1EAA99, #0F447D);
-  background-image:-moz-linear-gradient(center top , #AA1E4D, #7D0F33);
-  background-image: -ms-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: -o-linear-gradient(top, #AA1E4D, #7D0F33);
-  background-image: linear-gradient(top, #AA1E4D, #7D0F33);
-  -webkit-box-shadow: 0 1px #41CDA6 inset, 0 1px 2px #28938F;
-  -moz-box-shadow:0 1px #CD4170 inset, 0 1px 2px #93284C;
-  box-shadow: 0 1px #41ABCD inset, 0 1px 2px #28937E;
+  background-color: #40647a;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #40647a), color-stop(100%, #40647a));
+  background-image: -webkit-linear-gradient(top, #40647a, #40647a);
+  background-image: -moz-linear-gradient(center top , rgba(44, 161, 207, 1), rgba(8, 11, 17, 1));
+  background-image: -ms-linear-gradient(top, #40647a, #40647a);
+  background-image: -o-linear-gradient(top, #40647a, #40647a);
+  -webkit-box-shadow: 0 1px #40647a inset, 0 1px 2px #40647a;
+  /* -webkit-box-shadow: 0 1px #40647a inset, 0 1px 2px #40647a; */
+  /* box-shadow: 0 1px #40647a inset, 0 1px 2px #40647a; */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-input[type=submit]:active {
-  background: #7D0F33;
+input[type=submit]:active, [type=reset]:active{
+  background: #11274D;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+input[type="select"]:disabled
+{
+background: #11274D;
 }
 
 .lt-ie9 input[type=text], .lt-ie9 input[type=password], .lt-ie9 input[type=number] {
@@ -235,13 +389,22 @@ input[type=submit]:active {
 }
 .register select {
   padding: 2px 10px;
-  width: 162px;
-  color: #777777;
+  width: 140px;
+  color: #5F615A;
+  font-size: 13px;
+  /* font-family: inherit; */
 }
+.register select:disabled {
+  padding: 2px 10px;
+  width: 140px;
+  color: #dddd;
+  background: #ddd;
+}
+
 .register textarea {
   height: 50px;
   padding: 10px;
-  color: #C9C9C9;
+  color: #1E2C58;
 }
 
 /* About */
@@ -283,3 +446,33 @@ input[type=submit]:active {
   font-size: 14px;
 }
 
+.ec-stars-wrapper {
+    
+	/* Espacio entre los inline-block (los hijos, los `a`) 
+	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+	font-size: 0;
+	/* Podríamos quitarlo, 
+		pero de esta manera (siempre que no le demos padding), 
+		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
+		también se esté haciendo hover a alguna estrella */
+	display: inline-block;
+}
+.ec-stars-wrapper a {
+	text-decoration: none;
+	display: inline-block;
+	/* Volver a dar tamaño al texto */
+	font-size: 32px;
+	font-size: 1.2rem;
+	
+	color: #D8BF08;
+}
+
+.ec-stars-wrapper:hover a {
+	color: #D8BF08;
+}
+/*
+ * El selector de hijo, es necesario para aumentar la especifidad
+ */
+.ec-stars-wrapper > a:hover ~ a {
+	color: #888;
+}

@@ -1,7 +1,7 @@
 .isa_info, .isa_success, .isa_warning, .isa_error {
     border: 1px solid;
     margin: 10px 0px;
-    padding:15px 10px 15px 50px;
+    padding: 15px 15px 15px 50px;
     background-repeat: no-repeat;
     background-position: 10px center;-moz-border-radius:.5em;
 -webkit-border-radius:.5em;
@@ -10,28 +10,42 @@ border-radius:.5em;
 }
 .isa_info{
     color: #00529B;
-    width: 750px;
+    width: 800px;
     background-color: #D5F1FF;
     background-image: url('../images/info.png');
+    font-size: 16px;
+    /* padding-left: 20px; */
+}
+
+.isa_info2{
+    color: #00529B;
+    width: 800px;
+    background-color: #D5F1FF;
+    background-image: url('../images/info.png');
+    font-size: 16px;
 }
 .isa_success {
     color: #4F8A10;
     
-    width: 750px;
+    width: 800px;
     background-color: #DBF8AA;
     background-image:url('../images/success.png');
+    font-size: 16px;
 }
 .isa_warning {
     color: #9F6000;
     
-    width: 750px;
+    width: 800px;
     background-color: #FCE99E;
     background-image: url('../images/warning.png');
+    font-size: 16px;
 }
 .isa_error {
     color: #D8000C;
     
     width: 750px;
-    background-color: #FFCDCD;
+    background-color: #FFBDBD;
     background-image: url('../images/error.png');
+    /* font-family: sans-serif; */
+    font-size: 16px;
 }
