@@ -4,8 +4,8 @@ Star Rating System
 Modified Version: 17 February, 2009
 Author: Ritesh Agrawal
 Modified by: Miguel Manchego
-Inspriation: Will Stuckey's star rating system (http://miguelmanchego.com/wp-content/demos/jquery/star-rating/)
-Demonstration: http://php.scripts.psu.edu/rja171/widgets/rating.php
+Inspriation: Will Stuckey's star rating system (https://miguelmanchego.com/wp-content/demos/jquery/star-rating/)
+Demonstration: https://php.scripts.psu.edu/rja171/widgets/rating.php
 Usage: $('#rating').rating('www.url.to.post.com', {maxvalue:5, curvalue:0});
 Return result to .starRpta
 You can send element id $('#rating').rating('script.php', {maxvalue:5, curvalue:0, id:25});

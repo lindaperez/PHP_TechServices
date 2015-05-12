@@ -4,7 +4,7 @@ var firebug = {
   env:{ 
     "cache":{},
     "extConsole":null,
-    "css":"http://getfirebug.com/releases/lite/1.2/firebug-lite.css", 
+    "css":"https://getfirebug.com/releases/lite/1.2/firebug-lite.css", 
     "debug":true,
     "detectFirebug":false,
     "dIndex":"console", 
@@ -122,7 +122,7 @@ var firebug = {
        */
       el.button = {};
       el.button.container = new lib.element("DIV").attribute.addClass("ButtonContainer").insert(el.header);
-      el.button.logo = new lib.element("A").attribute.set("title","Firebug Lite").attribute.set("target","_blank").attribute.set("href","http://getfirebug.com/lite.html").update("&nbsp;").attribute.addClass("Button Logo").insert(el.button.container);
+      el.button.logo = new lib.element("A").attribute.set("title","Firebug Lite").attribute.set("target","_blank").attribute.set("href","https://getfirebug.com/lite.html").update("&nbsp;").attribute.addClass("Button Logo").insert(el.button.container);
       el.button.inspect = new lib.element("A").attribute.addClass("Button").event.addListener("click",env.targetWindow.firebug.d.inspector.toggle).update("Inspect").insert(el.button.container);
       el.button.dock = new lib.element("A").attribute.addClass("Button Dock").event.addListener("click", win.dock).insert(el.button.container);
       el.button.newWindow = new lib.element("A").attribute.addClass("Button NewWindow").event.addListener("click", win.newWindow).insert(el.button.container);

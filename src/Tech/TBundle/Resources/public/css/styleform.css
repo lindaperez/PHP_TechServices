@@ -449,7 +449,7 @@ background: #11274D;
 .ec-stars-wrapper {
     
 	/* Espacio entre los inline-block (los hijos, los `a`) 
-	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+	   https://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
 	font-size: 0;
 	/* Podríamos quitarlo, 
 		pero de esta manera (siempre que no le demos padding), 

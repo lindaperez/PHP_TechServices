@@ -1584,7 +1584,7 @@ jQuery.extend({
 	 * @test t( "Multiple Attribute Equals", "input[@type=\"hidden\"],input[@type='radio']", ["hidden1","radio1","radio2"] );
 	 * @test t( "Multiple Attribute Equals", "input[@type=hidden],input[@type=radio]", ["hidden1","radio1","radio2"] );
 	 *
-	 * @test t( "Attribute Begins With", "a[@href ^= 'http://www']", ["google","yahoo"] );
+	 * @test t( "Attribute Begins With", "a[@href ^= 'https://www']", ["google","yahoo"] );
 	 * @test t( "Attribute Ends With", "a[@href $= 'org/']", ["mark"] );
 	 * @test t( "Attribute Contains", "a[@href *= 'google']", ["google","groups"] );
 	 * @test t( "First Child", "p:first-child", ["firstp","sndp"] );
@@ -4792,7 +4792,7 @@ new function(){
 		document.addEventListener( "DOMContentLoaded", jQuery.ready, false );
 	
 	// If IE is used, use the excellent hack by Matthias Miller
-	// http://www.outofhanwell.com/blog/index.php?title=the_window_onload_problem_revisited
+	// https://www.outofhanwell.com/blog/index.php?title=the_window_onload_problem_revisited
 	} else if ( jQuery.browser.msie ) {
 	
 		// Only works if you document.write() it
@@ -5414,7 +5414,7 @@ jQuery.extend({
 });
 // AJAX Plugin
 // Docs Here:
-// http://jquery.com/docs/ajax/
+// https://jquery.com/docs/ajax/
 
 /**
  * Load HTML from a remote file and inject it into the DOM, only if it's
@@ -5647,7 +5647,7 @@ jQuery.extend({
 		
 		// Build and start the HTTP Request
 		jQuery.ajax( "GET", url, null, function(r, status) {
-			if ( callback ) callback( jQuery.httpData(r,type), status );
+			if ( callback ) callback( jQuery.httpsData(r,type), status );
 		}, ifModified);
 	},
 	
@@ -5758,7 +5758,7 @@ jQuery.extend({
 	post: function( url, data, callback, type ) {
 		// Build and start the HTTP Request
 		jQuery.ajax( "POST", url, jQuery.param(data), function(r, status) {
-			if ( callback ) callback( jQuery.httpData(r,type), status );
+			if ( callback ) callback( jQuery.httpsData(r,type), status );
 		});
 	},
 	
@@ -5882,8 +5882,8 @@ jQuery.extend({
 			if ( xml && (xml.readyState == 4 || istimeout == "timeout") ) {
 				requestDone = true;
 
-				var status = jQuery.httpSuccess( xml ) && istimeout != "timeout" ?
-					ifModified && jQuery.httpNotModified( xml, url ) ? "notmodified" : "success" : "error";
+				var status = jQuery.httpsSuccess( xml ) && istimeout != "timeout" ?
+					ifModified && jQuery.httpsNotModified( xml, url ) ? "notmodified" : "success" : "error";
 				
 				// Make sure that the request was successful or notmodified
 				if ( status != "error" ) {
@@ -5893,7 +5893,7 @@ jQuery.extend({
 					
 					// If a local callback was specified, fire it
 					if ( success )
-						success( jQuery.httpData( xml, dataType ), status );
+						success( jQuery.httpsData( xml, dataType ), status );
 					
 					// Fire the global callback
 					jQuery.event.trigger( "ajaxSuccess" );
@@ -5948,7 +5948,7 @@ jQuery.extend({
 	active: 0,
 	
 	// Determines if an XMLHttpRequest was successful or not
-	httpSuccess: function(r) {
+	httpsSuccess: function(r) {
 		try {
 			return !r.status && location.protocol == "file:" ||
 				( r.status >= 200 && r.status < 300 ) || r.status == 304 ||
@@ -5959,7 +5959,7 @@ jQuery.extend({
 	},
 
 	// Determines if an XMLHttpRequest returns NotModified
-	httpNotModified: function(xml, url) {
+	httpsNotModified: function(xml, url) {
 		try {
 			var xmlRes = xml.getResponseHeader("Last-Modified");
 
@@ -5977,7 +5977,7 @@ jQuery.extend({
 	 * (String) data - The type of data that you're expecting back,
 	 * (e.g. "xml", "html", "script")
 	 */
-	httpData: function(r,type) {
+	httpsData: function(r,type) {
 		var ct = r.getResponseHeader("content-type");
 		var data = !type && ct && ct.indexOf("xml") >= 0;
 		data = type == "xml" || data ? r.responseXML : r.responseText;
