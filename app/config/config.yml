@@ -66,8 +66,8 @@ swiftmailer:
     encryption: ssl
     auth_mode:  login
     host:       smtp.gmail.com
-    username:   techtroll.ve@gmail.com
-    password:   admintech
+    username:   correo@gmail.com
+    password:   pass
     spool:     { type: memory }
 
 sonata_block:
